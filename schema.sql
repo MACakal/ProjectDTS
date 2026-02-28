@@ -10,7 +10,8 @@ CREATE TABLE users (
     address VARCHAR(255),
     zip_code VARCHAR(20),
     country VARCHAR(100),
-    role VARCHAR(20) NOT NULL DEFAULT 'customer'
+    role VARCHAR(20) NOT NULL DEFAULT 'Customer',
+    CHECK (role IN ('Customer', 'Admin'))
 );
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
@@ -34,4 +35,4 @@ CREATE TABLE order_items (
     quantity INT NOT NULL CHECK (quantity > 0)
 );
 INSERT INTO users (name, email, password, role)
-VALUES ('admin', 'admin@webshop.com', 'admin12', 'admin') ON CONFLICT (email) DO NOTHING;
+VALUES ('admin', 'admin@webshop.com', 'admin12', 'Admin') ON CONFLICT (email) DO NOTHING;
