@@ -16,6 +16,7 @@ public class AdminMenuPres
     {
         while (true)
         {
+
             Console.WriteLine("\nAdmin Menu");
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Add Product");
@@ -27,6 +28,7 @@ public class AdminMenuPres
 
             if (choice == "1")
             {
+                Console.Clear();
                 var products = _productService.GetAllProducts();
 
                 Console.WriteLine("\n---- Product List ----");

@@ -15,6 +15,7 @@ public class CustomerMenuPre
     {
         while (true)
         {
+
             Console.WriteLine("\nCustomer Menu");
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Make an Order");
@@ -23,6 +24,7 @@ public class CustomerMenuPre
             var choice = Console.ReadLine();
             if (choice == "1")
             {
+                Console.Clear();
                 var products = _productService.GetAllProducts();
 
                 Console.WriteLine("\n---- Product List ----");
