@@ -1,38 +1,54 @@
-public static class FilterMenu
-{
-    public static void FilterProducts()
-    {
-        Console.WriteLine("what do you want to filter by?");
+using ProjectDTS;
 
-        Console.WriteLine("1. category");
-        Console.WriteLine("2. price");
-        Console.WriteLine("3. rarity");
-        Console.WriteLine("0. back");
+namespace ProjectDTS;
+
+public class FilterMenu
+{
+    private readonly ProductService _productService;
+    
+
+    public FilterMenu(ProductService productService)
+    {
+        _productService = productService;
+
+    }
+
+    public void Show()
+    {
+        Console.WriteLine("\n--- Filter Menu ---");
+        Console.WriteLine("1. Category");
+        Console.WriteLine("2. Price");
+        Console.WriteLine("0. Back");
+
         var choice = Console.ReadLine();
-        switch(choice)
+        if (choice == "1")
         {
-            case "1":
-                Console.WriteLine("what category do you want to filter by?");
-                var category = Console.ReadLine();
-                break;
-            case "2":
-                Console.WriteLine("what price do you want to filter by?");
-                Console.WriteLine("1. lower than");
-                Console.WriteLine("2. higher than");
-                Console.WriteLine("3. equal to");
-                Console.WriteLine("4. from high to low prices");
-                Console.WriteLine("5. from low to high prices");
-                var price = Console.ReadLine();
-                // filter by price
-                break;
-            case "3":
-                Console.WriteLine("what rarity do you want to filter by?");
-                var rarity = Console.ReadLine();
-                // filter by rarity
-                break;
-            case "0":
-                // go back
-                break;
+            Console.WriteLine("What category?");
+            var cat = Console.ReadLine() ?? "";
+            var products = _productService.GetProductsByCategory(cat);
+            
+            Console.WriteLine($"\nResults for '{cat}':");
+            foreach (var p in products)
+            {
+                Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
+            }
+        }
+        else if (choice == "2")
+        {
+            Console.WriteLine("\nHow do you want to sort?");
+            Console.WriteLine("1. Cheapest first (Low to High)");
+            Console.WriteLine("2. Most expensive first (High to Low)");
+            
+            var sortChoice = Console.ReadLine();
+            bool ascending = (sortChoice == "1");
+
+            var results = _productService.GetProductsSortedByPrice(ascending);
+
+            Console.WriteLine("\n---- Sorted Products ----");
+            foreach (var p in results)
+            {
+                Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
+            }
         }
     }
 }
