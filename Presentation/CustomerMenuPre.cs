@@ -1,15 +1,14 @@
-
-// using ProjectDTS.DataSources;
 namespace ProjectDTS;
-// namespace ProjectDTS.Presentation
-// {
+
 
 public class CustomerMenuPre
 {
-    private ProductService _productService;
-    public CustomerMenuPre(ProductService productService)
+    private ViewProductPres _viewProductPres;
+    // private ProductService _productService;
+    public CustomerMenuPre(ViewProductPres viewProductPres) //ProductService productService, 
     {
-        _productService = productService;
+        // _productService = productService;
+        _viewProductPres = viewProductPres;
     }
     public void CustomerShow()
     {
@@ -25,26 +24,32 @@ public class CustomerMenuPre
             if (choice == "1")
             {
                 Console.Clear();
-                var products = _productService.GetAllProducts();
+                _viewProductPres.Viewproducts();
+                // var products = _productService.GetAllProducts();
 
-                Console.WriteLine("\n---- Product List ----");
-                if (products.Count == 0)
-                {
-                    Console.Clear();
-                    Console.WriteLine("There are no products to show.");
+                // Console.WriteLine("\n---- Product List ----");
+                // if (products.Count == 0)
+                // {
+                //     Console.Clear();
+                //     Console.WriteLine("There are no products to show.");
 
-                }
-                else
-                {
+                // }
+                // else
+                // {
 
-                    foreach (var p in products)
-                    {
-                        Console.WriteLine($"{p.Id} - {p.Name} - {p.Price}€");
-                    }
-                }
+                //     Console.WriteLine($"{"ID",-5} {"Name",-20} {"Price",10}");
+                //     Console.WriteLine(new string('-', 40));
+                //     foreach (var p in products)
+                //     {
+
+                //         Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
+                //     }
+                // }
             }
             if (choice == "0") break;
         }
     }
+
+
+
 }
-// }

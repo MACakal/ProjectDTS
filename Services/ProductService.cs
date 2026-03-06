@@ -1,10 +1,6 @@
 using Npgsql;
-// using ProjectDTS.DataSources;
-// using ProjectDTS.Model;
 namespace ProjectDTS;
 
-// namespace ProjectDTS.Services
-// {
 public class ProductService
 {
     private readonly DatabaseService _db;
@@ -66,4 +62,3 @@ public class ProductService
         cmd.ExecuteNonQuery();
     }
 }
-// }
