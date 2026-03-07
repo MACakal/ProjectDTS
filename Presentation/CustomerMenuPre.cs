@@ -3,21 +3,25 @@ namespace ProjectDTS;
 
 public class CustomerMenuPre
 {
+
     private ViewProductPres _viewProductPres;
-    // private ProductService _productService;
-    public CustomerMenuPre(ViewProductPres viewProductPres) //ProductService productService, 
+    private FilterMenu _filterMenu;
+
+    public CustomerMenuPre(ViewProductPres viewProductPres, FilterMenu filterMenu) //ProductService productService, 
     {
-        // _productService = productService;
         _viewProductPres = viewProductPres;
+        _filterMenu = filterMenu;
     }
+
     public void CustomerShow()
     {
         while (true)
         {
-
+            Console.Clear();
             Console.WriteLine("\nCustomer Menu");
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Make an Order");
+            Console.WriteLine("3. Filter Products");
             Console.WriteLine("0. Exit");
 
             var choice = Console.ReadLine();
@@ -25,31 +29,20 @@ public class CustomerMenuPre
             {
                 Console.Clear();
                 _viewProductPres.Viewproducts();
-                // var products = _productService.GetAllProducts();
 
-                // Console.WriteLine("\n---- Product List ----");
-                // if (products.Count == 0)
-                // {
-                //     Console.Clear();
-                //     Console.WriteLine("There are no products to show.");
+                Console.WriteLine("\nPress any key to return to the customer menu.");
+                Console.ReadLine();
+            }
+            if (choice == "3")
+            {
+                _filterMenu.Show();
 
-                // }
-                // else
-                // {
-
-                //     Console.WriteLine($"{"ID",-5} {"Name",-20} {"Price",10}");
-                //     Console.WriteLine(new string('-', 40));
-                //     foreach (var p in products)
-                //     {
-
-                //         Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
-                //     }
-                // }
             }
             if (choice == "0") break;
         }
     }
-
-
-
 }
+
+
+
+

@@ -6,10 +6,15 @@ public class Program
     {
         var databaseService = new DatabaseService();
         var productService = new ProductService(databaseService);
-        var viewProduct = new ViewProductPres(productService);
 
-        // var customerMenu = new CustomerMenuPre(productService);
-        var customerMenu = new CustomerMenuPre(viewProduct);
+        var viewProduct = new ViewProductPres(productService);
+        var filterMenu = new FilterMenu(productService);
+
+        // // var customerMenu = new CustomerMenuPre(productService);
+        // var customerMenu = new CustomerMenuPre(viewProduct);
+        // AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct);
+
+        var customerMenu = new CustomerMenuPre(viewProduct, filterMenu);
         AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct);
 
         var userService = new UserService(databaseService);
