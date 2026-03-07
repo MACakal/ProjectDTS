@@ -1,18 +1,18 @@
-
-// using ProjectDTS.DataSources;
 namespace ProjectDTS;
-// namespace ProjectDTS.Presentation
-// {
+
 
 public class CustomerMenuPre
 {
-    private ProductService _productService;
+
+    private ViewProductPres _viewProductPres;
     private FilterMenu _filterMenu;
-    public CustomerMenuPre(ProductService productService, FilterMenu filterMenu)
+
+    public CustomerMenuPre(ViewProductPres viewProductPres, FilterMenu filterMenu) //ProductService productService, 
     {
-        _productService = productService;
+        _viewProductPres = viewProductPres;
         _filterMenu = filterMenu;
     }
+
     public void CustomerShow()
     {
         while (true)
@@ -28,32 +28,21 @@ public class CustomerMenuPre
             if (choice == "1")
             {
                 Console.Clear();
-                var products = _productService.GetAllProducts();
+                _viewProductPres.Viewproducts();
 
-                Console.WriteLine("\n---- Product List ----");
-                if (products.Count == 0)
-                {
-                    Console.Clear();
-                    Console.WriteLine("There are no products to show.");
-
-                }
-                else
-                {
-
-                    foreach (var p in products)
-                    {
-                        Console.WriteLine($"{p.Id} - {p.Name} - {p.Price} {p.Category}€");
-                    }
-                }
                 Console.WriteLine("\nPress any key to return to the customer menu.");
                 Console.ReadLine();
             }
-            if(choice == "3")
+            if (choice == "3")
             {
                 _filterMenu.Show();
+
             }
             if (choice == "0") break;
         }
     }
 }
-// }
+
+
+
+

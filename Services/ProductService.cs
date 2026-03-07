@@ -101,8 +101,8 @@ public class ProductService
                     WHERE name ILIKE @term"; // i like zorgt voor case-insensitive zoeken
 
         using var cmd = new NpgsqlCommand(sql, conn);
-        
-        
+
+
         cmd.Parameters.AddWithValue("term", $"%{searchTerm}%"); // de % -woord- % betekend alles wat searchterm bevat geef dat terug
 
         using var reader = cmd.ExecuteReader();

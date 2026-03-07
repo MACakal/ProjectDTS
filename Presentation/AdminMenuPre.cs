@@ -6,14 +6,17 @@ public class AdminMenuPres
     // DatabaseService db = new DatabaseService();
     private ProductService _productService;
     private AdminManagerPres _adminManagerPres;
-    public AdminMenuPres(ProductService productService)
+    private ViewProductPres _viewProductPres;
+    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres)
     {
         _productService = productService;
         _adminManagerPres = new AdminManagerPres();
+        _viewProductPres = viewProductPres;
     }
 
     public void ShowAdminMenu()
     {
+        Console.Clear();
         while (true)
         {
 
@@ -24,28 +27,17 @@ public class AdminMenuPres
 
             var choice = Console.ReadLine();
 
-            if (choice == "0") break;
+            if (choice == "0")
+            {
+
+                Console.Clear();
+                break;
+            }
 
             if (choice == "1")
             {
                 Console.Clear();
-                var products = _productService.GetAllProducts();
-
-                Console.WriteLine("\n---- Product List ----");
-                if (products.Count == 0)
-                {
-                    Console.Clear();
-                    Console.WriteLine("There are no products to show.");
-
-                }
-                else
-                {
-
-                    foreach (var p in products)
-                    {
-                        Console.WriteLine($"{p.Id} - {p.Name} - {p.Price}€");
-                    }
-                }
+                _viewProductPres.Viewproducts();
             }
 
             if (choice == "2")
@@ -53,10 +45,16 @@ public class AdminMenuPres
                 Console.WriteLine("Add product...");
                 var product = _adminManagerPres.CreateProduct();
                 _productService.AddProduct(product);
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("Product added successfully.");
 
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Please enter any key...");
+                Console.ResetColor();
+                Console.ReadKey();
+                Console.Clear();
 
-                // Console.WriteLine("Product added successfully.");
 
             }
         }

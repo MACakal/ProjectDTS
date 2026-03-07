@@ -19,7 +19,7 @@ public class User
     public string? ZipCode { get; set; }
     public string? Country { get; set; }
 
-    public UserRole Role { get; private set; }
+    public UserRole Role { get; set; }
 
 
     public User() { }
