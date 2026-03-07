@@ -85,6 +85,29 @@ public class ProductService
 
         while (reader.Read())
         {
+
+            products.Add(MapProduct(reader));
+        }
+        return products;
+    }
+    public List<Product> SearchProductsByName(string searchTerm)
+    {
+        var products = new List<Product>();
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT id, name, description, category, price, rarity 
+                    FROM products 
+                    WHERE name ILIKE @term"; // i like zorgt voor case-insensitive zoeken
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        
+        // De % tekens zorgen ervoor dat hij zoekt naar 'bevat' in plaats van 'is gelijk aan'
+        cmd.Parameters.AddWithValue("term", $"%{searchTerm}%");
+
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
             products.Add(MapProduct(reader));
         }
         return products;
@@ -103,4 +126,5 @@ public class ProductService
             Rarity = reader.IsDBNull(5) ? "" : reader.GetString(5)
         };
     }
+
 }

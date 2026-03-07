@@ -17,7 +17,7 @@ public class CustomerMenuPre
     {
         while (true)
         {
-
+            Console.Clear();
             Console.WriteLine("\nCustomer Menu");
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Make an Order");
@@ -45,6 +45,8 @@ public class CustomerMenuPre
                         Console.WriteLine($"{p.Id} - {p.Name} - {p.Price} {p.Category}€");
                     }
                 }
+                Console.WriteLine("\nPress any key to return to the customer menu.");
+                Console.ReadLine();
             }
             if(choice == "3")
             {
