@@ -27,7 +27,12 @@ public class AdminMenuPres
 
             var choice = Console.ReadLine();
 
-            if (choice == "0") break;
+            if (choice == "0")
+            {
+
+                Console.Clear();
+                break;
+            }
 
             if (choice == "1")
             {

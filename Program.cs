@@ -6,13 +6,10 @@ public class Program
     {
         var databaseService = new DatabaseService();
         var productService = new ProductService(databaseService);
+        FilterMenu filterMenu1 = new FilterMenu(productService);
 
-        var viewProduct = new ViewProductPres(productService);
+        var viewProduct = new ViewProductPres(productService, filterMenu1);
         var filterMenu = new FilterMenu(productService);
-
-        // // var customerMenu = new CustomerMenuPre(productService);
-        // var customerMenu = new CustomerMenuPre(viewProduct);
-        // AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct);
 
         var customerMenu = new CustomerMenuPre(viewProduct, filterMenu);
         AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct);
@@ -21,10 +18,5 @@ public class Program
 
         MainMenuPre mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         mainMenuPre.Show();
-
-        // customerMenu.CustomerShow();
-        // adminMenuPres.ShowAdminMenu();
-        // var databaseService = new DatabaseService();
-        // var productService = new ProductService(databaseService);
     }
 }

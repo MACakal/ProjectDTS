@@ -5,7 +5,7 @@ namespace ProjectDTS;
 public class FilterMenu
 {
     private readonly ProductService _productService;
-    
+
 
     public FilterMenu(ProductService productService)
     {
@@ -15,36 +15,47 @@ public class FilterMenu
 
     public void Show()
     {
-        Console.Clear();
-        Console.WriteLine("\n--- Filter Menu ---");
-        Console.WriteLine("1. Category");
-        Console.WriteLine("2. Price");
-        Console.WriteLine("3. Search by Name");
-        Console.WriteLine("0. Back");
+        while (true)
+        {
 
-        var choice = Console.ReadLine();
-        if (choice == "1")
-        {
-            Console.Clear();
-            CategoryFilter();
-            Console.WriteLine("\nPress any key to return to the filter menu.");
-            Console.ReadLine();
+            Console.WriteLine("\n--- Filter Menu ---");
+            Console.WriteLine("1. Category");
+            Console.WriteLine("2. Price");
+            Console.WriteLine("3. Search by Name");
+            Console.WriteLine("0. Back");
+
+            var choice = Console.ReadLine();
+            if (choice == "1")
+            {
+                Console.Clear();
+                CategoryFilter();
+                Console.WriteLine("\nPress any key to return to the filter menu.");
+                Console.ReadLine();
+                Console.Clear();
+            }
+            else if (choice == "2")
+            {
+                Console.Clear();
+                PriceFilter();
+                Console.WriteLine("\nPress any key to return to the filter menu.");
+                Console.ReadLine();
+                Console.Clear();
+            }
+            else if (choice == "3")
+            {
+                Console.Clear();
+                SearchByName();
+                Console.WriteLine("\nPress any key to return to the filter menu.");
+                Console.ReadLine();
+                Console.Clear();
+            }
+            if (choice == "0")
+            {
+                Console.Clear();
+                return;
+            }
         }
-        else if (choice == "2")
-        {
-            Console.Clear();
-            PriceFilter();
-            Console.WriteLine("\nPress any key to return to the filter menu.");
-            Console.ReadLine();
-        }
-        else if (choice == "3")
-        {
-            Console.Clear();
-            SearchByName();
-            Console.WriteLine("\nPress any key to return to the filter menu.");
-            Console.ReadLine();
-        }
-        if (choice == "0") return;
+        // Console.Clear();
     }
 
     public void CategoryFilter()
@@ -52,7 +63,7 @@ public class FilterMenu
         Console.WriteLine("What category do you want to filter by?");
         var cat = Console.ReadLine() ?? "";
         var products = _productService.GetProductsByCategory(cat);
-        
+
         Console.WriteLine($"\nResults for '{cat}':");
         foreach (var p in products)
         {
@@ -65,7 +76,7 @@ public class FilterMenu
         Console.WriteLine("\nHow do you want to sort?");
         Console.WriteLine("1. Cheapest first (Low to High)");
         Console.WriteLine("2. Most expensive first (High to Low)");
-            
+
         var sortChoice = Console.ReadLine();
         bool ascending = (sortChoice == "1");
 
@@ -102,5 +113,5 @@ public class FilterMenu
                 Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
             }
         }
-    }   
+    }
 }

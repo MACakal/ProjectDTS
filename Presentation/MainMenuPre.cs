@@ -6,12 +6,14 @@ public class MainMenuPre
     private AdminMenuPres _adminMenuPres;
     private UserService _userService;
     private ViewProductPres _viewProductPres;
+    // private FilterMenu _filterMenu;
     public MainMenuPre(CustomerMenuPre customerMenuPre, AdminMenuPres adminMenuPres, UserService userService, ViewProductPres viewProductPres)
     {
         _customerMenuPre = customerMenuPre;
         _adminMenuPres = adminMenuPres;
         _userService = userService;
         _viewProductPres = viewProductPres;
+        // _filterMenu = filterMenu;
     }
 
     public void Show()
@@ -30,6 +32,8 @@ public class MainMenuPre
                     Console.Clear();
                     // _customerMenuPre.CustomerShow();
                     _viewProductPres.Viewproducts();
+                    // _filterMenu.Show();
+
                     break;
                 case "2":
                     Console.Clear();

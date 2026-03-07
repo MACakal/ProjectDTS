@@ -2,12 +2,13 @@ namespace ProjectDTS;
 
 public class ViewProductPres
 {
+    private FilterMenu _filterMenu;
     private ProductService _productService;
 
-    public ViewProductPres(ProductService productService)
+    public ViewProductPres(ProductService productService, FilterMenu filterMenu)
     {
         _productService = productService;
-
+        _filterMenu = filterMenu;
     }
     public void Viewproducts()
     {
@@ -29,11 +30,12 @@ public class ViewProductPres
             {
 
                 Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
+
             }
+            _filterMenu.Show();
         }
-        Console.WriteLine("Press any key to return...");
-        Console.ReadKey();
-        Console.Clear();
+
+
     }
 
 }
