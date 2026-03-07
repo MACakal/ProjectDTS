@@ -7,18 +7,21 @@ namespace ProjectDTS;
 public class CustomerMenuPre
 {
     private ProductService _productService;
-    public CustomerMenuPre(ProductService productService)
+    private FilterMenu _filterMenu;
+    public CustomerMenuPre(ProductService productService, FilterMenu filterMenu)
     {
         _productService = productService;
+        _filterMenu = filterMenu;
     }
     public void CustomerShow()
     {
         while (true)
         {
-
+            Console.Clear();
             Console.WriteLine("\nCustomer Menu");
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Make an Order");
+            Console.WriteLine("3. Filter Products");
             Console.WriteLine("0. Exit");
 
             var choice = Console.ReadLine();
@@ -39,9 +42,15 @@ public class CustomerMenuPre
 
                     foreach (var p in products)
                     {
-                        Console.WriteLine($"{p.Id} - {p.Name} - {p.Price}€");
+                        Console.WriteLine($"{p.Id} - {p.Name} - {p.Price} {p.Category}€");
                     }
                 }
+                Console.WriteLine("\nPress any key to return to the customer menu.");
+                Console.ReadLine();
+            }
+            if(choice == "3")
+            {
+                _filterMenu.Show();
             }
             if (choice == "0") break;
         }
