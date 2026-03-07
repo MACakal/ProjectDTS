@@ -63,14 +63,13 @@ public class MainMenuPre
         if (user is null)
         {
             Console.WriteLine("Incorrect email or password");
+            Console.WriteLine("Please enter any key to return to the main menu.");
 
             Console.ReadKey();
             Console.Clear();
             return;
 
         }
-
-
         if (user.Role == UserRole.Admin)
         {
             Console.Clear();
