@@ -102,8 +102,8 @@ public class ProductService
 
         using var cmd = new NpgsqlCommand(sql, conn);
         
-        // De % tekens zorgen ervoor dat hij zoekt naar 'bevat' in plaats van 'is gelijk aan'
-        cmd.Parameters.AddWithValue("term", $"%{searchTerm}%");
+        
+        cmd.Parameters.AddWithValue("term", $"%{searchTerm}%"); // de % -woord- % betekend alles wat searchterm bevat geef dat terug
 
         using var reader = cmd.ExecuteReader();
         while (reader.Read())
