@@ -38,7 +38,7 @@ public class UserService
     }
     public UserRegisterService UserRegister(string name, string email, string password)
     {
-        if (email == null|| password == null)
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
             return UserRegisterService.emptyParameter;
         }
