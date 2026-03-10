@@ -96,10 +96,12 @@ public class BasketMenu
                 if (_basketService.CheckoutWithTransaction(UserSession.CurrentUser.Id))
                 {
                     Console.WriteLine("\n✅ Payment successful! Thank you for your purchase.");
+                    Console.WriteLine("press enter to return to the customer menu.");
                 }
                 else
                 {
                     Console.WriteLine("\n❌ Payment failed. Please try again.");
+                    Console.WriteLine("press enter to return to the customer menu.");
                 }
                 Console.ReadKey();
             }
