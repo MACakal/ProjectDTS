@@ -10,8 +10,9 @@ public class Program
 
         var viewProduct = new ViewProductPres(productService, filterMenu1);
         var filterMenu = new FilterMenu(productService);
+        var accountPresentation = new AccountPre();
 
-        var customerMenu = new CustomerMenuPre(viewProduct, filterMenu);
+        var customerMenu = new CustomerMenuPre(viewProduct, filterMenu, accountPresentation);
         AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct);
 
         var userService = new UserService(databaseService);
