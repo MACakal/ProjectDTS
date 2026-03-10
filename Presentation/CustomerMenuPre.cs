@@ -42,15 +42,13 @@ public class CustomerMenuPre
                     _filterMenu.Show();
                     break;
                 case "4":
-                    System.Console.WriteLine("not yet implemented");
+                    _AccountPre.AccountInformation(user);
                     break;
                 case "0":
                     return;
             }
         }
     }
-
-á
 }
 
 

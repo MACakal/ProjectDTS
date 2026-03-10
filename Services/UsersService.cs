@@ -60,6 +60,31 @@ public class UserService
             return UserRegisterService.UnkownError;
         }
     }
+
+    public UserRegisterService UserInformationPasswordCheck(User user, string password)
+    {
+        if (user == null || string.IsNullOrWhiteSpace(password))
+        {
+            return UserRegisterService.emptyParameter;
+        }
+        using var conn = _db.GetConnection();
+        conn.Open();
+        string sql = @"SELECT * FROM users WHERE email=@email AND password=@password";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("email", user.Email);
+        cmd.Parameters.AddWithValue("password", password);
+        using var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            return UserRegisterService.succesfull;
+        }
+        else
+        {
+            return UserRegisterService.UnkownError;
+        }
+    }
+
 }
 
 public enum UserRegisterService
