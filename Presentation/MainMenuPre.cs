@@ -82,7 +82,7 @@ public class MainMenuPre
         }
         else
         {
-            _customerMenuPre.CustomerShow();
+            _customerMenuPre.CustomerShow(user);
         }
     }
 
