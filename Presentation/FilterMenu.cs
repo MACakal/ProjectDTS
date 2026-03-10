@@ -28,6 +28,7 @@ public class FilterMenu
             if (choice == "1")
             {
                 Console.Clear();
+                PrintAllwithCategories();
                 CategoryFilter();
                 Console.WriteLine("\nPress any key to return to the filter menu.");
                 Console.ReadLine();
@@ -36,6 +37,7 @@ public class FilterMenu
             else if (choice == "2")
             {
                 Console.Clear();
+                PrintAll();
                 PriceFilter();
                 Console.WriteLine("\nPress any key to return to the filter menu.");
                 Console.ReadLine();
@@ -44,6 +46,7 @@ public class FilterMenu
             else if (choice == "3")
             {
                 Console.Clear();
+                PrintAll();
                 SearchByName();
                 Console.WriteLine("\nPress any key to return to the filter menu.");
                 Console.ReadLine();
@@ -60,7 +63,7 @@ public class FilterMenu
 
     public void CategoryFilter()
     {
-        Console.WriteLine("What category do you want to filter by?");
+        Console.WriteLine("\nWhat category do you want to filter by?");
         var cat = Console.ReadLine() ?? "";
         var products = _productService.GetProductsByCategory(cat);
 
@@ -111,6 +114,44 @@ public class FilterMenu
             foreach (var p in results)
             {
                 Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
+            }
+        }
+    }
+
+    public void PrintAll()
+    {
+        var products = _productService.GetAllProducts();
+        Console.WriteLine("\n---- Product List ----");
+        Console.WriteLine($"ID ---------- Name --------------- Price");
+        foreach (var p in products)
+        {
+            if(p != null)
+            {
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}");
+            }
+            else
+            {
+                Console.WriteLine("No products available.");
+                return;
+            }
+        }
+    }
+
+    public void PrintAllwithCategories()
+    {
+        var products = _productService.GetAllProducts();
+        Console.WriteLine("\n---- Product List ----");
+        Console.WriteLine($"ID ---------- Name ---------------Price ------------ Category");
+        foreach (var p in products)
+        {
+            if(p != null)
+            {
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}  {p.Category, 16}");
+            }
+            else
+            {
+                Console.WriteLine("No products available.");
+                return;
             }
         }
     }

@@ -4,9 +4,8 @@ namespace ProjectDTS;
 public class BasketMenu
 {
     
-    static ProductService _productService = new ProductService(new DatabaseService());
-    private static FilterMenu _filterMenu;
-
+    private static ProductService _productService = new ProductService(new DatabaseService());
+    private static FilterMenu _filterMenu = new FilterMenu(_productService); 
     public BasketMenu(ProductService productService, FilterMenu filterMenu)
     {
         _productService = productService;
@@ -42,21 +41,7 @@ public class BasketMenu
 
     public static void AddToBasketPrint()
     {
-        var products = _productService.GetAllProducts();
-        Console.WriteLine("\n---- Product List ----");
-        Console.WriteLine($"ID ---------- Name -------------------- Price");
-        foreach (var p in products)
-        {
-            if(p != null)
-            {
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
-            }
-            else
-            {
-                Console.WriteLine("No products available.");
-                return;
-            }
-        }
+        PrintAll();
         Console.WriteLine();
         Console.WriteLine("\n--- Add Product to Basket ---");
         Console.Write("Enter product ID: ");
@@ -96,6 +81,25 @@ public class BasketMenu
         {
             Console.Clear();
             return;
+        }
+    }
+
+    public static void PrintAll()
+    {
+        var products = _productService.GetAllProducts();
+        Console.WriteLine("\n---- Product List ----");
+        Console.WriteLine($"ID ---------- Name -------------------- Price");
+        foreach (var p in products)
+        {
+            if(p != null)
+            {
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
+            }
+            else
+            {
+                Console.WriteLine("No products available.");
+                return;
+            }
         }
     }
 }
