@@ -15,6 +15,7 @@ public class Program
         AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct);
 
         var userService = new UserService(databaseService);
+        var basketService = new BasketService(databaseService);
 
         MainMenuPre mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         mainMenuPre.Show();

@@ -32,10 +32,8 @@ public class ViewProductPres
                 Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
 
             }
-            _filterMenu.Show();
+            BasketMenu.WhatToDo();
         }
-
-
     }
 
 }
