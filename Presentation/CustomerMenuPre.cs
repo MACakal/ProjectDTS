@@ -60,10 +60,7 @@ public class CustomerMenuPre
             }
             if (choice == "4")
             {
-                Console.Clear();
-                _AccountPre.ShowAccountInfo();
-                Console.WriteLine("\nPress any key to return to the customer menu.");
-                Console.ReadLine();
+                _AccountPre.AccountInformation(user);
             }
             if (choice == "0") break;
         }
