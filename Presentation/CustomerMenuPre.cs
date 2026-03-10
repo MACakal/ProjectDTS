@@ -29,12 +29,10 @@ public class CustomerMenuPre
 
             var choice = Console.ReadLine();
 
-            switch (choice)
+            if (choice == "1")
             {
-                case "1":
-                    Console.Clear();
-                    _viewProductPres.Viewproducts();
-
+                Console.Clear();
+                _viewProductPres.Viewproducts();
                 Console.WriteLine("\nPress any key to return to the customer menu.");
                 Console.ReadLine();
             }
@@ -60,15 +58,17 @@ public class CustomerMenuPre
                 Console.WriteLine("\nPress any key to return to the customer menu.");
                 Console.ReadLine();
             }
-             if (choice == "0") break;
-            if (choice == "3")
+            if (choice == "4")
             {
-                _filterMenu.Show();
-
+                Console.Clear();
+                _AccountPre.ShowAccountInfo();
+                Console.WriteLine("\nPress any key to return to the customer menu.");
+                Console.ReadLine();
             }
             if (choice == "0") break;
         }
     }
+    
 }
 
 
