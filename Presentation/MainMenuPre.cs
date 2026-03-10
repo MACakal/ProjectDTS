@@ -15,41 +15,44 @@ public class MainMenuPre
         _viewProductPres = viewProductPres;
         // _filterMenu = filterMenu;
     }
-
     public void Show()
     {
-        Console.Clear();
         while (true)
         {
-            Console.WriteLine("\nMain Menu");
-            Console.WriteLine("1. 🔍 View products");
-            Console.WriteLine("2. 🔑 Login");
-            Console.WriteLine("0. ❌ Exit");
-            var choice = Console.ReadLine();
+            string[] options =
+            {
+            "🔍 View products",
+            "🔑 Login",
+            "❌ Exit"
+        };
+
+            int choice = Menu.ShowMenu("===== MAIN MENU =====", options);
+
+
             switch (choice)
             {
-                case "1":
+                case 0:
                     Console.Clear();
-                    // _customerMenuPre.CustomerShow();
                     _viewProductPres.Viewproducts();
-                    // _filterMenu.Show();
-
                     break;
-                case "2":
+
+                case 1:
                     Console.Clear();
                     Login();
                     break;
-                case "0":
+
+                case 2:
                     Console.Clear();
                     return;
+
                 default:
                     Console.WriteLine("Invalid option");
-                    Console.Clear();
                     Console.ReadKey();
                     break;
             }
         }
     }
+
 
 
     private void Login()

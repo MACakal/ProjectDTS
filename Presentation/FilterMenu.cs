@@ -12,51 +12,61 @@ public class FilterMenu
         _productService = productService;
 
     }
+    // public int Show()
+    // {
+    //     string[] options =
+    //     {
+    //     "Category",
+    //     "Price",
+    //     "Search by Name",
+    //     "Back"
+    // };
+
+    //     return Menu.ShowMenu("Filter Menu", options, false);
+    // }
 
     public void Show()
     {
         while (true)
         {
+            string[] options =
+            {
+            "Category",
+            "Price",
+            "Search by Name",
+            "Back"
+        };
 
-            Console.WriteLine("\n--- Filter Menu ---");
-            Console.WriteLine("1. Category");
-            Console.WriteLine("2. Price");
-            Console.WriteLine("3. Search by Name");
-            Console.WriteLine("0. Back");
+            int choice = Menu.ShowMenu("Filter Menu", options, false);
 
-            var choice = Console.ReadLine();
-            if (choice == "1")
+            switch (choice)
             {
-                Console.Clear();
-                CategoryFilter();
-                Console.WriteLine("\nPress any key to return to the filter menu.");
-                Console.ReadLine();
-                Console.Clear();
+                case 0:
+                    Console.Clear();
+                    CategoryFilter();
+                    break;
+
+                case 1:
+                    Console.Clear();
+                    PriceFilter();
+                    break;
+
+                case 2:
+                    Console.Clear();
+                    SearchByName();
+                    break;
+
+                case 3:
+                    Console.Clear();
+                    return;
             }
-            else if (choice == "2")
-            {
-                Console.Clear();
-                PriceFilter();
-                Console.WriteLine("\nPress any key to return to the filter menu.");
-                Console.ReadLine();
-                Console.Clear();
-            }
-            else if (choice == "3")
-            {
-                Console.Clear();
-                SearchByName();
-                Console.WriteLine("\nPress any key to return to the filter menu.");
-                Console.ReadLine();
-                Console.Clear();
-            }
-            if (choice == "0")
-            {
-                Console.Clear();
-                return;
-            }
+
+            Console.WriteLine("\nPress any key to return to the filter menu.");
+            Console.ReadKey();
+            Console.Clear();
         }
-        // Console.Clear();
     }
+
 
     public void CategoryFilter()
     {
