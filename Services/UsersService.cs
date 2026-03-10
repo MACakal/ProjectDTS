@@ -36,7 +36,7 @@ public class UserService
         }
         return null;
     }
-    public UserRegisterService UserRegister(string email, string password)
+    public UserRegisterService UserRegister(string name, string email, string password)
     {
         if (email == null|| password == null)
         {
@@ -44,8 +44,9 @@ public class UserService
         }
         using var conn = _db.GetConnection();
         conn.Open();
-        string sql = @"INSERT INTO users WHERE email=@email AND password=@password";
+        string sql = @"INSERT INTO users (name, email, password) VALUES (@name, @email, @password)";
         using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("name", name);
         cmd.Parameters.AddWithValue("email", email);
         cmd.Parameters.AddWithValue("password", password);
         var rowsAffected = cmd.ExecuteNonQuery();
@@ -59,7 +60,6 @@ public class UserService
             return UserRegisterService.UnkownError;
         }
     }
-
 }
 
 public enum UserRegisterService
