@@ -6,10 +6,12 @@ public class BasketMenu
     
     private static ProductService _productService = new ProductService(new DatabaseService());
     private static FilterMenu _filterMenu = new FilterMenu(_productService); 
-    public BasketMenu(ProductService productService, FilterMenu filterMenu)
+    private static BasketService _basketService = new BasketService(new DatabaseService());
+    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService)
     {
         _productService = productService;
         _filterMenu = filterMenu;
+        _basketService = basketService;
     }
     public static void WhatToDo()
     {
@@ -17,6 +19,7 @@ public class BasketMenu
         Console.WriteLine("What do you want to do?");
         Console.WriteLine("1. Add product to basket");
         Console.WriteLine("2. Filter products");
+        Console.WriteLine("3. View Basket");
         Console.WriteLine("0. Back");
 
         var choice = Console.ReadLine();
@@ -30,6 +33,10 @@ public class BasketMenu
                 Console.Clear();
                 _filterMenu.Show();
                 break;
+            case "3":
+                Console.Clear();
+                ShowBasket();
+                break;
             case "0":
                 Console.Clear();
                 return;
@@ -41,6 +48,11 @@ public class BasketMenu
 
     public static void AddToBasketPrint()
     {
+        if (UserSession.CurrentUser == null)
+        {
+            Console.WriteLine("⚠️ You must be logged in to add products to your basket!");
+            return;
+        }
         PrintAll();
         Console.WriteLine();
         Console.WriteLine("\n--- Add Product to Basket ---");
@@ -48,39 +60,49 @@ public class BasketMenu
         int productId = int.Parse(Console.ReadLine());
         Console.Write("How many? ");
         int quantity = int.Parse(Console.ReadLine());
+        //AddToBasket();
+        _basketService.AddToBasket(UserSession.CurrentUser.Id, productId, quantity);
         Console.WriteLine($"Added {quantity} x product {productId} to your basket.");
     }
 
     public static void ShowBasket()
     {
-        Console.WriteLine("\n--- Basket Menu ---");
-        Console.WriteLine("1. View Basket");
-        Console.WriteLine("2. Checkout");
+        Console.Clear();
+        if (UserSession.CurrentUser == null) return;
+
+        var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
+
+        Console.WriteLine("--- 🛒 Your Shopping Cart ---");
+        if (items.Count == 0)
+        {
+            Console.WriteLine("Your cart is empty.");
+        }
+        else
+        {
+            foreach (var line in items) Console.WriteLine(line);
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"Total Amount: €{totalPrice:N2}");
+            
+            Console.WriteLine("\n1. 💳 Pay Now (Checkout)");
+        }
         Console.WriteLine("0. Back");
 
         var choice = Console.ReadLine();
-        if (choice == "1")
+        if (choice == "1" && items.Count > 0)
         {
-            Console.Clear();
-            // Implement view basket functionality
-            Console.WriteLine("Viewing basket...");
-            Console.WriteLine("\nPress any key to return to the basket menu.");
-            Console.ReadLine();
-            Console.Clear();
-        }
-        else if (choice == "2")
-        {
-            Console.Clear();
-            //payd to true
-            Console.WriteLine("Checking out...");
-            Console.WriteLine("\nPress any key to return to the basket menu.");
-            Console.ReadLine();
-            Console.Clear();
-        }
-        else if (choice == "0")
-        {
-            Console.Clear();
-            return;
+            Console.Write("Confirm payment? (y/n): ");
+            if (Console.ReadLine()?.ToLower() == "y")
+            {
+                if (_basketService.CheckoutWithTransaction(UserSession.CurrentUser.Id))
+                {
+                    Console.WriteLine("\n✅ Payment successful! Thank you for your purchase.");
+                }
+                else
+                {
+                    Console.WriteLine("\n❌ Payment failed. Please try again.");
+                }
+                Console.ReadKey();
+            }
         }
     }
 

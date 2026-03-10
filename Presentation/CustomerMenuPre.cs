@@ -33,6 +33,29 @@ public class CustomerMenuPre
                 Console.WriteLine("\nPress any key to return to the customer menu.");
                 Console.ReadLine();
             }
+            if(choice == "2")
+            {
+                Console.Clear();
+                if(UserSession.CurrentUser == null)
+                {
+                    Console.WriteLine("⚠️ You must be logged in to make an order!");
+                    Console.WriteLine("\nPress any key to return to the customer menu.");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    BasketMenu.ShowBasket();
+                }
+            }
+             if (choice == "3")
+            {
+                Console.Clear();
+                _filterMenu.Show();
+
+                Console.WriteLine("\nPress any key to return to the customer menu.");
+                Console.ReadLine();
+            }
+             if (choice == "0") break;
             if (choice == "3")
             {
                 _filterMenu.Show();
