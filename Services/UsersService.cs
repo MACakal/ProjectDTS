@@ -1,4 +1,5 @@
 using Npgsql;
+using NpgsqlTypes;
 namespace ProjectDTS;
 
 public class UserService
@@ -35,4 +36,35 @@ public class UserService
         }
         return null;
     }
+    public UserRegisterService UserRegister(string email, string password)
+    {
+        if (email == null|| password == null)
+        {
+            return UserRegisterService.emptyParameter;
+        }
+        using var conn = _db.GetConnection();
+        conn.Open();
+        string sql = @"INSERT INTO users WHERE email=@email AND password=@password";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("email", email);
+        cmd.Parameters.AddWithValue("password", password);
+        var rowsAffected = cmd.ExecuteNonQuery();
+
+        if (rowsAffected > 0)
+        {
+            return UserRegisterService.succesfull;
+        }
+        else
+        {
+            return UserRegisterService.UnkownError;
+        }
+    }
+
+}
+
+public enum UserRegisterService
+{
+    succesfull,
+    emptyParameter,
+    UnkownError
 }
