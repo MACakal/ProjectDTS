@@ -21,8 +21,12 @@ public class AccountPre
                 SuccesfullCheck(user);
                 break;
             case ProjectDTS.UserRegisterService.emptyParameter:
+                System.Console.WriteLine($"Please provide correct input! (Press enter to continue)");
+                Console.ReadKey();
                 break;
             case ProjectDTS.UserRegisterService.UnkownError:
+                System.Console.WriteLine($"Unkown error has occured. (Press enter to continue)");
+                Console.ReadKey();
                 break;
         }
     }
