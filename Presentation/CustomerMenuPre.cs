@@ -15,7 +15,7 @@ public class CustomerMenuPre
         _AccountPre = accountPre;
     }
 
-    public void CustomerShow()
+    public void CustomerShow(User user)
     {
         while (true)
         {
@@ -50,7 +50,7 @@ public class CustomerMenuPre
         }
     }
 
-
+á
 }
 
 
