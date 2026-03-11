@@ -43,16 +43,20 @@ public class FilterMenu
             {
                 case 0:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     CategoryFilter();
+                    
                     break;
 
                 case 1:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     PriceFilter();
                     break;
 
                 case 2:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     SearchByName();
                     break;
 

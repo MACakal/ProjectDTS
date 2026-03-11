@@ -7,7 +7,9 @@ public static class Menu
         // int startRow = Console.CursorTop;
         do
         {
+            Console.CursorVisible = false;
             // if (clear)
+            
             // {
             Console.Clear();
             // }
