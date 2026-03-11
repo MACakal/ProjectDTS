@@ -35,46 +35,52 @@ public class FilterMenu
             "Price",
             "Search by Name",
             "Back"
-        };
+            };
 
             int choice = Menu.ShowMenu("Filter Menu", options, false);
 
             switch (choice)
             {
-                case 0:
+                case 0 :
+                { 
                     Console.Clear();
                     Console.CursorVisible = true;
+                    PrintAllwithCategories();
                     CategoryFilter();
-                    
                     break;
-
+                }
                 case 1:
+                    {
+                        Console.Clear();
+                        Console.CursorVisible = true;
+                        PrintAll();
+                        PriceFilter();
+                        break;
+                    }
+                case 2 :
+                    {
                     Console.Clear();
                     Console.CursorVisible = true;
-                    PriceFilter();
-                    break;
-
-                case 2:
-                    Console.Clear();
-                    Console.CursorVisible = true;
+                    PrintAll();
                     SearchByName();
                     break;
-
-                case 3:
-                    Console.Clear();
-                    return;
+                    }
+                    case 3 :
+                    {
+                        Console.Clear();
+                        return;
+                    }
+                    default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
             }
-
-            Console.WriteLine("\nPress any key to return to the filter menu.");
-            Console.ReadKey();
-            Console.Clear();
         }
     }
 
 
     public void CategoryFilter()
     {
-        Console.WriteLine("What category do you want to filter by?");
+        Console.WriteLine("\nWhat category do you want to filter by?");
         var cat = Console.ReadLine() ?? "";
         var products = _productService.GetProductsByCategory(cat);
 
@@ -83,6 +89,8 @@ public class FilterMenu
         {
             Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
         }
+        Console.WriteLine("\nPress any key to continue...");
+        Console.ReadLine();
     }
 
     public void PriceFilter()
@@ -101,6 +109,8 @@ public class FilterMenu
         {
             Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
         }
+        Console.WriteLine("\nPress any key to continue...");
+        Console.ReadLine();
     }
     public void SearchByName()
     {
@@ -125,6 +135,46 @@ public class FilterMenu
             foreach (var p in results)
             {
                 Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
+            }
+        }
+        Console.WriteLine("\nPress any key to continue...");
+        Console.ReadLine();
+    }
+
+    public void PrintAll()
+    {
+        var products = _productService.GetAllProducts();
+        Console.WriteLine("\n---- Product List ----");
+        Console.WriteLine($"ID ---------- Name --------------- Price");
+        foreach (var p in products)
+        {
+            if(p != null)
+            {
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}");
+            }
+            else
+            {
+                Console.WriteLine("No products available.");
+                return;
+            }
+        }
+    }
+
+    public void PrintAllwithCategories()
+    {
+        var products = _productService.GetAllProducts();
+        Console.WriteLine("\n---- Product List ----");
+        Console.WriteLine($"ID ---------- Name ---------------Price ------------ Category");
+        foreach (var p in products)
+        {
+            if(p != null)
+            {
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}  {p.Category, 16}");
+            }
+            else
+            {
+                Console.WriteLine("No products available.");
+                return;
             }
         }
     }

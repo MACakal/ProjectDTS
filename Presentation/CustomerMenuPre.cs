@@ -29,26 +29,43 @@ public class CustomerMenuPre
 
             var choice = Console.ReadLine();
 
-            switch (choice)
+            if (choice == "1")
             {
-                case "1":
-                    Console.Clear();
-                    _viewProductPres.Viewproducts();
-
+                Console.Clear();
+                _viewProductPres.Viewproducts();
+                Console.WriteLine("\nPress any key to return to the customer menu.");
+                Console.ReadLine();
+            }
+            if(choice == "2")
+            {
+                Console.Clear();
+                if(UserSession.CurrentUser == null)
+                {
+                    Console.WriteLine("⚠️ You must be logged in to make an order!");
                     Console.WriteLine("\nPress any key to return to the customer menu.");
                     Console.ReadLine();
-                    break;
-                case "3":
-                    _filterMenu.Show();
-                    break;
-                case "4":
-                    _AccountPre.AccountInformation(user);
-                    break;
-                case "0":
-                    return;
+                }
+                else
+                {
+                    BasketMenu.ShowBasket();
+                }
             }
+             if (choice == "3")
+            {
+                Console.Clear();
+                _filterMenu.Show();
+
+                Console.WriteLine("\nPress any key to return to the customer menu.");
+                Console.ReadLine();
+            }
+            if (choice == "4")
+            {
+                _AccountPre.AccountInformation(user);
+            }
+            if (choice == "0") break;
         }
     }
+    
 }
 
 

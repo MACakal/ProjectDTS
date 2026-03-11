@@ -33,10 +33,8 @@ public class ViewProductPres
                 Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
 
             }
-            Console.WriteLine("\nPress any key to go back...");
-            Console.ReadKey();
+            BasketMenu.WhatToDo();
         }
-
     }
 
 

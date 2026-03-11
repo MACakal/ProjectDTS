@@ -46,20 +46,24 @@ public class MainMenuPre
                     Console.Clear();
                     // _viewProductPres.Viewproducts();
                     // filter.Show();
-                    _productMenu.Show();
+                    Console.CursorVisible = true;
+                    _viewProductPres.Viewproducts();
                     break;
 
                 case 1:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     Login();
                     break;
 
                 case 2:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     Register();
                     break;
                 case 3:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     return;
 
                 default:
@@ -89,6 +93,7 @@ public class MainMenuPre
             return;
 
         }
+        UserSession.CurrentUser = user;
         if (user.Role == UserRole.Admin)
         {
             Console.Clear();
@@ -115,6 +120,13 @@ public class MainMenuPre
         {
             case ProjectDTS.UserRegisterService.succesfull:
                 System.Console.WriteLine("Your account is succesfully created.");
+                var loggedInUser = _userService.UserLogin(email, password);
+                if (loggedInUser != null)
+                {
+                    UserSession.CurrentUser = loggedInUser;
+                    System.Console.WriteLine($"Welcome, {loggedInUser.Name}! You are now logged in.");
+                }
+                break;
                 break;
             case ProjectDTS.UserRegisterService.emptyParameter:
                 System.Console.WriteLine("Please provide valid input");

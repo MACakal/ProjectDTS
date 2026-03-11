@@ -36,3 +36,12 @@ CREATE TABLE order_items (
 );
 INSERT INTO users (name, email, password, role)
 VALUES ('admin', 'admin@webshop.com', 'admin12', 'Admin') ON CONFLICT (email) DO NOTHING;
+
+-- Fix voor de 'orders' tabel conflict
+CREATE UNIQUE INDEX IF NOT EXISTS idx_one_active_basket_per_user 
+ON orders (user_id) 
+WHERE (purchased = false);
+
+-- Fix voor de 'order_items' tabel conflict
+ALTER TABLE order_items 
+ADD CONSTRAINT unique_order_product UNIQUE (order_id, product_id);

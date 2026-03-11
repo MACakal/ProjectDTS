@@ -13,6 +13,7 @@ public class Program
         AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct);
 
         var userService = new UserService(databaseService);
+        var basketService = new BasketService(databaseService);
         var productMenu = new ProductMenuPres(viewProduct, filterMenu);
         var accountPresentation = new AccountPre(userService);
 
