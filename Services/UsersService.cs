@@ -1,4 +1,5 @@
 using Npgsql;
+using NpgsqlTypes;
 namespace ProjectDTS;
 
 public class UserService
@@ -35,4 +36,60 @@ public class UserService
         }
         return null;
     }
+    public UserRegisterService UserRegister(string name, string email, string password)
+    {
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        {
+            return UserRegisterService.emptyParameter;
+        }
+        using var conn = _db.GetConnection();
+        conn.Open();
+        string sql = @"INSERT INTO users (name, email, password) VALUES (@name, @email, @password)";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("name", name);
+        cmd.Parameters.AddWithValue("email", email);
+        cmd.Parameters.AddWithValue("password", password);
+        var rowsAffected = cmd.ExecuteNonQuery();
+
+        if (rowsAffected > 0)
+        {
+            return UserRegisterService.succesfull;
+        }
+        else
+        {
+            return UserRegisterService.UnkownError;
+        }
+    }
+
+    public UserRegisterService UserInformationPasswordCheck(User user, string password)
+    {
+        if (user == null || string.IsNullOrWhiteSpace(password))
+        {
+            return UserRegisterService.emptyParameter;
+        }
+        using var conn = _db.GetConnection();
+        conn.Open();
+        string sql = @"SELECT * FROM users WHERE email=@email AND password=@password";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("email", user.Email);
+        cmd.Parameters.AddWithValue("password", password);
+        using var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            return UserRegisterService.succesfull;
+        }
+        else
+        {
+            return UserRegisterService.UnkownError;
+        }
+    }
+
+}
+
+public enum UserRegisterService
+{
+    succesfull,
+    emptyParameter,
+    UnkownError
 }

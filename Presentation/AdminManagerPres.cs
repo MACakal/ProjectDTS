@@ -39,8 +39,5 @@ public class AdminManagerPres
             Rarity = rarity!
         };
     }
-
-
-
 }
 

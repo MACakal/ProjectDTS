@@ -32,38 +32,43 @@ public class MainMenuPre
             {
             "🔍 View products",
             "🔑 Login",
+            Console.WriteLine("3. 📝 Register");
             "❌ Exit"
-        };
+        }
+        ;
 
-            int choice = Menu.ShowMenu("===== MAIN MENU =====", options);
+        int choice = Menu.ShowMenu("===== MAIN MENU =====", options);
 
 
-            switch (choice)
-            {
-                case 0:
-                    Console.Clear();
-                    // _viewProductPres.Viewproducts();
-                    // filter.Show();
-                    _productMenu.Show();
-                    break;
+        switch (choice)
+        {
+            case 0:
+                Console.Clear();
+                // _viewProductPres.Viewproducts();
+                // filter.Show();
+                _productMenu.Show();
+                break;
 
-                case 1:
-                    Console.Clear();
-                    Login();
-                    break;
+            case 1:
+                Console.Clear();
+                Login();
+                break;
 
-                case 2:
-                    Console.Clear();
-                    return;
+            case "3":
+                Console.Clear();
+                Register();
+                break;
+            case 2:
+                Console.Clear();
+                return;
 
-                default:
-                    Console.WriteLine("Invalid option");
-                    Console.ReadKey();
-                    break;
-            }
+            default:
+                Console.WriteLine("Invalid option");
+                Console.ReadKey();
+                break;
         }
     }
-
+    }
 
 
     private void Login()
@@ -91,7 +96,34 @@ public class MainMenuPre
         }
         else
         {
-            _customerMenuPre.CustomerShow();
+            _customerMenuPre.CustomerShow(user);
         }
+    }
+
+    private void Register()
+    {
+        System.Console.WriteLine("Enter your name...");
+        string name = Console.ReadLine();
+        System.Console.WriteLine("Enter your email adress...");
+        string email = Console.ReadLine();
+        System.Console.WriteLine("Enter your password...");
+        string password = Console.ReadLine();
+
+        ProjectDTS.UserRegisterService outcome = _userService.UserRegister(name: name, email: email, password: password);
+
+        switch (outcome)
+        {
+            case ProjectDTS.UserRegisterService.succesfull:
+                System.Console.WriteLine("Your account is succesfully created.");
+                break;
+            case ProjectDTS.UserRegisterService.emptyParameter:
+                System.Console.WriteLine("Please provide valid input");
+                break;
+            case ProjectDTS.UserRegisterService.UnkownError:
+                System.Console.WriteLine("Unkown error.");
+                break;
+        }
+
+
     }
 }
