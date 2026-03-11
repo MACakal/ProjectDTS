@@ -32,42 +32,42 @@ public class MainMenuPre
             {
             "🔍 View products",
             "🔑 Login",
-            Console.WriteLine("3. 📝 Register");
+            "📝 Register",
             "❌ Exit"
         }
         ;
 
-        int choice = Menu.ShowMenu("===== MAIN MENU =====", options);
+            int choice = Menu.ShowMenu("===== MAIN MENU =====", options);
 
 
-        switch (choice)
-        {
-            case 0:
-                Console.Clear();
-                // _viewProductPres.Viewproducts();
-                // filter.Show();
-                _productMenu.Show();
-                break;
+            switch (choice)
+            {
+                case 0:
+                    Console.Clear();
+                    // _viewProductPres.Viewproducts();
+                    // filter.Show();
+                    _productMenu.Show();
+                    break;
 
-            case 1:
-                Console.Clear();
-                Login();
-                break;
+                case 1:
+                    Console.Clear();
+                    Login();
+                    break;
 
-            case "3":
-                Console.Clear();
-                Register();
-                break;
-            case 2:
-                Console.Clear();
-                return;
+                case 2:
+                    Console.Clear();
+                    Register();
+                    break;
+                case 3:
+                    Console.Clear();
+                    return;
 
-            default:
-                Console.WriteLine("Invalid option");
-                Console.ReadKey();
-                break;
+                default:
+                    Console.WriteLine("Invalid option");
+                    Console.ReadKey();
+                    break;
+            }
         }
-    }
     }
 
 
