@@ -7,16 +7,25 @@ public class MainMenuPre
     private UserService _userService;
     private ViewProductPres _viewProductPres;
     // private FilterMenu _filterMenu;
-    public MainMenuPre(CustomerMenuPre customerMenuPre, AdminMenuPres adminMenuPres, UserService userService, ViewProductPres viewProductPres)
+    private ProductMenuPres _productMenu;
+    public MainMenuPre(CustomerMenuPre customerMenuPre,
+     AdminMenuPres adminMenuPres,
+      UserService userService,
+       ViewProductPres viewProductPres,
+       ProductMenuPres productMenu)
     {
         _customerMenuPre = customerMenuPre;
         _adminMenuPres = adminMenuPres;
         _userService = userService;
         _viewProductPres = viewProductPres;
+        _productMenu = productMenu;
         // _filterMenu = filterMenu;
     }
     public void Show()
     {
+        // DatabaseService db = new();
+        // ProductService product = new(db);
+        // FilterMenu filter = new(product);
         while (true)
         {
             string[] options =
@@ -33,7 +42,9 @@ public class MainMenuPre
             {
                 case 0:
                     Console.Clear();
-                    _viewProductPres.Viewproducts();
+                    // _viewProductPres.Viewproducts();
+                    // filter.Show();
+                    _productMenu.Show();
                     break;
 
                 case 1:

@@ -15,8 +15,13 @@ public class Program
         AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct);
 
         var userService = new UserService(databaseService);
+        var productMenu = new ProductMenuPres(viewProduct, filterMenu);
 
-        MainMenuPre mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
+        MainMenuPre mainMenuPre = new MainMenuPre(customerMenu,
+         adminMenuPres,
+          userService,
+           viewProduct,
+           productMenu);
         mainMenuPre.Show();
     }
 }

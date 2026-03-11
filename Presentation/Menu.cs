@@ -4,17 +4,17 @@ public static class Menu
     {
         int selectedIndex = 0;
         ConsoleKey key;
-        int startRow = Console.CursorTop;
+        // int startRow = Console.CursorTop;
         do
         {
-            if (clear)
-            {
-                Console.Clear();
-            }
-            else
-            {
-                Console.SetCursorPosition(0, startRow);
-            }
+            // if (clear)
+            // {
+            Console.Clear();
+            // }
+            // else
+            // {
+            // Console.SetCursorPosition(0, startRow);
+            // }
 
             Console.WriteLine(title);
             Console.WriteLine();
