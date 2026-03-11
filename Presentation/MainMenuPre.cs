@@ -7,54 +7,73 @@ public class MainMenuPre
     private UserService _userService;
     private ViewProductPres _viewProductPres;
     // private FilterMenu _filterMenu;
-    public MainMenuPre(CustomerMenuPre customerMenuPre, AdminMenuPres adminMenuPres, UserService userService, ViewProductPres viewProductPres)
+    private ProductMenuPres _productMenu;
+    public MainMenuPre(CustomerMenuPre customerMenuPre,
+     AdminMenuPres adminMenuPres,
+      UserService userService,
+       ViewProductPres viewProductPres,
+       ProductMenuPres productMenu)
     {
         _customerMenuPre = customerMenuPre;
         _adminMenuPres = adminMenuPres;
         _userService = userService;
         _viewProductPres = viewProductPres;
+        _productMenu = productMenu;
         // _filterMenu = filterMenu;
     }
-
     public void Show()
     {
-        Console.Clear();
+        // DatabaseService db = new();
+        // ProductService product = new(db);
+        // FilterMenu filter = new(product);
         while (true)
         {
-            Console.WriteLine("\nMain Menu");
-            Console.WriteLine("1. 🔍 View products");
-            Console.WriteLine("2. 🔑 Login");
-            Console.WriteLine("3. 📝 Register");
-            Console.WriteLine("0. ❌ Exit");
-            var choice = Console.ReadLine();
+            string[] options =
+            {
+            "🔍 View products",
+            "🔑 Login",
+            "📝 Register",
+            "❌ Exit"
+        }
+        ;
+
+            int choice = Menu.ShowMenu("===== MAIN MENU =====", options);
+
+
             switch (choice)
             {
-                case "1":
+                case 0:
                     Console.Clear();
-                    // _customerMenuPre.CustomerShow();
+                    // _viewProductPres.Viewproducts();
+                    // filter.Show();
+                    Console.CursorVisible = true;
                     _viewProductPres.Viewproducts();
-                    // _filterMenu.Show();
-
                     break;
-                case "2":
+
+                case 1:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     Login();
                     break;
-                case "3":
+
+                case 2:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     Register();
                     break;
-                case "0":
+                case 3:
                     Console.Clear();
+                    Console.CursorVisible = true;
                     return;
+
                 default:
                     Console.WriteLine("Invalid option");
-                    Console.Clear();
                     Console.ReadKey();
                     break;
             }
         }
     }
+
 
     private void Login()
     {
@@ -95,7 +114,7 @@ public class MainMenuPre
         System.Console.WriteLine("Enter your password...");
         string password = Console.ReadLine();
 
-        ProjectDTS.UserRegisterService outcome = _userService.UserRegister(name:name, email:email, password:password);
+        ProjectDTS.UserRegisterService outcome = _userService.UserRegister(name: name, email: email, password: password);
 
         switch (outcome)
         {

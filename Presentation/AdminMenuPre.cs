@@ -14,48 +14,92 @@ public class AdminMenuPres
         _viewProductPres = viewProductPres;
     }
 
+    // public void ShowAdminMenu()
+    // {
+    //     Console.Clear();
+    //     while (true)
+    //     {
+
+    //         Console.WriteLine("\nAdmin Menu");
+    //         Console.WriteLine("1. View Products");
+    //         Console.WriteLine("2. Add Product");
+    //         Console.WriteLine("0. Exit");
+
+    //         var choice = Console.ReadLine();
+
+    //         if (choice == "0")
+    //         {
+
+    //             Console.Clear();
+    //             break;
+    //         }
+
+    //         if (choice == "1")
+    //         {
+    //             Console.Clear();
+    //             _viewProductPres.Viewproducts();
+    //         }
+
+    //         if (choice == "2")
+    //         {
+    //             Console.WriteLine("Add product...");
+    //             var product = _adminManagerPres.CreateProduct();
+    //             _productService.AddProduct(product);
+
+    //             Console.ForegroundColor = ConsoleColor.Cyan;
+    //             Console.WriteLine("Product added successfully.");
+
+    //             Console.ForegroundColor = ConsoleColor.Blue;
+    //             Console.WriteLine("Please enter any key...");
+    //             Console.ResetColor();
+    //             Console.ReadKey();
+    //             Console.Clear();
+
+
+    //         }
+    //     }
+    // }
     public void ShowAdminMenu()
     {
-        Console.Clear();
         while (true)
         {
-
-            Console.WriteLine("\nAdmin Menu");
-            Console.WriteLine("1. View Products");
-            Console.WriteLine("2. Add Product");
-            Console.WriteLine("0. Exit");
-
-            var choice = Console.ReadLine();
-
-            if (choice == "0")
+            string[] options =
             {
+            "View Products",
+            "Add Product",
+            "Back"
+        };
 
-                Console.Clear();
-                break;
-            }
+            int choice = Menu.ShowMenu("Admin Menu", options);
 
-            if (choice == "1")
+            switch (choice)
             {
-                Console.Clear();
-                _viewProductPres.Viewproducts();
-            }
+                case 0:
+                    Console.Clear();
+                    _viewProductPres.Viewproducts();
+                    break;
 
-            if (choice == "2")
-            {
-                Console.WriteLine("Add product...");
-                var product = _adminManagerPres.CreateProduct();
-                _productService.AddProduct(product);
+                case 1:
+                    Console.Clear();
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Product added successfully.");
+                    Console.WriteLine("Add product...");
+                    var product = _adminManagerPres.CreateProduct();
+                    _productService.AddProduct(product);
 
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Please enter any key...");
-                Console.ResetColor();
-                Console.ReadKey();
-                Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Product added successfully.");
 
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Press any key...");
+                    Console.ResetColor();
 
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+
+                case 2:
+                    Console.Clear();
+                    return;
             }
         }
     }

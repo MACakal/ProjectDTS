@@ -15,34 +15,35 @@ public class BasketMenu
     }
     public static void WhatToDo()
     {
-        Console.WriteLine();
-        Console.WriteLine("What do you want to do?");
-        Console.WriteLine("1. Add product to basket");
-        Console.WriteLine("2. Filter products");
-        Console.WriteLine("3. View Basket");
-        Console.WriteLine("0. Back");
-
-        var choice = Console.ReadLine();
-        switch (choice)
+        while (true) // Zorgt dat je in dit menu blijft tot je '0' kiest
         {
-            case "1":
-                Console.Clear();
-                AddToBasketPrint();
-                break;
-            case "2":
-                Console.Clear();
-                _filterMenu.Show();
-                break;
-            case "3":
-                Console.Clear();
-                ShowBasket();
-                break;
-            case "0":
-                Console.Clear();
-                return;
-            default:
-                Console.WriteLine("Invalid choice. Please try again.");
-                break;
+            Console.WriteLine("\nWhat do you want to do?");
+            Console.WriteLine("1. Add product to basket");
+            Console.WriteLine("2. Filter products");
+            Console.WriteLine("3. View Basket");
+            Console.WriteLine("0. Back");
+
+            var choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    Console.Clear();
+                    AddToBasketPrint();
+                    break;
+                case "2":
+                    Console.Clear();
+                    _filterMenu.Show();
+                    break;
+                case "3":
+                    Console.Clear();    
+                    ShowBasket();
+                    break;
+                case "0":
+                    return; // Gaat terug naar het vorige scherm
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    break;
+            }
         }
     }
 
@@ -68,7 +69,11 @@ public class BasketMenu
     public static void ShowBasket()
     {
         Console.Clear();
-        if (UserSession.CurrentUser == null) return;
+        if (UserSession.CurrentUser == null)
+        {
+            Console.WriteLine("⚠️ You must be logged in order for you to have a basket!");
+            return;
+        }
 
         var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
 
@@ -104,6 +109,7 @@ public class BasketMenu
                     Console.WriteLine("press enter to return to the customer menu.");
                 }
                 Console.ReadKey();
+                Console.Clear();
             }
         }
     }

@@ -12,6 +12,7 @@ public class ViewProductPres
     }
     public void Viewproducts()
     {
+
         Console.Clear();
         var products = _productService.GetAllProducts();
         Console.WriteLine("\n---- Product List ----");
@@ -35,5 +36,6 @@ public class ViewProductPres
             BasketMenu.WhatToDo();
         }
     }
+
 
 }

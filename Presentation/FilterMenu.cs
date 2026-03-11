@@ -12,54 +12,71 @@ public class FilterMenu
         _productService = productService;
 
     }
+    // public int Show()
+    // {
+    //     string[] options =
+    //     {
+    //     "Category",
+    //     "Price",
+    //     "Search by Name",
+    //     "Back"
+    // };
+
+    //     return Menu.ShowMenu("Filter Menu", options, false);
+    // }
 
     public void Show()
     {
         while (true)
         {
+            string[] options =
+            {
+            "Category",
+            "Price",
+            "Search by Name",
+            "Back"
+            };
 
-            Console.WriteLine("\n--- Filter Menu ---");
-            Console.WriteLine("1. Category");
-            Console.WriteLine("2. Price");
-            Console.WriteLine("3. Search by Name");
-            Console.WriteLine("0. Back");
+            int choice = Menu.ShowMenu("Filter Menu", options, false);
 
-            var choice = Console.ReadLine();
-            if (choice == "1")
+            switch (choice)
             {
-                Console.Clear();
-                PrintAllwithCategories();
-                CategoryFilter();
-                Console.WriteLine("\nPress any key to return to the filter menu.");
-                Console.ReadLine();
-                Console.Clear();
-            }
-            else if (choice == "2")
-            {
-                Console.Clear();
-                PrintAll();
-                PriceFilter();
-                Console.WriteLine("\nPress any key to return to the filter menu.");
-                Console.ReadLine();
-                Console.Clear();
-            }
-            else if (choice == "3")
-            {
-                Console.Clear();
-                PrintAll();
-                SearchByName();
-                Console.WriteLine("\nPress any key to return to the filter menu.");
-                Console.ReadLine();
-                Console.Clear();
-            }
-            if (choice == "0")
-            {
-                Console.Clear();
-                return;
+                case 0 :
+                { 
+                    Console.Clear();
+                    Console.CursorVisible = true;
+                    PrintAllwithCategories();
+                    CategoryFilter();
+                    break;
+                }
+                case 1:
+                    {
+                        Console.Clear();
+                        Console.CursorVisible = true;
+                        PrintAll();
+                        PriceFilter();
+                        break;
+                    }
+                case 2 :
+                    {
+                    Console.Clear();
+                    Console.CursorVisible = true;
+                    PrintAll();
+                    SearchByName();
+                    break;
+                    }
+                    case 3 :
+                    {
+                        Console.Clear();
+                        return;
+                    }
+                    default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
             }
         }
-        // Console.Clear();
     }
+
 
     public void CategoryFilter()
     {
@@ -72,6 +89,8 @@ public class FilterMenu
         {
             Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
         }
+        Console.WriteLine("\nPress any key to continue...");
+        Console.ReadLine();
     }
 
     public void PriceFilter()
@@ -90,6 +109,8 @@ public class FilterMenu
         {
             Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
         }
+        Console.WriteLine("\nPress any key to continue...");
+        Console.ReadLine();
     }
     public void SearchByName()
     {
@@ -116,6 +137,8 @@ public class FilterMenu
                 Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
             }
         }
+        Console.WriteLine("\nPress any key to continue...");
+        Console.ReadLine();
     }
 
     public void PrintAll()
