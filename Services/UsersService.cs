@@ -31,7 +31,7 @@ public class UserService
                 Name = reader.GetString(1),
                 Email = reader.GetString(2),
                 Password = reader.GetString(3),
-                Role = Enum.Parse<UserRole>(reader.GetString(4))
+                Role = Enum.Parse<UserRole>(reader.GetString(4), true)
             };
         }
         return null;
