@@ -28,42 +28,49 @@ public class MainMenuPre
         // FilterMenu filter = new(product);
         while (true)
         {
-            string[] options =
-            {
-            "🔍 View products",
-            "🔑 Login",
-            "📝 Register",
-            "❌ Exit"
-        }
-        ;
+            Console.Clear();
+            Console.WriteLine("===== MAIN MENU =====");
+            Console.WriteLine("1. 🔍 View products");
+            Console.WriteLine("2. 🔑 Login");
+            Console.WriteLine("3. 📝 Register");
+            Console.WriteLine("4. ❌ Exit");
+            //     string[] options =
+            //     {
+            //     "🔍 View products",
+            //     "🔑 Login",
+            //     "📝 Register",
+            //     "❌ Exit"
+            // };
 
-            int choice = Menu.ShowMenu("===== MAIN MENU =====", options);
+
+            string choice = Console.ReadLine();
 
 
             switch (choice)
             {
-                case 0:
+
+                case "1":
                     Console.Clear();
-                    // _viewProductPres.Viewproducts();
+                    _viewProductPres.Viewproducts();
                     // filter.Show();
-                    Console.CursorVisible = true;
+                    // Console.CursorVisible = true;
                     _viewProductPres.Viewproducts();
                     break;
 
-                case 1:
+                case "2":
                     Console.Clear();
-                    Console.CursorVisible = true;
+                    // Console.CursorVisible = true;
                     Login();
                     break;
 
-                case 2:
+                case "3":
                     Console.Clear();
-                    Console.CursorVisible = true;
+                    // Console.CursorVisible = true;
                     Register();
                     break;
-                case 3:
+                case "4":
                     Console.Clear();
-                    Console.CursorVisible = true;
+                    // Console.CursorVisible = true;
                     return;
 
                 default:
