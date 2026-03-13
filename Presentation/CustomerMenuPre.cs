@@ -23,8 +23,9 @@ public class CustomerMenuPre
             Console.WriteLine("\nCustomer Menu");
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Make an Order");
-            Console.WriteLine("3. Filter Products");
-            System.Console.WriteLine("4. View account information");
+            Console.WriteLine("3. View past Orders");
+            Console.WriteLine("4. Filter Products");
+            System.Console.WriteLine("5. View account information");
             Console.WriteLine("0. Exit");
 
             var choice = Console.ReadLine();
@@ -50,7 +51,21 @@ public class CustomerMenuPre
                     BasketMenu.ShowBasket();
                 }
             }
-             if (choice == "3")
+            if(choice == "3")
+            {
+                Console.Clear();
+                if(UserSession.CurrentUser == null)
+                {
+                    Console.WriteLine("⚠️ You must be logged in to view past order!");
+                    Console.WriteLine("\nPress any key to return to the customer menu.");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    PastOrders.ShowPastOrders();
+                }
+            }
+             if (choice == "4")
             {
                 Console.Clear();
                 _filterMenu.Show();
@@ -58,7 +73,7 @@ public class CustomerMenuPre
                 Console.WriteLine("\nPress any key to return to the customer menu.");
                 Console.ReadLine();
             }
-            if (choice == "4")
+            if (choice == "5")
             {
                 _AccountPre.AccountInformation(user);
             }
