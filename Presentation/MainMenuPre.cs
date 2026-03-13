@@ -68,7 +68,7 @@ public class MainMenuPre
                     // Console.CursorVisible = true;
                     Register();
                     break;
-                case "4":
+                case "0":
                     Console.Clear();
                     // Console.CursorVisible = true;
                     return;
