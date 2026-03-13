@@ -7,18 +7,18 @@ public class MainMenuPre
     private UserService _userService;
     private ViewProductPres _viewProductPres;
     // private FilterMenu _filterMenu;
-    private ProductMenuPres _productMenu;
+    // private ProductMenuPres _productMenu;
     public MainMenuPre(CustomerMenuPre customerMenuPre,
      AdminMenuPres adminMenuPres,
       UserService userService,
-       ViewProductPres viewProductPres,
-       ProductMenuPres productMenu)
+       ViewProductPres viewProductPres
+       )
     {
         _customerMenuPre = customerMenuPre;
         _adminMenuPres = adminMenuPres;
         _userService = userService;
         _viewProductPres = viewProductPres;
-        _productMenu = productMenu;
+        // _productMenu = productMenu;
         // _filterMenu = filterMenu;
     }
     public void Show()
@@ -33,7 +33,7 @@ public class MainMenuPre
             Console.WriteLine("1. 🔍 View products");
             Console.WriteLine("2. 🔑 Login");
             Console.WriteLine("3. 📝 Register");
-            Console.WriteLine("4. ❌ Exit");
+            Console.WriteLine("0. ❌ Exit");
             //     string[] options =
             //     {
             //     "🔍 View products",
@@ -54,7 +54,7 @@ public class MainMenuPre
                     _viewProductPres.Viewproducts();
                     // filter.Show();
                     // Console.CursorVisible = true;
-                    _viewProductPres.Viewproducts();
+                    // _viewProductPres.Viewproducts();
                     break;
 
                 case "2":
@@ -134,7 +134,7 @@ public class MainMenuPre
                     System.Console.WriteLine($"Welcome, {loggedInUser.Name}! You are now logged in.");
                 }
                 break;
-                break;
+            // break;
             case ProjectDTS.UserRegisterService.emptyParameter:
                 System.Console.WriteLine("Please provide valid input");
                 break;
