@@ -14,7 +14,7 @@ public class Program
 
         var userService = new UserService(databaseService);
         var basketService = new BasketService(databaseService);
-        var productMenu = new ProductMenuPres(viewProduct, filterMenu);
+        // var productMenu = new ProductMenuPres(viewProduct, filterMenu);
         var accountPresentation = new AccountPre(userService);
 
         var customerMenu = new CustomerMenuPre(viewProduct, filterMenu, accountPresentation);
@@ -23,8 +23,8 @@ public class Program
         MainMenuPre mainMenuPre = new MainMenuPre(customerMenu,
          adminMenuPres,
           userService,
-           viewProduct,
-           productMenu);
+           viewProduct
+           );
         mainMenuPre.Show();
     }
 }
