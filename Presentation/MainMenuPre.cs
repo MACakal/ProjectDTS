@@ -127,7 +127,6 @@ public class MainMenuPre
                     System.Console.WriteLine($"Welcome, {loggedInUser.Name}! You are now logged in.");
                 }
                 break;
-                break;
             case ProjectDTS.UserRegisterService.emptyParameter:
                 System.Console.WriteLine("Please provide valid input");
                 break;
