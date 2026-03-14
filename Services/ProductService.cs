@@ -127,4 +127,56 @@ public class ProductService
         };
     }
 
+    public void UpdateProduct(Product product)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"
+        UPDATE products
+        SET name = @name, 
+            description = @description,
+            category = @category,
+            price = @price,
+            rarity = @rarity
+        WHERE id = @id";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("id", product.Id);
+        cmd.Parameters.AddWithValue("name", product.Name);
+        cmd.Parameters.AddWithValue("description", product.Description);
+        cmd.Parameters.AddWithValue("category", product.Category);
+        cmd.Parameters.AddWithValue("price", product.Price);
+        cmd.Parameters.AddWithValue("rarity", product.Rarity);
+
+        cmd.ExecuteNonQuery();
+    }
+    public Product GetById(int id)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = "SELECT * FROM products WHERE id=@id";
+
+        var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("id", id);
+
+        var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            return new Product
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                Description = reader.GetString(2),
+                Category = reader.GetString(3),
+                Price = reader.GetDecimal(4),
+                Rarity = reader.GetString(5)
+            };
+        }
+
+        throw new Exception("Product not found");
+    }
+
 }
