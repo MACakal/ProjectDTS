@@ -87,7 +87,7 @@ public class MainMenuPre
         Console.WriteLine("Enter your email...");
         string email = Console.ReadLine();
         Console.WriteLine("Enter your password...");
-        string password = Console.ReadLine();
+        string password = Password.ReadPassword();
 
         var user = _userService.UserLogin(email, password);
         if (user is null)
