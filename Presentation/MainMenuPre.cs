@@ -69,6 +69,8 @@ public class MainMenuPre
                     Register();
                     break;
                 case "0":
+                    Console.Clear();
+                    // Console.CursorVisible = true;
                     return;
                 default:
                     Console.WriteLine("Invalid option");

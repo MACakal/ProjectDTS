@@ -66,6 +66,7 @@ public class AdminMenuPres
             Console.WriteLine(" ====Admin Menu==== ");
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Add Product");
+            Console.WriteLine("3. Edit Product");
             Console.WriteLine("0. Back");
             //     string[] options =
             //     {
@@ -89,6 +90,7 @@ public class AdminMenuPres
 
                     Console.WriteLine("Add product...");
                     var product = _adminManagerPres.CreateProduct();
+                    if (product == null) return;
                     _productService.AddProduct(product);
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -101,6 +103,11 @@ public class AdminMenuPres
                     Console.ReadKey();
                     Console.Clear();
                     break;
+                case "3":
+                    _adminManagerPres.EditProduct();
+                    Console.Clear();
+                    break;
+
 
                 case "0":
                     Console.Clear();
