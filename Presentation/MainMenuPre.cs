@@ -7,18 +7,18 @@ public class MainMenuPre
     private UserService _userService;
     private ViewProductPres _viewProductPres;
     // private FilterMenu _filterMenu;
-    private ProductMenuPres _productMenu;
+    // private ProductMenuPres _productMenu;
     public MainMenuPre(CustomerMenuPre customerMenuPre,
      AdminMenuPres adminMenuPres,
       UserService userService,
-       ViewProductPres viewProductPres,
-       ProductMenuPres productMenu)
+       ViewProductPres viewProductPres
+       )
     {
         _customerMenuPre = customerMenuPre;
         _adminMenuPres = adminMenuPres;
         _userService = userService;
         _viewProductPres = viewProductPres;
-        _productMenu = productMenu;
+        // _productMenu = productMenu;
         // _filterMenu = filterMenu;
     }
     public void Show()
@@ -28,42 +28,49 @@ public class MainMenuPre
         // FilterMenu filter = new(product);
         while (true)
         {
-            string[] options =
-            {
-            "🔍 View products",
-            "🔑 Login",
-            "📝 Register",
-            "❌ Exit"
-        }
-        ;
+            Console.Clear();
+            Console.WriteLine("===== MAIN MENU =====");
+            Console.WriteLine("1. 🔍 View products");
+            Console.WriteLine("2. 🔑 Login");
+            Console.WriteLine("3. 📝 Register");
+            Console.WriteLine("0. ❌ Exit");
+            //     string[] options =
+            //     {
+            //     "🔍 View products",
+            //     "🔑 Login",
+            //     "📝 Register",
+            //     "❌ Exit"
+            // };
 
-            int choice = Menu.ShowMenu("===== MAIN MENU =====", options);
+
+            string choice = Console.ReadLine();
 
 
             switch (choice)
             {
-                case 0:
+
+                case "1":
                     Console.Clear();
-                    // _viewProductPres.Viewproducts();
-                    // filter.Show();
-                    Console.CursorVisible = true;
                     _viewProductPres.Viewproducts();
+                    // filter.Show();
+                    // Console.CursorVisible = true;
+                    // _viewProductPres.Viewproducts();
                     break;
 
-                case 1:
+                case "2":
                     Console.Clear();
-                    Console.CursorVisible = true;
+                    // Console.CursorVisible = true;
                     Login();
                     break;
 
-                case 2:
+                case "3":
                     Console.Clear();
-                    Console.CursorVisible = true;
+                    // Console.CursorVisible = true;
                     Register();
                     break;
-                case 3:
+                case "4":
                     Console.Clear();
-                    Console.CursorVisible = true;
+                    // Console.CursorVisible = true;
                     return;
 
                 default:
@@ -80,7 +87,7 @@ public class MainMenuPre
         Console.WriteLine("Enter your email...");
         string email = Console.ReadLine();
         Console.WriteLine("Enter your password...");
-        string password = Console.ReadLine();
+        string password = Password.ReadPassword();
 
         var user = _userService.UserLogin(email, password);
         if (user is null)
@@ -127,6 +134,7 @@ public class MainMenuPre
                     System.Console.WriteLine($"Welcome, {loggedInUser.Name}! You are now logged in.");
                 }
                 break;
+            // break;
             case ProjectDTS.UserRegisterService.emptyParameter:
                 System.Console.WriteLine("Please provide valid input");
                 break;

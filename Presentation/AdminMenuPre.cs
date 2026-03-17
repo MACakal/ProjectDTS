@@ -63,23 +63,28 @@ public class AdminMenuPres
     {
         while (true)
         {
-            string[] options =
-            {
-            "View Products",
-            "Add Product",
-            "Back"
-        };
+            Console.WriteLine(" ====Admin Menu==== ");
+            Console.WriteLine("1. View Products");
+            Console.WriteLine("2. Add Product");
+            Console.WriteLine("0. Back");
+            //     string[] options =
+            //     {
+            //     "View Products",
+            //     "Add Product",
+            //     "Back"
+            // };
 
-            int choice = Menu.ShowMenu("Admin Menu", options);
+            // int choice = Menu.ShowMenu("Admin Menu", options);
+            string choice = Console.ReadLine();
 
             switch (choice)
             {
-                case 0:
+                case "1":
                     Console.Clear();
                     _viewProductPres.Viewproducts();
                     break;
 
-                case 1:
+                case "2":
                     Console.Clear();
 
                     Console.WriteLine("Add product...");
@@ -97,7 +102,7 @@ public class AdminMenuPres
                     Console.Clear();
                     break;
 
-                case 2:
+                case "0":
                     Console.Clear();
                     return;
             }

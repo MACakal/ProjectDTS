@@ -1,11 +1,12 @@
 using Npgsql;
 using NpgsqlTypes;
 namespace ProjectDTS;
+
 public class BasketMenu
 {
-    
+
     private static ProductService _productService = new ProductService(new DatabaseService());
-    private static FilterMenu _filterMenu = new FilterMenu(_productService); 
+    private static FilterMenu _filterMenu = new FilterMenu(_productService);
     private static BasketService _basketService = new BasketService(new DatabaseService());
     public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService)
     {
@@ -35,11 +36,13 @@ public class BasketMenu
                     _filterMenu.Show();
                     break;
                 case "3":
-                    Console.Clear();    
+                    Console.Clear();
                     ShowBasket();
                     break;
                 case "0":
+                    Console.Clear();
                     return; // Gaat terug naar het vorige scherm
+
                 default:
                     Console.WriteLine("Invalid choice.");
                     break;
@@ -87,7 +90,7 @@ public class BasketMenu
             foreach (var line in items) Console.WriteLine(line);
             Console.WriteLine("------------------------------");
             Console.WriteLine($"Total Amount: €{totalPrice:N2}");
-            
+
             Console.WriteLine("\n1. 💳 Pay Now (Checkout)");
         }
         Console.WriteLine("0. Back");
@@ -121,7 +124,7 @@ public class BasketMenu
         Console.WriteLine($"ID ---------- Name -------------------- Price");
         foreach (var p in products)
         {
-            if(p != null)
+            if (p != null)
             {
                 Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
             }

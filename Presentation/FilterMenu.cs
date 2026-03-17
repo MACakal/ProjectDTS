@@ -29,48 +29,54 @@ public class FilterMenu
     {
         while (true)
         {
-            string[] options =
-            {
-            "Category",
-            "Price",
-            "Search by Name",
-            "Back"
-            };
+            Console.WriteLine("1. Category");
+            Console.WriteLine("2. Price");
+            Console.WriteLine("3. Search by Name");
+            Console.WriteLine("0. Back");
 
-            int choice = Menu.ShowMenu("Filter Menu", options, false);
+            // string[] options =
+            // {
+            // "Category",
+            // "Price",
+            // "Search by Name",
+            // "Back"
+            // };
+
+            // int choice = Menu.ShowMenu("Filter Menu", options, false);
+            string choice = Console.ReadLine();
 
             switch (choice)
             {
-                case 0 :
-                { 
-                    Console.Clear();
-                    Console.CursorVisible = true;
-                    PrintAllwithCategories();
-                    CategoryFilter();
-                    break;
-                }
-                case 1:
+                case "1":
                     {
                         Console.Clear();
-                        Console.CursorVisible = true;
+                        // Console.CursorVisible = true;
+                        PrintAllwithCategories();
+                        CategoryFilter();
+                        break;
+                    }
+                case "2":
+                    {
+                        Console.Clear();
+                        // Console.CursorVisible = true;
                         PrintAll();
                         PriceFilter();
                         break;
                     }
-                case 2 :
+                case "3":
                     {
-                    Console.Clear();
-                    Console.CursorVisible = true;
-                    PrintAll();
-                    SearchByName();
-                    break;
+                        Console.Clear();
+                        // Console.CursorVisible = true;
+                        PrintAll();
+                        SearchByName();
+                        break;
                     }
-                    case 3 :
+                case "0":
                     {
                         Console.Clear();
                         return;
                     }
-                    default:
+                default:
                     Console.WriteLine("Invalid option. Please try again.");
                     break;
             }
@@ -89,8 +95,10 @@ public class FilterMenu
         {
             Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
         }
+
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadLine();
+        Console.Clear();
     }
 
     public void PriceFilter()
@@ -111,6 +119,7 @@ public class FilterMenu
         }
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadLine();
+        Console.Clear();
     }
     public void SearchByName()
     {
@@ -139,6 +148,8 @@ public class FilterMenu
         }
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadLine();
+        Console.Clear();
+
     }
 
     public void PrintAll()
@@ -148,7 +159,7 @@ public class FilterMenu
         Console.WriteLine($"ID ---------- Name --------------- Price");
         foreach (var p in products)
         {
-            if(p != null)
+            if (p != null)
             {
                 Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}");
             }
@@ -167,9 +178,9 @@ public class FilterMenu
         Console.WriteLine($"ID ---------- Name ---------------Price ------------ Category");
         foreach (var p in products)
         {
-            if(p != null)
+            if (p != null)
             {
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}  {p.Category, 16}");
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}  {p.Category,16}");
             }
             else
             {
