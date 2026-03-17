@@ -69,6 +69,14 @@ public class BasketMenu
         Console.WriteLine($"Added {quantity} x product {productId} to your basket.");
     }
 
+    public static void printBasket()
+    {
+        var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
+        foreach (var line in items) Console.WriteLine(line);
+        Console.WriteLine("------------------------------");
+        Console.WriteLine($"Total Amount: €{totalPrice:N2}");
+    }
+
     public static void ShowBasket()
     {
         Console.Clear();
@@ -87,33 +95,46 @@ public class BasketMenu
         }
         else
         {
-            foreach (var line in items) Console.WriteLine(line);
-            Console.WriteLine("------------------------------");
-            Console.WriteLine($"Total Amount: €{totalPrice:N2}");
-
+            printBasket();
             Console.WriteLine("\n1. 💳 Pay Now (Checkout)");
+            System.Console.WriteLine("2. Modify basket");
         }
         Console.WriteLine("0. Back");
 
         var choice = Console.ReadLine();
-        if (choice == "1" && items.Count > 0)
+
+        switch(choice)
         {
-            Console.Write("Confirm payment? (y/n): ");
-            if (Console.ReadLine()?.ToLower() == "y")
-            {
-                if (_basketService.CheckoutWithTransaction(UserSession.CurrentUser.Id))
+            case "1":
+                if (items.Count > 0)
                 {
-                    Console.WriteLine("\n✅ Payment successful! Thank you for your purchase.");
-                    Console.WriteLine("press enter to return to the customer menu.");
+                    Console.Write("Confirm payment? (y/n): ");
+                    if (Console.ReadLine()?.ToLower() == "y")
+                    {
+                        if (_basketService.CheckoutWithTransaction(UserSession.CurrentUser.Id))
+                        {
+                            Console.WriteLine("\n✅ Payment successful! Thank you for your purchase.");
+                            Console.WriteLine("press enter to return to the customer menu.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n❌ Payment failed. Please try again.");
+                            Console.WriteLine("press enter to return to the customer menu.");
+                        }
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("\n❌ Payment failed. Please try again.");
-                    Console.WriteLine("press enter to return to the customer menu.");
-                }
-                Console.ReadKey();
                 Console.Clear();
-            }
+                break;
+            case "2":
+                Console.Clear();
+                printBasket();
+                System.Console.WriteLine("\n1. remove item");
+                System.Console.WriteLine("2. modify ammount of a item to purchase");
+
+                Console.ReadKey();
+                break;
         }
     }
 
