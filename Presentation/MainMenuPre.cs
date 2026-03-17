@@ -68,11 +68,8 @@ public class MainMenuPre
                     // Console.CursorVisible = true;
                     Register();
                     break;
-                case "4":
-                    Console.Clear();
-                    // Console.CursorVisible = true;
+                case "0":
                     return;
-
                 default:
                     Console.WriteLine("Invalid option");
                     Console.ReadKey();
@@ -92,7 +89,7 @@ public class MainMenuPre
         var user = _userService.UserLogin(email, password);
         if (user is null)
         {
-            Console.WriteLine("Incorrect email or password");
+            Console.WriteLine("\nIncorrect email or password");
             Console.WriteLine("Please enter any key to return to the main menu.");
 
             Console.ReadKey();
@@ -133,13 +130,24 @@ public class MainMenuPre
                     UserSession.CurrentUser = loggedInUser;
                     System.Console.WriteLine($"Welcome, {loggedInUser.Name}! You are now logged in.");
                 }
+                System.Console.WriteLine("Press any key to continue");
+                System.Console.ReadKey();
                 break;
             // break;
             case ProjectDTS.UserRegisterService.emptyParameter:
                 System.Console.WriteLine("Please provide valid input");
+                System.Console.WriteLine("Press any key to continue");
+                System.Console.ReadKey();
+                break;
+            case ProjectDTS.UserRegisterService.alreadyExists:
+                System.Console.WriteLine("An account with this email already exists");
+                System.Console.WriteLine("Press any key to continue");
+                System.Console.ReadKey();
                 break;
             case ProjectDTS.UserRegisterService.UnkownError:
                 System.Console.WriteLine("Unkown error.");
+                System.Console.WriteLine("Press any key to continue");
+                System.Console.ReadKey();
                 break;
         }
 

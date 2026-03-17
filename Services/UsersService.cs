@@ -38,18 +38,32 @@ public class UserService
     }
     public UserRegisterService UserRegister(string name, string email, string password)
     {
+        string sql;
+        int rowsAffected;
+
         if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
             return UserRegisterService.emptyParameter;
         }
         using var conn = _db.GetConnection();
         conn.Open();
-        string sql = @"INSERT INTO users (name, email, password) VALUES (@name, @email, @password)";
+
+        sql = @"SELECT * FROM users WHERE email=@email";
+        using var cmd1 = new NpgsqlCommand(sql,conn);
+        cmd1.Parameters.AddWithValue("email", email);
+        rowsAffected = (int)cmd1.ExecuteScalar();
+
+        if (rowsAffected > 1)
+        {
+            return UserRegisterService.alreadyExists;
+        }
+
+        sql = @"INSERT INTO users (name, email, password) VALUES (@name, @email, @password)";
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("name", name);
         cmd.Parameters.AddWithValue("email", email);
         cmd.Parameters.AddWithValue("password", password);
-        var rowsAffected = cmd.ExecuteNonQuery();
+        rowsAffected = cmd.ExecuteNonQuery();
 
         if (rowsAffected > 0)
         {
@@ -91,5 +105,6 @@ public enum UserRegisterService
 {
     succesfull,
     emptyParameter,
+    alreadyExists,
     UnkownError
 }
