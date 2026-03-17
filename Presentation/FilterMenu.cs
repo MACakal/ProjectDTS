@@ -12,18 +12,7 @@ public class FilterMenu
         _productService = productService;
 
     }
-    // public int Show()
-    // {
-    //     string[] options =
-    //     {
-    //     "Category",
-    //     "Price",
-    //     "Search by Name",
-    //     "Back"
-    // };
 
-    //     return Menu.ShowMenu("Filter Menu", options, false);
-    // }
 
     public void Show()
     {
@@ -34,15 +23,6 @@ public class FilterMenu
             Console.WriteLine("3. Search by Name");
             Console.WriteLine("0. Back");
 
-            // string[] options =
-            // {
-            // "Category",
-            // "Price",
-            // "Search by Name",
-            // "Back"
-            // };
-
-            // int choice = Menu.ShowMenu("Filter Menu", options, false);
             string choice = Console.ReadLine();
 
             switch (choice)
@@ -50,7 +30,6 @@ public class FilterMenu
                 case "1":
                     {
                         Console.Clear();
-                        // Console.CursorVisible = true;
                         PrintAllwithCategories();
                         CategoryFilter();
                         break;
@@ -58,7 +37,6 @@ public class FilterMenu
                 case "2":
                     {
                         Console.Clear();
-                        // Console.CursorVisible = true;
                         PrintAll();
                         PriceFilter();
                         break;
@@ -66,7 +44,6 @@ public class FilterMenu
                 case "3":
                     {
                         Console.Clear();
-                        // Console.CursorVisible = true;
                         PrintAll();
                         SearchByName();
                         break;

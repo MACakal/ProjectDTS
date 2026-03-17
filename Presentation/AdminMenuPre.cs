@@ -90,6 +90,7 @@ public class AdminMenuPres
 
                     Console.WriteLine("Add product...");
                     var product = _adminManagerPres.CreateProduct();
+                    if (product == null) return;
                     _productService.AddProduct(product);
 
                     Console.ForegroundColor = ConsoleColor.Cyan;

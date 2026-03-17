@@ -2,40 +2,122 @@ namespace ProjectDTS;
 
 public class AdminManagerPres
 {
-    public Product CreateProduct()
+    public Product? CreateProduct()
     {
+
         Console.Clear();
 
-        Console.WriteLine("Enter product name:");
-        var name = Console.ReadLine();
-
-        Console.WriteLine("Enter description:");
-        var description = Console.ReadLine();
-
-        Console.WriteLine("Choose category:");
-        var category = ChooseCategory();
-
-        Console.WriteLine("Enter price:");
-        decimal price;
-
-        while (!decimal.TryParse(Console.ReadLine(), out price) || price <= 0)
+        while (true)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Invalid price. Enter a valid number:");
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Press 'q' to exit");
             Console.ResetColor();
+
+            Console.WriteLine("Enter product name:");
+            var name = Console.ReadLine();
+            if (name.ToLower() == "q") return null;
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Press 'q' to exit");
+            Console.ResetColor();
+
+            Console.WriteLine("Enter description:");
+            var description = Console.ReadLine();
+            if (description.ToLower() == "q") return null;
+
+            // Console.WriteLine("Choose category:");
+            // while (true)
+            // {
+
+            var category = ChooseCategory();
+            // if (category == null)
+            // {
+            //     Console.WriteLine("Invalid input, try again");
+            // }
+            // else
+            // {
+            //     break;
+            // }
+            // }
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Press 'q' to exit");
+            Console.ResetColor();
+
+            Console.WriteLine("Enter price:");
+            decimal price;
+            while (true)
+            {
+                var input = Console.ReadLine();
+                if (input?.ToLower() == "q")
+                    return null;
+                if (decimal.TryParse(input, out price) && price > 0)
+                {
+                    break;
+                }
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Invalid price. Enter a valid number:");
+                Console.ResetColor();
+
+            }
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Press 'q' to exit");
+            Console.ResetColor();
+
+            Console.WriteLine("Enter rarity:");
+            var rarity = Console.ReadLine();
+            if (rarity.ToLower() == "q") return null;
+
+            while (true)
+            {
+                Console.WriteLine("Save this product? (y/n)");
+                var answer = Console.ReadLine().ToLower();
+
+                if (answer == "y")
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    string message = "Saving...";
+
+                    foreach (char c in message)
+                    {
+                        Console.Write(c);
+                        Thread.Sleep(100);
+                    }
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    break;
+                }
+
+                if (answer == "n")
+                {
+
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Product not saved.");
+                    Console.ResetColor();
+                    return null;
+                }
+
+                Console.WriteLine("Please enter y or n");
+            }
+
+
+            {
+
+
+                return new Product
+                {
+                    Name = name,
+                    Description = description!,
+                    Category = category!,
+                    Price = price,
+                    Rarity = rarity!
+                };
+            }
+
         }
 
-        Console.WriteLine("Enter rarity:");
-        var rarity = Console.ReadLine();
-
-        return new Product
-        {
-            Name = name,
-            Description = description!,
-            Category = category!,
-            Price = price,
-            Rarity = rarity!
-        };
     }
 
     public Product? EditProduct()
@@ -58,7 +140,7 @@ public class AdminManagerPres
         Console.WriteLine($"{"ID",-5} {"Name",-20} {"Category",-20} {"Price",10}");
         Console.WriteLine(new string('-', 60));
 
-        foreach (var p in products)
+        foreach (var p in products.OrderBy(p => p.Id))
         {
             Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Category,-20} {p.Price,10}€");
         }
@@ -131,18 +213,28 @@ public class AdminManagerPres
         }
 
         productService.UpdateProduct(product);
+        Console.ForegroundColor = ConsoleColor.Green;
+        string message = "Saving...";
 
+        foreach (char c in message)
+        {
+            Console.Write(c);
+            Thread.Sleep(100);
+        }
+        Console.WriteLine();
+        Console.ResetColor();
         Console.WriteLine("Product updated successfully!");
 
         return product;
     }
 
-
-    public static string ChooseCategory()
+    public static string? ChooseCategory()
     {
+        Console.WriteLine();
+
         string[] categories =
         {
-         "Electronics",
+        "Electronics",
         "Books",
         "Games",
         "Toys",
@@ -152,19 +244,36 @@ public class AdminManagerPres
         "Beauty",
         "Office",
         "Pet Supplies"
-        };
+    };
 
-        Console.WriteLine("Choose a category:");
-
-        for (int i = 0; i < categories.Length; i++)
+        while (true)
         {
-            Console.WriteLine($"{i + 1}. {categories[i]}");
+            Console.WriteLine("Choose a category:");
+
+            for (int i = 0; i < categories.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {categories[i]}");
+            }
+
+            var input = Console.ReadLine(); // string
+            int choice;                     // int
+
+            if (!int.TryParse(input, out choice)
+                || choice < 1
+                || choice > categories.Length)
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input, please try again");
+                Console.ResetColor();
+            }
+            else
+            {
+                return categories[choice - 1];
+            }
         }
-
-        int choice = int.Parse(Console.ReadLine());
-
-        return categories[choice - 1];
     }
+
 
 }
 
