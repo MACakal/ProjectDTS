@@ -146,4 +146,41 @@ public class BasketService
         var result = cmd.ExecuteScalar();
         return result != null;
     }
+
+    public List<string> GetPastOrderLinesLastMonth(int userId, out decimal total)
+    {
+        var lines = new List<string>();
+        total = 0;
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"
+            SELECT p.name, oi.quantity, p.price
+            FROM orders o
+            JOIN order_items oi ON o.id = oi.order_id
+            JOIN products p ON oi.product_id = p.id
+            WHERE o.user_id = @userId
+            AND o.purchased = true
+            AND o.created_at >= CURRENT_TIMESTAMP - INTERVAL '1 month';";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("userId", userId);
+
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            string name = reader.GetString(0);
+            int qty = reader.GetInt32(1);
+            decimal price = reader.GetDecimal(2);
+            decimal subtotal = qty * price;
+
+            total += subtotal;
+
+            lines.Add($"- {name,-20} | {qty}x | €{subtotal:N2}");
+        }
+
+        return lines;
+    }
 }
