@@ -72,6 +72,7 @@ public class BasketMenu
     public static void printBasket()
     {
         var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
+        Console.WriteLine("--- 🛒 Your Shopping Cart ---");
         for (int i = 0; i < items.Count; i++)
         {
             System.Console.WriteLine($"[{i + 1}] {items[i]}");
@@ -91,7 +92,6 @@ public class BasketMenu
 
         var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
 
-        Console.WriteLine("--- 🛒 Your Shopping Cart ---");
         if (items.Count == 0)
         {
             Console.WriteLine("Your cart is empty.");
@@ -164,6 +164,33 @@ public class BasketMenu
                         }
                         break;
                     case "2":
+                        System.Console.WriteLine("Which item would you like to change quantity of?");
+                        string optionItemModify = Console.ReadLine();
+                        if (int.TryParse(optionItemModify, out int optionItemModifyInt))
+                        {
+                            if ((optionItemModifyInt - 1) >= 0 && (optionItemModifyInt - 1) < items.Count)
+                            {
+                                System.Console.WriteLine("What would you like to change the quantity to?");
+                                if (int.TryParse(Console.ReadLine(), out int newQuantity))
+                                {
+                                    if (_basketService.ModifyQuantityBasket(UserSession.CurrentUser.Id, items[optionItemModifyInt-1].ProductId, newQuantity))
+                                    {
+                                        System.Console.WriteLine("Succesfully updated item press any key to continue.");
+                                        Console.ReadKey();
+                                    }
+                                    else
+                                    {
+                                        System.Console.WriteLine("Failed to updated item press any key to continue");
+                                        Console.ReadKey();
+                                    }                                    
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            System.Console.WriteLine("Incorrect input");
+                        }
                         break;
                     case "0":
                         break;

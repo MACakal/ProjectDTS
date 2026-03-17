@@ -11,6 +11,61 @@ public class BasketService
         _db = db;
     }
 
+    public bool ModifyQuantityBasket(int userId, int productId, int newQuantity)
+    {
+        if (newQuantity <= 0)
+            return false;
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string getOrderSql = @"
+            SELECT id 
+            FROM orders 
+            WHERE user_id = @userId AND purchased = false
+            LIMIT 1;";
+
+        int? orderId;
+        using (var cmdOrder = new NpgsqlCommand(getOrderSql, conn))
+        {
+            cmdOrder.Parameters.AddWithValue("userId", userId);
+            var result = cmdOrder.ExecuteScalar();
+            orderId = result == null ? null : (int?)result;
+        }
+
+        if (orderId == null)
+            return false;
+
+        string updateSql = @"
+            UPDATE order_items
+            SET quantity = @quantity
+            WHERE order_id = @orderId AND product_id = @productId;";
+
+        using var cmdUpdate2 = new NpgsqlCommand(updateSql, conn);
+        cmdUpdate2.Parameters.AddWithValue("orderId", orderId.Value);
+        cmdUpdate2.Parameters.AddWithValue("productId", productId);
+        cmdUpdate2.Parameters.AddWithValue("quantity", newQuantity);
+
+        int rowsAffected = cmdUpdate2.ExecuteNonQuery();
+        if (rowsAffected == 0)
+            return false;
+
+        string updateTotalSql = @"
+            UPDATE orders
+            SET total_price = COALESCE((
+                SELECT SUM(oi.quantity * p.price)
+                FROM order_items oi
+                JOIN products p ON oi.product_id = p.id
+                WHERE oi.order_id = @orderId
+            ), 0)
+            WHERE id = @orderId;";
+
+        using var cmdTotal = new NpgsqlCommand(updateTotalSql, conn);
+        cmdTotal.Parameters.AddWithValue("orderId", orderId.Value);
+        cmdTotal.ExecuteNonQuery();
+
+        return true;
+    }
     public bool RemoveFromBasket(int userId, int productId)
     {
         using var conn = _db.GetConnection();
