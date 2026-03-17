@@ -69,6 +69,18 @@ public class BasketMenu
         Console.WriteLine($"Added {quantity} x product {productId} to your basket.");
     }
 
+    public static void printBasket()
+    {
+        var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
+        Console.WriteLine("--- 🛒 Your Shopping Cart ---");
+        for (int i = 0; i < items.Count; i++)
+        {
+            System.Console.WriteLine($"[{i + 1}] {items[i]}");
+        }
+        Console.WriteLine("------------------------------");
+        Console.WriteLine($"Total Amount: €{totalPrice:N2}");
+    }
+
     public static void ShowBasket()
     {
         Console.Clear();
@@ -80,40 +92,115 @@ public class BasketMenu
 
         var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
 
-        Console.WriteLine("--- 🛒 Your Shopping Cart ---");
         if (items.Count == 0)
         {
             Console.WriteLine("Your cart is empty.");
         }
         else
         {
-            foreach (var line in items) Console.WriteLine(line);
-            Console.WriteLine("------------------------------");
-            Console.WriteLine($"Total Amount: €{totalPrice:N2}");
-
+            printBasket();
             Console.WriteLine("\n1. 💳 Pay Now (Checkout)");
+            System.Console.WriteLine("2. Modify basket");
         }
         Console.WriteLine("0. Back");
 
         var choice = Console.ReadLine();
-        if (choice == "1" && items.Count > 0)
+
+        switch(choice)
         {
-            Console.Write("Confirm payment? (y/n): ");
-            if (Console.ReadLine()?.ToLower() == "y")
-            {
-                if (_basketService.CheckoutWithTransaction(UserSession.CurrentUser.Id))
+            case "1":
+                if (items.Count > 0)
                 {
-                    Console.WriteLine("\n✅ Payment successful! Thank you for your purchase.");
-                    Console.WriteLine("press enter to return to the customer menu.");
+                    Console.Write("Confirm payment? (y/n): ");
+                    if (Console.ReadLine()?.ToLower() == "y")
+                    {
+                        if (_basketService.CheckoutWithTransaction(UserSession.CurrentUser.Id))
+                        {
+                            Console.WriteLine("\n✅ Payment successful! Thank you for your purchase.");
+                            Console.WriteLine("press enter to return to the customer menu.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n❌ Payment failed. Please try again.");
+                            Console.WriteLine("press enter to return to the customer menu.");
+                        }
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("\n❌ Payment failed. Please try again.");
-                    Console.WriteLine("press enter to return to the customer menu.");
-                }
-                Console.ReadKey();
                 Console.Clear();
-            }
+                break;
+            case "2":
+                Console.Clear();
+                printBasket();
+                System.Console.WriteLine("\n1. remove item");
+                System.Console.WriteLine("2. modify ammount of a item to purchase");
+                System.Console.WriteLine("0. return");
+                switch(Console.ReadLine())
+                {
+                    case "1":
+                        System.Console.WriteLine("Which item would you like to delete?");
+                        string optionItem = Console.ReadLine();
+                        if (int.TryParse(optionItem, out int optionItemInt))
+                        {
+                            if ((optionItemInt - 1) >= 0 && (optionItemInt - 1) < items.Count)
+                            {
+                            
+                                if (_basketService.RemoveFromBasket(UserSession.CurrentUser.Id, items[optionItemInt-1].ProductId))
+                                {
+                                    System.Console.WriteLine("Succesfully deleted item press any key to continue.");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("Failed to delete item press any key to continue");
+                                    Console.ReadKey();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            System.Console.WriteLine("Incorrect input");
+                        }
+                        break;
+                    case "2":
+                        System.Console.WriteLine("Which item would you like to change quantity of?");
+                        string optionItemModify = Console.ReadLine();
+                        if (int.TryParse(optionItemModify, out int optionItemModifyInt))
+                        {
+                            if ((optionItemModifyInt - 1) >= 0 && (optionItemModifyInt - 1) < items.Count)
+                            {
+                                System.Console.WriteLine("What would you like to change the quantity to?");
+                                if (int.TryParse(Console.ReadLine(), out int newQuantity))
+                                {
+                                    if (_basketService.ModifyQuantityBasket(UserSession.CurrentUser.Id, items[optionItemModifyInt-1].ProductId, newQuantity))
+                                    {
+                                        System.Console.WriteLine("Succesfully updated item press any key to continue.");
+                                        Console.ReadKey();
+                                    }
+                                    else
+                                    {
+                                        System.Console.WriteLine("Failed to updated item press any key to continue");
+                                        Console.ReadKey();
+                                    }                                    
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            System.Console.WriteLine("Incorrect input");
+                        }
+                        break;
+                    case "0":
+                        break;
+
+                }
+                Console.Clear();
+                break;
+            case "0":
+                Console.Clear();
+                break;
         }
     }
 

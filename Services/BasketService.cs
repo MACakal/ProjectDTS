@@ -11,6 +11,112 @@ public class BasketService
         _db = db;
     }
 
+    public bool ModifyQuantityBasket(int userId, int productId, int newQuantity)
+    {
+        if (newQuantity <= 0)
+            return false;
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string getOrderSql = @"
+            SELECT id 
+            FROM orders 
+            WHERE user_id = @userId AND purchased = false
+            LIMIT 1;";
+
+        int? orderId;
+        using (var cmdOrder = new NpgsqlCommand(getOrderSql, conn))
+        {
+            cmdOrder.Parameters.AddWithValue("userId", userId);
+            var result = cmdOrder.ExecuteScalar();
+            orderId = result == null ? null : (int?)result;
+        }
+
+        if (orderId == null)
+            return false;
+
+        string updateSql = @"
+            UPDATE order_items
+            SET quantity = @quantity
+            WHERE order_id = @orderId AND product_id = @productId;";
+
+        using var cmdUpdate2 = new NpgsqlCommand(updateSql, conn);
+        cmdUpdate2.Parameters.AddWithValue("orderId", orderId.Value);
+        cmdUpdate2.Parameters.AddWithValue("productId", productId);
+        cmdUpdate2.Parameters.AddWithValue("quantity", newQuantity);
+
+        int rowsAffected = cmdUpdate2.ExecuteNonQuery();
+        if (rowsAffected == 0)
+            return false;
+
+        string updateTotalSql = @"
+            UPDATE orders
+            SET total_price = COALESCE((
+                SELECT SUM(oi.quantity * p.price)
+                FROM order_items oi
+                JOIN products p ON oi.product_id = p.id
+                WHERE oi.order_id = @orderId
+            ), 0)
+            WHERE id = @orderId;";
+
+        using var cmdTotal = new NpgsqlCommand(updateTotalSql, conn);
+        cmdTotal.Parameters.AddWithValue("orderId", orderId.Value);
+        cmdTotal.ExecuteNonQuery();
+
+        return true;
+    }
+    public bool RemoveFromBasket(int userId, int productId)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string getOrderSql = @"
+            SELECT id 
+            FROM orders 
+            WHERE user_id = @userId AND purchased = false
+            LIMIT 1;";
+
+        int? orderId;
+        using (var cmdOrder = new NpgsqlCommand(getOrderSql, conn))
+        {
+            cmdOrder.Parameters.AddWithValue("userId", userId);
+            var result = cmdOrder.ExecuteScalar();
+            orderId = result == null ? null : (int?)result;
+        }
+
+        if (orderId == null)
+        {
+            return false;
+        }
+
+        string deleteSql = @"
+            DELETE FROM order_items
+            WHERE order_id = @orderId AND product_id = @productId;";
+        using var cmdDelete = new NpgsqlCommand(deleteSql, conn);
+        cmdDelete.Parameters.AddWithValue("orderId", orderId.Value);
+        cmdDelete.Parameters.AddWithValue("productId", productId);
+
+        // bereken nieuwe totaal, 0 als het de laatste item was
+        string updateTotalSql = @" 
+            UPDATE orders
+            SET total_price = COALESCE((
+                SELECT SUM(oi.quantity * p.price)
+                FROM order_items oi
+                JOIN products p ON oi.product_id = p.id
+                WHERE oi.order_id = @orderId
+            ), 0)
+            WHERE id = @orderId;";
+        using var cmdTotal = new NpgsqlCommand(updateTotalSql, conn);
+        cmdTotal.Parameters.AddWithValue("orderId", orderId.Value);
+        int rowsAffected = cmdDelete.ExecuteNonQuery();
+        if (rowsAffected == 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public void AddToBasket(int userId, int productId, int quantity)
     {
         using var conn = _db.GetConnection();
@@ -59,16 +165,16 @@ public class BasketService
         cmdUpdate.Parameters.AddWithValue("orderId", orderId);
         cmdUpdate.ExecuteNonQuery();
     }
-    public List<string> GetBasketLines(int userId, out decimal total)
+    public List<BasketItem> GetBasketLines(int userId, out decimal total)
     {
-        var lines = new List<string>();
+        var items = new List<BasketItem>();
         total = 0;
 
         using var conn = _db.GetConnection();
         conn.Open();
 
         string sql = @"
-            SELECT p.name, oi.quantity, p.price
+            SELECT p.id, p.name, oi.quantity, p.price
             FROM orders o
             JOIN order_items oi ON o.id = oi.order_id
             JOIN products p ON oi.product_id = p.id
@@ -76,19 +182,24 @@ public class BasketService
 
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("userId", userId);
+
         using var reader = cmd.ExecuteReader();
 
         while (reader.Read())
         {
-            string name = reader.GetString(0);
-            int qty = reader.GetInt32(1);
-            decimal price = reader.GetDecimal(2);
-            decimal subtotal = qty * price;
-            total += subtotal;
+            var item = new BasketItem
+            {
+                ProductId = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                Quantity = reader.GetInt32(2),
+                Price = reader.GetDecimal(3)
+            };
 
-            lines.Add($"- {name,-20} | {qty}x | €{subtotal:N2}");
+            total += item.Subtotal;
+            items.Add(item);
         }
-        return lines;
+
+        return items;
     }
     public bool CheckoutWithTransaction(int userId)
     {
@@ -145,5 +256,42 @@ public class BasketService
     
         var result = cmd.ExecuteScalar();
         return result != null;
+    }
+
+    public List<string> GetPastOrderLinesLastMonth(int userId, out decimal total)
+    {
+        var lines = new List<string>();
+        total = 0;
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"
+            SELECT p.name, oi.quantity, p.price
+            FROM orders o
+            JOIN order_items oi ON o.id = oi.order_id
+            JOIN products p ON oi.product_id = p.id
+            WHERE o.user_id = @userId
+            AND o.purchased = true
+            AND o.created_at >= CURRENT_TIMESTAMP - INTERVAL '1 month';";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("userId", userId);
+
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            string name = reader.GetString(0);
+            int qty = reader.GetInt32(1);
+            decimal price = reader.GetDecimal(2);
+            decimal subtotal = qty * price;
+
+            total += subtotal;
+
+            lines.Add($"- {name,-20} | {qty}x | €{subtotal:N2}");
+        }
+
+        return lines;
     }
 }
