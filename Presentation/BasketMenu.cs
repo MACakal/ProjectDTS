@@ -74,7 +74,7 @@ public class BasketMenu
         var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
         for (int i = 0; i < items.Count; i++)
         {
-            System.Console.WriteLine($"{i + 1} {items[i]}");
+            System.Console.WriteLine($"[{i + 1}] {items[i]}");
         }
         Console.WriteLine("------------------------------");
         Console.WriteLine($"Total Amount: €{totalPrice:N2}");
@@ -143,9 +143,19 @@ public class BasketMenu
                         string optionItem = Console.ReadLine();
                         if (int.TryParse(optionItem, out int optionItemInt))
                         {
-                            if (optionItemInt - 1 >= 0 && optionItemInt < items.Count)
+                            if ((optionItemInt - 1) >= 0 && (optionItemInt - 1) < items.Count)
                             {
-                                
+                            
+                                if (_basketService.RemoveFromBasket(UserSession.CurrentUser.Id, items[optionItemInt-1].ProductId))
+                                {
+                                    System.Console.WriteLine("Succesfully deleted item press any key to continue.");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("Failed to delete item press any key to continue");
+                                    Console.ReadKey();
+                                }
                             }
                         }
                         else

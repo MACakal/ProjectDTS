@@ -41,8 +41,6 @@ public class BasketService
         using var cmdDelete = new NpgsqlCommand(deleteSql, conn);
         cmdDelete.Parameters.AddWithValue("orderId", orderId.Value);
         cmdDelete.Parameters.AddWithValue("productId", productId);
-        cmdDelete.ExecuteNonQuery();
-
 
         // bereken nieuwe totaal, 0 als het de laatste item was
         string updateTotalSql = @" 
