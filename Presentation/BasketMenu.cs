@@ -72,7 +72,10 @@ public class BasketMenu
     public static void printBasket()
     {
         var items = _basketService.GetBasketLines(UserSession.CurrentUser.Id, out decimal totalPrice);
-        foreach (var line in items) Console.WriteLine(line);
+        for (int i = 0; i < items.Count; i++)
+        {
+            System.Console.WriteLine($"{i + 1} {items[i]}");
+        }
         Console.WriteLine("------------------------------");
         Console.WriteLine($"Total Amount: €{totalPrice:N2}");
     }
@@ -132,8 +135,34 @@ public class BasketMenu
                 printBasket();
                 System.Console.WriteLine("\n1. remove item");
                 System.Console.WriteLine("2. modify ammount of a item to purchase");
+                System.Console.WriteLine("0. return");
+                switch(Console.ReadLine())
+                {
+                    case "1":
+                        System.Console.WriteLine("Which item would you like to delete?");
+                        string optionItem = Console.ReadLine();
+                        if (int.TryParse(optionItem, out int optionItemInt))
+                        {
+                            if (optionItemInt - 1 >= 0 && optionItemInt < items.Count)
+                            {
+                                
+                            }
+                        }
+                        else
+                        {
+                            System.Console.WriteLine("Incorrect input");
+                        }
+                        break;
+                    case "2":
+                        break;
+                    case "0":
+                        break;
 
-                Console.ReadKey();
+                }
+                Console.Clear();
+                break;
+            case "0":
+                Console.Clear();
                 break;
         }
     }
