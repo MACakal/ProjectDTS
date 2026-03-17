@@ -1,8 +1,8 @@
-CREATE TABLE IF NOT EXISTS order_items;
-CREATE TABLE IF NOT EXISTS orders;
-CREATE TABLE IF NOT EXISTS products;
-CREATE TABLE IF NOT EXISTS users;
-CREATE TABLE users (
+-- CREATE TABLE IF NOT EXISTS order_items;
+-- CREATE TABLE IF NOT EXISTS orders;
+-- CREATE TABLE IF NOT EXISTS products;
+-- CREATE TABLE IF NOT EXISTS users;
+CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE users (
     role VARCHAR(20) NOT NULL DEFAULT 'Customer',
     CHECK (role IN ('Customer', 'Admin'))
 );
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -21,14 +21,14 @@ CREATE TABLE products (
     price NUMERIC(10, 2) NOT NULL CHECK (price > 0),
     rarity VARCHAR(50)
 );
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     purchased BOOLEAN DEFAULT FALSE,
     total_price NUMERIC(10, 2) DEFAULT 0.00
 );
-CREATE TABLE order_items (
+CREATE TABLE IF NOT EXISTS order_items (
     id SERIAL PRIMARY KEY,
     product_id INT NOT NULL REFERENCES products(id),
     order_id INT NOT NULL REFERENCES orders(id),
