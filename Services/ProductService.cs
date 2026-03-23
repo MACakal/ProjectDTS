@@ -203,4 +203,44 @@ public class ProductService
         return null;
     }
 
+    public List<Product> GetTop3ChetProducts()
+    {
+        var products = new List<Product>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT id, name, description, category, price, rarity FROM top3_cheapest";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            products.Add(MapProduct(reader));
+        }
+
+        return products;
+    }
+
+    public List<Product> GetTop3ExpProducts()
+    {
+        var products = new List<Product>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT id, name, description, category, price, rarity FROM top3_expensive";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            products.Add(MapProduct(reader));
+        }
+
+        return products;
+    }
+
 }
