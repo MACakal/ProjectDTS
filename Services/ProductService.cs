@@ -90,6 +90,30 @@ public class ProductService
         }
         return products;
     }
+
+    public List<Product> GetProductsSortedByPopularity(bool ascending)
+    {
+        var products = new List<Product>();
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+
+        string direction = ascending ? "ASC" : "DESC";
+        string sql = $@"SELECT id, name, description, category, price, rarity 
+                        FROM products 
+                        ORDER BY purchase_count {direction}";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+
+            products.Add(MapProduct(reader));
+        }
+        return products;
+    }
+
     public List<Product> SearchProductsByName(string searchTerm)
     {
         var products = new List<Product>();

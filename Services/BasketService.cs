@@ -122,7 +122,6 @@ public class BasketService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        // 1. Zorg dat (user_id) expliciet tussen haakjes staat voor de match met de index
         string getOrderSql = @"
             INSERT INTO orders (user_id, purchased, total_price)
             VALUES (@userId, false, 0)
@@ -134,11 +133,9 @@ public class BasketService
         using (var cmdOrder = new NpgsqlCommand(getOrderSql, conn))
         {
             cmdOrder.Parameters.AddWithValue("userId", userId);
-            // ExecuteScalar haalt de 'RETURNING id' op
             orderId = (int)cmdOrder.ExecuteScalar();
         }
 
-        // 2. Deze query zou nu moeten werken omdat de constraint 'unique_order_product' bestaat
         string sqlItem = @"
             INSERT INTO order_items (order_id, product_id, quantity) 
             VALUES (@orderId, @productId, @quantity)
