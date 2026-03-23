@@ -102,6 +102,18 @@ AFTER UPDATE ON orders
 FOR EACH ROW
 EXECUTE FUNCTION update_purchase_count();
 
+CREATE VIEW top3_cheapest AS
+SELECT id, name, description, category, price, rarity
+FROM products
+ORDER BY price ASC
+LIMIT 3;
+
+CREATE VIEW top3_expensive AS
+SELECT id, name, description, category, price, rarity
+FROM products
+ORDER BY price DESC
+LIMIT 3;
+
 -- 1
 
 

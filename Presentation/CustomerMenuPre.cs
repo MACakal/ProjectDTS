@@ -25,7 +25,8 @@ public class CustomerMenuPre
             Console.WriteLine("2. Make an Order");
             Console.WriteLine("3. View past Orders");
             Console.WriteLine("4. Filter Products");
-            System.Console.WriteLine("5. View account information");
+            Console.WriteLine("5. View products ranking");
+            System.Console.WriteLine("6. View account information");
             Console.WriteLine("0. Exit");
 
             var choice = Console.ReadLine();
@@ -74,6 +75,14 @@ public class CustomerMenuPre
                 Console.ReadLine();
             }
             if (choice == "5")
+            {
+                Console.Clear();
+                ProductsRanking.Start();
+
+                Console.WriteLine("\nPress any key to return to the customer menu.");
+                Console.ReadLine();
+            }
+            if (choice == "6")
             {
                 _AccountPre.AccountInformation(user);
             }
