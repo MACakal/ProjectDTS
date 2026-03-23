@@ -79,3 +79,5 @@ CREATE TRIGGER trigger_update_purchase_count
 AFTER UPDATE ON orders
 FOR EACH ROW
 EXECUTE FUNCTION update_purchase_count();
+
+-- 1
