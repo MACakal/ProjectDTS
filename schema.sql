@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS users(
     CHECK (role IN ('Customer', 'Admin'))
 );
 
+
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -25,6 +26,27 @@ CREATE TABLE IF NOT EXISTS products (
     view_count INT DEFAULT 0,
     purchase_count INT DEFAULT 0
 );
+
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS name VARCHAR(255) NOT NULL;
+
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS description TEXT;
+
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS category VARCHAR(100);
+
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS price NUMERIC(10, 2) NOT NULL CHECK (price > 0);
+
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS rarity VARCHAR(50);
+
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS view_count INT DEFAULT 0;
+
+ALTER TABLE products
+ADD COLUMN IF NOT EXISTS purchase_count INT DEFAULT 0;
 
 CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY KEY,
@@ -81,3 +103,5 @@ FOR EACH ROW
 EXECUTE FUNCTION update_purchase_count();
 
 -- 1
+
+
