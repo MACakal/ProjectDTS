@@ -114,6 +114,12 @@ FROM products
 ORDER BY price DESC
 LIMIT 3;
 
+CREATE VIEW most_popular_categories AS
+SELECT category, SUM(purchase_count) AS total_purchases
+FROM products
+GROUP BY category
+ORDER BY total_purchases DESC;
+
 -- 1
 
 
