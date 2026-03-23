@@ -151,7 +151,7 @@ public class ProductService
 
         cmd.ExecuteNonQuery();
     }
-    public Product GetById(int id)
+    public Product? GetById(int id)
     {
         using var conn = _db.GetConnection();
         conn.Open();
@@ -176,7 +176,7 @@ public class ProductService
             };
         }
 
-        throw new Exception("Product not found");
+        return null;
     }
 
 }

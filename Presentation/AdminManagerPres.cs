@@ -146,9 +146,35 @@ public class AdminManagerPres
         }
 
         Console.WriteLine("\nEnter product id:");
-        int id = int.Parse(Console.ReadLine());
+        Product? product = null;
 
-        Product product = productService.GetById(id);
+        while (product == null)
+        {
+            Console.WriteLine("Enter product id:");
+
+            var input = Console.ReadLine();
+
+            if (!int.TryParse(input, out int id))
+            {
+                Console.WriteLine("Invalid number, try again.");
+                continue;
+            }
+
+            product = productService.GetById(id);
+
+            if (product == null)
+            {
+                Console.WriteLine("Product not found, try again.");
+            }
+        }
+        // int id = int.Parse(Console.ReadLine());
+
+        // Product product = productService.GetById(id);
+        // if (product is null)
+        // {
+        //     Console.WriteLine("Try a valid Id");
+
+        // }
 
         bool editing = true;
 
