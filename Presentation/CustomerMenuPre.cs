@@ -64,6 +64,8 @@ public class CustomerMenuPre
                 else
                 {
                     PastOrders.ShowPastOrders();
+                    Console.WriteLine("\nPress any key to return to the customer menu.");
+                    Console.ReadLine();
                 }
             }
              if (choice == "4")

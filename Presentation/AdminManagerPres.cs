@@ -315,7 +315,10 @@ public class AdminManagerPres
         Console.WriteLine();
 
         // Header
+        Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine($"{"Rank",-6} {"Category",-20} {"Purchases",10}");
+        Console.ResetColor();
+
         Console.WriteLine(new string('-', 40));
 
         int rank = 1;
@@ -327,8 +330,17 @@ public class AdminManagerPres
         }
 
         Console.WriteLine();
-        Console.WriteLine("Press enter to continue...");
-        Console.ReadLine();
+        Console.WriteLine(new string('-', 40));
+        Console.WriteLine("Options:");
+        Console.WriteLine("[1] View as diagram (WIP, Not Finished)");
+        Console.WriteLine("[0] Back");
+
+        string input = Console.ReadLine();
+
+        if (input == "1")
+        {
+            // Diagram moet nog toegevoegd worden
+        }
     }
 
 

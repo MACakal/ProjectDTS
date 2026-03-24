@@ -23,7 +23,16 @@ public class PastOrders
             Console.WriteLine(item);
         }
 
-        Console.WriteLine("\nPress any key to return...");
-        Console.ReadLine();
+        Console.WriteLine("Options:");
+        Console.WriteLine("[1] View as a staff diagram (WIP, Not Finished)");
+        Console.WriteLine("[0] Back");
+
+        string input = Console.ReadLine();
+
+        if (input == "1")
+        {
+            // Diagram moet nog toegevoegd worden
+        }
+
     }
 }
