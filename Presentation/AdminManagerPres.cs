@@ -2,6 +2,8 @@ namespace ProjectDTS;
 
 public class AdminManagerPres
 {
+
+    private static ProductService _service = new ProductService(new DatabaseService());
     public Product? CreateProduct()
     {
 
@@ -298,6 +300,35 @@ public class AdminManagerPres
                 return categories[choice - 1];
             }
         }
+    }
+
+    public void MostPopularCategories()
+    {
+        Console.Clear();
+
+        var cats = _service.GetPopularCategories();
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== MOST POPULAR CATEGORIES ===");
+        Console.ResetColor();
+
+        Console.WriteLine();
+
+        // Header
+        Console.WriteLine($"{"Rank",-6} {"Category",-20} {"Purchases",10}");
+        Console.WriteLine(new string('-', 40));
+
+        int rank = 1;
+
+        foreach (var c in cats)
+        {
+            Console.WriteLine($"{rank,-6} {c.Category,-20} {c.TotalPurchases,10}");
+            rank++;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Press enter to continue...");
+        Console.ReadLine();
     }
 
 

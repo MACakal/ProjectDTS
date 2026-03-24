@@ -243,4 +243,27 @@ public class ProductService
         return products;
     }
 
+    public List<(string Category, int TotalPurchases)> GetPopularCategories()
+    {
+        var categories = new List<(string, int)>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT category, total_purchases FROM most_popular_categories";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            categories.Add((
+                reader.IsDBNull(0) ? "" : reader.GetString(0),
+                reader.GetInt32(1)
+            ));
+        }
+
+        return categories;
+    }
+
 }
