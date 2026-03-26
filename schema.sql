@@ -35,7 +35,12 @@ CREATE TABLE IF NOT EXISTS order_items (
     quantity INT NOT NULL CHECK (quantity > 0)
 );
 INSERT INTO users (name, email, password, role)
-VALUES ('admin', 'admin', '1234', 'Admin') ON CONFLICT (email) DO NOTHING;
+VALUES (
+        'admin',
+        'admin',
+        pgp_sym_encrypt('1234', 'admin_key'),
+        'Admin'
+    ) ON CONFLICT (email) DO NOTHING;
 -- Fix voor de 'orders' tabel conflict
 CREATE UNIQUE INDEX IF NOT EXISTS idx_one_active_basket_per_user ON orders (user_id)
 WHERE (purchased = false);

@@ -145,7 +145,7 @@ public class AdminManagerPres
             Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Category,-20} {p.Price,10}€");
         }
 
-        Console.WriteLine("\nEnter product id:");
+
         Product? product = null;
 
         while (product == null)
