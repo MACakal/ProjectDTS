@@ -15,7 +15,7 @@ public class UserService
         conn.Open();
         string sql = @"SELECT id, name, email, password, role
             FROM users
-            WHERE email=@email AND password = @password";
+            WHERE email=@email AND pgp_sym_decrypt(password, 'admin_key')= @password";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("email", email);
@@ -49,7 +49,7 @@ public class UserService
         conn.Open();
 
         sql = @"SELECT COUNT(*) FROM users WHERE email=@email";
-        using var cmd1 = new NpgsqlCommand(sql,conn);
+        using var cmd1 = new NpgsqlCommand(sql, conn);
         cmd1.Parameters.AddWithValue("email", email);
         rowsAffected = Convert.ToInt32(cmd1.ExecuteScalar());
 
@@ -58,7 +58,7 @@ public class UserService
             return UserRegisterService.alreadyExists;
         }
 
-        sql = @"INSERT INTO users (name, email, password) VALUES (@name, @email, @password)";
+        sql = @"INSERT INTO users (name, email, password) VALUES (@name, @email, pgp_sym_encrypt(@password, 'admin_key'))";
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("name", name);
         cmd.Parameters.AddWithValue("email", email);
@@ -83,7 +83,7 @@ public class UserService
         }
         using var conn = _db.GetConnection();
         conn.Open();
-        string sql = @"SELECT * FROM users WHERE email=@email AND password=@password";
+        string sql = @"SELECT * FROM users WHERE email=@email AND pgp_sym_decrypt(password, 'admin_key') = @password";
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("email", user.Email);
         cmd.Parameters.AddWithValue("password", password);
