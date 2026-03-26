@@ -90,6 +90,30 @@ public class ProductService
         }
         return products;
     }
+
+    public List<Product> GetProductsSortedByPopularity(bool ascending)
+    {
+        var products = new List<Product>();
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+
+        string direction = ascending ? "ASC" : "DESC";
+        string sql = $@"SELECT id, name, description, category, price, rarity 
+                        FROM products 
+                        ORDER BY purchase_count {direction}";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+
+            products.Add(MapProduct(reader));
+        }
+        return products;
+    }
+
     public List<Product> SearchProductsByName(string searchTerm)
     {
         var products = new List<Product>();
@@ -177,6 +201,69 @@ public class ProductService
         }
 
         return null;
+    }
+
+    public List<Product> GetTop3ChetProducts()
+    {
+        var products = new List<Product>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT id, name, description, category, price, rarity FROM top3_cheapest";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            products.Add(MapProduct(reader));
+        }
+
+        return products;
+    }
+
+    public List<Product> GetTop3ExpProducts()
+    {
+        var products = new List<Product>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT id, name, description, category, price, rarity FROM top3_expensive";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            products.Add(MapProduct(reader));
+        }
+
+        return products;
+    }
+
+    public List<(string Category, int TotalPurchases)> GetPopularCategories()
+    {
+        var categories = new List<(string, int)>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT category, total_purchases FROM most_popular_categories";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            categories.Add((
+                reader.IsDBNull(0) ? "" : reader.GetString(0),
+                reader.GetInt32(1)
+            ));
+        }
+
+        return categories;
     }
 
 }

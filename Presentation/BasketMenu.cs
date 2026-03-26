@@ -8,11 +8,15 @@ public class BasketMenu
     private static ProductService _productService = new ProductService(new DatabaseService());
     private static FilterMenu _filterMenu = new FilterMenu(_productService);
     private static BasketService _basketService = new BasketService(new DatabaseService());
-    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService)
+
+    private static SortingMenu _sortingMenu = new SortingMenu(_productService, new ViewProductPres(_productService, _filterMenu));
+
+    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, SortingMenu sortingmenu)
     {
         _productService = productService;
         _filterMenu = filterMenu;
         _basketService = basketService;
+        _sortingMenu = sortingmenu;
     }
     public static void WhatToDo()
     {
@@ -22,6 +26,7 @@ public class BasketMenu
             Console.WriteLine("1. Add product to basket");
             Console.WriteLine("2. Filter products");
             Console.WriteLine("3. View Basket");
+            Console.WriteLine("4. Sort");
             Console.WriteLine("0. Back");
 
             var choice = Console.ReadLine();
@@ -38,6 +43,10 @@ public class BasketMenu
                 case "3":
                     Console.Clear();
                     ShowBasket();
+                    break;
+                case "4":
+                    Console.Clear();
+                    _sortingMenu.Show();
                     break;
                 case "0":
                     Console.Clear();

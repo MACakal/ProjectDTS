@@ -48,12 +48,12 @@ public class UserService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        sql = @"SELECT * FROM users WHERE email=@email";
+        sql = @"SELECT COUNT(*) FROM users WHERE email=@email";
         using var cmd1 = new NpgsqlCommand(sql, conn);
         cmd1.Parameters.AddWithValue("email", email);
-        rowsAffected = (int)cmd1.ExecuteScalar();
+        rowsAffected = Convert.ToInt32(cmd1.ExecuteScalar());
 
-        if (rowsAffected > 1)
+        if (rowsAffected > 0)
         {
             return UserRegisterService.alreadyExists;
         }

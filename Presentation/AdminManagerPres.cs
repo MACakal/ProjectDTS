@@ -2,6 +2,8 @@ namespace ProjectDTS;
 
 public class AdminManagerPres
 {
+
+    private static ProductService _service = new ProductService(new DatabaseService());
     public Product? CreateProduct()
     {
 
@@ -297,6 +299,47 @@ public class AdminManagerPres
             {
                 return categories[choice - 1];
             }
+        }
+    }
+
+    public void MostPopularCategories()
+    {
+        Console.Clear();
+
+        var cats = _service.GetPopularCategories();
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== MOST POPULAR CATEGORIES ===");
+        Console.ResetColor();
+
+        Console.WriteLine();
+
+        // Header
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"{"Rank",-6} {"Category",-20} {"Purchases",10}");
+        Console.ResetColor();
+
+        Console.WriteLine(new string('-', 40));
+
+        int rank = 1;
+
+        foreach (var c in cats)
+        {
+            Console.WriteLine($"{rank,-6} {c.Category,-20} {c.TotalPurchases,10}");
+            rank++;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine(new string('-', 40));
+        Console.WriteLine("Options:");
+        Console.WriteLine("[1] View as diagram (WIP, Not Finished)");
+        Console.WriteLine("[0] Back");
+
+        string input = Console.ReadLine();
+
+        if (input == "1")
+        {
+            // Diagram moet nog toegevoegd worden
         }
     }
 
