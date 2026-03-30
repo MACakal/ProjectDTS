@@ -104,8 +104,13 @@ public class UserService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        string sql = @"SELECT * FROM user_spending";
+        string sql = @"
+        SELECT id, name, COALESCE (SUM(total_price), 0) AS total_spending
+        FROM user_spending
+        GROUP BY id, name
+        ORDER BY total_spending DESC";
 
+        // WHERE order_date IS NOT NULL AND DATE_TRUNC('month', order_date) = DATE_TRUNC('month', CURRENT_DATE)
         using var cmd = new NpgsqlCommand(sql, conn);
         using var reader = cmd.ExecuteReader();
 
