@@ -106,13 +106,13 @@ SELECT category,
 FROM products
 GROUP BY category
 ORDER BY total_purchases DESC;
-CREATE VIEW user_spending AS
+CREATE OR REPLACE VIEW user_spending AS
 SELECT u.id,
     u.name,
-    COALESCE(SUM(o.total_price), 0) AS total_spending
+    o.total_price,
+    o.created_at
 FROM users u
     LEFT JOIN orders o ON u.id = o.user_id
     AND o.purchased = true
-GROUP BY u.id,
-    u.name;
+WHERE u.role != 'Admin';
 -- 1
