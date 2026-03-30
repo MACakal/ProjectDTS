@@ -7,58 +7,17 @@ public class AdminMenuPres
     private ProductService _productService;
     private AdminManagerPres _adminManagerPres;
     private ViewProductPres _viewProductPres;
-    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres)
+
+    private UserService _userService;
+    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres, UserService userService)
     {
         _productService = productService;
-        _adminManagerPres = new AdminManagerPres();
+        _userService = userService;
+        _adminManagerPres = new AdminManagerPres(_userService);
         _viewProductPres = viewProductPres;
     }
 
-    // public void ShowAdminMenu()
-    // {
-    //     Console.Clear();
-    //     while (true)
-    //     {
 
-    //         Console.WriteLine("\nAdmin Menu");
-    //         Console.WriteLine("1. View Products");
-    //         Console.WriteLine("2. Add Product");
-    //         Console.WriteLine("0. Exit");
-
-    //         var choice = Console.ReadLine();
-
-    //         if (choice == "0")
-    //         {
-
-    //             Console.Clear();
-    //             break;
-    //         }
-
-    //         if (choice == "1")
-    //         {
-    //             Console.Clear();
-    //             _viewProductPres.Viewproducts();
-    //         }
-
-    //         if (choice == "2")
-    //         {
-    //             Console.WriteLine("Add product...");
-    //             var product = _adminManagerPres.CreateProduct();
-    //             _productService.AddProduct(product);
-
-    //             Console.ForegroundColor = ConsoleColor.Cyan;
-    //             Console.WriteLine("Product added successfully.");
-
-    //             Console.ForegroundColor = ConsoleColor.Blue;
-    //             Console.WriteLine("Please enter any key...");
-    //             Console.ResetColor();
-    //             Console.ReadKey();
-    //             Console.Clear();
-
-
-    //         }
-    //     }
-    // }
     public void ShowAdminMenu()
     {
         while (true)
@@ -68,15 +27,9 @@ public class AdminMenuPres
             Console.WriteLine("2. Add Product");
             Console.WriteLine("3. Edit Product");
             Console.WriteLine("4. Analytics");
+            Console.WriteLine("5. User Spending");
             Console.WriteLine("0. Back");
-            //     string[] options =
-            //     {
-            //     "View Products",
-            //     "Add Product",
-            //     "Back"
-            // };
 
-            // int choice = Menu.ShowMenu("Admin Menu", options);
             string choice = Console.ReadLine();
 
             switch (choice)
@@ -112,7 +65,12 @@ public class AdminMenuPres
                     _adminManagerPres.MostPopularCategories();
                     Console.Clear();
                     break;
-
+                case "5":
+                    Console.Clear();
+                    _adminManagerPres.ShowUserSpending();
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
 
                 case "0":
                     Console.Clear();

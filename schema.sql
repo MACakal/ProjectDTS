@@ -37,6 +37,7 @@ ALTER TABLE products
 ADD COLUMN IF NOT EXISTS view_count INT DEFAULT 0;
 ALTER TABLE products
 ADD COLUMN IF NOT EXISTS purchase_count INT DEFAULT 0;
+---
 CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(id),
@@ -44,11 +45,12 @@ CREATE TABLE IF NOT EXISTS orders (
     purchased BOOLEAN DEFAULT FALSE,
     total_price NUMERIC(10, 2) DEFAULT 0.00
 );
+--
 CREATE TABLE IF NOT EXISTS order_items (
-    id SERIAL PRIMARY KEY,
-    product_id INT NOT NULL REFERENCES products(id),
-    order_id INT NOT NULL REFERENCES orders(id),
-    quantity INT NOT NULL CHECK (quantity > 0)
+id SERIAL PRIMARY KEY,
+product_id INT NOT NULL REFERENCES products(id),
+order_id INT NOT NULL REFERENCES orders(id),
+quantity INT NOT NULL CHECK (quantity > 0)
 );
 INSERT INTO users (name, email, password, role)
 VALUES (
@@ -104,4 +106,13 @@ SELECT category,
 FROM products
 GROUP BY category
 ORDER BY total_purchases DESC;
+CREATE VIEW user_spending AS
+SELECT u.id,
+    u.name,
+    COALESCE(SUM(o.total_price), 0) AS total_spending
+FROM users u
+    LEFT JOIN orders o ON u.id = o.user_id
+    AND o.purchased = true
+GROUP BY u.id,
+    u.name;
 -- 1

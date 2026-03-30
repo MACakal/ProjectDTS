@@ -15,7 +15,7 @@ public class UserService
         conn.Open();
         string sql = @"SELECT id, name, email, password, role
             FROM users
-            WHERE email=@email AND pgp_sym_decrypt(password, 'admin_key')= @password";
+            WHERE email=@email AND pgp_sym_decrypt(password::bytea, 'admin_key')= @password";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("email", email);
@@ -83,7 +83,7 @@ public class UserService
         }
         using var conn = _db.GetConnection();
         conn.Open();
-        string sql = @"SELECT * FROM users WHERE email=@email AND pgp_sym_decrypt(password, 'admin_key') = @password";
+        string sql = @"SELECT * FROM users WHERE email=@email AND pgp_sym_decrypt(password::bytea, 'admin_key') = @password";
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("email", user.Email);
         cmd.Parameters.AddWithValue("password", password);
@@ -98,8 +98,32 @@ public class UserService
             return UserRegisterService.UnkownError;
         }
     }
+    public List<UserSpendingView> GetUserSpending()
+    {
+        var result = new List<UserSpendingView>();
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT * FROM user_spending";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            result.Add(new UserSpendingView
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                TotalSpending = reader.GetDecimal(2)
+            }
+            );
+        }
+        return result;
+    }
 
 }
+
 
 public enum UserRegisterService
 {

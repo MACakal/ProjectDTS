@@ -2,8 +2,13 @@ namespace ProjectDTS;
 
 public class AdminManagerPres
 {
-
+    private UserService _userService;
     private static ProductService _service = new ProductService(new DatabaseService());
+
+    public AdminManagerPres(UserService userService)
+    {
+        _userService = userService;
+    }
     public Product? CreateProduct()
     {
 
@@ -343,6 +348,36 @@ public class AdminManagerPres
         }
     }
 
+
+
+    public void ShowUserSpending()
+    {
+        var users = _userService.GetUserSpending();
+        if (users.Count == 0)
+        {
+            Console.WriteLine("No users found.");
+            return;
+        }
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("ID   | Name           | Total Spending");
+        Console.ResetColor();
+
+        Console.WriteLine("----------------------------------------");
+
+        foreach (var user in users)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{user.Id,-4} | ");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"{user.Name,-14} | ");
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"{user.TotalSpending,10}");
+
+            Console.ResetColor();
+        }
+    }
 
 }
 
