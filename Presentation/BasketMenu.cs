@@ -6,10 +6,10 @@ public class BasketMenu
 {
 
     private static ProductService _productService = new ProductService(new DatabaseService());
-    private static FilterMenu _filterMenu = new FilterMenu(_productService);
+    private static FilterMenu _filterMenu = new FilterMenu(_productService, new ViewProductPres(_productService));
     private static BasketService _basketService = new BasketService(new DatabaseService());
 
-    private static SortingMenu _sortingMenu = new SortingMenu(_productService, new ViewProductPres(_productService, _filterMenu));
+    private static SortingMenu _sortingMenu = new SortingMenu(_productService, new ViewProductPres(_productService));
 
     public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, SortingMenu sortingmenu)
     {

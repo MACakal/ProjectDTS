@@ -2,13 +2,11 @@ namespace ProjectDTS;
 
 public class ViewProductPres
 {
-    private FilterMenu _filterMenu;
     private ProductService _productService;
 
-    public ViewProductPres(ProductService productService, FilterMenu filterMenu)
+    public ViewProductPres(ProductService productService)
     {
         _productService = productService;
-        _filterMenu = filterMenu;
     }
     public void Viewproducts()
     {
@@ -37,12 +35,12 @@ public class ViewProductPres
         }
     }
 
-    public void Viewproducts(List<Product> items)
+    public void Viewproducts(IEnumerable<Product> items)
     {
 
         Console.Clear();
         Console.WriteLine("\n---- Product List ----");
-        if (items.Count == 0)
+        if (!items.Any())
         {
             Console.Clear();
             Console.WriteLine("There are no products to show.");

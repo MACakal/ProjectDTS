@@ -5,12 +5,13 @@ namespace ProjectDTS;
 public class FilterMenu
 {
     private readonly ProductService _productService;
+    private readonly ViewProductPres _viewProductPres;
 
 
-    public FilterMenu(ProductService productService)
+    public FilterMenu(ProductService productService, ViewProductPres viewProductPres)
     {
         _productService = productService;
-
+        _viewProductPres = viewProductPres;
     }
 
 
@@ -18,10 +19,11 @@ public class FilterMenu
     {
         while (true)
         {
-            Console.WriteLine("1. Category");
-            Console.WriteLine("2. Price");
-            Console.WriteLine("3. Search by Name");
-            Console.WriteLine("0. Back");
+            System.Console.WriteLine("1. Category");
+            System.Console.WriteLine("2. Price");
+            System.Console.WriteLine("3. Price range");
+            System.Console.WriteLine("4. Search by Name");
+            System.Console.WriteLine("0. Back");
 
             string choice = Console.ReadLine();
 
@@ -42,6 +44,12 @@ public class FilterMenu
                         break;
                     }
                 case "3":
+                    {
+                        Console.Clear();
+                        PriceRangeFilter();
+                        break;
+                    }
+                case "4":
                     {
                         Console.Clear();
                         PrintAll();
@@ -76,6 +84,28 @@ public class FilterMenu
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadLine();
         Console.Clear();
+    }
+
+    public void PriceRangeFilter()
+    {
+        decimal min = ReadDecimal("Minimum?", x => true, "Invalid number.");
+        decimal max = ReadDecimal("Maximum?", x => x >= min, "Max must be greater than min.");
+        var products = _productService.GetProductsByRange(min, max);
+        _viewProductPres.Viewproducts(products);
+    }
+
+    public decimal ReadDecimal(string message, Func<decimal, bool> validator, string errorMessage)
+    {
+        decimal value;
+
+        while (true)
+        {
+            Console.WriteLine(message);
+            if (decimal.TryParse(Console.ReadLine(), out value) && validator(value))
+                return value;
+
+            Console.WriteLine(errorMessage);
+        }
     }
 
     public void PriceFilter()

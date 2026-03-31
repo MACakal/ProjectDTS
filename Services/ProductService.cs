@@ -28,6 +28,35 @@ public class ProductService
         }
         return products;
     }
+    
+
+    public Product[] GetProductsByRange(decimal min, decimal max)
+    {
+        if (min > max)
+            throw new ArgumentException("Minimum price cannot be greater than maximum price.");
+
+        var products = new List<Product>();
+
+        using var connection = _db.GetConnection();
+        connection.Open();
+
+        const string sql = @"
+            SELECT id, name, description, category, price, rarity, view_count, purchase_count
+            FROM products
+            WHERE price BETWEEN @min AND @max
+            ORDER BY price ASC;";
+
+        using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.AddWithValue("min", NpgsqlTypes.NpgsqlDbType.Numeric, min);
+        command.Parameters.AddWithValue("max", NpgsqlTypes.NpgsqlDbType.Numeric, max);
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            products.Add(MapProduct(reader));
+        }
+        return products.ToArray();
+    }
 
     public List<Product> GetProductsByCategory(string categoryName)
     {

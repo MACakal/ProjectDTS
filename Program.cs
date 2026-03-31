@@ -6,25 +6,19 @@ public class Program
     {
         var databaseService = new DatabaseService();
         var productService = new ProductService(databaseService);
-        FilterMenu filterMenu1 = new FilterMenu(productService);
 
-        var viewProduct = new ViewProductPres(productService, filterMenu1);
-        var filterMenu = new FilterMenu(productService);
+        var viewProduct = new ViewProductPres(productService);
+
+        var filterMenu = new FilterMenu(productService, viewProduct);
 
         var userService = new UserService(databaseService);
         var basketService = new BasketService(databaseService);
-        // var productMenu = new ProductMenuPres(viewProduct, filterMenu);
         var accountPresentation = new AccountPre(userService);
 
         var customerMenu = new CustomerMenuPre(viewProduct, filterMenu, accountPresentation);
-        AdminMenuPres adminMenuPres = new AdminMenuPres(productService, viewProduct, userService);
+        var adminMenuPres = new AdminMenuPres(productService, viewProduct, userService);
 
-
-        MainMenuPre mainMenuPre = new MainMenuPre(customerMenu,
-         adminMenuPres,
-          userService,
-           viewProduct
-           );
+        var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         mainMenuPre.Show();
     }
 }
