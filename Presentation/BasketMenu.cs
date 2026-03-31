@@ -22,29 +22,34 @@ public class BasketMenu
     {
         while (true) // Zorgt dat je in dit menu blijft tot je '0' kiest
         {
-            Console.WriteLine("\nWhat do you want to do?");
-            Console.WriteLine("1. Add product to basket");
-            Console.WriteLine("2. Filter products");
-            Console.WriteLine("3. View Basket");
-            Console.WriteLine("4. Sort");
-            Console.WriteLine("0. Back");
+            System.Console.WriteLine("\nWhat do you want to do?");
+            System.Console.WriteLine("1. View product");
+            System.Console.WriteLine("2. Add product to basket");
+            System.Console.WriteLine("3. Filter products");
+            System.Console.WriteLine("4. View Basket");
+            System.Console.WriteLine("5. Sort");
+            System.Console.WriteLine("0. Back");
 
             var choice = Console.ReadLine();
             switch (choice)
             {
                 case "1":
                     Console.Clear();
-                    AddToBasketPrint();
+                    ViewItem();
                     break;
                 case "2":
                     Console.Clear();
-                    _filterMenu.Show();
+                    AddToBasketPrint();
                     break;
                 case "3":
                     Console.Clear();
-                    ShowBasket();
+                    _filterMenu.Show();
                     break;
                 case "4":
+                    Console.Clear();
+                    ShowBasket();
+                    break;
+                case "5":
                     Console.Clear();
                     _sortingMenu.Show();
                     break;
@@ -76,6 +81,48 @@ public class BasketMenu
         //AddToBasket();
         _basketService.AddToBasket(UserSession.CurrentUser.Id, productId, quantity);
         Console.WriteLine($"Added {quantity} x product {productId} to your basket.");
+    }
+
+    public static void ViewItem()
+    {
+        if (UserSession.CurrentUser == null)
+        {
+            Console.WriteLine("⚠️ You must be logged in to view products!");
+            return;
+        }
+
+        PrintAll();
+        Console.WriteLine();
+        Console.WriteLine("--- Pick product to view ---");
+        Console.Write("Enter product ID: ");
+        
+        if (!int.TryParse(Console.ReadLine(), out int productId))
+        {
+            Console.WriteLine("❌ Invalid product ID!");
+            return;
+        }
+
+        var product = _productService.GetById(productId);
+
+        if (product == null)
+        {
+            Console.WriteLine("❌ Product not found!");
+            return;
+        }
+
+        System.Console.WriteLine("\n================ Product Details ================");
+        System.Console.WriteLine($"ID: {product.Id}");
+        System.Console.WriteLine($"Name: {product.Name}");
+        System.Console.WriteLine($"Description: {product.Description}");
+        System.Console.WriteLine($"Category: {product.Category}");
+        System.Console.WriteLine($"Price: ${product.Price:F2}");
+        System.Console.WriteLine($"Rarity: {product.Rarity}");
+        System.Console.WriteLine($"Views: {product.View_count}");
+        System.Console.WriteLine($"Purchases: {product.Purchase_count}");
+        System.Console.WriteLine("===============================================\n");
+        System.Console.WriteLine("Press any key to continue.");
+        System.Console.ReadKey();
+        Console.Clear();
     }
 
     public static void printBasket()

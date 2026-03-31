@@ -17,7 +17,7 @@ public class ProductService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        string sql = @"SELECT id, name, description, category, price, rarity FROM products";
+        string sql = @"SELECT * FROM products";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         using var reader = cmd.ExecuteReader();
@@ -28,6 +28,7 @@ public class ProductService
         }
         return products;
     }
+    
     
 
     public Product[] GetProductsByRange(decimal min, decimal max)
@@ -63,10 +64,8 @@ public class ProductService
         var products = new List<Product>();
         using var conn = _db.GetConnection();
         conn.Open();
-
-        string sql = @"SELECT id, name, description, category, price, rarity 
-                       FROM products 
-                       WHERE category = @cat";
+        
+        string sql = @"SELECT * FROM products WHERE category = @cat";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("cat", categoryName);
@@ -105,9 +104,7 @@ public class ProductService
 
 
         string direction = ascending ? "ASC" : "DESC";
-        string sql = $@"SELECT id, name, description, category, price, rarity 
-                        FROM products 
-                        ORDER BY price {direction}";
+        string sql = $@"SELECT * FROM products ORDER BY price {direction}";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         using var reader = cmd.ExecuteReader();
@@ -128,9 +125,7 @@ public class ProductService
 
 
         string direction = ascending ? "ASC" : "DESC";
-        string sql = $@"SELECT id, name, description, category, price, rarity 
-                        FROM products 
-                        ORDER BY purchase_count {direction}";
+        string sql = $@"SELECT * FROM products ORDER BY purchase_count {direction}";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         using var reader = cmd.ExecuteReader();
@@ -149,7 +144,7 @@ public class ProductService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        string sql = @"SELECT id, name, description, category, price, rarity 
+        string sql = @"SELECT * 
                     FROM products 
                     WHERE name ILIKE @term"; // i like zorgt voor case-insensitive zoeken
 
@@ -176,7 +171,9 @@ public class ProductService
             Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
             Category = reader.IsDBNull(3) ? "" : reader.GetString(3),
             Price = reader.GetDecimal(4),
-            Rarity = reader.IsDBNull(5) ? "" : reader.GetString(5)
+            Rarity = reader.IsDBNull(5) ? "" : reader.GetString(5),
+            View_count = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+            Purchase_count = reader.IsDBNull(7) ? 0 : reader.GetInt32(7)
         };
     }
 
@@ -218,15 +215,7 @@ public class ProductService
 
         if (reader.Read())
         {
-            return new Product
-            {
-                Id = reader.GetInt32(0),
-                Name = reader.GetString(1),
-                Description = reader.GetString(2),
-                Category = reader.GetString(3),
-                Price = reader.GetDecimal(4),
-                Rarity = reader.GetString(5)
-            };
+            return MapProduct(reader);
         }
 
         return null;
@@ -239,7 +228,7 @@ public class ProductService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        string sql = @"SELECT id, name, description, category, price, rarity FROM top3_cheapest";
+        string sql = @"SELECT * FROM top3_cheapest";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         using var reader = cmd.ExecuteReader();
@@ -259,8 +248,7 @@ public class ProductService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        string sql = @"SELECT id, name, description, category, price, rarity FROM top3_expensive";
-
+        string sql = @"SELECT * FROM top3_expensive";
         using var cmd = new NpgsqlCommand(sql, conn);
         using var reader = cmd.ExecuteReader();
 

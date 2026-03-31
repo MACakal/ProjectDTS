@@ -8,4 +8,6 @@ public class Product
     public string Category { get; set; }
     public decimal Price { get; set; }
     public string Rarity { get; set; }
+    public int View_count { get; set; }
+    public int Purchase_count { get; set; }
 }
