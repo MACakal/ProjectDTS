@@ -264,14 +264,12 @@ public class BasketMenu
     {
         var products = _productService.GetAllProducts();
         Console.WriteLine("\n---- Product List ----");
-        Console.WriteLine($"ID ---------- Name -------------------- Price");
+        Console.WriteLine($"ID ---------- Name -------------------- Price ----- Stock");
         foreach (var p in products)
         {
             if (p != null)
             {
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
-            }
-            else
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,10} {p.Stock,15}");}
             {
                 Console.WriteLine("No products available.");
                 return;

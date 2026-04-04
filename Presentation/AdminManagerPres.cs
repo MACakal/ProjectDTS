@@ -5,6 +5,8 @@ public class AdminManagerPres
     private UserService _userService;
     private static ProductService _service = new ProductService(new DatabaseService());
 
+    private NotificationService _notificationService = new NotificationService(new DatabaseService());
+
     public AdminManagerPres(UserService userService)
     {
         _userService = userService;
@@ -377,6 +379,43 @@ public class AdminManagerPres
 
             Console.ResetColor();
         }
+    }
+
+    public void ShowNotifications()
+    {
+        var notifications = _notificationService.GetNotifications();
+
+        if (notifications.Count == 0)
+        {
+            Console.WriteLine("No notifications found.");
+            return;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("ID   | Message");
+        Console.ResetColor();
+
+        Console.WriteLine("----------------------------------------");
+
+        foreach (var notification in notifications)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{notification.Id,-4} | ");
+
+            if(notification.IsRead)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            }
+            else 
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            Console.WriteLine($"{notification.Message}");
+
+            Console.ResetColor();
+        }
+
+        _notificationService.MarkAllAsRead();
     }
 
 }

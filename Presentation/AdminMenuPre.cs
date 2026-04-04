@@ -28,6 +28,7 @@ public class AdminMenuPres
             Console.WriteLine("3. Edit Product");
             Console.WriteLine("4. Analytics");
             Console.WriteLine("5. User Spending");
+            Console.WriteLine("6. Notifications");
             Console.WriteLine("0. Back");
 
             string choice = Console.ReadLine();
@@ -68,6 +69,12 @@ public class AdminMenuPres
                 case "5":
                     Console.Clear();
                     _adminManagerPres.ShowUserSpending();
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case "6":
+                    Console.Clear();
+                    _adminManagerPres.ShowNotifications();
                     Console.ReadKey();
                     Console.Clear();
                     break;
