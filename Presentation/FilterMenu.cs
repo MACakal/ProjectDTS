@@ -74,16 +74,7 @@ public class FilterMenu
         Console.WriteLine("\nWhat category do you want to filter by?");
         var cat = Console.ReadLine() ?? "";
         var products = _productService.GetProductsByCategory(cat);
-
-        Console.WriteLine($"\nResults for '{cat}':");
-        foreach (var p in products)
-        {
-            Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
-        }
-
-        Console.WriteLine("\nPress any key to continue...");
-        Console.ReadLine();
-        Console.Clear();
+        _viewProductPres.Viewproducts(products);
     }
 
     public void PriceRangeFilter()
@@ -115,18 +106,11 @@ public class FilterMenu
         Console.WriteLine("2. Most expensive first (High to Low)");
 
         var sortChoice = Console.ReadLine();
-        bool ascending = (sortChoice == "1");
+        bool ascending = sortChoice == "1";
 
         var results = _productService.GetProductsSortedByPrice(ascending);
-
-        Console.WriteLine("\n---- Sorted Products ----");
-        foreach (var p in results)
-        {
-            Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
-        }
-        Console.WriteLine("\nPress any key to continue...");
-        Console.ReadLine();
         Console.Clear();
+        _viewProductPres.Viewproducts(results);
     }
     public void SearchByName()
     {
@@ -140,22 +124,7 @@ public class FilterMenu
         }
 
         var results = _productService.SearchProductsByName(input);
-
-        Console.WriteLine($"\n---- Search results for '{input}' ----");
-        if (results.Count == 0)
-        {
-            Console.WriteLine("No products found matching that name.");
-        }
-        else
-        {
-            foreach (var p in results)
-            {
-                Console.WriteLine($"{p.Id} - {p.Name} - €{p.Price}");
-            }
-        }
-        Console.WriteLine("\nPress any key to continue...");
-        Console.ReadLine();
-        Console.Clear();
+        _viewProductPres.Viewproducts(results);
 
     }
 
