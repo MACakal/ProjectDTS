@@ -3,8 +3,9 @@ namespace ProjectDTS;
 public class AdminManagerPres
 {
     private UserService _userService;
-    private static ProductService _service = new ProductService(new DatabaseService());
 
+    private static ProductService _service = new ProductService(new DatabaseService());
+    private static ViewProductPres _viewService = new ViewProductPres(_service);
     public AdminManagerPres(UserService userService)
     {
         _userService = userService;
@@ -174,14 +175,6 @@ public class AdminManagerPres
                 Console.WriteLine("Product not found, try again.");
             }
         }
-        // int id = int.Parse(Console.ReadLine());
-
-        // Product product = productService.GetById(id);
-        // if (product is null)
-        // {
-        //     Console.WriteLine("Try a valid Id");
-
-        // }
 
         bool editing = true;
 
@@ -376,6 +369,49 @@ public class AdminManagerPres
             Console.WriteLine($"{user.TotalSpending,10}");
 
             Console.ResetColor();
+        }
+    }
+
+
+    public void HandleDeleteProduct()
+    {
+        var products = _service.GetAllProducts();
+        _viewService.DisplayProducts(products);
+        Console.Write("Enter product id to delete: ");
+
+        if (int.TryParse(Console.ReadLine(), out int id))
+        {
+            try
+            {
+
+                bool deleted = _service.DeleteProduct(id);
+                if (!deleted)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Product Not Found");
+                    Console.ResetColor();
+                }
+                else
+                {
+
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Product deleted successfully");
+                    Console.ResetColor();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.ResetColor();
+            }
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid id");
+            Console.ResetColor();
+
         }
     }
 

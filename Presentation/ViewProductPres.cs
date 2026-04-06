@@ -13,52 +13,38 @@ public class ViewProductPres
 
         Console.Clear();
         var products = _productService.GetAllProducts();
-        Console.WriteLine("\n---- Product List ----");
-        if (products.Count == 0)
-        {
-            Console.Clear();
-            Console.WriteLine("There are no products to show.");
 
-        }
-        else
-        {
-
-            Console.WriteLine($"{"ID",-5} {"Name",-20} {"Category",-20} {"Price",10}");
-            Console.WriteLine(new string('-', 60));
-            foreach (var p in products.OrderBy(products => products.Id))
-            {
-
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Category,-20} {p.Price,10}€");
-
-            }
-            BasketMenu.WhatToDo();
-        }
+        Viewproducts(products);
     }
 
-    public void Viewproducts(IEnumerable<Product> items)
+    public void Viewproducts(IEnumerable<Product> items, bool showBasket = true)
     {
 
-        Console.Clear();
-        Console.WriteLine("\n---- Product List ----");
-        if (!items.Any())
-        {
-            Console.Clear();
-            Console.WriteLine("There are no products to show.");
 
-        }
-        else
-        {
-
-            Console.WriteLine($"{"ID",-5} {"Name",-20} {"Category",-20} {"Price",10}");
-            Console.WriteLine(new string('-', 60));
-            foreach (var p in items)
-            {
-
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Category,-20} {p.Price,10}€");
-
-            }
+        DisplayProducts(items);
+        if (showBasket)
             BasketMenu.WhatToDo();
-        }
     }
 
+
+
+    public void DisplayProducts(IEnumerable<Product> items)
+    {
+        Console.Clear();
+        Console.WriteLine("\n---- Product List ----");
+
+        if (!items.Any())
+        {
+            Console.WriteLine("There are no products to show.");
+            return;
+        }
+
+        Console.WriteLine($"{"ID",-5} {"Name",-20} {"Category",-20} {"Price",10}");
+        Console.WriteLine(new string('-', 60));
+
+        foreach (var p in items)
+        {
+            Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Category,-20} {p.Price,10}€");
+        }
+    }
 }

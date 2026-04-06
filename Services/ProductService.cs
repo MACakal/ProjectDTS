@@ -28,8 +28,8 @@ public class ProductService
         }
         return products;
     }
-    
-    
+
+
 
     public Product[] GetProductsByRange(decimal min, decimal max)
     {
@@ -64,7 +64,7 @@ public class ProductService
         var products = new List<Product>();
         using var conn = _db.GetConnection();
         conn.Open();
-        
+
         string sql = @"SELECT * FROM products WHERE category = @cat";
 
         using var cmd = new NpgsqlCommand(sql, conn);
@@ -281,6 +281,28 @@ public class ProductService
         }
 
         return categories;
+    }
+
+
+    public bool DeleteProduct(int id)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+        string sql = @"DELETE FROM products WHERE id=@id;";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("id", id);
+
+        try
+        {
+            int rowsAffected = cmd.ExecuteNonQuery();
+            return rowsAffected > 0;
+        }
+        catch (PostgresException ex) when (ex.SqlState == "23503")
+        {
+
+            throw new Exception("Cannot delete product because it is used in orders.");
+        }
+
     }
 
 }
