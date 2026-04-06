@@ -255,40 +255,66 @@ public class BasketService
         return result != null;
     }
 
-    public List<string> GetPastOrderLinesLastMonth(int userId, out decimal total)
+    public List<OrderLine> GetPastOrderLines(int userId, DateTime start, DateTime end, out decimal total)
     {
-        var lines = new List<string>();
+        var lines = new List<OrderLine>();
         total = 0;
 
         using var conn = _db.GetConnection();
         conn.Open();
 
         string sql = @"
-            SELECT p.name, oi.quantity, p.price
+            SELECT oi.id, p.name, oi.quantity, p.price, o.created_at
             FROM orders o
             JOIN order_items oi ON o.id = oi.order_id
             JOIN products p ON oi.product_id = p.id
             WHERE o.user_id = @userId
             AND o.purchased = true
-            AND o.created_at >= CURRENT_TIMESTAMP - INTERVAL '1 month';";
+            AND o.created_at BETWEEN @start AND @end;";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("userId", userId);
+        cmd.Parameters.AddWithValue("start", start);
+        cmd.Parameters.AddWithValue("end", end);
 
         using var reader = cmd.ExecuteReader();
 
         while (reader.Read())
         {
-            string name = reader.GetString(0);
-            int qty = reader.GetInt32(1);
-            decimal price = reader.GetDecimal(2);
-            decimal subtotal = qty * price;
+            int orderItemId = reader.GetInt32(0);
+            string name = reader.GetString(1);
+            int qty = reader.GetInt32(2);
+            decimal price = reader.GetDecimal(3);
+            DateTime orderDate = reader.GetDateTime(4);
 
+            decimal subtotal = qty * price;
             total += subtotal;
 
-            lines.Add($"- {name,-20} | {qty}x | €{subtotal:N2}");
+            lines.Add(new OrderLine
+            {
+                Id = orderItemId,
+                Name = name,
+                Quantity = qty,
+                Subtotal = subtotal,
+                OrderDate = orderDate
+            });
         }
 
         return lines;
+    }
+
+     public void CancelOrder(int orderItemId)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string deleteSql = "DELETE FROM order_items WHERE id = @orderItemId;";
+        using (var cmd = new NpgsqlCommand(deleteSql, conn))
+        {
+            cmd.Parameters.AddWithValue("orderItemId", orderItemId);
+            cmd.ExecuteNonQuery();
+        }
+
+        Console.WriteLine("Order item canceled and stock updated.");
     }
 }

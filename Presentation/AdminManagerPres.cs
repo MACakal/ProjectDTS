@@ -304,7 +304,8 @@ public class AdminManagerPres
     {
         Console.Clear();
 
-        var cats = _service.GetPopularCategories();
+        var (start, end) = PastOrders.AskForDateRange();
+        var cats = _service.GetPopularCategories(start, end);
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("=== MOST POPULAR CATEGORIES ===");
@@ -312,7 +313,6 @@ public class AdminManagerPres
 
         Console.WriteLine();
 
-        // Header
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine($"{"Rank",-6} {"Category",-20} {"Purchases",10}");
         Console.ResetColor();
@@ -330,15 +330,42 @@ public class AdminManagerPres
         Console.WriteLine();
         Console.WriteLine(new string('-', 40));
         Console.WriteLine("Options:");
-        Console.WriteLine("[1] View as diagram (WIP, Not Finished)");
+        Console.WriteLine("[1] View as diagram ");
         Console.WriteLine("[0] Back");
 
         string input = Console.ReadLine();
 
         if (input == "1")
         {
-            // Diagram moet nog toegevoegd worden
+            var chartData = cats.Select(c => (c.Category, c.TotalPurchases)).ToList();
+            ShowCategoryBarChart(chartData);
+            MostPopularCategories();
         }
+    }
+
+    public void ShowCategoryBarChart(List<(string Category, int TotalPurchases)> cats)
+    {
+        Console.Clear();
+        Console.WriteLine("--- 📊 Most Popular Categories ---\n");
+
+        if (cats.Count == 0)
+        {
+            Console.WriteLine("No data available.");
+            Console.ReadKey();
+            return;
+        }
+
+        int max = cats.Max(c => c.TotalPurchases);
+
+        foreach (var c in cats)
+        {
+            int barLength = (int)((double)c.TotalPurchases / max * 30); // max 30 blokjes
+            string bar = new string('█', barLength);
+
+            Console.WriteLine($"{c.Category,-20} | {bar} {c.TotalPurchases}");
+        }
+
+        Console.ReadKey();
     }
 
 
