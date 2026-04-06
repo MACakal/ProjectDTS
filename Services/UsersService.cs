@@ -127,6 +127,57 @@ public class UserService
         return result;
     }
 
+
+
+    public UserRegisterService UpdateUser(User user)
+    {
+        if (user == null)
+        {
+            return UserRegisterService.emptyParameter;
+        }
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"UPDATE users 
+                    SET name=@name, email=@email, password=pgp_sym_encrypt(@password, 'admin_key')
+                    WHERE id=@id";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("name", user.Name);
+        cmd.Parameters.AddWithValue("email", user.Email);
+        cmd.Parameters.AddWithValue("password", user.Password);
+        cmd.Parameters.AddWithValue("id", user.Id);
+
+        int rows = cmd.ExecuteNonQuery();
+
+        if (rows > 0)
+        {
+            return UserRegisterService.succesfull;
+        }
+
+        return UserRegisterService.UnkownError;
+    }
+
+    public UserRegisterService DeleteUser(int userId)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"DELETE FROM users WHERE id=@id";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("id", userId);
+
+        int rows = cmd.ExecuteNonQuery();
+
+        if (rows > 0)
+        {
+            return UserRegisterService.succesfull;
+        }
+
+        return UserRegisterService.UnkownError;
+    }
 }
 
 
