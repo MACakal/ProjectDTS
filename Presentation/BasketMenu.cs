@@ -282,8 +282,11 @@ public class BasketMenu
         {
             if (p != null)
             {
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,10} {p.Stock,15}");}
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,10} {p.Stock,15}");
+            }
+            else if (products.Count() == 0)
             {
+                
                 Console.WriteLine("No products available.");
                 return;
             }
