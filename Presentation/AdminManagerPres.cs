@@ -3,10 +3,11 @@ namespace ProjectDTS;
 public class AdminManagerPres
 {
     private UserService _userService;
+
     private static ProductService _service = new ProductService(new DatabaseService());
 
     private NotificationService _notificationService = new NotificationService(new DatabaseService());
-
+    private static ViewProductPres _viewService = new ViewProductPres(_service);
     public AdminManagerPres(UserService userService)
     {
         _userService = userService;
@@ -174,14 +175,6 @@ public class AdminManagerPres
                 Console.WriteLine("Product not found, try again.");
             }
         }
-        // int id = int.Parse(Console.ReadLine());
-
-        // Product product = productService.GetById(id);
-        // if (product is null)
-        // {
-        //     Console.WriteLine("Try a valid Id");
-
-        // }
 
         bool editing = true;
 
@@ -311,7 +304,8 @@ public class AdminManagerPres
     {
         Console.Clear();
 
-        var cats = _service.GetPopularCategories();
+        var (start, end) = PastOrders.AskForDateRange();
+        var cats = _service.GetPopularCategories(start, end);
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("=== MOST POPULAR CATEGORIES ===");
@@ -319,7 +313,6 @@ public class AdminManagerPres
 
         Console.WriteLine();
 
-        // Header
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine($"{"Rank",-6} {"Category",-20} {"Purchases",10}");
         Console.ResetColor();
@@ -337,15 +330,42 @@ public class AdminManagerPres
         Console.WriteLine();
         Console.WriteLine(new string('-', 40));
         Console.WriteLine("Options:");
-        Console.WriteLine("[1] View as diagram (WIP, Not Finished)");
+        Console.WriteLine("[1] View as diagram ");
         Console.WriteLine("[0] Back");
 
         string input = Console.ReadLine();
 
         if (input == "1")
         {
-            // Diagram moet nog toegevoegd worden
+            var chartData = cats.Select(c => (c.Category, c.TotalPurchases)).ToList();
+            ShowCategoryBarChart(chartData);
+            MostPopularCategories();
         }
+    }
+
+    public void ShowCategoryBarChart(List<(string Category, int TotalPurchases)> cats)
+    {
+        Console.Clear();
+        Console.WriteLine("--- 📊 Most Popular Categories ---\n");
+
+        if (cats.Count == 0)
+        {
+            Console.WriteLine("No data available.");
+            Console.ReadKey();
+            return;
+        }
+
+        int max = cats.Max(c => c.TotalPurchases);
+
+        foreach (var c in cats)
+        {
+            int barLength = (int)((double)c.TotalPurchases / max * 30); // max 30 blokjes
+            string bar = new string('█', barLength);
+
+            Console.WriteLine($"{c.Category,-20} | {bar} {c.TotalPurchases}");
+        }
+
+        Console.ReadKey();
     }
 
 
@@ -414,6 +434,49 @@ public class AdminManagerPres
         }
 
         _notificationService.MarkAllAsRead();
+    }
+
+
+    public void HandleDeleteProduct()
+    {
+        var products = _service.GetAllProducts();
+        _viewService.DisplayProducts(products);
+        Console.Write("Enter product id to delete: ");
+
+        if (int.TryParse(Console.ReadLine(), out int id))
+        {
+            try
+            {
+
+                bool deleted = _service.DeleteProduct(id);
+                if (!deleted)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Product Not Found");
+                    Console.ResetColor();
+                }
+                else
+                {
+
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Product deleted successfully");
+                    Console.ResetColor();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.ResetColor();
+            }
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid id");
+            Console.ResetColor();
+
+        }
     }
 
 }

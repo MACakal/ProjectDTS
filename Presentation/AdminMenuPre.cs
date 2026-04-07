@@ -26,9 +26,10 @@ public class AdminMenuPres
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Add Product");
             Console.WriteLine("3. Edit Product");
-            Console.WriteLine("4. Analytics");
-            Console.WriteLine("5. User Spending");
-            Console.WriteLine("6. Notifications");
+            Console.WriteLine("4. Delete Product");
+            Console.WriteLine("5. Analytics");
+            Console.WriteLine("6. User Spending");
+            Console.WriteLine("7. Notifications");
             Console.WriteLine("0. Back");
 
             string choice = Console.ReadLine();
@@ -70,21 +71,25 @@ public class AdminMenuPres
                     Console.Clear();
                     break;
                 case "4":
+                    _adminManagerPres.HandleDeleteProduct();
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case "5":
                     BreadcrumbManager.Push("Analytics");
                     Console.Clear();
                     BreadcrumbManager.Render();
                     _adminManagerPres.MostPopularCategories();
                     Console.Clear();
                     break;
-                case "5":
-                    BreadcrumbManager.Push("User Spending");
+                case "6":
                     Console.Clear();
                     BreadcrumbManager.Render();
                     _adminManagerPres.ShowUserSpending();
                     Console.ReadKey();
                     Console.Clear();
                     break;
-                case "6":
+                case "7":
                     BreadcrumbManager.Push("Notifications");
                     Console.Clear();
                     BreadcrumbManager.Render();

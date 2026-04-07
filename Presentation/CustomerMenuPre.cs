@@ -105,6 +105,10 @@ public class CustomerMenuPre
                 _AccountPre.AccountInformation(user);
 
             }
+            if (UserSession.CurrentUser == null)
+            {
+                return;
+            }
             if (choice == "0") break;
         }
     }

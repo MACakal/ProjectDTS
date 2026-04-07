@@ -28,8 +28,8 @@ public class ProductService
         }
         return products;
     }
-    
-    
+
+
 
     public Product[] GetProductsByRange(decimal min, decimal max)
     {
@@ -64,7 +64,7 @@ public class ProductService
         var products = new List<Product>();
         using var conn = _db.GetConnection();
         conn.Open();
-        
+
         string sql = @"SELECT * FROM products WHERE category = @cat";
 
         using var cmd = new NpgsqlCommand(sql, conn);
@@ -261,16 +261,28 @@ public class ProductService
         return products;
     }
 
-    public List<(string Category, int TotalPurchases)> GetPopularCategories()
+    public List<(string Category, int TotalPurchases)> GetPopularCategories(DateTime start, DateTime end)
     {
         var categories = new List<(string, int)>();
 
         using var conn = _db.GetConnection();
         conn.Open();
 
-        string sql = @"SELECT category, total_purchases FROM most_popular_categories";
+        string sql = @"
+            SELECT p.category, SUM(oi.quantity) AS total_purchases
+            FROM orders o
+            JOIN order_items oi ON o.id = oi.order_id
+            JOIN products p ON oi.product_id = p.id
+            WHERE o.purchased = true
+            AND o.created_at BETWEEN @start AND @end
+            GROUP BY p.category
+            ORDER BY total_purchases DESC;
+        ";
 
         using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("start", start);
+        cmd.Parameters.AddWithValue("end", end);
+
         using var reader = cmd.ExecuteReader();
 
         while (reader.Read())
@@ -282,6 +294,28 @@ public class ProductService
         }
 
         return categories;
+    }
+
+
+    public bool DeleteProduct(int id)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+        string sql = @"DELETE FROM products WHERE id=@id;";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("id", id);
+
+        try
+        {
+            int rowsAffected = cmd.ExecuteNonQuery();
+            return rowsAffected > 0;
+        }
+        catch (PostgresException ex) when (ex.SqlState == "23503")
+        {
+
+            throw new Exception("Cannot delete product because it is used in orders.");
+        }
+
     }
 
 }
