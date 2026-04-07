@@ -173,7 +173,8 @@ public class ProductService
             Price = reader.GetDecimal(4),
             Rarity = reader.IsDBNull(5) ? "" : reader.GetString(5),
             View_count = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
-            Purchase_count = reader.IsDBNull(7) ? 0 : reader.GetInt32(7)
+            Purchase_count = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
+            Stock = reader.IsDBNull(8) ? 0 : reader.GetInt32(8)
         };
     }
 

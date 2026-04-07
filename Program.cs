@@ -1,9 +1,11 @@
 ﻿namespace ProjectDTS;
+using DotNetEnv;
 
 public class Program
 {
     public static void Main(string[] args)
     {
+        Env.Load();
         var databaseService = new DatabaseService();
         var productService = new ProductService(databaseService);
 

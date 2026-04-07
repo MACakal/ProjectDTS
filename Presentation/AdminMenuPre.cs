@@ -29,6 +29,7 @@ public class AdminMenuPres
             Console.WriteLine("4. Delete Product");
             Console.WriteLine("5. Analytics");
             Console.WriteLine("6. User Spending");
+            Console.WriteLine("7. Notifications");
             Console.WriteLine("0. Back");
 
             string choice = Console.ReadLine();
@@ -36,12 +37,16 @@ public class AdminMenuPres
             switch (choice)
             {
                 case "1":
+                    //BreadcrumbManager.Push("Products");
                     Console.Clear();
+                    //BreadcrumbManager.Render();
                     _viewProductPres.Viewproducts();
                     break;
 
                 case "2":
+                    //  BreadcrumbManager.Push("Add Product");
                     Console.Clear();
+                    //BreadcrumbManager.Render();
 
                     Console.WriteLine("Add product...");
                     var product = _adminManagerPres.CreateProduct();
@@ -59,6 +64,9 @@ public class AdminMenuPres
                     Console.Clear();
                     break;
                 case "3":
+                    //BreadcrumbManager.Push("Edit Product");
+                    Console.Clear();
+                    //BreadcrumbManager.Render();
                     _adminManagerPres.EditProduct();
                     Console.Clear();
                     break;
@@ -68,12 +76,24 @@ public class AdminMenuPres
                     Console.Clear();
                     break;
                 case "5":
+                    //BreadcrumbManager.Push("Analytics");
+                    Console.Clear();
+                    //BreadcrumbManager.Render();
                     _adminManagerPres.MostPopularCategories();
                     Console.Clear();
                     break;
                 case "6":
                     Console.Clear();
+                    //BreadcrumbManager.Render();
                     _adminManagerPres.ShowUserSpending();
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case "7":
+                    //BreadcrumbManager.Push("Notifications");
+                    Console.Clear();
+                    //BreadcrumbManager.Render();
+                    _adminManagerPres.ShowNotifications();
                     Console.ReadKey();
                     Console.Clear();
                     break;

@@ -85,6 +85,8 @@ public class BasketMenu
 
     public static void ViewItem()
     {
+        //BreadcrumbManager.Push("Product Details");
+        //BreadcrumbManager.Render();
         if (UserSession.CurrentUser == null)
         {
             Console.WriteLine("⚠️ You must be logged in to view products!");
@@ -100,6 +102,7 @@ public class BasketMenu
         {
             Console.WriteLine("❌ Invalid product ID!");
             return;
+            //BreadcrumbManager.Pop();
         }
 
         var product = _productService.GetById(productId);
@@ -108,6 +111,7 @@ public class BasketMenu
         {
             Console.WriteLine("❌ Product not found!");
             return;
+            //BreadcrumbManager.Pop();
         }
 
         System.Console.WriteLine("\n================ Product Details ================");
@@ -123,6 +127,7 @@ public class BasketMenu
         System.Console.WriteLine("Press any key to continue.");
         System.Console.ReadKey();
         Console.Clear();
+        //BreadcrumbManager.Pop();
     }
 
     public static void printBasket()
@@ -140,6 +145,8 @@ public class BasketMenu
     public static void ShowBasket()
     {
         Console.Clear();
+        //BreadcrumbManager.Push("Basket");
+        //BreadcrumbManager.Render();
         if (UserSession.CurrentUser == null)
         {
             Console.WriteLine("⚠️ You must be logged in order for you to have a basket!");
@@ -182,12 +189,15 @@ public class BasketMenu
                         }
                         Console.ReadKey();
                         Console.Clear();
+                        //BreadcrumbManager.Pop();
                     }
                 }
                 Console.Clear();
                 break;
             case "2":
                 Console.Clear();
+                //BreadcrumbManager.Push("Modify Basket");
+                //BreadcrumbManager.Render();
                 printBasket();
                 System.Console.WriteLine("\n1. remove item");
                 System.Console.WriteLine("2. modify ammount of a item to purchase");
@@ -249,13 +259,16 @@ public class BasketMenu
                         }
                         break;
                     case "0":
+                        //BreadcrumbManager.Pop();
                         break;
 
                 }
                 Console.Clear();
+                //BreadcrumbManager.Pop();
                 break;
             case "0":
                 Console.Clear();
+                //BreadcrumbManager.Pop();
                 break;
         }
     }
@@ -264,14 +277,12 @@ public class BasketMenu
     {
         var products = _productService.GetAllProducts();
         Console.WriteLine("\n---- Product List ----");
-        Console.WriteLine($"ID ---------- Name -------------------- Price");
+        Console.WriteLine($"ID ---------- Name -------------------- Price ----- Stock");
         foreach (var p in products)
         {
             if (p != null)
             {
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Price,10}€");
-            }
-            else
+                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,10} {p.Stock,15}");}
             {
                 Console.WriteLine("No products available.");
                 return;

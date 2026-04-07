@@ -10,4 +10,6 @@ public class Product
     public string Rarity { get; set; }
     public int View_count { get; set; }
     public int Purchase_count { get; set; }
+
+    public int Stock { get; set; }
 }

@@ -148,3 +148,36 @@ SELECT u.id, u.name, o.total_price, o.created_at
 FROM users u
 LEFT JOIN orders o ON u.id = o.user_id AND o.purchased = true
 WHERE u.role != 'Admin';
+
+ALTER TABLE products 
+ADD COLUMN IF NOT EXISTS stock INT DEFAULT 10 CHECK (stock >= 0);
+
+CREATE TABLE IF NOT EXISTS admin_notifications (
+    id SERIAL PRIMARY KEY,
+    product_id INT REFERENCES products(id),
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_read BOOLEAN DEFAULT FALSE
+);
+
+CREATE OR REPLACE FUNCTION check_low_stock() 
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.stock < 5 THEN
+        INSERT INTO admin_notifications (product_id, message)
+        VALUES (
+            NEW.id, 
+            'The stock of "' || NEW.name || '" is low. There are only ' || NEW.stock || ' left.'
+        );
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+DROP TRIGGER IF EXISTS trigger_check_low_stock ON products;
+
+CREATE TRIGGER trigger_check_low_stock
+AFTER UPDATE OF stock ON products
+FOR EACH ROW
+EXECUTE FUNCTION check_low_stock();

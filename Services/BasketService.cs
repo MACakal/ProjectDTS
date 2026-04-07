@@ -207,16 +207,19 @@ public class BasketService
 
         try
         {
-            string updateOrderSql = @"
-                UPDATE orders 
-                SET purchased = true 
-                WHERE user_id = @userId AND purchased = false
-                RETURNING id;";
-
-            using var cmd = new NpgsqlCommand(updateOrderSql, conn, transaction);
-            cmd.Parameters.AddWithValue("userId", userId);
+            // === STAP 1: Haal het openstaande orderId op ===
+            string getOrderIdSql = @"
+                SELECT id FROM orders 
+                WHERE user_id = @userId AND purchased = false 
+                LIMIT 1;";
             
-            var orderId = cmd.ExecuteScalar();
+            int? orderId;
+            using (var cmdGetOrder = new NpgsqlCommand(getOrderIdSql, conn, transaction))
+            {
+                cmdGetOrder.Parameters.AddWithValue("userId", userId);
+                var result = cmdGetOrder.ExecuteScalar();
+                orderId = result == null ? null : (int?)result;
+            }
 
             if (orderId == null)
             {
@@ -224,19 +227,72 @@ public class BasketService
                 return false;
             }
 
-            // 2. Optioneel: Hier zou je voorraad-updates kunnen doen voor elk product in order_items
+            string checkStockSql = @"
+                SELECT oi.product_id, p.name, oi.quantity, p.stock
+                FROM order_items oi
+                JOIN products p ON oi.product_id = p.id
+                WHERE oi.order_id = @orderId;";
+
+            using (var cmdCheck = new NpgsqlCommand(checkStockSql, conn, transaction))
+            {
+                cmdCheck.Parameters.AddWithValue("orderId", orderId.Value);
+                using (var reader = cmdCheck.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string productName = reader.GetString(1);
+                        int requestedQty = reader.GetInt32(2);
+                        int currentStock = reader.GetInt32(3);
+
+                        if (requestedQty > currentStock)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"\n[FOUT] not enough stock for: {productName}!");
+                            Console.WriteLine($"Asked for: {requestedQty}, available: {currentStock}");
+                            Console.ResetColor();
+
+                            reader.Close();
+                            transaction.Rollback();
+                            return false;
+                        }
+                    }
+                }
+            }
+
+
+            string updateStockSql = @"
+                UPDATE products p
+                SET stock = p.stock - oi.quantity
+                FROM order_items oi
+                WHERE oi.product_id = p.id AND oi.order_id = @orderId;";
+
+            using (var cmdUpdateStock = new NpgsqlCommand(updateStockSql, conn, transaction))
+            {
+                cmdUpdateStock.Parameters.AddWithValue("orderId", orderId.Value);
+                cmdUpdateStock.ExecuteNonQuery();
+            }
+
+            string updateOrderSql = @"
+                UPDATE orders 
+                SET purchased = true 
+                WHERE id = @orderId;";
+
+            using (var cmdUpdateOrder = new NpgsqlCommand(updateOrderSql, conn, transaction))
+            {
+                cmdUpdateOrder.Parameters.AddWithValue("orderId", orderId.Value);
+                cmdUpdateOrder.ExecuteNonQuery();
+            }
+
             transaction.Commit();
             return true;
         }
         catch (Exception ex)
         {
-            // Bij een fout draaien we alles terug naar de oude staat
             transaction.Rollback();
             Console.WriteLine($"Error during checkout: {ex.Message}");
             return false;
         }
     }
-
     public bool Checkout(int userId)
     {
         using var conn = _db.GetConnection();
