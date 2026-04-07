@@ -20,7 +20,7 @@ public class CustomerMenuPre
         while (true)
         {
             Console.Clear();
-            BreadcrumbManager.Render();
+            //BreadcrumbManager.Render();
 
             Console.WriteLine("\nCustomer Menu");
             Console.WriteLine("1. View Products");
@@ -35,18 +35,18 @@ public class CustomerMenuPre
 
             if (choice == "1")
             {
-                BreadcrumbManager.Push("View Products");
+                //BreadcrumbManager.Push("View Products");
                 Console.Clear();
-                BreadcrumbManager.Render();
+                //BreadcrumbManager.Render();
                 _viewProductPres.Viewproducts();
                 Console.WriteLine("\nPress any key to return to the customer menu.");
                 Console.ReadLine();
             }
             if(choice == "2")
             {
-                BreadcrumbManager.Push("Order");
+                //BreadcrumbManager.Push("Order");
                 Console.Clear();
-                BreadcrumbManager.Render();
+                //BreadcrumbManager.Render();
                 if(UserSession.CurrentUser == null)
                 {
                     Console.WriteLine("⚠️ You must be logged in to make an order!");
@@ -61,9 +61,9 @@ public class CustomerMenuPre
             }
             if(choice == "3")
             {
-                BreadcrumbManager.Push("Past Orders");
+                //BreadcrumbManager.Push("Past Orders");
                 Console.Clear();
-                BreadcrumbManager.Render();
+                //BreadcrumbManager.Render();
                 if(UserSession.CurrentUser == null)
                 {
                     Console.WriteLine("⚠️ You must be logged in to view past order!");
@@ -79,9 +79,9 @@ public class CustomerMenuPre
             }
              if (choice == "4")
             {
-                BreadcrumbManager.Push("Filter Products");
+                    //BreadcrumbManager.Push("Filter Products");
                 Console.Clear();
-                BreadcrumbManager.Render();
+                //BreadcrumbManager.Render();
                 _filterMenu.Show();
 
                 Console.WriteLine("\nPress any key to return to the customer menu.");
@@ -89,9 +89,9 @@ public class CustomerMenuPre
             }
             if (choice == "5")
             {
-                BreadcrumbManager.Push("Products Ranking");
+                //BreadcrumbManager.Push("Products Ranking");
                 Console.Clear();
-                BreadcrumbManager.Render();
+                //BreadcrumbManager.Render();
                 ProductsRanking.Start();
 
                 Console.WriteLine("\nPress any key to return to the customer menu.");
@@ -99,9 +99,9 @@ public class CustomerMenuPre
             }
             if (choice == "6")
             {
-                BreadcrumbManager.Push("Account Information");
+                //BreadcrumbManager.Push("Account Information");
                 Console.Clear();
-                BreadcrumbManager.Render();
+                //BreadcrumbManager.Render();
                 _AccountPre.AccountInformation(user);
 
             }

@@ -85,8 +85,8 @@ public class BasketMenu
 
     public static void ViewItem()
     {
-        BreadcrumbManager.Push("Product Details");
-        BreadcrumbManager.Render();
+        //BreadcrumbManager.Push("Product Details");
+        //BreadcrumbManager.Render();
         if (UserSession.CurrentUser == null)
         {
             Console.WriteLine("⚠️ You must be logged in to view products!");
@@ -102,7 +102,7 @@ public class BasketMenu
         {
             Console.WriteLine("❌ Invalid product ID!");
             return;
-            BreadcrumbManager.Pop();
+            //BreadcrumbManager.Pop();
         }
 
         var product = _productService.GetById(productId);
@@ -111,7 +111,7 @@ public class BasketMenu
         {
             Console.WriteLine("❌ Product not found!");
             return;
-            BreadcrumbManager.Pop();
+            //BreadcrumbManager.Pop();
         }
 
         System.Console.WriteLine("\n================ Product Details ================");
@@ -127,7 +127,7 @@ public class BasketMenu
         System.Console.WriteLine("Press any key to continue.");
         System.Console.ReadKey();
         Console.Clear();
-        BreadcrumbManager.Pop();
+        //BreadcrumbManager.Pop();
     }
 
     public static void printBasket()
@@ -145,8 +145,8 @@ public class BasketMenu
     public static void ShowBasket()
     {
         Console.Clear();
-        BreadcrumbManager.Push("Basket");
-        BreadcrumbManager.Render();
+        //BreadcrumbManager.Push("Basket");
+        //BreadcrumbManager.Render();
         if (UserSession.CurrentUser == null)
         {
             Console.WriteLine("⚠️ You must be logged in order for you to have a basket!");
@@ -189,15 +189,15 @@ public class BasketMenu
                         }
                         Console.ReadKey();
                         Console.Clear();
-                        BreadcrumbManager.Pop();
+                        //BreadcrumbManager.Pop();
                     }
                 }
                 Console.Clear();
                 break;
             case "2":
                 Console.Clear();
-                BreadcrumbManager.Push("Modify Basket");
-                BreadcrumbManager.Render();
+                //BreadcrumbManager.Push("Modify Basket");
+                //BreadcrumbManager.Render();
                 printBasket();
                 System.Console.WriteLine("\n1. remove item");
                 System.Console.WriteLine("2. modify ammount of a item to purchase");
@@ -259,16 +259,16 @@ public class BasketMenu
                         }
                         break;
                     case "0":
-                        BreadcrumbManager.Pop();
+                        //BreadcrumbManager.Pop();
                         break;
 
                 }
                 Console.Clear();
-                BreadcrumbManager.Pop();
+                //BreadcrumbManager.Pop();
                 break;
             case "0":
                 Console.Clear();
-                BreadcrumbManager.Pop();
+                //BreadcrumbManager.Pop();
                 break;
         }
     }
