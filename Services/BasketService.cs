@@ -207,7 +207,6 @@ public class BasketService
 
         try
         {
-            // === STAP 1: Haal het openstaande orderId op ===
             string getOrderIdSql = @"
                 SELECT id FROM orders 
                 WHERE user_id = @userId AND purchased = false 
