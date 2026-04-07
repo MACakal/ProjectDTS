@@ -42,7 +42,7 @@ public class ProductService
         connection.Open();
 
         const string sql = @"
-            SELECT id, name, description, category, price, rarity, view_count, purchase_count
+            SELECT *
             FROM products
             WHERE price BETWEEN @min AND @max
             ORDER BY price ASC;";
