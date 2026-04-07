@@ -97,7 +97,7 @@ public class BasketMenu
         Console.WriteLine();
         Console.WriteLine("--- Pick product to view ---");
         Console.Write("Enter product ID: ");
-        
+
         if (!int.TryParse(Console.ReadLine(), out int productId))
         {
             Console.WriteLine("❌ Invalid product ID!");
@@ -169,7 +169,7 @@ public class BasketMenu
 
         var choice = Console.ReadLine();
 
-        switch(choice)
+        switch (choice)
         {
             case "1":
                 if (items.Count > 0)
@@ -202,7 +202,7 @@ public class BasketMenu
                 System.Console.WriteLine("\n1. remove item");
                 System.Console.WriteLine("2. modify ammount of a item to purchase");
                 System.Console.WriteLine("0. return");
-                switch(Console.ReadLine())
+                switch (Console.ReadLine())
                 {
                     case "1":
                         System.Console.WriteLine("Which item would you like to delete?");
@@ -211,8 +211,8 @@ public class BasketMenu
                         {
                             if ((optionItemInt - 1) >= 0 && (optionItemInt - 1) < items.Count)
                             {
-                            
-                                if (_basketService.RemoveFromBasket(UserSession.CurrentUser.Id, items[optionItemInt-1].ProductId))
+
+                                if (_basketService.RemoveFromBasket(UserSession.CurrentUser.Id, items[optionItemInt - 1].ProductId))
                                 {
                                     System.Console.WriteLine("Succesfully deleted item press any key to continue.");
                                     Console.ReadKey();
@@ -239,7 +239,7 @@ public class BasketMenu
                                 System.Console.WriteLine("What would you like to change the quantity to?");
                                 if (int.TryParse(Console.ReadLine(), out int newQuantity))
                                 {
-                                    if (_basketService.ModifyQuantityBasket(UserSession.CurrentUser.Id, items[optionItemModifyInt-1].ProductId, newQuantity))
+                                    if (_basketService.ModifyQuantityBasket(UserSession.CurrentUser.Id, items[optionItemModifyInt - 1].ProductId, newQuantity))
                                     {
                                         System.Console.WriteLine("Succesfully updated item press any key to continue.");
                                         Console.ReadKey();
@@ -248,7 +248,7 @@ public class BasketMenu
                                     {
                                         System.Console.WriteLine("Failed to updated item press any key to continue");
                                         Console.ReadKey();
-                                    }                                    
+                                    }
                                 }
 
                             }
@@ -276,20 +276,24 @@ public class BasketMenu
     public static void PrintAll()
     {
         var products = _productService.GetAllProducts();
-        Console.WriteLine("\n---- Product List ----");
-        Console.WriteLine($"ID ---------- Name -------------------- Price ----- Stock");
-        foreach (var p in products)
-        {
-            if (p != null)
-            {
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,10} {p.Stock,15}");
-            }
-            else if (products.Count() == 0)
-            {
-                
-                Console.WriteLine("No products available.");
-                return;
-            }
-        }
+        ViewProductPres view = new(_productService);
+        view.DisplayProducts(products);
+
+        // var products = _productService.GetAllProducts();
+        // Console.WriteLine("\n---- Product List ----");
+        // Console.WriteLine($"ID ---------- Name -------------------- Price ----- Stock");
+        // foreach (var p in products)
+        // {
+        //     if (p != null)
+        //     {
+        //         Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,10} {p.Stock,15}");
+        //     }
+        //     else if (products.Count() == 0)
+        //     {
+
+        //         Console.WriteLine("No products available.");
+        //         return;
+        //     }
+        // }
     }
 }
