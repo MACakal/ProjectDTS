@@ -11,6 +11,8 @@ public class AccountPre
 
     public void AccountInformation(User user)
     {
+        BreadcrumbManager.Push("Account Information");
+        BreadcrumbManager.Render();
         System.Console.WriteLine("Please enter your password to see your profile information!");
         var password = Console.ReadLine();
         var result = _userService.UserInformationPasswordCheck(user, password);
@@ -42,5 +44,6 @@ public class AccountPre
         System.Console.WriteLine();
         System.Console.WriteLine("Click enter to continue....");
         Console.ReadKey();
+        BreadcrumbManager.Pop();
     }
 }

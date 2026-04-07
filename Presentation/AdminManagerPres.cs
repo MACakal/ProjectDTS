@@ -14,8 +14,6 @@ public class AdminManagerPres
     public Product? CreateProduct()
     {
 
-        Console.Clear();
-
         while (true)
         {
 

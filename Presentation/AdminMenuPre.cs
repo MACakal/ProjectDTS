@@ -36,12 +36,16 @@ public class AdminMenuPres
             switch (choice)
             {
                 case "1":
+                    BreadcrumbManager.Push("Products");
                     Console.Clear();
+                    BreadcrumbManager.Render();
                     _viewProductPres.Viewproducts();
                     break;
 
                 case "2":
+                    BreadcrumbManager.Push("Add Product");
                     Console.Clear();
+                    BreadcrumbManager.Render();
 
                     Console.WriteLine("Add product...");
                     var product = _adminManagerPres.CreateProduct();
@@ -59,21 +63,31 @@ public class AdminMenuPres
                     Console.Clear();
                     break;
                 case "3":
+                    BreadcrumbManager.Push("Edit Product");
+                    Console.Clear();
+                    BreadcrumbManager.Render();
                     _adminManagerPres.EditProduct();
                     Console.Clear();
                     break;
                 case "4":
+                    BreadcrumbManager.Push("Analytics");
+                    Console.Clear();
+                    BreadcrumbManager.Render();
                     _adminManagerPres.MostPopularCategories();
                     Console.Clear();
                     break;
                 case "5":
+                    BreadcrumbManager.Push("User Spending");
                     Console.Clear();
+                    BreadcrumbManager.Render();
                     _adminManagerPres.ShowUserSpending();
                     Console.ReadKey();
                     Console.Clear();
                     break;
                 case "6":
+                    BreadcrumbManager.Push("Notifications");
                     Console.Clear();
+                    BreadcrumbManager.Render();
                     _adminManagerPres.ShowNotifications();
                     Console.ReadKey();
                     Console.Clear();

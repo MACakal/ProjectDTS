@@ -20,6 +20,8 @@ public class CustomerMenuPre
         while (true)
         {
             Console.Clear();
+            BreadcrumbManager.Render();
+
             Console.WriteLine("\nCustomer Menu");
             Console.WriteLine("1. View Products");
             Console.WriteLine("2. Make an Order");
@@ -33,14 +35,18 @@ public class CustomerMenuPre
 
             if (choice == "1")
             {
+                BreadcrumbManager.Push("View Products");
                 Console.Clear();
+                BreadcrumbManager.Render();
                 _viewProductPres.Viewproducts();
                 Console.WriteLine("\nPress any key to return to the customer menu.");
                 Console.ReadLine();
             }
             if(choice == "2")
             {
+                BreadcrumbManager.Push("Order");
                 Console.Clear();
+                BreadcrumbManager.Render();
                 if(UserSession.CurrentUser == null)
                 {
                     Console.WriteLine("⚠️ You must be logged in to make an order!");
@@ -49,12 +55,15 @@ public class CustomerMenuPre
                 }
                 else
                 {
+
                     BasketMenu.ShowBasket();
                 }
             }
             if(choice == "3")
             {
+                BreadcrumbManager.Push("Past Orders");
                 Console.Clear();
+                BreadcrumbManager.Render();
                 if(UserSession.CurrentUser == null)
                 {
                     Console.WriteLine("⚠️ You must be logged in to view past order!");
@@ -70,7 +79,9 @@ public class CustomerMenuPre
             }
              if (choice == "4")
             {
+                BreadcrumbManager.Push("Filter Products");
                 Console.Clear();
+                BreadcrumbManager.Render();
                 _filterMenu.Show();
 
                 Console.WriteLine("\nPress any key to return to the customer menu.");
@@ -78,7 +89,9 @@ public class CustomerMenuPre
             }
             if (choice == "5")
             {
+                BreadcrumbManager.Push("Products Ranking");
                 Console.Clear();
+                BreadcrumbManager.Render();
                 ProductsRanking.Start();
 
                 Console.WriteLine("\nPress any key to return to the customer menu.");
@@ -86,7 +99,11 @@ public class CustomerMenuPre
             }
             if (choice == "6")
             {
+                BreadcrumbManager.Push("Account Information");
+                Console.Clear();
+                BreadcrumbManager.Render();
                 _AccountPre.AccountInformation(user);
+
             }
             if (choice == "0") break;
         }
