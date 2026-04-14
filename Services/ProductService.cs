@@ -318,4 +318,44 @@ public class ProductService
 
     }
 
+    public List<Product> GetProductsPerCategory()
+    {
+        var products = new List<Product>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"
+        WITH RankedProducts AS(
+        SELECT
+         name,
+         category,
+         price, 
+         ROW_NUMBER() OVER (
+         PARTITION BY category
+         ORDER BY price DESC
+         ) AS rn
+         FROM products
+        )
+        SELECT name, category, price
+        FROM RankedProducts WHERE rn <= 3;
+         ";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            var product = new Product
+            {
+                Name = reader.GetString(0),
+                Category = reader.GetString(1),
+                Price = reader.GetDecimal(2)
+            };
+            products.Add(product);
+        }
+        return products;
+
+    }
+
 }
