@@ -420,11 +420,11 @@ public class AdminManagerPres
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write($"{notification.Id,-4} | ");
 
-            if(notification.IsRead)
+            if (notification.IsRead)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
             }
-            else 
+            else
             {
                 Console.ForegroundColor = ConsoleColor.Green;
             }
@@ -477,6 +477,36 @@ public class AdminManagerPres
             Console.ResetColor();
 
         }
+    }
+
+
+    public void ShowTopProductsPerCategory()
+    {
+        var products = _service.GetProductsPerCategory();
+
+        var grouped = products.GroupBy(p => p.Category);
+
+        foreach (var group in grouped)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"\n=== {group.Key} ===");
+            Console.ResetColor();
+
+            foreach (var p in group)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write($"{p.Name,-25}");
+
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(" | ");
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{p.Price,10}");
+
+                Console.ResetColor();
+            }
+        }
+
     }
 
 }

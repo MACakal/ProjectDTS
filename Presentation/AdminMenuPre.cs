@@ -30,6 +30,7 @@ public class AdminMenuPres
             Console.WriteLine("5. Analytics");
             Console.WriteLine("6. User Spending");
             Console.WriteLine("7. Notifications");
+            Console.WriteLine("8. Show Top Products per Category");
             Console.WriteLine("0. Back");
 
             string choice = Console.ReadLine();
@@ -97,7 +98,12 @@ public class AdminMenuPres
                     Console.ReadKey();
                     Console.Clear();
                     break;
-
+                case "8":
+                    Console.Clear();
+                    _adminManagerPres.ShowTopProductsPerCategory();
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
                 case "0":
                     Console.Clear();
                     return;
