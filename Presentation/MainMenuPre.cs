@@ -62,13 +62,13 @@ public class MainMenuPre
 
                 case "2":
                     Console.Clear();
-                    //BreadcrumbManager.Push("Login");
+                    BreadcrumbManager.Push("Login");
                     // Console.CursorVisible = true;
                     Login();
                     break;
 
                 case "3":
-                    //BreadcrumbManager.Push("Register");
+                    BreadcrumbManager.Push("Register");
                     Console.Clear();
                     // Console.CursorVisible = true;
                     Register();
@@ -88,7 +88,7 @@ public class MainMenuPre
 
     private void Login()
     {
-        //  BreadcrumbManager.Render();
+        BreadcrumbManager.Render();
         Console.WriteLine("Enter your email...");
         string email = Console.ReadLine();
         Console.WriteLine("Enter your password...");
@@ -102,7 +102,7 @@ public class MainMenuPre
 
             Console.ReadKey();
             Console.Clear();
-            //BreadcrumbManager.Pop();
+            BreadcrumbManager.Pop();
             return;
 
         }
@@ -110,13 +110,13 @@ public class MainMenuPre
         if (user.Role == UserRole.Admin)
         {
             Console.Clear();
-            //BreadcrumbManager.Pop();
-            //BreadcrumbManager.Push("Admin Menu");
+            BreadcrumbManager.Pop();
+            BreadcrumbManager.Push("Admin Menu");
             _adminMenuPres.ShowAdminMenu();
         }
         else
         {
-            //BreadcrumbManager.Push("shopping Menu");
+            BreadcrumbManager.Push("shopping Menu");
             _customerMenuPre.CustomerShow(user);
         }
     }

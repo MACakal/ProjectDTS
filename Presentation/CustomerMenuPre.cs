@@ -20,7 +20,7 @@ public class CustomerMenuPre
         while (true)
         {
             Console.Clear();
-            //BreadcrumbManager.Render();
+            BreadcrumbManager.Render();
 
             Console.WriteLine("\nCustomer Menu");
             Console.WriteLine("1. View Products");
