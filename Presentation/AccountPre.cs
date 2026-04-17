@@ -88,7 +88,33 @@ public class AccountPre
 
         if (inputEmail != null && inputEmail != "")
         {
-            user.Email = inputEmail;
+            if (inputEmail == user.Email)
+            {
+                Console.WriteLine("Email is the same, skipping...");
+            }
+            else
+            {
+                while (!userLogic.CheckEmailCorrect(inputEmail))
+                {
+                    Console.WriteLine("Email must contain a @. Try again or press ENTER to skip:");
+                    inputEmail = Console.ReadLine();
+
+                    if (inputEmail == "") break;
+                }
+
+                if (inputEmail != "")
+                {
+                    if (userLogic.EmailExists(inputEmail, user.Id))
+                    {
+                        Console.WriteLine("This email is already in use. (Press ENTER to continue...)");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        user.Email = inputEmail;
+                    }
+                }
+            }
         }
 
         Console.WriteLine($"\nCurrent password: {user.Password}");
@@ -97,7 +123,19 @@ public class AccountPre
 
         if (inputPassword != null && inputPassword != "")
         {
-            user.Password = inputPassword;
+            while (!userLogic.CheckPassword(inputPassword))
+            {
+                Console.WriteLine("Password must be at least 6 characters, contain 1 Uppercase letter and 1 number");
+                Console.WriteLine("Try again or press ENTER to skip:");
+                inputPassword = Console.ReadLine();
+
+                if (inputPassword == "") break;
+            }
+
+            if (inputPassword != "")
+            {
+                user.Password = inputPassword;
+            }
         }
 
         var result = userLogic.UpdateUser(user);
