@@ -41,4 +41,9 @@ public class UserLogic
         return true;
     }
 
+    public bool CheckEmailCorrect(string email)
+    {
+        return email.Contains("@");
+    }
+
 }
