@@ -126,18 +126,23 @@ public class MainMenuPre
     {
         //BreadcrumbManager.Render();
         System.Console.WriteLine("Enter your name...");
-        string name = Console.ReadLine();
-        System.Console.WriteLine("Enter your email adress...");
-        string email = Console.ReadLine();
-        System.Console.WriteLine("Enter your password...");
-        string password = Console.ReadLine();
+        string name = Console.ReadLine()!;
+        System.Console.WriteLine("Enter your email adress... (Has to contain a @)");
+        string email = Console.ReadLine()!;
 
-        if (!userLogic.CheckPassword(password))
+        while (!userLogic.CheckEmailCorrect(email))
         {
-            Console.WriteLine("Password must be at least 6 characters, contain 1 uppercase letter and 1 number");
-            Console.WriteLine("Press ENTER to continue...");
-            Console.ReadLine();
-            return;
+            Console.WriteLine("Email must contain a @. Try again:");
+            email = Console.ReadLine()!;
+        }
+
+        Console.WriteLine("Enter your password... (At least 6 chars long, 1 Uppercase letter and 1 number)");
+        string password = Console.ReadLine()!;
+
+        while (!userLogic.CheckPassword(password))
+        {
+            Console.WriteLine("Password must be at least 6 characters, contain 1 Uppercase letter and 1 number. Try again:");
+            password = Console.ReadLine()!;
         }
 
         ProjectDTS.UserRegisterService outcome = _userService.UserRegister(name: name, email: email, password: password);

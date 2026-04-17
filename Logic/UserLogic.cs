@@ -26,7 +26,7 @@ public class UserLogic
 
     public bool CheckPassword(string password)
     {
-        if (password.Length < 8)
+        if (password.Length < 6)
         {
             return false;
         }
