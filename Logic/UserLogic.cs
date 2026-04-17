@@ -46,4 +46,9 @@ public class UserLogic
         return email.Contains("@");
     }
 
+    public bool EmailExists(string email, int userId)
+    {
+        return _userservice.EmailExists(email, userId);
+    }
+
 }
