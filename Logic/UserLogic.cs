@@ -23,4 +23,22 @@ public class UserLogic
 
         return _userservice.DeleteUser(user.Id);
     }
+
+    public bool CheckPassword(string password)
+    {
+        if (password.Length < 8)
+        {
+            return false;
+        }
+        if (!password.Any(ch => char.IsUpper(ch)))
+        {
+            return false;
+        }
+        if (!password.Any(ch => char.IsDigit(ch)))
+        {
+            return false;
+        }
+        return true;
+    }
+
 }
