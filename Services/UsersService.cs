@@ -13,28 +13,37 @@ public class UserService
     {
         using var conn = _db.GetConnection();
         conn.Open();
+
+        // string sql = @"SELECT id, name, email, password, role
+        //     FROM users
+        //     WHERE email=@email AND pgp_sym_decrypt(password::bytea, 'admin_key')= @password";
+
         string sql = @"SELECT id, name, email, password, role
-            FROM users
-            WHERE email=@email AND pgp_sym_decrypt(password::bytea, 'admin_key')= @password";
+                        FROM users
+                        WHERE email=@email";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("email", email);
-        cmd.Parameters.AddWithValue("password", password);
+
         using var reader = cmd.ExecuteReader();
+        if (!reader.Read()) return null;
 
-        if (reader.Read())
+        string dbPassword = reader.GetString(3);
+        if (!BCrypt.Net.BCrypt.Verify(password, dbPassword)) return null;
+        // cmd.Parameters.AddWithValue("password", password);
+
+
+
+        return new User
         {
-            return new User
-            {
 
-                Id = reader.GetInt32(0),
-                Name = reader.GetString(1),
-                Email = reader.GetString(2),
-                Password = reader.GetString(3),
-                Role = Enum.Parse<UserRole>(reader.GetString(4), true)
-            };
-        }
-        return null;
+            Id = reader.GetInt32(0),
+            Name = reader.GetString(1),
+            Email = reader.GetString(2),
+            // Password = reader.GetString(3),
+            Role = Enum.Parse<UserRole>(reader.GetString(4), true)
+        };
+
     }
     public UserRegisterService UserRegister(string name, string email, string password)
     {
@@ -48,7 +57,7 @@ public class UserService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        sql = @"SELECT COUNT(*) FROM users WHERE email=@email";
+        sql = @"SELECT password FROM users WHERE email=@email";
         using var cmd1 = new NpgsqlCommand(sql, conn);
         cmd1.Parameters.AddWithValue("email", email);
         rowsAffected = Convert.ToInt32(cmd1.ExecuteScalar());
@@ -57,12 +66,13 @@ public class UserService
         {
             return UserRegisterService.alreadyExists;
         }
+        string hash = BCrypt.Net.BCrypt.HashPassword(password);
 
-        sql = @"INSERT INTO users (name, email, password) VALUES (@name, @email, pgp_sym_encrypt(@password, 'admin_key'))";
+        sql = @"INSERT INTO users (name, email, password) VALUES (@name, @email, @password)";
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("name", name);
         cmd.Parameters.AddWithValue("email", email);
-        cmd.Parameters.AddWithValue("password", password);
+        cmd.Parameters.AddWithValue("password", hash);
         rowsAffected = cmd.ExecuteNonQuery();
 
         if (rowsAffected > 0)
@@ -83,20 +93,26 @@ public class UserService
         }
         using var conn = _db.GetConnection();
         conn.Open();
-        string sql = @"SELECT * FROM users WHERE email=@email AND pgp_sym_decrypt(password::bytea, 'admin_key') = @password";
-        using var cmd = new NpgsqlCommand(sql, conn);
-        cmd.Parameters.AddWithValue("email", user.Email);
-        cmd.Parameters.AddWithValue("password", password);
-        using var reader = cmd.ExecuteReader();
 
-        if (reader.Read())
-        {
-            return UserRegisterService.succesfull;
-        }
-        else
-        {
+        string sql = @"SELECT password FROM users WHERE email=@email";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+
+        // var dbPassword = (string?)cmd.ExecuteScalar();
+
+        cmd.Parameters.AddWithValue("email", user.Email);
+
+        var dbPassword = (string?)cmd.ExecuteScalar();
+
+        if (dbPassword == null)
+
             return UserRegisterService.UnkownError;
-        }
+
+        if (BCrypt.Net.BCrypt.Verify(password, dbPassword))
+
+            return UserRegisterService.succesfull;
+
+        return UserRegisterService.UnkownError;
     }
     public List<UserSpendingView> GetUserSpending()
     {
@@ -129,36 +145,81 @@ public class UserService
 
 
 
+    // public UserRegisterService UpdateUser(User user)
+    // {
+    //     if (user == null)
+    //     {
+    //         return UserRegisterService.emptyParameter;
+    //     }
+
+    //     using var conn = _db.GetConnection();
+    //     conn.Open();
+    //     string hash = BCrypt.Net.BCrypt.HashPassword(user.Password);
+    //     string sql = @"UPDATE users 
+    //                 SET name=@name, email=@email, password=@password
+    //                 WHERE id=@id";
+
+    //     using var cmd = new NpgsqlCommand(sql, conn);
+    //     cmd.Parameters.AddWithValue("name", user.Name);
+    //     cmd.Parameters.AddWithValue("email", user.Email);
+    //     cmd.Parameters.AddWithValue("password", hash);
+    //     cmd.Parameters.AddWithValue("id", user.Id);
+
+    //     int rows = cmd.ExecuteNonQuery();
+
+    //     if (rows > 0)
+    //     {
+    //         return UserRegisterService.succesfull;
+    //     }
+
+    //     return UserRegisterService.UnkownError;
+    // }
+
     public UserRegisterService UpdateUser(User user)
     {
         if (user == null)
-        {
             return UserRegisterService.emptyParameter;
-        }
 
         using var conn = _db.GetConnection();
         conn.Open();
 
-        string sql = @"UPDATE users 
-                    SET name=@name, email=@email, password=pgp_sym_encrypt(@password, 'admin_key')
-                    WHERE id=@id";
+        string sql;
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = conn;
 
-        using var cmd = new NpgsqlCommand(sql, conn);
-        cmd.Parameters.AddWithValue("name", user.Name);
-        cmd.Parameters.AddWithValue("email", user.Email);
-        cmd.Parameters.AddWithValue("password", user.Password);
-        cmd.Parameters.AddWithValue("id", user.Id);
+
+        if (!string.IsNullOrWhiteSpace(user.Password))
+        {
+            string hash = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+            sql = @"UPDATE users 
+                SET name=@name, email=@email, password=@password
+                WHERE id=@id";
+
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("name", user.Name);
+            cmd.Parameters.AddWithValue("email", user.Email);
+            cmd.Parameters.AddWithValue("password", hash);
+            cmd.Parameters.AddWithValue("id", user.Id);
+        }
+        else
+        {
+            sql = @"UPDATE users 
+                SET name=@name, email=@email
+                WHERE id=@id";
+
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("name", user.Name);
+            cmd.Parameters.AddWithValue("email", user.Email);
+            cmd.Parameters.AddWithValue("id", user.Id);
+        }
 
         int rows = cmd.ExecuteNonQuery();
 
-        if (rows > 0)
-        {
-            return UserRegisterService.succesfull;
-        }
-
-        return UserRegisterService.UnkownError;
+        return rows > 0
+            ? UserRegisterService.succesfull
+            : UserRegisterService.UnkownError;
     }
-
     public UserRegisterService DeleteUser(int userId)
     {
         using var conn = _db.GetConnection();

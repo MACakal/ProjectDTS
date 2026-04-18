@@ -2,7 +2,7 @@ namespace ProjectDTS;
 
 public class AccountPre
 {
-    private UserService _userService {get;set;}
+    private UserService _userService { get; set; }
     static private UserLogic userLogic = new();
 
     public AccountPre(UserService service)
@@ -18,7 +18,7 @@ public class AccountPre
         var password = Console.ReadLine();
         var result = _userService.UserInformationPasswordCheck(user, password);
 
-        switch(result)
+        switch (result)
         {
             case ProjectDTS.UserRegisterService.succesfull:
                 SuccesfullCheck(user);
@@ -40,7 +40,7 @@ public class AccountPre
         System.Console.WriteLine("===Account information===");
         System.Console.WriteLine($"Account email: {user.Email}");
         System.Console.WriteLine($"Account name: {user.Name}");
-        System.Console.WriteLine($"Account password: {user.Password}");
+        System.Console.WriteLine($"Account password: *********");
         System.Console.WriteLine($"Account role: {user.Role}");
         Console.WriteLine("\n===Account options===");
         Console.WriteLine("[1] Change account information");
@@ -48,15 +48,15 @@ public class AccountPre
         Console.WriteLine("[3] Go back to user menu");
         string choice = Console.ReadLine()!;
 
-        if(choice == "1")
+        if (choice == "1")
         {
             ChangeAccInfo(user);
         }
-        else if(choice == "2")
+        else if (choice == "2")
         {
             DeleteAcc(user);
         }
-        else if(choice == "3")
+        else if (choice == "3")
         {
             return;
         }

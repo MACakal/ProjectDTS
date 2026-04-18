@@ -9,12 +9,14 @@ public class Program
         Env.Load();
         var databaseService = new DatabaseService();
 
-
+        // Console.WriteLine(BCrypt.Net.BCrypt.HashPassword("1234"));
         // using (var conn = databaseService.GetConnection())
         // {
         //     conn.Open();
         //     Console.WriteLine("CONNECTED");
         // }
+
+
         var productService = new ProductService(databaseService);
 
         var viewProduct = new ViewProductPres(productService);
