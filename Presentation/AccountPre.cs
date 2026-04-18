@@ -2,7 +2,7 @@ namespace ProjectDTS;
 
 public class AccountPre
 {
-    private UserService _userService {get;set;}
+    private UserService _userService { get; set; }
     static private UserLogic userLogic = new();
 
     public AccountPre(UserService service)
@@ -18,7 +18,7 @@ public class AccountPre
         var password = Console.ReadLine();
         var result = _userService.UserInformationPasswordCheck(user, password);
 
-        switch(result)
+        switch (result)
         {
             case ProjectDTS.UserRegisterService.succesfull:
                 SuccesfullCheck(user);
@@ -34,124 +34,211 @@ public class AccountPre
         }
     }
 
+    // public void SuccesfullCheck(User user)
+    // {
+    //     Console.Clear();
+    //     System.Console.WriteLine("===Account information===");
+    //     System.Console.WriteLine($"Account email: {user.Email}");
+    //     System.Console.WriteLine($"Account name: {user.Name}");
+    //     System.Console.WriteLine($"Account password: *********");
+    //     System.Console.WriteLine($"Account role: {user.Role}");
+    //     Console.WriteLine("\n===Account options===");
+    //     Console.WriteLine("[1] Change account information");
+    //     Console.WriteLine("[2] DELETE account");
+    //     Console.WriteLine("[3] Go back to user menu");
+    //     string choice = Console.ReadLine()!;
+
+    //     if (choice == "1")
+    //     {
+    //         ChangeAccInfo(user);
+    //     }
+    //     else if (choice == "2")
+    //     {
+    //         DeleteAcc(user);
+    //     }
+    //     else if (choice == "3")
+    //     {
+    //         return;
+    //     }
+    //     else
+    //     {
+    //         SuccesfullCheck(user);
+    //     }
+
+    // }
     public void SuccesfullCheck(User user)
     {
-        Console.Clear();
-        System.Console.WriteLine("===Account information===");
-        System.Console.WriteLine($"Account email: {user.Email}");
-        System.Console.WriteLine($"Account name: {user.Name}");
-        System.Console.WriteLine($"Account password: {user.Password}");
-        System.Console.WriteLine($"Account role: {user.Role}");
-        Console.WriteLine("\n===Account options===");
-        Console.WriteLine("[1] Change account information");
-        Console.WriteLine("[2] DELETE account");
-        Console.WriteLine("[3] Go back to user menu");
-        string choice = Console.ReadLine()!;
+        while (true)
+        {
+            Console.Clear();
 
-        if(choice == "1")
-        {
-            ChangeAccInfo(user);
-        }
-        else if(choice == "2")
-        {
-            DeleteAcc(user);
-        }
-        else if(choice == "3")
-        {
-            return;
-        }
-        else
-        {
-            SuccesfullCheck(user);
-        }
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("==================================");
+            Console.WriteLine("        ACCOUNT INFORMATION       ");
+            Console.WriteLine("==================================");
+            Console.ResetColor();
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Email: ");
+            Console.ResetColor();
+            Console.WriteLine(user.Email);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Name : ");
+            Console.ResetColor();
+            Console.WriteLine(user.Name);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Password: ");
+            Console.ResetColor();
+            Console.WriteLine("********");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Role : ");
+            Console.ResetColor();
+            Console.WriteLine(user.Role);
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("========== OPTIONS ==========");
+            Console.ResetColor();
+
+            Console.WriteLine("[1] Change account information");
+
+
+            Console.WriteLine("[2] Delete account");
+
+
+            Console.WriteLine("[0] Back");
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Select option: ");
+            Console.ResetColor();
+
+            string? choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    ChangeAccInfo(user);
+                    break;
+
+                case "2":
+                    DeleteAcc(user);
+                    return;
+
+                case "0":
+                    return;
+
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("\nInvalid option...");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    break;
+            }
+        }
     }
-
     public void ChangeAccInfo(User user)
     {
-        Console.Clear();
-        Console.WriteLine("=== Change Account Information ===");
-        Console.WriteLine("Press ENTER to skip.\n");
+        bool editing = true;
 
-        Console.WriteLine($"Current name: {user.Name}");
-        Console.Write("New name: ");
-        var inputName = Console.ReadLine();
-
-        if (inputName != null && inputName != "")
+        while (editing)
         {
-            user.Name = inputName;
-        }
+            Console.Clear();
 
-        Console.WriteLine($"\nCurrent email: {user.Email}");
-        Console.Write("New email: ");
-        var inputEmail = Console.ReadLine();
 
-        if (inputEmail != null && inputEmail != "")
-        {
-            if (inputEmail == user.Email)
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("╔══════════════════════════════╗");
+            Console.WriteLine("║       EDIT YOUR PROFILE      ║");
+            Console.WriteLine("╚══════════════════════════════╝");
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            Console.WriteLine($"1. Name     : {user.Name}");
+            Console.WriteLine($"2. Email    : {user.Email}");
+            Console.WriteLine($"3. Password : ********");
+            Console.WriteLine();
+            Console.WriteLine("4. Save and exit");
+            Console.WriteLine("5. Cancel");
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("Select option: ");
+            Console.ResetColor();
+
+            string? choice = Console.ReadLine();
+
+            switch (choice)
             {
-                Console.WriteLine("Email is the same, skipping...");
-            }
-            else
-            {
-                while (!userLogic.CheckEmailCorrect(inputEmail))
-                {
-                    Console.WriteLine("Email must contain a @. Try again or press ENTER to skip:");
-                    inputEmail = Console.ReadLine();
+                case "1":
+                    Console.Write("Enter new name: ");
+                    var name = Console.ReadLine();
 
-                    if (inputEmail == "") break;
-                }
+                    if (!string.IsNullOrWhiteSpace(name))
+                        user.Name = name;
+                    break;
 
-                if (inputEmail != "")
-                {
-                    if (userLogic.EmailExists(inputEmail, user.Id))
+                case "2":
+                    Console.Write("Enter new email: ");
+                    var email = Console.ReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(email))
+                        user.Email = email;
+                    break;
+
+                case "3":
+                    Console.Write("Enter new password: ");
+                    var password = Console.ReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(password))
+                        user.Password = password;
+                    break;
+
+                case "4":
+                    var result = userLogic.UpdateUser(user);
+
+                    Console.Clear();
+
+                    if (result == UserRegisterService.succesfull)
                     {
-                        Console.WriteLine("This email is already in use. (Press ENTER to continue...)");
-                        Console.ReadLine();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("✔ Account updated successfully!");
                     }
                     else
                     {
-                        user.Email = inputEmail;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("✖ Something went wrong.");
                     }
-                }
+
+                    Console.ResetColor();
+                    Console.WriteLine("\nPress any key...");
+                    Console.ReadKey();
+
+                    editing = false;
+                    break;
+
+                case "5":
+                    Console.WriteLine("Changes discarded.");
+                    Thread.Sleep(800);
+                    editing = false;
+                    break;
+
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid option...");
+                    Console.ResetColor();
+                    Thread.Sleep(800);
+                    break;
             }
         }
 
-        Console.WriteLine($"\nCurrent password: {user.Password}");
-        Console.Write("New password: ");
-        var inputPassword = Console.ReadLine();
-
-        if (inputPassword != null && inputPassword != "")
-        {
-            while (!userLogic.CheckPassword(inputPassword))
-            {
-                Console.WriteLine("Password must be at least 6 characters, contain 1 Uppercase letter and 1 number");
-                Console.WriteLine("Try again or press ENTER to skip:");
-                inputPassword = Console.ReadLine();
-
-                if (inputPassword == "") break;
-            }
-
-            if (inputPassword != "")
-            {
-                user.Password = inputPassword;
-            }
-        }
-
-        var result = userLogic.UpdateUser(user);
-
-        if (result == UserRegisterService.succesfull)
-        {
-            Console.WriteLine("\nAccount updated! (Press ENTER to continue...)");
-        }
-        else
-        {
-            Console.WriteLine("\nSomething went wrong... (Press ENTER to continue...)");
-        }
-
-        Console.ReadLine();
         SuccesfullCheck(user);
     }
+
 
     public void DeleteAcc(User user)
     {
