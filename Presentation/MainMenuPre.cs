@@ -6,8 +6,7 @@ public class MainMenuPre
     private AdminMenuPres _adminMenuPres;
     private UserService _userService;
     private ViewProductPres _viewProductPres;
-    // private FilterMenu _filterMenu;
-    // private ProductMenuPres _productMenu;
+
     public MainMenuPre(CustomerMenuPre customerMenuPre,
      AdminMenuPres adminMenuPres,
       UserService userService,
@@ -18,31 +17,53 @@ public class MainMenuPre
         _adminMenuPres = adminMenuPres;
         _userService = userService;
         _viewProductPres = viewProductPres;
-        // _productMenu = productMenu;
-        // _filterMenu = filterMenu;
+
     }
     public void Show()
     {
-        // DatabaseService db = new();
-        // ProductService product = new(db);
-        // FilterMenu filter = new(product);
-        //BreadcrumbManager.Push("Main Menu");
+
 
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("===== MAIN MENU =====");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine("╔════════════════════════════╗");
+
+            string title = "WELCOME TO THE WEBSHOP";
+            ConsoleColor[] colors = {
+
+            ConsoleColor.Red,
+
+            ConsoleColor.Yellow,
+
+            ConsoleColor.Green,
+
+            ConsoleColor.Cyan,
+
+            ConsoleColor.Blue,
+
+            ConsoleColor.Magenta
+
+            };
+
+            Console.Write("║   ");
+            for (int i = 0; i < title.Length; i++)
+            {
+                Console.ForegroundColor = colors[i % colors.Length];
+                Console.Write(title[i]);
+            }
+            Console.WriteLine("   ║");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("╚════════════════════════════╝");
+
+            Console.ResetColor();
+            // Console.WriteLine("===== MAIN MENU =====");
             Console.WriteLine("1. 🔍 View products");
             Console.WriteLine("2. 🔑 Login");
             Console.WriteLine("3. 📝 Register");
             Console.WriteLine("0. ❌ Exit");
-            //     string[] options =
-            //     {
-            //     "🔍 View products",
-            //     "🔑 Login",
-            //     "📝 Register",
-            //     "❌ Exit"
-            // };
+
 
 
             string choice = Console.ReadLine();
@@ -53,24 +74,17 @@ public class MainMenuPre
 
                 case "1":
                     Console.Clear();
-                    //BreadcrumbManager.Push("View Products");
                     _viewProductPres.Viewproducts();
-                    // filter.Show();
-                    // Console.CursorVisible = true;
-                    // _viewProductPres.Viewproducts();
+
                     break;
 
                 case "2":
                     Console.Clear();
-                    //BreadcrumbManager.Push("Login");
-                    // Console.CursorVisible = true;
                     Login();
                     break;
 
                 case "3":
-                    //BreadcrumbManager.Push("Register");
                     Console.Clear();
-                    // Console.CursorVisible = true;
                     Register();
                     break;
                 case "0":
@@ -110,20 +124,17 @@ public class MainMenuPre
         if (user.Role == UserRole.Admin)
         {
             Console.Clear();
-            //BreadcrumbManager.Pop();
-            //BreadcrumbManager.Push("Admin Menu");
+
             _adminMenuPres.ShowAdminMenu();
         }
         else
         {
-            //BreadcrumbManager.Push("shopping Menu");
             _customerMenuPre.CustomerShow(user);
         }
     }
 
     private void Register()
     {
-        //BreadcrumbManager.Render();
         System.Console.WriteLine("Enter your name...");
         string name = Console.ReadLine();
         System.Console.WriteLine("Enter your email adress...");
