@@ -16,13 +16,18 @@ public class DatabaseService
             throw new Exception(
                 "Database password not set. Please set DB_PASSWORD environment variable.");
         }
-
         _connectionString =
-            $"Host=localhost;" +
-            $"Port=5432;" +
-            $"Username=postgres;" +
-            $"Password={password};" +
-            $"Database=webshop";
+    $"Host=localhost;" +
+    $"Port=5433;" +
+    $"Username=web_user;" +
+    $"Password={password};" +
+    $"Database=webshop;";
+        // _connectionString =
+        //     $"Host=localhost;" +
+        //     $"Port=5432;" +
+        //     $"Username=postgres;" +
+        //     $"Password={password};" +
+        //     $"Database=webshop";
     }
 
     public NpgsqlConnection GetConnection()

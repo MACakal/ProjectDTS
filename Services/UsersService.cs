@@ -178,6 +178,21 @@ public class UserService
 
         return UserRegisterService.UnkownError;
     }
+
+    // public void UpdateProfile(string name, string address, string zipCode, string country)
+    // {
+    //     using var conn = _db.GetConnection();
+    //     conn.Open();
+
+    //     string sql = @"
+    //     UPDATE users 
+    //     SET 
+    //         name = @Name,
+    //         address =@Address,
+    //         Zip_code = @ZipCode,
+    //         country = @Country
+    //         WHERE Role = Admin";
+    // }
 }
 
 
