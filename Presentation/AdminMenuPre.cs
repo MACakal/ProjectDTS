@@ -58,9 +58,10 @@ public class AdminMenuPres
 
             Console.WriteLine("── Analytics ─────────────────────");
             Console.ResetColor();
-            Console.WriteLine("[6] Categories");
+            Console.WriteLine("[6] Most Popular Categories");
             Console.WriteLine("[7] User Spending");
             Console.WriteLine("[8] Notifications");
+            Console.WriteLine("[9] Top 3 Products per Category");
 
             Console.WriteLine();
 
@@ -127,21 +128,26 @@ public class AdminMenuPres
                 case "6":
                     Console.Clear();
                     _adminManagerPres.MostPopularCategories();
-                    Console.Clear();
+                    Console.ReadKey();
                     break;
+
                 case "7":
                     Console.Clear();
                     _adminManagerPres.ShowUserSpending();
                     Console.ReadKey();
-                    Console.Clear();
                     break;
+
                 case "8":
                     Console.Clear();
                     _adminManagerPres.ShowNotifications();
                     Console.ReadKey();
-                    Console.Clear();
                     break;
 
+                case "9":
+                    Console.Clear();
+                    _adminManagerPres.ShowTopProductsPerCategory();
+                    Console.ReadKey();
+                    break;
                 case "0":
                     Console.Clear();
                     return;

@@ -2,6 +2,7 @@ namespace ProjectDTS;
 
 public class MainMenuPre
 {
+    static private UserLogic userLogic = new();
     private CustomerMenuPre _customerMenuPre;
     private AdminMenuPres _adminMenuPres;
     private UserService _userService;
@@ -136,11 +137,24 @@ public class MainMenuPre
     private void Register()
     {
         System.Console.WriteLine("Enter your name...");
-        string name = Console.ReadLine();
-        System.Console.WriteLine("Enter your email adress...");
-        string email = Console.ReadLine();
-        System.Console.WriteLine("Enter your password...");
-        string password = Console.ReadLine();
+        string name = Console.ReadLine()!;
+        System.Console.WriteLine("Enter your email adress... (Has to contain a @)");
+        string email = Console.ReadLine()!;
+
+        while (!userLogic.CheckEmailCorrect(email))
+        {
+            Console.WriteLine("Email must contain a @. Try again:");
+            email = Console.ReadLine()!;
+        }
+
+        Console.WriteLine("Enter your password... (At least 6 chars long, 1 Uppercase letter and 1 number)");
+        string password = Console.ReadLine()!;
+
+        while (!userLogic.CheckPassword(password))
+        {
+            Console.WriteLine("Password must be at least 6 characters, contain 1 Uppercase letter and 1 number. Try again:");
+            password = Console.ReadLine()!;
+        }
 
         ProjectDTS.UserRegisterService outcome = _userService.UserRegister(name: name, email: email, password: password);
 

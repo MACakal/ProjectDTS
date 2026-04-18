@@ -23,4 +23,32 @@ public class UserLogic
 
         return _userservice.DeleteUser(user.Id);
     }
+
+    public bool CheckPassword(string password)
+    {
+        if (password.Length < 6)
+        {
+            return false;
+        }
+        if (!password.Any(ch => char.IsUpper(ch)))
+        {
+            return false;
+        }
+        if (!password.Any(ch => char.IsDigit(ch)))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public bool CheckEmailCorrect(string email)
+    {
+        return email.Contains("@");
+    }
+
+    public bool EmailExists(string email, int userId)
+    {
+        return _userservice.EmailExists(email, userId);
+    }
+
 }

@@ -85,6 +85,22 @@ public class UserService
         }
     }
 
+    public bool EmailExists(string email, int currentUserId)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT 1 FROM users WHERE email=@email AND id != @id";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("email", email);
+        cmd.Parameters.AddWithValue("id", currentUserId);
+
+        using var reader = cmd.ExecuteReader();
+
+        return reader.Read();
+    }
+
     public UserRegisterService UserInformationPasswordCheck(User user, string password)
     {
         if (user == null || string.IsNullOrWhiteSpace(password))
