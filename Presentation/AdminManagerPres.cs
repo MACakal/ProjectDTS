@@ -570,5 +570,133 @@ public class AdminManagerPres
 
     }
 
+    public void ViewUsers()
+    {
+        var users = _userService.GetAllUsers();
+
+        foreach (var user in users)
+        {
+            Console.WriteLine($"ID: {user.Id} | Name: {user.Name} | Role: {user.Role}");
+        }
+    }
+
+    public void EditUser()
+    {
+        Console.Clear();
+        var users = _userService.GetAllUsers();
+
+        if (users.Count == 0)
+        {
+            Console.WriteLine("No users found.");
+            return;
+        }
+
+        foreach (var u in users)
+        {
+            Console.WriteLine($"ID: {u.Id} | Name: {u.Name} | Role: {u.Role}");
+        }
+
+        Console.WriteLine("\nEnter user ID to edit:");
+
+        if (!int.TryParse(Console.ReadLine(), out int id))
+        {
+            Console.WriteLine("Invalid ID.");
+            return;
+        }
+
+        var user = _userService.GetUserById(id);
+
+        if (user == null)
+        {
+            Console.WriteLine("User not found.");
+            return;
+        }
+
+        Console.WriteLine($"Editing user: {user.Name}");
+
+        Console.Write("New name (leave empty to keep current): ");
+        var name = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            user.Name = name;
+        }
+
+        Console.Write("New role (Admin/User, leave empty to keep current): ");
+        var roleInput = Console.ReadLine();
+
+        if (!string.IsNullOrWhiteSpace(roleInput))
+        {
+            if (Enum.TryParse(roleInput, true, out UserRole role))
+            {
+                user.Role = role;
+            }
+            else
+            {
+                Console.WriteLine("Invalid role, keeping old value.");
+            }
+        }
+
+        _userService.UpdateUser(user);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("User updated successfully!");
+        Console.ResetColor();
+    }
+
+    public void DeleteUser()
+    {
+        Console.Clear();
+        var users = _userService.GetAllUsers();
+
+        if (users.Count == 0)
+        {
+            Console.WriteLine("No users found.");
+            return;
+        }
+
+        foreach (var u in users)
+        {
+            Console.WriteLine($"ID: {u.Id} | Name: {u.Name} | Role: {u.Role}");
+        }
+
+        Console.WriteLine("\nEnter user ID to delete:");
+
+        if (!int.TryParse(Console.ReadLine(), out int id))
+        {
+            Console.WriteLine("Invalid ID.");
+            return;
+        }
+
+        var user = _userService.GetUserById(id);
+
+        if (user == null)
+        {
+            Console.WriteLine("User not found.");
+            return;
+        }
+
+        // 🔥 Important safety check
+        if (user.Id == UserSession.CurrentUser?.Id)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("You cannot delete your own account.");
+            Console.ResetColor();
+            return;
+        }
+
+        Console.Write($"Are you sure you want to delete {user.Name}? (y/n): ");
+        var confirm = Console.ReadLine()?.ToLower();
+
+        if (confirm == "y")
+        {
+            _userService.DeleteUser(id);
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("User deleted successfully.");
+            Console.ResetColor();
+        }
+    }
+
+
 }
 
