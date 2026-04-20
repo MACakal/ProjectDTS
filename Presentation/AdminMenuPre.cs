@@ -9,7 +9,7 @@ public class AdminMenuPres
     private ViewProductPres _viewProductPres;
     private AccountPre _accountPre;
     private UserService _userService;
-    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres, UserService userService)
+    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres, UserService userService, RatingService ratingService)
     {
         _productService = productService;
         _userService = userService;
@@ -63,6 +63,16 @@ public class AdminMenuPres
             Console.WriteLine("[8] Notifications");
             Console.WriteLine("[9] Top 3 Products per Category");
 
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("── Users ─────────────────────────");
+            Console.ResetColor();
+            Console.WriteLine("[10] View Users");
+            Console.WriteLine("[11] Edit User");
+            Console.WriteLine("[12] Delete User");
+            //Console.WriteLine("[13] Manage Reviews");          
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -148,6 +158,29 @@ public class AdminMenuPres
                     _adminManagerPres.ShowTopProductsPerCategory();
                     Console.ReadKey();
                     break;
+                case "10":
+                    Console.Clear();
+                    _adminManagerPres.ViewUsers();
+                    Console.ReadKey();
+                    break;
+
+                case "11":
+                    Console.Clear();
+                    _adminManagerPres.EditUser();
+                    Console.ReadKey();
+                    break;
+
+                case "12":
+                    Console.Clear();
+                    _adminManagerPres.DeleteUser();
+                    Console.ReadKey();
+                    break;
+
+                //case "13":
+                    //_adminManagerPres.HandleDeleteReview();
+                    //Console.ReadKey();
+                    //Console.Clear();
+                    //break;
                 case "0":
                     Console.Clear();
                     return;

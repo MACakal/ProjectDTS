@@ -32,7 +32,7 @@ public class Program
         var accountPresentation = new AccountPre(userService);
 
         var customerMenu = new CustomerMenuPre(viewProduct, filterMenu, accountPresentation);
-        var adminMenuPres = new AdminMenuPres(productService, viewProduct, userService);
+        var adminMenuPres = new AdminMenuPres(productService, viewProduct, userService, ratingService);
 
         var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         var sortingMenu = new SortingMenu(productService, viewProduct);

@@ -14,8 +14,7 @@ public class RatingService
     public void AddOrUpdateRating(int productId, int userId, int ratingValue, string reviewText = null)
     {
         if (ratingValue < 1 || ratingValue > 5)
-            throw new ArgumentException("Rating moet tussen 1 en 5 liggen.");
-
+            throw new ArgumentException("Rating must be between 1 and 5.");
 
         string reviewKey = $"review:{productId}:{userId}";
         string productIndexKey = $"product:{productId}:reviews";
@@ -25,6 +24,7 @@ public class RatingService
             new HashEntry("text", reviewText ?? ""),
             new HashEntry("created_at", DateTime.UtcNow.ToString())
         };
+
         _redisDb.HashSet(reviewKey, reviewData);
         _redisDb.SetAdd(productIndexKey, reviewKey);
     }
@@ -32,17 +32,20 @@ public class RatingService
     public double GetAverageRating(int productId)
     {
         var ratings = GetProductRatings(productId);
-        
         if (ratings.Count == 0) return 0.0;
-
         return ratings.Average(r => r.RatingValue);
+    }
+
+    public int GetRatingCount(int productId)
+    {
+        string productIndexKey = $"product:{productId}:reviews";
+        return (int)_redisDb.SetLength(productIndexKey);
     }
 
     public List<Rating> GetProductRatings(int productId)
     {
         var ratings = new List<Rating>();
         string productIndexKey = $"product:{productId}:reviews";
-
 
         var reviewKeys = _redisDb.SetMembers(productIndexKey);
 
@@ -56,23 +59,15 @@ public class RatingService
         }
         return ratings;
     }
-    public Rating GetUserRatingForProduct(int productId, int userId)
+
+    public Rating? GetUserRatingForProduct(int productId, int userId)
     {
         string reviewKey = $"review:{productId}:{userId}";
         var data = _redisDb.HashGetAll(reviewKey);
 
-        if (data.Length == 0)
-        {
-            return null;
-        }
-        return MapFromHash(reviewKey, data, productId);
-    }
+        if (data.Length == 0) return null;
 
-    public int GetRatingCount(int productId)
-    {
-        string productIndexKey = $"product:{productId}:reviews";
-        long count = _redisDb.SetLength(productIndexKey);
-        return (int)count;
+        return MapFromHash(reviewKey, data, productId);
     }
 
     private Rating MapFromHash(string key, HashEntry[] entries, int productId)
@@ -80,7 +75,8 @@ public class RatingService
         var dict = entries.ToDictionary(x => x.Name.ToString(), x => x.Value.ToString());
         int userId = int.Parse(key.Split(':')[2]);
 
-        return new Rating {
+        return new Rating
+        {
             ProductId = productId,
             UserId = userId,
             RatingValue = int.Parse(dict["rating"]),

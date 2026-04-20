@@ -13,6 +13,7 @@ public class AdminManagerPres
     public AdminManagerPres(UserService userService)
     {
         _userService = userService;
+        //_ratingService = ratingService;
     }
     public Product? CreateProduct()
     {
@@ -483,6 +484,65 @@ public class AdminManagerPres
     }
 
 
+    // public void HandleDeleteReview()
+    // {
+    //     Console.Clear();
+
+    //     var reviews = _ratingService.GetAllRatingsWithDetails();
+
+    //     if (reviews.Count == 0)
+    //     {
+    //         Console.ForegroundColor = ConsoleColor.Yellow;
+    //         Console.WriteLine("No reviews found.");
+    //         Console.ResetColor();
+    //         return;
+    //     }
+
+    //     Console.ForegroundColor = ConsoleColor.Cyan;
+    //     Console.WriteLine("=== ALL REVIEWS ===\n");
+    //     Console.ResetColor();
+
+    //     Console.ForegroundColor = ConsoleColor.Yellow;
+    //     Console.WriteLine($"{"ID",-5} {"Product",-20} {"User",-15} {"Stars",-7} {"Date",-12} Review");
+    //     Console.ResetColor();
+    //     Console.WriteLine(new string('-', 80));
+
+    //     foreach (var r in reviews)
+    //     {
+    //         string stars = new string('*', r.RatingValue);
+    //         string reviewSnippet = r.ReviewText?.Length > 25 ? r.ReviewText[..25] + "..." : (r.ReviewText ?? "-");
+    //         Console.WriteLine($"{r.RatingId,-5} {r.ProductName,-20} {r.UserName,-15} {stars,-7} {r.CreatedAt:yyyy-MM-dd,-12} {reviewSnippet}");
+    //     }
+
+    //     Console.WriteLine();
+    //     Console.ForegroundColor = ConsoleColor.DarkRed;
+    //     Console.WriteLine("Press 'q' to cancel");
+    //     Console.ResetColor();
+    //     Console.Write("Enter review ID to delete: ");
+
+    //     var input = Console.ReadLine();
+    //     if (input?.ToLower() == "q") return;
+
+    //     if (!int.TryParse(input, out int id) || reviews.All(r => r.RatingId != id))
+    //     {
+    //         Console.ForegroundColor = ConsoleColor.Red;
+    //         Console.WriteLine("Invalid review ID.");
+    //         Console.ResetColor();
+    //         return;
+    //     }
+
+    //     var review = reviews.First(r => r.RatingId == id);
+    //     Console.WriteLine($"\nDelete review by \"{review.UserName}\" on \"{review.ProductName}\"? (y/n)");
+
+    //     if (Console.ReadLine()?.ToLower() != "y") return;
+
+    //     _ratingService.DeleteRating(id);
+
+    //     Console.ForegroundColor = ConsoleColor.Green;
+    //     Console.WriteLine("Review deleted successfully.");
+    //     Console.ResetColor();
+    // }
+
     public void ShowTopProductsPerCategory()
     {
         var products = _service.GetProductsPerCategory();
@@ -511,6 +571,134 @@ public class AdminManagerPres
         }
 
     }
+
+    public void ViewUsers()
+    {
+        var users = _userService.GetAllUsers();
+
+        foreach (var user in users)
+        {
+            Console.WriteLine($"ID: {user.Id} | Name: {user.Name} | Role: {user.Role}");
+        }
+    }
+
+    public void EditUser()
+    {
+        Console.Clear();
+        var users = _userService.GetAllUsers();
+
+        if (users.Count == 0)
+        {
+            Console.WriteLine("No users found.");
+            return;
+        }
+
+        foreach (var u in users)
+        {
+            Console.WriteLine($"ID: {u.Id} | Name: {u.Name} | Role: {u.Role}");
+        }
+
+        Console.WriteLine("\nEnter user ID to edit:");
+
+        if (!int.TryParse(Console.ReadLine(), out int id))
+        {
+            Console.WriteLine("Invalid ID.");
+            return;
+        }
+
+        var user = _userService.GetUserById(id);
+
+        if (user == null)
+        {
+            Console.WriteLine("User not found.");
+            return;
+        }
+
+        Console.WriteLine($"Editing user: {user.Name}");
+
+        Console.Write("New name (leave empty to keep current): ");
+        var name = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            user.Name = name;
+        }
+
+        Console.Write("New role (Admin/User, leave empty to keep current): ");
+        var roleInput = Console.ReadLine();
+
+        if (!string.IsNullOrWhiteSpace(roleInput))
+        {
+            if (Enum.TryParse(roleInput, true, out UserRole role))
+            {
+                user.Role = role;
+            }
+            else
+            {
+                Console.WriteLine("Invalid role, keeping old value.");
+            }
+        }
+
+        _userService.UpdateUser(user);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("User updated successfully!");
+        Console.ResetColor();
+    }
+
+    public void DeleteUser()
+    {
+        Console.Clear();
+        var users = _userService.GetAllUsers();
+
+        if (users.Count == 0)
+        {
+            Console.WriteLine("No users found.");
+            return;
+        }
+
+        foreach (var u in users)
+        {
+            Console.WriteLine($"ID: {u.Id} | Name: {u.Name} | Role: {u.Role}");
+        }
+
+        Console.WriteLine("\nEnter user ID to delete:");
+
+        if (!int.TryParse(Console.ReadLine(), out int id))
+        {
+            Console.WriteLine("Invalid ID.");
+            return;
+        }
+
+        var user = _userService.GetUserById(id);
+
+        if (user == null)
+        {
+            Console.WriteLine("User not found.");
+            return;
+        }
+
+        // 🔥 Important safety check
+        if (user.Id == UserSession.CurrentUser?.Id)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("You cannot delete your own account.");
+            Console.ResetColor();
+            return;
+        }
+
+        Console.Write($"Are you sure you want to delete {user.Name}? (y/n): ");
+        var confirm = Console.ReadLine()?.ToLower();
+
+        if (confirm == "y")
+        {
+            _userService.DeleteUser(id);
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("User deleted successfully.");
+            Console.ResetColor();
+        }
+    }
+
 
 }
 

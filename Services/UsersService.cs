@@ -270,6 +270,55 @@ public class UserService
     //         country = @Country
     //         WHERE Role = Admin";
     // }
+
+    public List<User> GetAllUsers()
+    {
+        var users = new List<User>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT id, name, email, role FROM users ORDER BY id";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            users.Add(new User
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                Email = reader.GetString(2),
+                Role = Enum.Parse<UserRole>(reader.GetString(3), true)
+            });
+        }
+
+        return users;
+    }
+
+    public User GetUserById(int id)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT id, name, email, role FROM users WHERE id=@id";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("id", id);
+
+        using var reader = cmd.ExecuteReader();
+
+        if (!reader.Read()) return null;
+
+        return new User
+        {
+            Id = reader.GetInt32(0),
+            Name = reader.GetString(1),
+            Email = reader.GetString(2),
+            Role = Enum.Parse<UserRole>(reader.GetString(3), true)
+        };
+    }
 }
 
 
