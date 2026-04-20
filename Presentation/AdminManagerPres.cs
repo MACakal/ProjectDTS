@@ -3,14 +3,16 @@ namespace ProjectDTS;
 public class AdminManagerPres
 {
     private UserService _userService;
+    private RatingService _ratingService;
 
     private static ProductService _service = new ProductService(new DatabaseService());
 
     private NotificationService _notificationService = new NotificationService(new DatabaseService());
     private static ViewProductPres _viewService = new ViewProductPres(_service);
-    public AdminManagerPres(UserService userService)
+    public AdminManagerPres(UserService userService, RatingService ratingService)
     {
         _userService = userService;
+        _ratingService = ratingService;
     }
     public Product? CreateProduct()
     {
@@ -479,6 +481,65 @@ public class AdminManagerPres
         }
     }
 
+
+    public void HandleDeleteReview()
+    {
+        Console.Clear();
+
+        var reviews = _ratingService.GetAllRatingsWithDetails();
+
+        if (reviews.Count == 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("No reviews found.");
+            Console.ResetColor();
+            return;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== ALL REVIEWS ===\n");
+        Console.ResetColor();
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"{"ID",-5} {"Product",-20} {"User",-15} {"Stars",-7} {"Date",-12} Review");
+        Console.ResetColor();
+        Console.WriteLine(new string('-', 80));
+
+        foreach (var r in reviews)
+        {
+            string stars = new string('*', r.RatingValue);
+            string reviewSnippet = r.ReviewText?.Length > 25 ? r.ReviewText[..25] + "..." : (r.ReviewText ?? "-");
+            Console.WriteLine($"{r.RatingId,-5} {r.ProductName,-20} {r.UserName,-15} {stars,-7} {r.CreatedAt:yyyy-MM-dd,-12} {reviewSnippet}");
+        }
+
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine("Press 'q' to cancel");
+        Console.ResetColor();
+        Console.Write("Enter review ID to delete: ");
+
+        var input = Console.ReadLine();
+        if (input?.ToLower() == "q") return;
+
+        if (!int.TryParse(input, out int id) || reviews.All(r => r.RatingId != id))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid review ID.");
+            Console.ResetColor();
+            return;
+        }
+
+        var review = reviews.First(r => r.RatingId == id);
+        Console.WriteLine($"\nDelete review by \"{review.UserName}\" on \"{review.ProductName}\"? (y/n)");
+
+        if (Console.ReadLine()?.ToLower() != "y") return;
+
+        _ratingService.DeleteRating(id);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Review deleted successfully.");
+        Console.ResetColor();
+    }
 
     public void ShowTopProductsPerCategory()
     {
