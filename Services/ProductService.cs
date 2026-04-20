@@ -5,10 +5,12 @@ namespace ProjectDTS;
 public class ProductService
 {
     private readonly DatabaseService _db;
+    private readonly RatingService _ratingService;
 
-    public ProductService(DatabaseService db)
+    public ProductService(DatabaseService db, RatingService ratingService = null)
     {
         _db = db;
+        _ratingService = ratingService ?? new RatingService(db);
     }
 
     public List<Product> GetAllProducts()
@@ -26,6 +28,7 @@ public class ProductService
         {
             products.Add(MapProduct(reader));
         }
+        PopulateRatings(products);
         return products;
     }
 
@@ -56,6 +59,7 @@ public class ProductService
         {
             products.Add(MapProduct(reader));
         }
+        PopulateRatings(products);
         return products.ToArray();
     }
 
@@ -75,6 +79,7 @@ public class ProductService
         {
             products.Add(MapProduct(reader));
         }
+        PopulateRatings(products);
         return products;
     }
     public void AddProduct(Product product)
@@ -111,9 +116,9 @@ public class ProductService
 
         while (reader.Read())
         {
-
             products.Add(MapProduct(reader));
         }
+        PopulateRatings(products);
         return products;
     }
 
@@ -132,9 +137,9 @@ public class ProductService
 
         while (reader.Read())
         {
-
             products.Add(MapProduct(reader));
         }
+        PopulateRatings(products);
         return products;
     }
 
@@ -158,6 +163,7 @@ public class ProductService
         {
             products.Add(MapProduct(reader));
         }
+        PopulateRatings(products);
         return products;
     }
 
@@ -174,8 +180,19 @@ public class ProductService
             Rarity = reader.IsDBNull(5) ? "" : reader.GetString(5),
             View_count = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
             Purchase_count = reader.IsDBNull(7) ? 0 : reader.GetInt32(7),
-            Stock = reader.IsDBNull(8) ? 0 : reader.GetInt32(8)
+            Stock = reader.IsDBNull(8) ? 0 : reader.GetInt32(8),
+            AverageRating = 0.0,
+            RatingCount = 0
         };
+    }
+
+    private void PopulateRatings(List<Product> products)
+    {
+        foreach (var product in products)
+        {
+            product.AverageRating = _ratingService.GetAverageRating(product.Id);
+            product.RatingCount = _ratingService.GetRatingCount(product.Id);
+        }
     }
 
     public void UpdateProduct(Product product)
@@ -216,7 +233,9 @@ public class ProductService
 
         if (reader.Read())
         {
-            return MapProduct(reader);
+            var product = MapProduct(reader);
+            PopulateRatings(new List<Product> { product });
+            return product;
         }
 
         return null;
@@ -239,6 +258,7 @@ public class ProductService
             products.Add(MapProduct(reader));
         }
 
+        PopulateRatings(products);
         return products;
     }
 
@@ -258,6 +278,7 @@ public class ProductService
             products.Add(MapProduct(reader));
         }
 
+        PopulateRatings(products);
         return products;
     }
 

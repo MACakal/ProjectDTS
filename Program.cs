@@ -16,10 +16,10 @@ public class Program
         //     Console.WriteLine("CONNECTED");
         // }
 
+        var ratingService = new RatingService(databaseService);
+        var productService = new ProductService(databaseService, ratingService);
 
-        var productService = new ProductService(databaseService);
-
-        var viewProduct = new ViewProductPres(productService);
+        var viewProduct = new ViewProductPres(productService, ratingService);
 
         var filterMenu = new FilterMenu(productService, viewProduct);
 

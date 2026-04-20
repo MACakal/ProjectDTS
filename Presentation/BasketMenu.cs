@@ -8,8 +8,9 @@ public class BasketMenu
     private static ProductService _productService = new ProductService(new DatabaseService());
     private static FilterMenu _filterMenu = new FilterMenu(_productService, new ViewProductPres(_productService));
     private static BasketService _basketService = new BasketService(new DatabaseService());
-
+    private static RatingService _ratingService = new RatingService(new DatabaseService());
     private static SortingMenu _sortingMenu = new SortingMenu(_productService, new ViewProductPres(_productService));
+    private static ViewProductPres _viewProductPres = new ViewProductPres(_productService, _ratingService);
 
     public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, SortingMenu sortingmenu)
     {
@@ -28,6 +29,7 @@ public class BasketMenu
             System.Console.WriteLine("3. Filter products");
             System.Console.WriteLine("4. View Basket");
             System.Console.WriteLine("5. Sort");
+            System.Console.WriteLine("6. Rate product");
             System.Console.WriteLine("0. Back");
 
             var choice = Console.ReadLine();
@@ -52,6 +54,10 @@ public class BasketMenu
                 case "5":
                     Console.Clear();
                     _sortingMenu.Show();
+                    break;
+                case "6":
+                    Console.Clear();
+                    RateProductMenu();
                     break;
                 case "0":
                     Console.Clear();
@@ -118,6 +124,18 @@ public class BasketMenu
         System.Console.WriteLine($"ID: {product.Id}");
         System.Console.WriteLine($"Name: {product.Name}");
         System.Console.WriteLine($"Description: {product.Description}");
+        
+        if (product.RatingCount > 0)
+        {
+            System.Console.ForegroundColor = ConsoleColor.Yellow;
+            System.Console.WriteLine($"Rating: ★ {product.AverageRating:F1}/5 ({product.RatingCount} ratings)");
+            System.Console.ResetColor();
+        }
+        else
+        {
+            System.Console.WriteLine("Rating: Not rated yet");
+        }
+        
         System.Console.WriteLine($"Category: {product.Category}");
         System.Console.WriteLine($"Price: ${product.Price:F2}");
         System.Console.WriteLine($"Rarity: {product.Rarity}");
@@ -276,24 +294,84 @@ public class BasketMenu
     public static void PrintAll()
     {
         var products = _productService.GetAllProducts();
-        ViewProductPres view = new(_productService);
+        ViewProductPres view = new(_productService, _ratingService);
         view.DisplayProducts(products);
+    }
 
-        // var products = _productService.GetAllProducts();
-        // Console.WriteLine("\n---- Product List ----");
-        // Console.WriteLine($"ID ---------- Name -------------------- Price ----- Stock");
-        // foreach (var p in products)
-        // {
-        //     if (p != null)
-        //     {
-        //         Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,10} {p.Stock,15}");
-        //     }
-        //     else if (products.Count() == 0)
-        //     {
+    public static void RateProductMenu()
+    {
+        if (UserSession.CurrentUser == null)
+        {
+            Console.WriteLine("⚠️ You must be logged in to rate products!");
+            return;
+        }
 
-        //         Console.WriteLine("No products available.");
-        //         return;
-        //     }
-        // }
+        PrintAll();
+        Console.WriteLine();
+        Console.WriteLine("--- Rate a Product ---");
+        Console.Write("Enter product ID to rate: ");
+
+        if (!int.TryParse(Console.ReadLine(), out int productId))
+        {
+            Console.WriteLine("❌ Invalid product ID!");
+            return;
+        }
+
+        var product = _productService.GetById(productId);
+
+        if (product == null)
+        {
+            Console.WriteLine("❌ Product not found!");
+            return;
+        }
+
+        // Display product info and current ratings
+        Console.WriteLine($"\n📦 {product.Name}");
+        if (product.RatingCount > 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Current Rating: ★ {product.AverageRating:F1}/5 ({product.RatingCount} ratings)");
+            Console.ResetColor();
+        }
+        else
+        {
+            Console.WriteLine("Current Rating: Not rated yet");
+        }
+
+        // Get user's existing rating if any
+        var userRating = _ratingService.GetUserRatingForProduct(productId, UserSession.CurrentUser.Id);
+        if (userRating != null)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"Your previous rating: ★ {userRating.RatingValue}/5");
+            Console.ResetColor();
+        }
+
+        Console.WriteLine("\n⭐ Rate this product (1-5 stars):");
+        if (!int.TryParse(Console.ReadLine(), out int rating) || rating < 1 || rating > 5)
+        {
+            Console.WriteLine("❌ Invalid rating. Please enter a number between 1 and 5.");
+            return;
+        }
+
+        Console.WriteLine("\n💬 Add a review (optional, press Enter to skip):");
+        string review = Console.ReadLine();
+
+        try
+        {
+            _ratingService.AddOrUpdateRating(productId, UserSession.CurrentUser.Id, rating, string.IsNullOrWhiteSpace(review) ? null : review);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("✅ Rating submitted successfully!");
+            Console.ResetColor();
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        catch (Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"❌ Error submitting rating: {ex.Message}");
+            Console.ResetColor();
+        }
     }
 }
