@@ -159,9 +159,6 @@ public class AdminMenuPres
                     Console.ReadKey();
                     break;
                 case "10":
-                    _adminManagerPres.HandleDeleteReview();
-                    Console.ReadKey();
-                    Console.Clear();
                     Console.Clear();
                     _adminManagerPres.ViewUsers();
                     Console.ReadKey();
@@ -177,6 +174,12 @@ public class AdminMenuPres
                     Console.Clear();
                     _adminManagerPres.DeleteUser();
                     Console.ReadKey();
+                    break;
+
+                case "13":
+                    _adminManagerPres.HandleDeleteReview();
+                    Console.ReadKey();
+                    Console.Clear();
                     break;
                 case "0":
                     Console.Clear();
