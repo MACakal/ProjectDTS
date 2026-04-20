@@ -65,6 +65,14 @@ public class AdminMenuPres
 
             Console.WriteLine();
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("── Users ─────────────────────────");
+            Console.ResetColor();
+            Console.WriteLine("[10] View Users");
+            Console.WriteLine("[11] Edit User");
+            Console.WriteLine("[12] Delete User");
+            Console.WriteLine();
+
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("[0] Back");
             Console.ResetColor();
@@ -146,6 +154,23 @@ public class AdminMenuPres
                 case "9":
                     Console.Clear();
                     _adminManagerPres.ShowTopProductsPerCategory();
+                    Console.ReadKey();
+                    break;
+                case "10":
+                    Console.Clear();
+                    _adminManagerPres.ViewUsers();
+                    Console.ReadKey();
+                    break;
+
+                case "11":
+                    Console.Clear();
+                    _adminManagerPres.EditUser();
+                    Console.ReadKey();
+                    break;
+
+                case "12":
+                    Console.Clear();
+                    _adminManagerPres.DeleteUser();
                     Console.ReadKey();
                     break;
                 case "0":
