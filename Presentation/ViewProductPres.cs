@@ -60,7 +60,7 @@ public class ViewProductPres
             return;
         }
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"{"ID",-5} {"Name",-30} {"Category",-20} {"Price",10} {"Rating",10}");
+        Console.WriteLine($"{"ID",-5} {"Name",-30} {"Category",-20} {"Price",10} {"Rating",25}");
         Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine(new string('-', 90));
 
@@ -82,7 +82,7 @@ public class ViewProductPres
             string ratingDisplay = p.RatingCount > 0 
                 ? $"★ {p.AverageRating:F1}/5 ({p.RatingCount})" 
                 : "Not rated";
-            Console.WriteLine($"{ratingDisplay,10}");
+            Console.WriteLine($"{ratingDisplay,25}");
             Console.ResetColor();
         }
     }
