@@ -1,13 +1,15 @@
 namespace ProjectDTS;
+using DotNetEnv;
+using StackExchange.Redis;
+
 
 public class AdminManagerPres
 {
     private UserService _userService;
-
-    private static ProductService _service = new ProductService(new DatabaseService());
-
     private NotificationService _notificationService = new NotificationService(new DatabaseService());
-    private static ViewProductPres _viewService = new ViewProductPres(_service);
+    private static readonly RatingService _ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
+    private static ProductService _service = new ProductService(new DatabaseService(), _ratingService);
+    private static ViewProductPres _viewService = new ViewProductPres(_service, _ratingService);
     public AdminManagerPres(UserService userService)
     {
         _userService = userService;
@@ -131,7 +133,8 @@ public class AdminManagerPres
     public Product? EditProduct()
     {
         var db = new DatabaseService();
-        var productService = new ProductService(db);
+        var ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
+        var productService = new ProductService(db, ratingService);
 
         Console.Clear();
 

@@ -7,10 +7,10 @@ public class ViewProductPres
     private ProductService _productService;
     private RatingService _ratingService;
 
-    public ViewProductPres(ProductService productService, RatingService ratingService = null)
+    public ViewProductPres(ProductService productService, RatingService ratingService)
     {
         _productService = productService;
-        _ratingService = ratingService ?? new RatingService(new DatabaseService());
+        _ratingService = ratingService;
     }
     public void Viewproducts()
     {
