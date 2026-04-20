@@ -36,6 +36,17 @@ CREATE TABLE IF NOT EXISTS order_items (
 ALTER TABLE order_items DROP CONSTRAINT IF EXISTS unique_order_product;
 ALTER TABLE order_items
 ADD CONSTRAINT unique_order_product UNIQUE (order_id, product_id);
+CREATE TABLE IF NOT EXISTS ratings (
+    id SERIAL PRIMARY KEY,
+    product_id INT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    rating_value INT NOT NULL CHECK (rating_value >= 1 AND rating_value <= 5),
+    review_text TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_user_product_rating UNIQUE (product_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS idx_ratings_product_id ON ratings(product_id);
+CREATE INDEX IF NOT EXISTS idx_ratings_user_id ON ratings(user_id);
 -- CREATE EXTENSION IF NOT EXISTS pgcrypto;
 INSERT INTO users (name, email, password, role)
 VALUES (

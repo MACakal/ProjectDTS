@@ -10,6 +10,7 @@ public class Product
     public string Rarity { get; set; }
     public int View_count { get; set; }
     public int Purchase_count { get; set; }
-
     public int Stock { get; set; }
+    public double AverageRating { get; set; } = 0.0;
+    public int RatingCount { get; set; } = 0;
 }
