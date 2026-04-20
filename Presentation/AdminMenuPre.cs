@@ -9,11 +9,11 @@ public class AdminMenuPres
     private ViewProductPres _viewProductPres;
     private AccountPre _accountPre;
     private UserService _userService;
-    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres, UserService userService)
+    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres, UserService userService, RatingService ratingService)
     {
         _productService = productService;
         _userService = userService;
-        _adminManagerPres = new AdminManagerPres(_userService);
+        _adminManagerPres = new AdminManagerPres(_userService, ratingService);
         _viewProductPres = viewProductPres;
         _accountPre = new(_userService);
     }
@@ -62,6 +62,7 @@ public class AdminMenuPres
             Console.WriteLine("[7] User Spending");
             Console.WriteLine("[8] Notifications");
             Console.WriteLine("[9] Top 3 Products per Category");
+            Console.WriteLine("[10] Manage Reviews");
 
             Console.WriteLine();
 
@@ -147,6 +148,11 @@ public class AdminMenuPres
                     Console.Clear();
                     _adminManagerPres.ShowTopProductsPerCategory();
                     Console.ReadKey();
+                    break;
+                case "10":
+                    _adminManagerPres.HandleDeleteReview();
+                    Console.ReadKey();
+                    Console.Clear();
                     break;
                 case "0":
                     Console.Clear();

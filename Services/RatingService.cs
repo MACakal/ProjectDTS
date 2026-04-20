@@ -126,6 +126,37 @@ public class RatingService
         cmd.ExecuteNonQuery();
     }
 
+    public List<ReviewAdminView> GetAllRatingsWithDetails()
+    {
+        var reviews = new List<ReviewAdminView>();
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"
+            SELECT r.id, p.name AS product_name, u.name AS user_name,
+                   r.rating_value, r.review_text, r.created_at
+            FROM ratings r
+            JOIN products p ON p.id = r.product_id
+            JOIN users u ON u.id = r.user_id
+            ORDER BY r.created_at DESC;";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            reviews.Add(new ReviewAdminView
+            {
+                RatingId = (int)reader["id"],
+                ProductName = (string)reader["product_name"],
+                UserName = (string)reader["user_name"],
+                RatingValue = (int)reader["rating_value"],
+                ReviewText = reader["review_text"] != DBNull.Value ? (string)reader["review_text"] : null,
+                CreatedAt = (DateTime)reader["created_at"]
+            });
+        }
+        return reviews;
+    }
+
     private Rating MapRating(NpgsqlDataReader reader)
     {
         return new Rating
