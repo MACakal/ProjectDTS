@@ -675,7 +675,6 @@ public class AdminManagerPres
             return;
         }
 
-        // 🔥 Important safety check
         if (user.Id == UserSession.CurrentUser?.Id)
         {
             Console.ForegroundColor = ConsoleColor.Red;
