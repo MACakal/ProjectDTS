@@ -7,10 +7,10 @@ public class ProductService
     private readonly DatabaseService _db;
     private readonly RatingService _ratingService;
 
-    public ProductService(DatabaseService db, RatingService ratingService = null)
+    public ProductService(DatabaseService db, RatingService ratingService)
     {
         _db = db;
-        _ratingService = ratingService ?? new RatingService(db);
+        _ratingService = ratingService;
     }
 
     public List<Product> GetAllProducts()

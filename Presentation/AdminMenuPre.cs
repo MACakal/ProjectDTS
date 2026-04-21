@@ -13,7 +13,7 @@ public class AdminMenuPres
     {
         _productService = productService;
         _userService = userService;
-        _adminManagerPres = new AdminManagerPres(_userService, ratingService);
+        _adminManagerPres = new AdminManagerPres(_userService);
         _viewProductPres = viewProductPres;
         _accountPre = new(_userService);
     }
@@ -72,7 +72,7 @@ public class AdminMenuPres
             Console.WriteLine("[10] View Users");
             Console.WriteLine("[11] Edit User");
             Console.WriteLine("[12] Delete User");
-            Console.WriteLine("[13] Manage Reviews");          
+            //Console.WriteLine("[13] Manage Reviews");          
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -176,11 +176,11 @@ public class AdminMenuPres
                     Console.ReadKey();
                     break;
 
-                case "13":
-                    _adminManagerPres.HandleDeleteReview();
-                    Console.ReadKey();
-                    Console.Clear();
-                    break;
+                //case "13":
+                    //_adminManagerPres.HandleDeleteReview();
+                    //Console.ReadKey();
+                    //Console.Clear();
+                    //break;
                 case "0":
                     Console.Clear();
                     return;

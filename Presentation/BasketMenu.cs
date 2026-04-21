@@ -5,19 +5,20 @@ namespace ProjectDTS;
 public class BasketMenu
 {
 
-    private static ProductService _productService = new ProductService(new DatabaseService());
-    private static FilterMenu _filterMenu = new FilterMenu(_productService, new ViewProductPres(_productService));
-    private static BasketService _basketService = new BasketService(new DatabaseService());
-    private static RatingService _ratingService = new RatingService(new DatabaseService());
-    private static SortingMenu _sortingMenu = new SortingMenu(_productService, new ViewProductPres(_productService));
-    private static ViewProductPres _viewProductPres = new ViewProductPres(_productService, _ratingService);
+    private static ProductService _productService;
+    private static FilterMenu _filterMenu;
+    private static BasketService _basketService;
+    private static SortingMenu _sortingMenu;
+    private static RatingService _ratingService;
+    private static ViewProductPres _viewProductPres;
 
-    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, SortingMenu sortingmenu)
+    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, SortingMenu sortingMenu, RatingService ratingService)
     {
         _productService = productService;
         _filterMenu = filterMenu;
         _basketService = basketService;
-        _sortingMenu = sortingmenu;
+        _sortingMenu = sortingMenu;
+        _ratingService = ratingService;
     }
     public static void WhatToDo()
     {
