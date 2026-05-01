@@ -12,8 +12,7 @@ public class AccountPre
 
     public void AccountInformation(User user)
     {
-        //BreadcrumbManager.Push("Account Information");
-        //BreadcrumbManager.Render();
+
         System.Console.WriteLine("Please enter your password to see your profile information!");
         var password = Console.ReadLine();
         var result = _userService.UserInformationPasswordCheck(user, password);
@@ -34,38 +33,6 @@ public class AccountPre
         }
     }
 
-    // public void SuccesfullCheck(User user)
-    // {
-    //     Console.Clear();
-    //     System.Console.WriteLine("===Account information===");
-    //     System.Console.WriteLine($"Account email: {user.Email}");
-    //     System.Console.WriteLine($"Account name: {user.Name}");
-    //     System.Console.WriteLine($"Account password: *********");
-    //     System.Console.WriteLine($"Account role: {user.Role}");
-    //     Console.WriteLine("\n===Account options===");
-    //     Console.WriteLine("[1] Change account information");
-    //     Console.WriteLine("[2] DELETE account");
-    //     Console.WriteLine("[3] Go back to user menu");
-    //     string choice = Console.ReadLine()!;
-
-    //     if (choice == "1")
-    //     {
-    //         ChangeAccInfo(user);
-    //     }
-    //     else if (choice == "2")
-    //     {
-    //         DeleteAcc(user);
-    //     }
-    //     else if (choice == "3")
-    //     {
-    //         return;
-    //     }
-    //     else
-    //     {
-    //         SuccesfullCheck(user);
-    //     }
-
-    // }
     public void SuccesfullCheck(User user)
     {
         while (true)

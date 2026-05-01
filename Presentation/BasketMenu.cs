@@ -112,7 +112,12 @@ public class BasketMenu
             //BreadcrumbManager.Pop();
         }
 
-        var product = _productService.GetById(productId);
+        // var product = _productService.GetById(productId);
+        var productLogic = new ProductLogic();
+
+        var product = productLogic
+            .GetProductAndTrack(UserSession.CurrentUser.Id, productId)
+            .Result;
 
         if (product == null)
         {
@@ -125,7 +130,7 @@ public class BasketMenu
         System.Console.WriteLine($"ID: {product.Id}");
         System.Console.WriteLine($"Name: {product.Name}");
         System.Console.WriteLine($"Description: {product.Description}");
-        
+
         if (product.RatingCount > 0)
         {
             System.Console.ForegroundColor = ConsoleColor.Yellow;
@@ -136,7 +141,7 @@ public class BasketMenu
         {
             System.Console.WriteLine("Rating: Not rated yet");
         }
-        
+
         System.Console.WriteLine($"Category: {product.Category}");
         System.Console.WriteLine($"Price: ${product.Price:F2}");
         System.Console.WriteLine($"Rarity: {product.Rarity}");
@@ -375,4 +380,20 @@ public class BasketMenu
             Console.ResetColor();
         }
     }
+    // public static void AddToBasketDirect(int productId, int quantity)
+    // {
+    //     if (UserSession.CurrentUser == null)
+    //     {
+    //         Console.WriteLine("⚠️ You must be logged in!");
+    //         return;
+    //     }
+
+    //     _basketService.AddToBasket(UserSession.CurrentUser.Id, productId, quantity);
+
+    //     Console.ForegroundColor = ConsoleColor.Green;
+    //     Console.WriteLine("Product added to basket!");
+    //     Console.ResetColor();
+
+    //     Console.ReadKey();
+    // }
 }
