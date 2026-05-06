@@ -5,10 +5,12 @@ namespace ProjectDTS;
 public class BasketService
 {
     private readonly DatabaseService _db;
+    private readonly OrderMongoService _orderMongoService;
 
-    public BasketService(DatabaseService db)
+    public BasketService(DatabaseService db, OrderMongoService orderMongoService)
     {
         _db = db;
+        _orderMongoService = orderMongoService;
     }
 
     public bool ModifyQuantityBasket(int userId, int productId, int newQuantity)
@@ -212,7 +214,7 @@ public class BasketService
                 SELECT id FROM orders 
                 WHERE user_id = @userId AND purchased = false 
                 LIMIT 1;";
-            
+
             int? orderId;
             using (var cmdGetOrder = new NpgsqlCommand(getOrderIdSql, conn, transaction))
             {
@@ -226,7 +228,8 @@ public class BasketService
                 transaction.Rollback();
                 return false;
             }
-
+            decimal total;
+            var basketItems = GetBasketLines(userId, out total);
             string checkStockSql = @"
                 SELECT oi.product_id, p.name, oi.quantity, p.stock
                 FROM order_items oi
@@ -253,6 +256,7 @@ public class BasketService
 
                             reader.Close();
                             transaction.Rollback();
+                            // SaveOrderSnapshot(userId, total, basketItems, "Not Completed");
                             return false;
                         }
                     }
@@ -284,6 +288,7 @@ public class BasketService
             }
 
             transaction.Commit();
+            SaveOrderSnapshot(userId, total, basketItems, "Completed");
             return true;
         }
         catch (Exception ex)
@@ -306,7 +311,7 @@ public class BasketService
 
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("userId", userId);
-    
+
         var result = cmd.ExecuteScalar();
         return result != null;
     }
@@ -359,7 +364,7 @@ public class BasketService
         return lines;
     }
 
-     public void CancelOrder(int orderItemId)
+    public void CancelOrder(int orderItemId)
     {
         using var conn = _db.GetConnection();
         conn.Open();
@@ -372,5 +377,23 @@ public class BasketService
         }
 
         Console.WriteLine("Order item canceled and stock updated.");
+    }
+
+
+    //MongoDB
+    private void SaveOrderSnapshot(int userId, decimal total, List<BasketItem> basketItems, string status)
+    {
+        var orderDocument = new OrderDocument
+        {
+            UserId = userId,
+            CreatedAt = DateTime.UtcNow,
+            TotalPrice = total,
+            Products = basketItems,
+            Status = status
+        };
+
+        _orderMongoService.SaveOrderAsync(orderDocument)
+            .GetAwaiter()
+            .GetResult();
     }
 }

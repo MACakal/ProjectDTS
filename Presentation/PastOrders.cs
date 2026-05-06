@@ -1,8 +1,20 @@
 namespace ProjectDTS;
 
+using Microsoft.Extensions.Configuration;
 public class PastOrders
 {
-    private static BasketService _basketService = new BasketService(new DatabaseService());
+    // private static BasketService _basketService = new BasketService(new DatabaseService());
+    private static BasketService _basketService =
+    new BasketService(
+        new DatabaseService(),
+        new OrderMongoService(
+            new MongoDbContext(
+                new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json")
+                    .Build()
+            )
+        )
+    );
 
     public static void ShowPastOrders()
     {

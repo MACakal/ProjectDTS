@@ -1,4 +1,6 @@
 ﻿namespace ProjectDTS;
+
+using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 
 using DotNetEnv;
@@ -8,6 +10,11 @@ public class Program
     public static void Main(string[] args)
     {
         Env.Load();
+
+        var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        var mongoContext = new MongoDbContext(configuration);
+        var orderMongoService = new OrderMongoService(mongoContext);
+
         var databaseService = new DatabaseService();
         var redis = ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")); // or your connection string
         var ratingService = new RatingService(redis);
@@ -27,8 +34,8 @@ public class Program
         var filterMenu = new FilterMenu(productService, viewProduct);
 
         var userService = new UserService(databaseService);
-        var basketService = new BasketService(databaseService);
-        
+        var basketService = new BasketService(databaseService, orderMongoService);
+
         var accountPresentation = new AccountPre(userService);
 
         var customerMenu = new CustomerMenuPre(viewProduct, filterMenu, accountPresentation);
@@ -40,3 +47,22 @@ public class Program
         mainMenuPre.Show();
     }
 }
+
+// using MongoDB.Driver;
+
+// public class Program
+// {
+//     public static async Task Main(string[] args)
+//     {
+//         var connectionString = "mongodb+srv://baselkhrbeet_db_user:t01SvMVVup3mBzdy@cluster0.xn2hzkq.mongodb.net/?appName=Cluster0";
+//         var databaseName = "webshop";
+
+//         var client = new MongoClient(connectionString);
+//         var db = client.GetDatabase(databaseName);
+
+//         var collections = await db.ListCollectionNames().ToListAsync();
+
+//         Console.WriteLine("Connected to MongoDB ✅");
+//         Console.WriteLine($"Collections count: {collections.Count}");
+//     }
+// }
