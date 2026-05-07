@@ -404,6 +404,8 @@ FROM users u
 WHERE u.role != 'Admin';
 ALTER TABLE products
 ADD COLUMN IF NOT EXISTS stock INT DEFAULT 10 CHECK (stock >= 0);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS security_question VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS security_answer VARCHAR(255);
 CREATE TABLE IF NOT EXISTS admin_notifications (
     id SERIAL PRIMARY KEY,
     product_id INT REFERENCES products(id),

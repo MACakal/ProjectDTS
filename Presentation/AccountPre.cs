@@ -72,11 +72,8 @@ public class AccountPre
             Console.ResetColor();
 
             Console.WriteLine("[1] Change account information");
-
-
             Console.WriteLine("[2] Delete account");
-
-
+            Console.WriteLine("[3] Set/change security question");
             Console.WriteLine("[0] Back");
 
             Console.WriteLine();
@@ -95,6 +92,10 @@ public class AccountPre
                 case "2":
                     DeleteAcc(user);
                     return;
+
+                case "3":
+                    SetSecurityQuestion(user);
+                    break;
 
                 case "0":
                     return;
@@ -206,6 +207,56 @@ public class AccountPre
         SuccesfullCheck(user);
     }
 
+
+    public void SetSecurityQuestion(User user)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("=== SET SECURITY QUESTION ===");
+        Console.ResetColor();
+
+        string[] questions = {
+            "What was the name of your first pet?",
+            "What is your mother's maiden name?",
+            "What was the name of your elementary school?",
+            "What city were you born in?",
+            "What is your favorite movie?"
+        };
+
+        Console.WriteLine("Choose a security question:");
+        for (int i = 0; i < questions.Length; i++)
+            Console.WriteLine($"{i + 1}. {questions[i]}");
+
+        string question = null;
+        while (question == null)
+        {
+            var input = Console.ReadLine();
+            if (int.TryParse(input, out int q) && q >= 1 && q <= questions.Length)
+                question = questions[q - 1];
+            else
+                Console.WriteLine("Invalid choice, try again:");
+        }
+
+        Console.Write("Your answer: ");
+        string answer = Console.ReadLine()!;
+
+        var result = _userService.SetSecurityQuestion(user.Id, question, answer);
+
+        if (result == UserRegisterService.succesfull)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Security question saved successfully.");
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Something went wrong. Please try again.");
+        }
+
+        Console.ResetColor();
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+    }
 
     public void DeleteAcc(User user)
     {

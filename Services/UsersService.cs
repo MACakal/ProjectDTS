@@ -271,6 +271,71 @@ public class UserService
     //         WHERE Role = Admin";
     // }
 
+    public string? GetSecurityQuestion(string email)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT security_question FROM users WHERE email = @email";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("email", email);
+
+        var result = cmd.ExecuteScalar();
+        return result == DBNull.Value || result == null ? null : (string)result;
+    }
+
+    public UserRegisterService SetSecurityQuestion(int userId, string question, string answer)
+    {
+        if (string.IsNullOrWhiteSpace(question) || string.IsNullOrWhiteSpace(answer))
+            return UserRegisterService.emptyParameter;
+
+        string hashedAnswer = BCrypt.Net.BCrypt.HashPassword(answer.ToLower().Trim());
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"UPDATE users SET security_question = @question, security_answer = @answer WHERE id = @id";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("question", question);
+        cmd.Parameters.AddWithValue("answer", hashedAnswer);
+        cmd.Parameters.AddWithValue("id", userId);
+
+        int rows = cmd.ExecuteNonQuery();
+        return rows > 0 ? UserRegisterService.succesfull : UserRegisterService.UnkownError;
+    }
+
+    public UserRegisterService ResetPasswordWithSecurityAnswer(string email, string answer, string newPassword)
+    {
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(answer) || string.IsNullOrWhiteSpace(newPassword))
+            return UserRegisterService.emptyParameter;
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"SELECT id, security_answer FROM users WHERE email = @email";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("email", email);
+
+        using var reader = cmd.ExecuteReader();
+        if (!reader.Read()) return UserRegisterService.UnkownError;
+
+        int userId = reader.GetInt32(0);
+        string? storedHash = reader.IsDBNull(1) ? null : reader.GetString(1);
+        reader.Close();
+
+        if (storedHash == null || !BCrypt.Net.BCrypt.Verify(answer.ToLower().Trim(), storedHash))
+            return UserRegisterService.UnkownError;
+
+        string newHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+        string updateSql = @"UPDATE users SET password = @password WHERE id = @id";
+        using var updateCmd = new NpgsqlCommand(updateSql, conn);
+        updateCmd.Parameters.AddWithValue("password", newHash);
+        updateCmd.Parameters.AddWithValue("id", userId);
+
+        int rows = updateCmd.ExecuteNonQuery();
+        return rows > 0 ? UserRegisterService.succesfull : UserRegisterService.UnkownError;
+    }
+
     public List<User> GetAllUsers()
     {
         var users = new List<User>();

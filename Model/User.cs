@@ -19,6 +19,9 @@ public class User
     public string? ZipCode { get; set; }
     public string? Country { get; set; }
 
+    public string? SecurityQuestion { get; set; }
+    public string? SecurityAnswer { get; set; }
+
     public UserRole Role { get; set; }
 
 
