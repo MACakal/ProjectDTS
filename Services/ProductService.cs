@@ -384,7 +384,13 @@ public class ProductService
             products.Add(product);
         }
         return products;
+    }
 
+    public List<Product> GetProductsByStarRating(int stars)
+    {
+        return GetAllProducts()
+            .Where(p => (int)p.AverageRating == stars)
+            .ToList();
     }
 
 }
