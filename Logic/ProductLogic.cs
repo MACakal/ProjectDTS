@@ -21,6 +21,11 @@ public class ProductLogic
         return _productService.GetTop3ExpProducts();
     }
 
+    public List<Product> GetTop3ReviewedProducts()
+    {
+        return _productService.GetTop3ReviewedProducts();
+    }
+
     public async Task<Product?> GetProductAndTrack(int userId, int productId)
     {
         var product = _productService.GetById(productId);

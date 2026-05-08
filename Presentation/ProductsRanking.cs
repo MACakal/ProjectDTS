@@ -10,7 +10,8 @@ static class ProductsRanking
         Console.WriteLine("Welcome to the Product ranking page");
         Console.WriteLine("[1] See top 3 cheapest products");
         Console.WriteLine("[2] See top 3 most expensive products");
-        Console.WriteLine("[3] Go back to user menu");
+        Console.WriteLine("[3] See top 3 most reviewed products");
+        Console.WriteLine("[4] Go back to user menu");
 
         string opt = Console.ReadLine();
 
@@ -25,6 +26,11 @@ static class ProductsRanking
             ViewExp();
         }
         else if (opt == "3")
+        {
+            Console.Clear();
+            ViewReviewed();
+        }
+        else if (opt == "4")
         {
             Console.Clear();
             return;
@@ -109,6 +115,47 @@ static class ProductsRanking
                 }
 
                 Console.WriteLine(" €" + product.Price);
+            }
+        }
+
+        Console.WriteLine("\nPress ENTER to continue");
+        Console.ReadLine();
+        Console.Clear();
+        Start();
+    }
+
+    public static void ViewReviewed()
+    {
+        List<Product> feedlist = productLogic.GetTop3ReviewedProducts();
+
+        if (feedlist.Count == 0)
+        {
+            Console.WriteLine("No Products Found");
+        }
+        else
+        {
+            Console.WriteLine("=== Top 3 Most Reviewed Products ===\n");
+
+            int maxReviews = 0;
+
+            foreach (var p in feedlist)
+            {
+                if (p.RatingCount > maxReviews)
+                    maxReviews = p.RatingCount;
+            }
+
+            foreach (var product in feedlist)
+            {
+                int length = (product.RatingCount * 20) / maxReviews;
+
+                Console.Write(product.Name.PadRight(15) + " | ");
+
+                for (int i = 0; i < length; i++)
+                {
+                    Console.Write("#");
+                }
+
+                Console.WriteLine($" Reviews: {product.RatingCount} | Avg Rating: {product.AverageRating:F1}");
             }
         }
 
