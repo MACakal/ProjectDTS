@@ -15,7 +15,7 @@ public class FilterMenu
     }
 
 
-    public void Show()
+   public void Show()
     {
         while (true)
         {
@@ -23,6 +23,7 @@ public class FilterMenu
             System.Console.WriteLine("2. Price");
             System.Console.WriteLine("3. Price range");
             System.Console.WriteLine("4. Search by Name");
+            System.Console.WriteLine("5. Filter by Reviews");
             System.Console.WriteLine("0. Back");
 
             string choice = Console.ReadLine();
@@ -54,6 +55,12 @@ public class FilterMenu
                         Console.Clear();
                         PrintAll();
                         SearchByName();
+                        break;
+                    }
+                case "5":
+                    {
+                        Console.Clear();
+                        ReviewFilter();
                         break;
                     }
                 case "0":
@@ -164,5 +171,28 @@ public class FilterMenu
                 return;
             }
         }
+    }
+
+    public void ReviewFilter()
+    {
+        Console.WriteLine("\nFilter by star rating:");
+        Console.WriteLine("1. 1 Star");
+        Console.WriteLine("2. 2 Stars");
+        Console.WriteLine("3. 3 Stars");
+        Console.WriteLine("4. 4 Stars");
+        Console.WriteLine("5. 5 Stars");
+
+        string input = Console.ReadLine();
+
+        if (!int.TryParse(input, out int stars) || stars < 1 || stars > 5)
+        {
+            Console.WriteLine("Invalid option.");
+            return;
+        }
+
+        var products = _productService.GetProductsByStarRating(stars);
+
+        Console.Clear();
+        _viewProductPres.Viewproducts(products);
     }
 }
