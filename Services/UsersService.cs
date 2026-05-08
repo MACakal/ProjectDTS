@@ -362,6 +362,30 @@ public class UserService
         return users;
     }
 
+    public bool HasPurchasedProduct(int userId, int productId)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"
+            SELECT COUNT(*)
+            FROM orders o
+            JOIN order_items oi ON o.id = oi.order_id
+            WHERE o.user_id = @userId
+            AND oi.product_id = @productId
+            AND o.purchased = true
+        ";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+
+        cmd.Parameters.AddWithValue("@userId", userId);
+        cmd.Parameters.AddWithValue("@productId", productId);
+
+        int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+        return count > 0;
+    }
+
     public User GetUserById(int id)
     {
         using var conn = _db.GetConnection();

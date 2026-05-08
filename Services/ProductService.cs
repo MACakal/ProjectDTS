@@ -282,6 +282,14 @@ public class ProductService
         return products;
     }
 
+    public List<Product> GetTop3ReviewedProducts()
+    {
+        return GetAllProducts()
+            .OrderByDescending(p => p.RatingCount)
+            .Take(3)
+            .ToList();
+    }
+
     public List<(string Category, int TotalPurchases)> GetPopularCategories(DateTime start, DateTime end)
     {
         var categories = new List<(string, int)>();

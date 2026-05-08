@@ -5,6 +5,7 @@ namespace ProjectDTS;
 public class RatingService
 {
     private readonly IDatabase _redisDb;
+    private readonly UserService _userService = new UserService(new DatabaseService());
 
     public RatingService(IConnectionMultiplexer redis)
     {
@@ -15,6 +16,9 @@ public class RatingService
     {
         if (ratingValue < 1 || ratingValue > 5)
             throw new ArgumentException("Rating must be between 1 and 5.");
+
+        if (!_userService.HasPurchasedProduct(userId, productId))
+            throw new Exception("You can only review products you have purchased.");
 
         string reviewKey = $"review:{productId}:{userId}";
         string productIndexKey = $"product:{productId}:reviews";
