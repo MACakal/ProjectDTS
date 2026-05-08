@@ -373,7 +373,10 @@ SELECT id,
     description,
     category,
     price,
-    rarity
+    rarity,
+    view_count,
+    purchase_count,
+    stock
 FROM products
 ORDER BY price ASC
 LIMIT 3;
@@ -383,7 +386,10 @@ SELECT id,
     description,
     category,
     price,
-    rarity
+    rarity,
+    view_count,
+    purchase_count,
+    stock
 FROM products
 ORDER BY price DESC
 LIMIT 3;
