@@ -22,7 +22,7 @@ public class BasketMenu
     }
     public static void WhatToDo()
     {
-        while (true) // Zorgt dat je in dit menu blijft tot je '0' kiest
+        while (true)
         {
             System.Console.WriteLine("\nWhat do you want to do?");
             System.Console.WriteLine("1. View product");
@@ -31,6 +31,7 @@ public class BasketMenu
             System.Console.WriteLine("4. View Basket");
             System.Console.WriteLine("5. Sort");
             System.Console.WriteLine("6. Rate product");
+            System.Console.WriteLine("7. View reviewed products");
             System.Console.WriteLine("0. Back");
 
             var choice = Console.ReadLine();
@@ -60,6 +61,10 @@ public class BasketMenu
                     Console.Clear();
                     RateProductMenu();
                     break;
+                case "7":
+                    Console.Clear();
+                    ViewReviewedProducts();
+                    break;
                 case "0":
                     Console.Clear();
                     return; // Gaat terug naar het vorige scherm
@@ -70,7 +75,7 @@ public class BasketMenu
             }
         }
     }
-
+    
     public static void AddToBasketPrint()
     {
         if (UserSession.CurrentUser == null)
@@ -379,6 +384,50 @@ public class BasketMenu
             Console.WriteLine($"❌ Error submitting rating: {ex.Message}");
             Console.ResetColor();
         }
+    }
+
+    public static void ViewReviewedProducts()
+    {
+        var products = _productService.GetAllProducts();
+
+        var reviewedProducts = products
+            .Where(p => p.RatingCount > 0)
+            .ToList();
+
+        if (reviewedProducts.Count == 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("❌ There are currently no reviewed products.");
+            Console.ResetColor();
+            Console.ReadKey();
+            Console.Clear();
+            return;
+        }
+
+        Console.WriteLine("=========== Reviewed Products ===========\n");
+
+        foreach (var product in reviewedProducts)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"{product.Name} | ★ {product.AverageRating:F1}/5 ({product.RatingCount} reviews)");
+            Console.ResetColor();
+
+            var reviews = _ratingService.GetProductRatings(product.Id);
+
+            foreach (var review in reviews)
+            {
+                if (!string.IsNullOrWhiteSpace(review.ReviewText))
+                {
+                    Console.WriteLine($"- {review.ReviewText}");
+                }
+            }
+
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+        Console.Clear();
     }
     // public static void AddToBasketDirect(int productId, int quantity)
     // {
