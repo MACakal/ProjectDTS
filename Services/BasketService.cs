@@ -325,7 +325,7 @@ public class BasketService
         conn.Open();
 
         string sql = @"
-            SELECT oi.id, p.name, oi.quantity, p.price, o.created_at
+            SELECT oi.id, oi.product_id, p.name, oi.quantity, p.price, o.created_at
             FROM orders o
             JOIN order_items oi ON o.id = oi.order_id
             JOIN products p ON oi.product_id = p.id
@@ -343,10 +343,11 @@ public class BasketService
         while (reader.Read())
         {
             int orderItemId = reader.GetInt32(0);
-            string name = reader.GetString(1);
-            int qty = reader.GetInt32(2);
-            decimal price = reader.GetDecimal(3);
-            DateTime orderDate = reader.GetDateTime(4);
+            int productId = reader.GetInt32(1);
+            string name = reader.GetString(2);
+            int qty = reader.GetInt32(3);
+            decimal price = reader.GetDecimal(4);
+            DateTime orderDate = reader.GetDateTime(5);
 
             decimal subtotal = qty * price;
             total += subtotal;
@@ -354,6 +355,7 @@ public class BasketService
             lines.Add(new OrderLine
             {
                 Id = orderItemId,
+                ProductId = productId,
                 Name = name,
                 Quantity = qty,
                 Subtotal = subtotal,
