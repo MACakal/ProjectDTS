@@ -15,6 +15,10 @@ public class PastOrders
             )
         )
     );
+    private static RatingService _ratingService = new RatingService
+    (StackExchange.Redis.ConnectionMultiplexer.Connect(DotNetEnv.Env.GetString("REDIS_URL")));
+
+    private static ProductService _productService = new ProductService(new DatabaseService(), _ratingService);
 
     public static void ShowPastOrders()
     {
@@ -49,6 +53,7 @@ public class PastOrders
         Console.WriteLine("[1] View as a bar chart");
         Console.WriteLine("[2] Choose time period");
         Console.WriteLine("[3] Cancel an order (within 24h)");
+        Console.WriteLine("[4] Review a purchased product");
         Console.WriteLine("[0] Back");
 
         string input = Console.ReadLine();
@@ -64,6 +69,10 @@ public class PastOrders
         else if (input == "3")
         {
             CancelOrder(items);
+        }
+        else if (input == "4")
+        {
+            ReviewPurchasedProduct(items);
         }
     }
 
@@ -164,5 +173,37 @@ public class PastOrders
         }
 
         return (start, end);
+    }
+
+    private static void ReviewPurchasedProduct(List<OrderLine> items)
+    {
+        Console.WriteLine("Select a purchased product to review:");
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {items[i].Name}");
+        }
+
+        if (!int.TryParse(Console.ReadLine(), out int choice) ||
+            choice < 1 || choice > items.Count)
+        {
+            Console.WriteLine("Invalid selection.");
+            return;
+        }
+
+        var selectedItem = items[choice - 1];
+        var product = _productService.GetById(selectedItem.ProductId);
+        if (product == null)
+        {
+            Console.WriteLine("Product not found.");
+            return;
+        }
+
+        var viewProductPres = new ViewProductPres(_productService, _ratingService);
+
+        viewProductPres.RateProduct(product, UserSession.CurrentUser.Id);
+
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
 }
