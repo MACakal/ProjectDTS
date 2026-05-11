@@ -436,8 +436,9 @@ public class BasketMenu
         var products = _productService.GetAllProducts();
 
         var reviewedProducts = products
-            .Where(p => p.RatingCount > 0)
-            .ToList();
+        .Where(p => p.RatingCount > 0)
+        .OrderByDescending(p => _ratingService.GetProductRatings(p.Id).Max(r => r.CreatedAt))
+        .ToList();
 
         if (reviewedProducts.Count == 0)
         {

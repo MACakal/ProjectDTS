@@ -61,7 +61,8 @@ public class RatingService
                 ratings.Add(MapFromHash(key.ToString(), data, productId));
             }
         }
-        return ratings;
+
+        return ratings.OrderBy(r => r.CreatedAt).ToList();
     }
 
     public Rating? GetUserRatingForProduct(int productId, int userId)
