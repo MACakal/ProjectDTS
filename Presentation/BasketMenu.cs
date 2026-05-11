@@ -12,14 +12,19 @@ public class BasketMenu
     private static RatingService _ratingService;
     private static ViewProductPres _viewProductPres;
 
-    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, SortingMenu sortingMenu, RatingService ratingService)
+    private static UserService _userService;
+
+    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, 
+                    SortingMenu sortingMenu, RatingService ratingService, UserService userService)
     {
         _productService = productService;
         _filterMenu = filterMenu;
         _basketService = basketService;
         _sortingMenu = sortingMenu;
         _ratingService = ratingService;
+        _userService = userService;
     }
+
     public static void WhatToDo()
     {
         while (true)
@@ -203,22 +208,62 @@ public class BasketMenu
             case "1":
                 if (items.Count > 0)
                 {
-                    Console.Write("Confirm payment? (y/n): ");
+                    // Adrescheck
+                    var user = UserSession.CurrentUser;
+                    if (string.IsNullOrWhiteSpace(user.Address) || 
+                        string.IsNullOrWhiteSpace(user.ZipCode) || 
+                        string.IsNullOrWhiteSpace(user.Country))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("\n No shipping address found. Please enter your address first.");
+                        Console.ResetColor();
+
+                        Console.Write("Street & house number: ");
+                        string address = Console.ReadLine();
+
+                        Console.Write("Zip code: ");
+                        string zipCode = Console.ReadLine();
+
+                        Console.Write("Country: ");
+                        string country = Console.ReadLine();
+
+                        var result = _userService.UpdateAddress(user.Id, address, zipCode, country);
+                        if (result == UserRegisterService.succesfull)
+                        {
+                            user.Address = address;
+                            user.ZipCode = zipCode;
+                            user.Country = country;
+
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine(" Address saved successfully!");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Failed to save address. Please try again.");
+                            Console.ResetColor();
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
+                        }
+                    }
+
+                    Console.Write("\nConfirm payment? (y/n): ");
                     if (Console.ReadLine()?.ToLower() == "y")
                     {
                         if (_basketService.CheckoutWithTransaction(UserSession.CurrentUser.Id))
                         {
                             Console.WriteLine("\n✅ Payment successful! Thank you for your purchase.");
-                            Console.WriteLine("press enter to return to the customer menu.");
+                            Console.WriteLine("Press enter to return to the customer menu.");
                         }
                         else
                         {
                             Console.WriteLine("\n❌ Payment failed. Please try again.");
-                            Console.WriteLine("press enter to return to the customer menu.");
+                            Console.WriteLine("Press enter to return to the customer menu.");
                         }
                         Console.ReadKey();
                         Console.Clear();
-                        //BreadcrumbManager.Pop();
                     }
                 }
                 Console.Clear();

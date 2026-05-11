@@ -9,6 +9,7 @@ public class UserService
     {
         _db = db;
     }
+    
     public User? UserLogin(string email, string password)
     {
         using var conn = _db.GetConnection();
@@ -407,6 +408,28 @@ public class UserService
             Email = reader.GetString(2),
             Role = Enum.Parse<UserRole>(reader.GetString(3), true)
         };
+    }
+
+    public UserRegisterService UpdateAddress(int userId, string address, string zipCode, string country)
+    {
+        if (string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(zipCode) || string.IsNullOrWhiteSpace(country))
+            return UserRegisterService.emptyParameter;
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"UPDATE users 
+                    SET address = @address, zip_code = @zipCode, country = @country 
+                    WHERE id = @id";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("address", address);
+        cmd.Parameters.AddWithValue("zipCode", zipCode);
+        cmd.Parameters.AddWithValue("country", country);
+        cmd.Parameters.AddWithValue("id", userId);
+
+        int rows = cmd.ExecuteNonQuery();
+        return rows > 0 ? UserRegisterService.succesfull : UserRegisterService.UnkownError;
     }
 }
 
