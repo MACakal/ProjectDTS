@@ -365,8 +365,46 @@ public class BasketMenu
             return;
         }
 
-        Console.WriteLine("\n💬 Add a review (optional, press Enter to skip):");
+        Console.Write("Enter a review (optional, press Enter to skip): ");
         string review = Console.ReadLine();
+
+        if (!string.IsNullOrWhiteSpace(review) && ContentFilter.ContainsInappropriateContent(review))
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Your review contains inappropriate content.");
+            Console.WriteLine("1. Try again");
+            Console.WriteLine("2. Auto-sanitize (replace bad words with ***)");
+            Console.WriteLine("3. Cancel review");
+            Console.ResetColor();
+            Console.Write("Choose: ");
+
+            var choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Enter your review again: ");
+                    review = Console.ReadLine();
+                    if (ContentFilter.ContainsInappropriateContent(review))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Still contains inappropriate content. Review cancelled.");
+                        Console.ResetColor();
+                        review = null;
+                    }
+                    break;
+                case "2":
+                    review = ContentFilter.Sanitize(review);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Sanitized review: {review}");
+                    Console.ResetColor();
+                    break;
+                default:
+                    review = null;
+                    Console.WriteLine("Review cancelled.");
+                    break;
+            }
+        }
 
         try
         {
