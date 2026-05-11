@@ -88,4 +88,55 @@ public class RatingService
             CreatedAt = DateTime.Parse(dict["created_at"])
         };
     }
+
+    public List<RatingDetail> GetAllRatingsWithDetails()
+    {
+        var result = new List<RatingDetail>();
+
+        var server = _redisDb.Multiplexer.GetServer(_redisDb.Multiplexer.GetEndPoints()[0]);
+        var keys = server.Keys(pattern: "review:*:*");
+
+        foreach (var key in keys)
+        {
+            var data = _redisDb.HashGetAll(key);
+            if (data.Length == 0) continue;
+
+            var parts = key.ToString().Split(':');
+            int productId = int.Parse(parts[1]);
+            int userId = int.Parse(parts[2]);
+
+            var dict = data.ToDictionary(x => x.Name.ToString(), x => x.Value.ToString());
+
+            result.Add(new RatingDetail
+            {
+                RatingKey = key.ToString(),
+                ProductId = productId,
+                UserId = userId,
+                UserName = _userService.GetUserById(userId)?.Name ?? "Unknown",
+                ProductName = GetProductName(productId),
+                RatingValue = int.Parse(dict["rating"]),
+                ReviewText = dict["text"],
+                CreatedAt = DateTime.Parse(dict["created_at"])
+            });
+        }
+
+        return result;
+    }
+
+    public void DeleteRating(string ratingKey)
+    {
+        var parts = ratingKey.Split(':');
+        int productId = int.Parse(parts[1]);
+
+        string productIndexKey = $"product:{productId}:reviews";
+        _redisDb.SetRemove(productIndexKey, ratingKey);
+        _redisDb.KeyDelete(ratingKey);
+    }
+
+    private string GetProductName(int productId)
+    {
+        string key = $"product:{productId}:name";
+        var name = _redisDb.StringGet(key);
+        return name.HasValue ? name.ToString() : $"Product {productId}";
+    }
 }
