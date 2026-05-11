@@ -366,7 +366,7 @@ public class BasketMenu
         }
 
         Console.Write("Enter a review (optional, press Enter to skip): ");
-        string review = Console.ReadLine();
+        string review = Console.ReadLine().ToLower();
 
         if (!string.IsNullOrWhiteSpace(review) && ContentFilter.ContainsInappropriateContent(review))
         {
