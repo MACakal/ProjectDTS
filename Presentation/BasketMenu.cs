@@ -12,14 +12,19 @@ public class BasketMenu
     private static RatingService _ratingService;
     private static ViewProductPres _viewProductPres;
 
-    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, SortingMenu sortingMenu, RatingService ratingService)
+    private static UserService _userService;
+
+    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, 
+                    SortingMenu sortingMenu, RatingService ratingService, UserService userService)
     {
         _productService = productService;
         _filterMenu = filterMenu;
         _basketService = basketService;
         _sortingMenu = sortingMenu;
         _ratingService = ratingService;
+        _userService = userService;
     }
+
     public static void WhatToDo()
     {
         while (true)
@@ -32,6 +37,7 @@ public class BasketMenu
             System.Console.WriteLine("5. Sort");
             System.Console.WriteLine("6. Rate product");
             System.Console.WriteLine("7. View reviewed products");
+            System.Console.WriteLine("8. Delete my review");
             System.Console.WriteLine("0. Back");
 
             var choice = Console.ReadLine();
@@ -64,6 +70,10 @@ public class BasketMenu
                 case "7":
                     Console.Clear();
                     ViewReviewedProducts();
+                    break;
+                case "8":
+                    Console.Clear();
+                    DeleteReviewMenu();
                     break;
                 case "0":
                     Console.Clear();
@@ -203,22 +213,62 @@ public class BasketMenu
             case "1":
                 if (items.Count > 0)
                 {
-                    Console.Write("Confirm payment? (y/n): ");
+                    // Adrescheck
+                    var user = UserSession.CurrentUser;
+                    if (string.IsNullOrWhiteSpace(user.Address) || 
+                        string.IsNullOrWhiteSpace(user.ZipCode) || 
+                        string.IsNullOrWhiteSpace(user.Country))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("\n No shipping address found. Please enter your address first.");
+                        Console.ResetColor();
+
+                        Console.Write("Street & house number: ");
+                        string address = Console.ReadLine();
+
+                        Console.Write("Zip code: ");
+                        string zipCode = Console.ReadLine();
+
+                        Console.Write("Country: ");
+                        string country = Console.ReadLine();
+
+                        var result = _userService.UpdateAddress(user.Id, address, zipCode, country);
+                        if (result == UserRegisterService.succesfull)
+                        {
+                            user.Address = address;
+                            user.ZipCode = zipCode;
+                            user.Country = country;
+
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine(" Address saved successfully!");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Failed to save address. Please try again.");
+                            Console.ResetColor();
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
+                        }
+                    }
+
+                    Console.Write("\nConfirm payment? (y/n): ");
                     if (Console.ReadLine()?.ToLower() == "y")
                     {
                         if (_basketService.CheckoutWithTransaction(UserSession.CurrentUser.Id))
                         {
                             Console.WriteLine("\n✅ Payment successful! Thank you for your purchase.");
-                            Console.WriteLine("press enter to return to the customer menu.");
+                            Console.WriteLine("Press enter to return to the customer menu.");
                         }
                         else
                         {
                             Console.WriteLine("\n❌ Payment failed. Please try again.");
-                            Console.WriteLine("press enter to return to the customer menu.");
+                            Console.WriteLine("Press enter to return to the customer menu.");
                         }
                         Console.ReadKey();
                         Console.Clear();
-                        //BreadcrumbManager.Pop();
                     }
                 }
                 Console.Clear();
@@ -424,13 +474,89 @@ public class BasketMenu
         }
     }
 
+    public static void DeleteReviewMenu()
+    {
+        if (UserSession.CurrentUser == null)
+        {
+            Console.WriteLine("⚠️ You must be logged in to delete reviews!");
+            return;
+        }
+
+        var products = _productService.GetAllProducts().Where(p => p.RatingCount > 0).ToList();
+        var userReviews = products
+            .Select(p => new 
+            {
+                Product = p,
+                Rating = _ratingService.GetUserRatingForProduct(p.Id, UserSession.CurrentUser.Id)
+            })
+            .Where(x => x.Rating != null)
+            .ToList();
+
+        if (userReviews.Count == 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("❌ You have no reviews to delete.");
+            Console.ResetColor();
+            Console.ReadKey();
+            Console.Clear();
+            return;
+        }
+
+        Console.WriteLine("=========== Your Reviews ===========\n");
+        for (int i = 0; i < userReviews.Count; i++)
+        {
+            var r = userReviews[i];
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"[{i + 1}] {r.Product.Name} | ★ {r.Rating.RatingValue}/5");
+            Console.ResetColor();
+
+            if (!string.IsNullOrWhiteSpace(r.Rating.ReviewText))
+                Console.Write($" - \"{r.Rating.ReviewText}\"");
+
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("\nEnter the number of the review to delete (0 to cancel): ");
+        if (!int.TryParse(Console.ReadLine(), out int choice) || choice == 0)
+        {
+            Console.Clear();
+            return;
+        }
+
+        if (choice < 1 || choice > userReviews.Count)
+        {
+            Console.WriteLine("❌ Invalid choice.");
+            Console.ReadKey();
+            Console.Clear();
+            return;
+        }
+
+        var selected = userReviews[choice - 1];
+
+        Console.Write($"Are you sure you want to delete your review for \"{selected.Product.Name}\"? (y/n): ");
+        if (Console.ReadLine()?.ToLower() != "y")
+        {
+            Console.Clear();
+            return;
+        }
+
+        _ratingService.DeleteRating(selected.Product.Id, UserSession.CurrentUser.Id);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("✅ Review deleted successfully!");
+        Console.ResetColor();
+        Console.ReadKey();
+        Console.Clear();
+    }
+
     public static void ViewReviewedProducts()
     {
         var products = _productService.GetAllProducts();
 
         var reviewedProducts = products
-            .Where(p => p.RatingCount > 0)
-            .ToList();
+        .Where(p => p.RatingCount > 0)
+        .OrderByDescending(p => _ratingService.GetProductRatings(p.Id).Max(r => r.CreatedAt))
+        .ToList();
 
         if (reviewedProducts.Count == 0)
         {

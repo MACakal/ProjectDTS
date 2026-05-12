@@ -44,7 +44,7 @@ public class Program
 
         var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         var sortingMenu = new SortingMenu(productService, viewProduct);
-        var basketMenu = new BasketMenu(productService, filterMenu, basketService, sortingMenu, ratingService);
+        var basketMenu = new BasketMenu(productService, filterMenu, basketService, sortingMenu, ratingService, userService);
         mainMenuPre.Show();
     }
 }

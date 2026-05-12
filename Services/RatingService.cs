@@ -33,6 +33,15 @@ public class RatingService
         _redisDb.SetAdd(productIndexKey, reviewKey);
     }
 
+    public void DeleteRating(int productId, int userId)
+    {
+        string reviewKey = $"review:{productId}:{userId}";
+        string productIndexKey = $"product:{productId}:reviews";
+
+        _redisDb.KeyDelete(reviewKey);
+        _redisDb.SetRemove(productIndexKey, reviewKey);
+    }
+
     public double GetAverageRating(int productId)
     {
         var ratings = GetProductRatings(productId);
@@ -61,7 +70,8 @@ public class RatingService
                 ratings.Add(MapFromHash(key.ToString(), data, productId));
             }
         }
-        return ratings;
+
+        return ratings.OrderBy(r => r.CreatedAt).ToList();
     }
 
     public Rating? GetUserRatingForProduct(int productId, int userId)
