@@ -9,6 +9,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
+
         Env.Load();
 
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
