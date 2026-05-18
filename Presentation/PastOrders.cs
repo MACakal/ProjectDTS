@@ -3,17 +3,16 @@ namespace ProjectDTS;
 using Microsoft.Extensions.Configuration;
 public class PastOrders
 {
+    private static readonly MongoDbContext _mongoContext = new MongoDbContext(
+        new ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
+    );
+    private static readonly UserActionLogService _userActionLogService = new UserActionLogService(_mongoContext);
     // private static BasketService _basketService = new BasketService(new DatabaseService());
     private static BasketService _basketService =
     new BasketService(
         new DatabaseService(),
-        new OrderMongoService(
-            new MongoDbContext(
-                new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json")
-                    .Build()
-            )
-        )
+        new OrderMongoService(_mongoContext),
+        _userActionLogService
     );
     private static RatingService _ratingService = new RatingService
     (StackExchange.Redis.ConnectionMultiplexer.Connect(DotNetEnv.Env.GetString("REDIS_URL")));
@@ -199,7 +198,7 @@ public class PastOrders
             return;
         }
 
-        var viewProductPres = new ViewProductPres(_productService, _ratingService);
+        var viewProductPres = new ViewProductPres(_productService, _ratingService, _userActionLogService);
 
         viewProductPres.RateProduct(product, UserSession.CurrentUser.Id);
 

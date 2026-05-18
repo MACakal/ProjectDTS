@@ -1,6 +1,7 @@
 namespace ProjectDTS;
 using DotNetEnv;
 using StackExchange.Redis;
+using Microsoft.Extensions.Configuration;
 
 
 public class AdminManagerPres
@@ -9,7 +10,11 @@ public class AdminManagerPres
     private NotificationService _notificationService = new NotificationService(new DatabaseService());
     private static readonly RatingService _ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
     private static ProductService _service = new ProductService(new DatabaseService(), _ratingService);
-    private static ViewProductPres _viewService = new ViewProductPres(_service, _ratingService);
+    private static readonly MongoDbContext _mongoContext = new MongoDbContext(
+        new ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
+    );
+    private static readonly UserActionLogService _userActionLogService = new UserActionLogService(_mongoContext);
+    private static ViewProductPres _viewService = new ViewProductPres(_service, _ratingService, _userActionLogService);
     public AdminManagerPres(UserService userService)
     {
         _userService = userService;
