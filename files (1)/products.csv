@@ -1,201 +1,201 @@
-product_id,name,brand,price,unit_price,stock,weight_kg,category_id
-1,Playmobil Bordspel,Playmobil,151.61,151.61,23,3.75,10
-2,Nintendo Muismat XL,Nintendo,417.36,417.36,322,8.68,16
-3,Shell Ruitenwisser set,Shell,247.75,247.75,335,10.35,13
-4,Reebok Hardloopschoenen,Reebok,180.0,180.0,490,10.47,4
-5,Yamaha Microfoon,Yamaha,252.94,252.94,434,1.91,15
-6,De Bezige Bij Kinderboek,De Bezige Bij,987.94,987.94,304,4.83,5
-7,Gibson Microfoon,Gibson,448.67,448.67,81,11.18,15
-8,Razer Gaming muis,Razer,753.01,753.01,430,9.6,16
-9,Fujifilm Statief,Fujifilm,278.21,278.21,39,10.73,17
-10,KitchenAid Blender,KitchenAid,323.1,323.1,276,1.3,8
-11,Uitgeverij Podium Kookboek,Uitgeverij Podium,695.47,695.47,361,3.29,5
-12,Eukanuba Kattenbak,Eukanuba,544.89,544.89,212,1.03,14
-13,Eukanuba Speeltje,Eukanuba,946.32,946.32,10,12.87,14
-14,Esselte Pennenhouder,Esselte,10.86,10.86,180,4.55,19
-15,Shell Carwash set,Shell,748.77,748.77,279,12.02,13
-16,Tefal Koffiezetapparaat,Tefal,276.56,276.56,248,0.53,8
-17,Etos Shampoo,Etos,841.29,841.29,470,2.0,11
-18,Philips Avent Luiertas,Philips Avent,593.92,593.92,339,0.5,20
-19,Pedigree Hondenmand,Pedigree,185.81,185.81,133,5.75,14
-20,Karcher Plantenpot,Karcher,340.8,340.8,450,5.75,7
-21,Whiskas Hondenvoer,Whiskas,472.95,472.95,383,8.14,14
-22,Davitamon Multivitamine,Davitamon,782.32,782.32,333,0.7,12
-23,Samsung Bluetooth speaker,Samsung,840.02,840.02,318,2.37,1
-24,De Bezige Bij Roman,De Bezige Bij,566.14,566.14,111,7.03,5
-25,Riviera Maison Boekenkast,Riviera Maison,607.85,607.85,493,11.24,9
-26,Adidas Laarzen,Adidas,112.55,112.55,13,13.94,4
-27,Esselte Pennenhouder,Esselte,941.75,941.75,101,1.23,19
-28,Philips Blender,Philips,851.03,851.03,307,12.1,8
-29,Staples Ordner set,Staples,535.07,535.07,338,5.62,19
-30,Sony Camera tas,Sony,850.32,850.32,421,7.4,17
-31,Whiskas Hondenmand,Whiskas,708.76,708.76,222,2.72,14
-32,Sony Camera riem,Sony,809.15,809.15,275,11.64,17
-33,Gibson Microfoon,Gibson,272.04,272.04,436,3.76,15
-34,Zara Jurk,Zara,247.63,247.63,237,8.59,3
-35,Continental Automat,Continental,496.82,496.82,166,2.81,13
-36,Black+Decker Plantenpot,Black+Decker,343.63,343.63,450,8.98,7
-37,IKEA Nachtkastje,IKEA,948.31,948.31,43,3.7,9
-38,Eukanuba Speeltje,Eukanuba,759.36,759.36,353,7.19,14
-39,Razer Controller,Razer,97.58,97.58,113,6.13,16
-40,KitchenAid Waterkoker,KitchenAid,372.17,372.17,283,8.01,8
-41,Whiskas Kattenbak,Whiskas,704.33,704.33,138,4.67,14
-42,Philips Koffiezetapparaat,Philips,318.96,318.96,380,8.08,8
-43,Nike Dumbbell set,Nike,739.9,739.9,141,10.9,6
-44,Sony Camera tas,Sony,833.46,833.46,151,3.49,17
-45,Adidas Yogamat,Adidas,709.47,709.47,64,4.19,6
-46,Acer Chromebook,Acer,698.92,698.92,64,9.6,2
-47,Nintendo Controller,Nintendo,576.18,576.18,240,7.23,16
-48,Nivea Gezichtscrème,Nivea,256.21,256.21,441,7.22,11
-49,H&M Jurk,H&M,78.7,78.7,322,10.33,3
-50,Uitgeverij Podium Kinderboek,Uitgeverij Podium,949.37,949.37,43,14.91,5
-51,New Balance Sandalen,New Balance,608.28,608.28,404,9.31,4
-52,Fujifilm Lenzenfilter,Fujifilm,908.95,908.95,152,12.92,17
-53,Whiskas Speeltje,Whiskas,622.91,622.91,312,14.41,14
-54,Adidas Hardloopschoenen,Adidas,268.31,268.31,41,2.44,4
-55,Decathlon Dumbbell set,Decathlon,7.65,7.65,230,10.37,6
-56,Xbox Controller,Xbox,235.31,235.31,361,4.31,16
-57,Yamaha Digitale piano,Yamaha,924.28,924.28,403,11.89,15
-58,IKEA Pennenhouder,IKEA,119.19,119.19,115,9.75,19
-59,BoConcept Bureau,BoConcept,64.33,64.33,405,4.68,9
-60,Leitz Pennenhouder,Leitz,128.72,128.72,352,4.63,19
-61,Continental Carwash set,Continental,542.27,542.27,224,1.3,13
-62,Asus Chromebook,Asus,605.69,605.69,13,1.46,2
-63,Staples Ordner set,Staples,578.36,578.36,390,11.37,19
-64,Razer Gaming muis,Razer,185.57,185.57,299,6.59,16
-65,Nintendo Muismat XL,Nintendo,351.21,351.21,170,4.88,16
-66,Adidas Laarzen,Adidas,414.58,414.58,253,4.39,4
-67,Bosch Ruitenwisser set,Bosch,92.61,92.61,129,4.92,13
-68,Bosch Carwash set,Bosch,464.66,464.66,27,2.89,13
-69,Holland & Barrett Melatonine,Holland & Barrett,627.27,627.27,389,0.87,12
-70,BoConcept Salontafel,BoConcept,440.92,440.92,357,7.32,9
-71,Apple Bluetooth speaker,Apple,711.22,711.22,159,8.31,1
-72,Travelite Koffer,Travelite,228.57,228.57,430,13.7,18
-73,Yamaha Digitale piano,Yamaha,500.87,500.87,366,4.45,15
-74,Woood Bureaustoel,Woood,980.33,980.33,124,6.91,9
-75,De Bezige Bij Thriller,De Bezige Bij,922.25,922.25,260,11.22,5
-76,Uitgeverij Podium Non-fictie,Uitgeverij Podium,773.8,773.8,437,6.28,5
-77,Sony Camera tas,Sony,286.41,286.41,152,12.58,17
-78,Esselte Whiteboard,Esselte,449.3,449.3,247,5.24,19
-79,American Tourister Bagagelabel set,American Tourister,458.06,458.06,164,13.06,18
-80,Tefal Koffiezetapparaat,Tefal,856.72,856.72,210,0.75,8
-81,Razer Muismat XL,Razer,988.46,988.46,405,12.33,16
-82,De Bezige Bij Roman,De Bezige Bij,130.61,130.61,494,8.89,5
-83,Reebok Sneakers,Reebok,528.31,528.31,233,0.33,4
-84,De Bezige Bij Thriller,De Bezige Bij,79.44,79.44,400,14.54,5
-85,Etos Gezichtscrème,Etos,852.5,852.5,436,10.15,11
-86,Travelite Reiskussen,Travelite,628.66,628.66,454,11.42,18
-87,Samsonite Adapter set,Samsonite,73.07,73.07,323,10.3,18
-88,Playmobil Bouwset,Playmobil,436.79,436.79,50,11.43,10
-89,Reebok Hardloopschoenen,Reebok,695.52,695.52,462,0.53,4
-90,L'Oréal Parfum,L'Oréal,361.66,361.66,220,2.27,11
-91,Fujifilm Camera riem,Fujifilm,683.38,683.38,92,2.63,17
-92,Mango Jurk,Mango,621.6,621.6,123,7.52,3
-93,IKEA Whiteboard,IKEA,463.83,463.83,130,6.95,19
-94,LG Smartwatch,LG,679.21,679.21,80,1.2,1
-95,Holland & Barrett Proteïneshake,Holland & Barrett,640.73,640.73,217,10.39,12
-96,Fender Digitale piano,Fender,999.37,999.37,436,7.3,15
-97,Tefal Waterkoker,Tefal,362.15,362.15,151,14.89,8
-98,LEGO Puzzel,LEGO,278.1,278.1,289,12.99,10
-99,Acer Workstation laptop,Acer,833.66,833.66,462,4.36,2
-100,KitchenAid Koffiezetapparaat,KitchenAid,638.42,638.42,317,3.83,8
-101,Atlas Contact Roman,Atlas Contact,903.88,903.88,330,0.69,5
-102,Yamaha Microfoon,Yamaha,368.03,368.03,67,1.44,15
-103,Hasbro Puzzel,Hasbro,179.75,179.75,67,11.82,10
-104,Holland & Barrett Zink tabletten,Holland & Barrett,913.91,913.91,425,2.55,12
-105,Xbox Gaming muis,Xbox,805.2,805.2,239,14.45,16
-106,Uitgeverij Podium Kookboek,Uitgeverij Podium,967.42,967.42,411,8.4,5
-107,H&M T-shirt,H&M,268.13,268.13,63,6.88,3
-108,Woood Salontafel,Woood,112.79,112.79,119,7.13,9
-109,Chicco Speenset,Chicco,225.25,225.25,32,9.57,20
-110,Fender Drumpad,Fender,121.08,121.08,23,14.2,15
-111,Mattel Bouwset,Mattel,101.7,101.7,454,8.11,10
-112,Shell Bandenpomp,Shell,672.12,672.12,380,10.48,13
-113,Travelite Adapter set,Travelite,743.55,743.55,79,13.29,18
-114,Reebok Instappers,Reebok,411.07,411.07,487,4.27,4
-115,Davitamon Melatonine,Davitamon,447.46,447.46,120,12.85,12
-116,Puma Instappers,Puma,902.18,902.18,330,5.44,4
-117,Continental Dashcam,Continental,968.36,968.36,485,12.74,13
-118,Yamaha Digitale piano,Yamaha,643.49,643.49,305,14.57,15
-119,Lenovo Ultrabook,Lenovo,988.87,988.87,402,8.51,2
-120,Mango Hoodie,Mango,588.44,588.44,416,13.06,3
-121,Nivea Mascara,Nivea,7.81,7.81,439,14.76,11
-122,Atlas Contact Non-fictie,Atlas Contact,799.51,799.51,56,9.95,5
-123,Samsung Draadloze oordopjes,Samsung,361.44,361.44,403,3.65,1
-124,L'Oréal Shampoo,L'Oréal,269.03,269.03,64,11.15,11
-125,Canon Camera tas,Canon,478.85,478.85,398,5.49,17
-126,Staples Pennenhouder,Staples,506.31,506.31,484,9.27,19
-127,Sony Lenzenfilter,Sony,645.11,645.11,15,1.01,17
-128,Razer Muismat XL,Razer,687.66,687.66,251,10.71,16
-129,Yamaha Akoestische gitaar,Yamaha,325.49,325.49,75,1.08,15
-130,Riviera Maison Bureaustoel,Riviera Maison,994.64,994.64,271,4.49,9
-131,Fujifilm Camera tas,Fujifilm,794.12,794.12,58,12.81,17
-132,American Tourister Handbagage tas,American Tourister,432.91,432.91,454,3.5,18
-133,Etos Lippenstift,Etos,418.9,418.9,48,4.76,11
-134,Rituals Parfum,Rituals,953.81,953.81,351,13.85,11
-135,Nike T-shirt,Nike,97.75,97.75,49,11.19,3
-136,Davitamon Zink tabletten,Davitamon,64.67,64.67,489,8.47,12
-137,L'Oréal Lippenstift,L'Oréal,356.82,356.82,340,14.12,11
-138,Royal Canin Kattenbak,Royal Canin,602.4,602.4,180,1.64,14
-139,Nikon Statief,Nikon,658.44,658.44,114,12.72,17
-140,Holland & Barrett Proteïneshake,Holland & Barrett,119.3,119.3,142,8.65,12
-141,Royal Canin Speeltje,Royal Canin,929.43,929.43,424,10.43,14
-142,Samsung Smartwatch,Samsung,704.18,704.18,158,13.83,1
-143,Davitamon Visolie,Davitamon,870.5,870.5,289,9.89,12
-144,Adidas Vest,Adidas,635.0,635.0,15,1.47,3
-145,Nikon Lenzenfilter,Nikon,422.72,422.72,174,2.45,17
-146,Hasbro RC-auto,Hasbro,598.23,598.23,452,0.88,10
-147,Decathlon Yogamat,Decathlon,275.73,275.73,338,6.42,6
-148,Nuk Luiertas,Nuk,276.79,276.79,386,7.73,20
-149,Orthica Multivitamine,Orthica,286.82,286.82,347,8.94,12
-150,Sony Camera tas,Sony,224.41,224.41,306,0.92,17
-151,Black+Decker Grasmaaier,Black+Decker,768.5,768.5,391,3.91,7
-152,L'Oréal Gezichtscrème,L'Oréal,499.89,499.89,220,2.72,11
-153,Michelin Carwash set,Michelin,560.92,560.92,342,12.11,13
-154,H&M Vest,H&M,47.08,47.08,9,6.95,3
-155,Zara Jas,Zara,432.13,432.13,207,10.67,3
-156,Whiskas Hondenvoer,Whiskas,408.0,408.0,494,4.94,14
-157,Nuk Kinderstoel,Nuk,92.68,92.68,432,1.68,20
-158,Eukanuba Speeltje,Eukanuba,83.24,83.24,445,4.72,14
-159,Nivea Parfum,Nivea,780.21,780.21,39,7.71,11
-160,New Balance Instappers,New Balance,197.92,197.92,397,5.31,4
-161,Uitgeverij Podium Roman,Uitgeverij Podium,150.7,150.7,101,2.69,5
-162,Atlas Contact Roman,Atlas Contact,181.25,181.25,395,9.46,5
-163,Gibson Microfoon,Gibson,644.77,644.77,319,4.92,15
-164,Nivea Lippenstift,Nivea,72.93,72.93,226,9.51,11
-165,IKEA Salontafel,IKEA,509.79,509.79,158,6.98,9
-166,Dell Chromebook,Dell,832.53,832.53,39,9.71,2
-167,Mango Jas,Mango,509.52,509.52,236,8.75,3
-168,Asus 2-in-1 laptop,Asus,653.57,653.57,164,9.11,2
-169,Nikon Camera tas,Nikon,453.26,453.26,415,13.5,17
-170,L'Oréal Mascara,L'Oréal,647.89,647.89,20,3.79,11
-171,Gibson Microfoon,Gibson,525.12,525.12,81,5.52,15
-172,Mattel Puzzel,Mattel,775.58,775.58,347,9.01,10
-173,L'Oréal Parfum,L'Oréal,99.02,99.02,347,5.86,11
-174,BoConcept Salontafel,BoConcept,86.08,86.08,339,2.21,9
-175,Orthica Melatonine,Orthica,133.3,133.3,362,14.08,12
-176,Mattel Knuffel,Mattel,814.11,814.11,343,10.57,10
-177,Canon Lenzenfilter,Canon,510.94,510.94,9,5.5,17
-178,Nike Fietshelm,Nike,947.92,947.92,248,2.96,6
-179,Uitgeverij Podium Roman,Uitgeverij Podium,299.3,299.3,403,1.61,5
-180,American Tourister Adapter set,American Tourister,42.55,42.55,172,13.16,18
-181,Pampers Speenset,Pampers,379.83,379.83,83,2.79,20
-182,Pampers Luiertas,Pampers,48.46,48.46,186,10.18,20
-183,Tefal Waterkoker,Tefal,288.49,288.49,383,11.78,8
-184,Bosch Blender,Bosch,965.76,965.76,401,7.09,8
-185,Black+Decker Vliegenlamp,Black+Decker,984.51,984.51,236,11.56,7
-186,Shell Dashcam,Shell,817.8,817.8,410,9.11,13
-187,IKEA Bureaustoel,IKEA,874.74,874.74,283,14.02,9
-188,Canon Geheugenkaart,Canon,88.45,88.45,82,4.16,17
-189,Nikon Lenzenfilter,Nikon,96.25,96.25,466,3.41,17
-190,Fender Akoestische gitaar,Fender,417.81,417.81,202,7.58,15
-191,Tefal Airfryer,Tefal,378.03,378.03,14,4.85,8
-192,Puma Hardloopschoenen,Puma,141.9,141.9,146,13.77,4
-193,PlayStation Muismat XL,PlayStation,451.35,451.35,2,13.6,16
-194,Philips Bluetooth speaker,Philips,835.78,835.78,280,14.11,1
-195,Nuk Flessenwarmer,Nuk,777.28,777.28,121,4.59,20
-196,HP Workstation laptop,HP,640.75,640.75,318,6.91,2
-197,Reebok Instappers,Reebok,538.36,538.36,323,7.78,4
-198,Bosch Blender,Bosch,432.08,432.08,314,5.36,8
-199,Esselte Whiteboard,Esselte,666.04,666.04,43,7.9,19
-200,Davitamon Zink tabletten,Davitamon,546.35,546.35,402,14.83,12
+Id,Name,Description,Category,Price,Rarity,View_count,Purchase_count,Stock,AverageRating,RatingCount
+1,Playmobil Bordspel,Leuk en interactief bordspel voor het hele gezin.,Speelgoed,151.61,Common,450,23,23,4.2,15
+2,Nintendo Muismat XL,Extra grote muismat met comfortabele grip.,Elektronica,417.36,Rare,1200,322,322,4.8,42
+3,Shell Ruitenwisser set,Hoge kwaliteit ruitenwissers voor perfect zicht.,Auto,247.75,Common,890,145,335,4.1,28
+4,Reebok Hardloopschoenen,Comfortabele hardloopschoenen met demping.,Kleding,180.0,Common,2100,490,490,4.5,88
+5,Yamaha Microfoon,Professionele microfoon voor helder geluid.,Audio,252.94,Epic,640,112,434,4.6,31
+6,De Bezige Bij Kinderboek,Spannend en leerzaam kinderboek.,Boeken,987.94,Legendary,150,12,304,4.9,9
+7,Gibson Microfoon,Studio-kwaliteit microfoon voor zang en instrumenten.,Audio,448.67,Rare,530,45,81,4.4,14
+8,Razer Gaming muis,Ultrasnelle gaming muis met RGB verlichting.,Elektronica,753.01,Epic,3400,612,430,4.7,124
+9,Fujifilm Statief,Stabiel en lichtgewicht statief voor camera's.,Fotografie,278.21,Common,410,39,39,4.0,11
+10,KitchenAid Blender,Krachtige blender voor smoothies en soepen.,Keuken,323.1,Rare,1800,276,276,4.6,67
+11,Uitgeverij Podium Kookboek,Inspirerende recepten van topchefs.,Boeken,695.47,Rare,920,180,361,4.3,34
+12,Eukanuba Kattenbak,Ruime en eenvoudig te reinigen kattenbak.,Huisdieren,544.89,Common,310,45,212,3.9,8
+13,Eukanuba Speeltje,Uitdagend speeltje voor urenlang speelplezier.,Huisdieren,946.32,Legendary,500,10,10,4.8,5
+14,Esselte Pennenhouder,Strakke pennenhouder voor een georganiseerd bureau.,Kantoor,10.86,Common,1500,450,180,4.2,53
+15,Shell Carwash set,Complete set voor een glanzend schone auto.,Auto,748.77,Epic,730,89,279,4.5,22
+16,Tefal Koffiezetapparaat,Zet heerlijke verse koffie in een handomdraai.,Keuken,276.56,Common,2400,512,248,4.4,91
+17,Etos Shampoo,Verzorgende shampoo voor dagelijks gebruik.,Verzorging,841.29,Rare,1100,230,470,4.1,40
+18,Philips Avent Luiertas,Handige en ruime tas voor alle babyspullen.,Baby,593.92,Rare,620,114,339,4.5,19
+19,Pedigree Hondenmand,Comfortabele en zachte mand voor je hond.,Huisdieren,185.81,Common,840,133,133,4.3,27
+20,Karcher Plantenpot,Duurzame plantenpot voor binnen en buiten.,Tuin,340.8,Common,910,210,450,4.0,16
+21,Whiskas Hondenvoer,Voedzaam voer voor een gezonde hond.,Huisdieren,472.95,Common,1300,383,383,4.2,49
+22,Davitamon Multivitamine,Dagelijkse aanvulling van vitaminen en mineralen.,Gezondheid,782.32,Rare,1600,420,333,4.6,73
+23,Samsung Bluetooth speaker,Draagbare speaker met diepe bas.,Audio,840.02,Epic,4200,815,318,4.7,210
+24,De Bezige Bij Roman,Meeslepende roman van een bekende auteur.,Boeken,566.14,Rare,480,95,111,4.4,18
+25,Riviera Maison Boekenkast,Stijlvolle houten kast voor je boekenverzameling.,Meubels,607.85,Epic,340,43,493,4.8,12
+26,Adidas Laarzen,Stoere en waterdichte laarzen.,Kleding,112.55,Common,710,113,13,3.8,24
+27,Esselte Pennenhouder,Strakke pennenhouder voor een georganiseerd bureau.,Kantoor,941.75,Legendary,250,15,101,4.5,4
+28,Philips Blender,Blender met hoge snelheid voor ijs en fruit.,Keuken,851.03,Epic,1950,307,307,4.6,83
+29,Staples Ordner set,Stevige mappen voor je administratie.,Kantoor,535.07,Common,640,128,338,4.1,15
+30,Sony Camera tas,Beschermende tas voor je spiegelreflexcamera.,Fotografie,850.32,Epic,880,142,421,4.7,39
+31,Whiskas Hondenmand,Comfortabele en zachte mand voor je hond.,Huisdieren,708.76,Rare,510,74,222,4.3,13
+32,Sony Camera riem,Comfortabele draagriem voor intensief gebruik.,Fotografie,809.15,Epic,430,62,275,4.2,11
+33,Gibson Microfoon,Studio-kwaliteit microfoon voor zang en instrumenten.,Audio,272.04,Common,910,210,436,4.5,47
+34,Zara Jurk,Elegante jurk voor speciale gelegenheden.,Kleding,247.63,Common,3100,580,237,4.3,112
+35,Continental Automat,Hoogwaardige automat voor voertuigen.,Auto,496.82,Rare,390,55,166,4.0,9
+36,Black+Decker Plantenpot,Stevige plantenpot van gerecycled materiaal.,Tuin,343.63,Common,680,120,450,4.1,21
+37,IKEA Nachtkastje,Modern en compact kastje voor naast het bed.,Meubels,948.31,Legendary,1200,43,43,4.4,29
+38,Eukanuba Speeltje,Uitdagend speeltje voor urenlang speelplezier.,Huisdieren,759.36,Rare,840,190,353,4.6,40
+39,Razer Controller,Ergonomische controller voor veeleisende gamers.,Elektronica,97.58,Common,2800,740,113,4.5,165
+40,KitchenAid Waterkoker,Snelle waterkoker met stijlvol retro design.,Keuken,372.17,Rare,1400,283,283,4.7,55
+41,Whiskas Kattenbak,Ruime en eenvoudig te reinigen kattenbak.,Huisdieren,704.33,Rare,460,68,138,4.2,14
+42,Philips Koffiezetapparaat,Zet heerlijke verse koffie in een handomdraai.,Keuken,318.96,Common,1750,380,380,4.4,72
+43,Nike Dumbbell set,Gewichtenset voor een complete thuis-workout.,Sport,739.9,Epic,2300,410,141,4.6,94
+44,Sony Camera tas,Beschermende tas voor je spiegelreflexcamera.,Fotografie,833.46,Epic,710,110,151,4.5,31
+45,Adidas Yogamat,Antislip mat voor yoga en pilates.,Sport,709.47,Rare,1500,290,64,4.4,48
+46,Acer Chromebook,Lichte laptop voor dagelijks internet en studie.,Computers,698.92,Rare,1900,340,64,4.2,61
+47,Nintendo Controller,Klassieke controller voor urenlang gameplezier.,Elektronica,576.18,Rare,2600,540,240,4.7,132
+48,Nivea Gezichtscrème,Hydraterende crème voor een stralende huid.,Verzorging,256.21,Common,3400,890,441,4.5,210
+49,H&M Jurk,Modieuze en comfortabele zomerjurk.,Kleding,78.7,Common,4500,1200,322,4.1,340
+50,Uitgeverij Podium Kinderboek,Spannend en leerzaam kinderboek.,Boeken,949.37,Legendary,310,25,43,4.8,12
+51,New Balance Sandalen,Lichte en comfortabele sandalen voor de zomer.,Kleding,608.28,Rare,1100,215,404,4.3,44
+52,Fujifilm Lenzenfilter,Beschermt je lens en vermindert schittering.,Fotografie,908.95,Legendary,420,53,152,4.6,19
+53,Whiskas Speeltje,Uitdagend speeltje voor urenlang speelplezier.,Huisdieren,622.91,Rare,730,140,312,4.4,31
+54,Adidas Hardloopschoenen,Comfortabele hardloopschoenen met demping.,Kleding,268.31,Common,1800,390,41,4.5,76
+55,Decathlon Dumbbell set,Gewichtenset voor een complete thuis-workout.,Sport,7.65,Common,2900,950,230,4.2,185
+56,Xbox Controller,Draadloze controller met perfecte grip.,Elektronica,235.31,Common,3900,1100,361,4.6,290
+57,Yamaha Digitale piano,Digitale piano met realistisch toetsgevoel.,Audio,924.28,Legendary,850,92,403,4.9,41
+58,IKEA Pennenhouder,Minimalistische pennenhouder voor je werkplek.,Kantoor,119.19,Common,1400,310,115,4.2,52
+59,BoConcept Bureau,Modern design bureau voor thuiswerkers.,Meubels,64.33,Common,1600,405,405,4.5,79
+60,Leitz Pennenhouder,Luxe pennenhouder van hoogwaardig materiaal.,Kantoor,128.72,Common,890,195,352,4.3,31
+61,Continental Carwash set,Complete set voor een glanzend schone auto.,Auto,542.27,Rare,510,88,224,4.1,17
+62,Asus Chromebook,Snelle en lichte laptop met lange batterijduur.,Computers,605.69,Rare,1150,190,13,4.3,42
+63,Staples Ordner set,Stevige mappen voor je administratie.,Kantoor,578.36,Rare,720,150,390,4.2,22
+64,Razer Gaming muis,Ultrasnelle gaming muis met RGB verlichting.,Elektronica,185.57,Common,2900,680,299,4.6,145
+65,Nintendo Muismat XL,Extra grote muismat met comfortabele grip.,Elektronica,351.21,Rare,1400,290,170,4.7,58
+66,Adidas Laarzen,Stoere en waterdichte laarzen.,Kleding,414.58,Rare,830,140,253,4.2,33
+67,Bosch Ruitenwisser set,Hoge kwaliteit ruitenwissers voor perfect zicht.,Auto,92.61,Common,1500,410,129,4.5,92
+68,Bosch Carwash set,Premium schoonmaakset voor je auto.,Auto,464.66,Rare,620,95,27,4.4,21
+69,Holland & Barrett Melatonine,Ondersteunt een goede nachtrust.,Gezondheid,627.27,Rare,1900,480,389,4.5,99
+70,BoConcept Salontafel,Stijlvolle salontafel voor de woonkamer.,Meubels,440.92,Rare,780,112,357,4.6,27
+71,Apple Bluetooth speaker,Compacte speaker met indrukwekkend geluid.,Audio,711.22,Epic,4800,930,159,4.8,312
+72,Travelite Koffer,Lichte en sterke reiskoffer met cijferslot.,Reizen,228.57,Common,1600,380,430,4.4,74
+73,Yamaha Digitale piano,Digitale piano met realistisch toetsgevoel.,Audio,500.87,Rare,910,140,366,4.7,46
+74,Woood Bureaustoel,Ergonomische bureaustoel voor langdurig comfort.,Meubels,980.33,Legendary,840,78,124,4.5,31
+75,De Bezige Bij Thriller,Spannende thriller van begin tot eind.,Boeken,922.25,Legendary,650,85,260,4.6,24
+76,Uitgeverij Podium Non-fictie,Interessant en informatief non-fictie boek.,Boeken,773.8,Rare,590,110,437,4.3,19
+77,Sony Camera tas,Beschermende tas voor je spiegelreflexcamera.,Fotografie,286.41,Common,980,215,152,4.4,43
+78,Esselte Whiteboard,Ideaal voor presentaties en brainstormsessies.,Kantoor,449.3,Rare,710,130,247,4.2,20
+79,American Tourister Bagagelabel set,Herkenbare labels voor je reiskoffers.,Reizen,458.06,Rare,840,190,164,4.1,26
+80,Tefal Koffiezetapparaat,Zet heerlijke verse koffie in een handomdraai.,Keuken,856.72,Epic,1500,245,210,4.5,61
+81,Razer Muismat XL,Extra grote muismat geoptimaliseerd voor gaming.,Elektronica,988.46,Legendary,2400,310,405,4.8,115
+82,De Bezige Bij Roman,Meeslepende roman van een bekende auteur.,Boeken,130.61,Common,1100,290,494,4.3,52
+83,Reebok Sneakers,Trendy sneakers voor dagelijks gebruik.,Kleding,528.31,Rare,1900,410,233,4.4,89
+84,De Bezige Bij Thriller,Spannende thriller van begin tot eind.,Boeken,79.44,Common,1400,380,400,4.2,64
+85,Etos Gezichtscrème,Hydraterende crème voor een zachte huid.,Verzorging,852.5,Epic,1200,195,436,4.3,41
+86,Travelite Reiskussen,Ergonomisch nekkussen voor optimaal reiscomfort.,Reizen,628.66,Rare,930,210,454,4.5,43
+87,Samsonite Adapter set,Wereldstekker set voor zorgeloos reizen.,Reizen,73.07,Common,2600,680,323,4.6,142
+88,Playmobil Bouwset,Creatieve bouwset voor urenlang speelplezier.,Speelgoed,436.79,Rare,810,140,50,4.5,37
+89,Reebok Hardloopschoenen,Comfortabele hardloopschoenen met demping.,Kleding,695.52,Rare,1350,280,462,4.4,59
+90,L'Oréal Parfum,Heerlijke en langdurige geur voor dames.,Verzorging,361.66,Rare,2400,510,220,4.6,118
+91,Fujifilm Camera riem,Comfortabele draagriem voor intensief gebruik.,Fotografie,683.38,Rare,510,85,92,4.1,14
+92,Mango Jurk,Elegante jurk volgens de laatste modetrends.,Kleding,621.6,Rare,2100,410,123,4.3,87
+93,IKEA Whiteboard,Eenvoudig op te hangen whiteboard voor notities.,Kantoor,463.83,Rare,1300,290,130,4.2,49
+94,LG Smartwatch,Stijlvolle smartwatch met ingebouwde stappenteller.,Audio,679.21,Rare,1800,310,80,4.4,73
+95,Holland & Barrett Proteïneshake,Hoogwaardige eiwitten voor spierherstel.,Gezondheid,640.73,Rare,1500,340,217,4.5,62
+96,Fender Digitale piano,Premium digitale piano met authentieke sound.,Audio,999.37,Legendary,1100,120,436,4.9,54
+97,Tefal Waterkoker,Snelle waterkoker met automatische uitschakeling.,Keuken,362.15,Rare,1650,340,151,4.4,51
+98,LEGO Puzzel,Uitdagende puzzel voor LEGO liefhebbers.,Speelgoed,278.1,Common,1900,420,289,4.6,93
+99,Acer Workstation laptop,Krachtige laptop voor zware grafische taken.,Computers,833.66,Epic,1400,180,462,4.5,41
+100,KitchenAid Koffiezetapparaat,Luxe koffiezetapparaat voor de perfecte filterkoffie.,Keuken,638.42,Rare,1100,195,317,4.6,38
+101,Atlas Contact Roman,Indrukwekkende roman van literaire kwaliteit.,Boeken,903.88,Legendary,540,65,330,4.7,21
+102,Yamaha Microfoon,Professionele microfoon voor helder geluid.,Audio,368.03,Common,1200,280,67,4.4,59
+103,Hasbro Puzzel,Gezellige legpuzzel voor jong en oud.,Speelgoed,179.75,Common,1450,310,67,4.3,44
+104,Holland & Barrett Zink tabletten,Ter ondersteuning van het immuunsysteem.,Gezondheid,913.91,Legendary,890,140,425,4.4,31
+105,Xbox Gaming muis,Ergonomische muis met programmeerbare knoppen.,Elektronica,805.2,Epic,1600,280,239,4.5,64
+106,Uitgeverij Podium Kookboek,Inspirerende recepten van topchefs.,Boeken,967.42,Legendary,410,38,411,4.7,14
+107,H&M T-shirt,Basisshirt van zacht biologisch katoen.,Kleding,268.13,Common,3800,920,63,4.2,210
+108,Woood Salontafel,Robuuste houten tafel voor het interieur.,Meubels,112.79,Common,1400,310,119,4.3,58
+109,Chicco Speenset,Veilige en comfortabele spenen voor baby's.,Baby,225.25,Common,930,180,32,4.5,39
+110,Fender Drumpad,Ideaal om ritmes en fills op te oefenen.,Audio,121.08,Common,640,110,23,4.1,22
+111,Mattel Bouwset,Creatief speelgoed dat de fantasie stimuleert.,Speelgoed,101.7,Common,1800,410,454,4.4,79
+112,Shell Bandenpomp,Draagbare compressor voor de juiste bandenspanning.,Auto,672.12,Rare,940,180,380,4.3,41
+113,Travelite Adapter set,Handige stekkeradapter voor internationale reizen.,Reizen,743.55,Epic,710,115,79,4.2,23
+114,Reebok Instappers,Gemakkelijke en lichte schoenen om zo aan te trekken.,Kleding,411.07,Rare,1250,290,487,4.3,54
+115,Davitamon Melatonine,Helpt bij het sneller in slaap vallen.,Gezondheid,447.46,Rare,1100,240,120,4.4,49
+116,Puma Instappers,Sportieve instappers met een comfortabel voetbed.,Kleding,902.18,Legendary,950,140,330,4.6,37
+117,Continental Dashcam,Legt ritten haarscherp vast in HD-kwaliteit.,Auto,968.36,Legendary,820,95,485,4.5,28
+118,Yamaha Digitale piano,Digitale piano met realistisch toetsgevoel.,Audio,643.49,Rare,1100,210,305,4.7,63
+119,Lenovo Ultrabook,Ultradunne en krachtige laptop voor onderweg.,Computers,988.87,Legendary,1800,240,402,4.7,81
+120,Mango Hoodie,Comfortabele trui met capuchon.,Kleding,588.44,Rare,2400,510,416,4.5,134
+121,Nivea Mascara,Voor volle en intens zwarte wimpers.,Verzorging,7.81,Common,4100,1300,439,4.2,390
+122,Atlas Contact Non-fictie,Diepgaand boek over actuele onderwerpen.,Boeken,799.51,Rare,430,68,56,4.4,15
+123,Samsung Draadloze oordopjes,In-ear oordopjes met noise cancelling.,Audio,361.44,Rare,3900,850,403,4.6,245
+124,L'Oréal Shampoo,Herstelt en versterkt beschadigd haar.,Verzorging,269.03,Common,2100,490,64,4.4,112
+125,Canon Camera tas,Stevige tas met vakken voor lenzen en accessoires.,Fotografie,478.85,Rare,940,180,398,4.5,43
+126,Staples Pennenhouder,Houdt je schrijfgerei overzichtelijk bij elkaar.,Kantoor,506.31,Rare,680,120,484,4.1,19
+127,Sony Lenzenfilter,Hoogwaardig uv-filter ter bescherming van de lens.,Fotografie,645.11,Rare,530,85,15,4.3,14
+128,Razer Muismat XL,Extra grote muismat geoptimaliseerd voor gaming.,Elektronica,687.66,Rare,1900,390,251,4.7,112
+129,Yamaha Akoestische gitaar,Prachtige gitaar met een volle, warme klank.,Audio,325.49,Common,1500,320,75,4.6,89
+130,Riviera Maison Bureaustoel,Luxe bureaustoel die past in elk interieur.,Meubels,994.64,Legendary,740,65,271,4.5,21
+131,Fujifilm Camera tas,Compacte tas voor systeemcamera's.,Fotografie,794.12,Epic,620,95,58,4.3,18
+132,American Tourister Handbagage tas,Voldoet aan de afmetingen voor de cabine.,Reizen,432.91,Rare,1300,280,454,4.4,62
+133,Etos Lippenstift,Langhoudende lippenstift in een trendy kleur.,Verzorging,418.9,Rare,1150,210,48,4.2,43
+134,Rituals Parfum,Exclusief parfum met een verfijnde geursensatie.,Verzorging,953.81,Legendary,2600,410,351,4.8,156
+135,Nike T-shirt,Sportshirt met ademende technologie.,Kleding,97.75,Common,3200,810,49,4.5,198
+136,Davitamon Zink tabletten,Ter ondersteuning van het immuunsysteem.,Gezondheid,64.67,Common,1400,350,489,4.3,64
+137,L'Oréal Lippenstift,Intense hydratatie en rijke kleurpigmenten.,Verzorging,356.82,Rare,1600,340,340,4.4,76
+138,Royal Canin Kattenbak,Praktische kattenbak met geurfilter.,Huisdieren,602.4,Rare,820,150,180,4.1,29
+139,Nikon Statief,Robuust driepootstatief voor scherpe foto's.,Fotografie,658.44,Rare,710,120,114,4.4,31
+140,Holland & Barrett Proteïneshake,Hoogwaardige eiwitten voor spierherstel.,Gezondheid,119.3,Common,1850,420,142,4.4,94
+141,Royal Canin Speeltje,Interactief speeltje tegen verveling.,Huisdieren,929.43,Legendary,930,140,424,4.5,33
+142,Samsung Smartwatch,Geavanceerd horloge met hartslag- en slaapmonitor.,Audio,704.18,Rare,2800,540,158,4.6,143
+143,Davitamon Visolie,Goed voor het hart en de hersenfunctie.,Gezondheid,870.5,Epic,1450,290,289,4.5,67
+144,Adidas Vest,Comfortabel sportvest met rits.,Kleding,635.0,Rare,1100,190,15,4.3,41
+145,Nikon Lenzenfilter,Beschermt de lens tegen krassen en stof.,Fotografie,422.72,Rare,640,110,174,4.2,18
+146,Hasbro RC-auto,Bestuurbare auto met hoge snelheid.,Speelgoed,598.23,Rare,1300,280,452,4.5,72
+147,Decathlon Yogamat,Dikke mat voor extra comfort tijdens oefeningen.,Sport,275.73,Common,1900,430,338,4.4,91
+148,Nuk Luiertas,Inclusief handig verschoningsmatje.,Baby,276.79,Common,840,190,386,4.3,37
+149,Orthica Multivitamine,Hooggedoseerde vitaminen voor extra weerstand.,Gezondheid,286.82,Common,1200,290,347,4.5,61
+150,Sony Camera tas,Beschermende tas voor je spiegelreflexcamera.,Fotografie,224.41,Common,1500,340,306,4.3,68
+151,Black+Decker Grasmaaier,Elektrische maaier voor een strak gazon.,Tuin,768.5,Rare,910,150,391,4.5,43
+152,L'Oréal Gezichtscrème,Anti-rimpel crème met hyaluronzuur.,Verzorging,499.89,Rare,1750,380,220,4.4,81
+153,Michelin Carwash set,Professionele producten voor autoverzorging.,Auto,560.92,Rare,690,110,342,4.2,22
+154,H&M Vest,Zacht gebreid vest voor koudere dagen.,Kleding,47.08,Common,2400,610,9,4.0,115
+155,Zara Jas,Stijlvolle winterjas met warme voering.,Kleding,432.13,Rare,1900,380,207,4.4,84
+156,Whiskas Hondenvoer,Voedzaam voer voor een gezonde hond.,Huisdieren,408.0,Common,1400,310,494,4.2,53
+157,Nuk Kinderstoel,Veilige en meegroeiende stoel voor aan tafel.,Baby,92.68,Common,1100,240,432,4.5,49
+158,Eukanuba Speeltje,Uitdagend speeltje voor urenlang speelplezier.,Huisdieren,83.24,Common,1350,310,445,4.3,57
+159,Nivea Parfum,De iconische, frisse Nivea geur in een flesje.,Verzorging,780.21,Rare,2100,390,39,4.5,93
+160,New Balance Instappers,Lichtgewicht instapschoenen voor optimaal gemak.,Kleding,197.92,Common,1600,380,397,4.2,71
+161,Uitgeverij Podium Roman,Meeslepende roman van een bekende auteur.,Boeken,150.7,Common,980,210,101,4.3,44
+162,Atlas Contact Roman,Indrukwekkende roman van literaire kwaliteit.,Boeken,181.25,Common,1150,260,395,4.4,52
+163,Gibson Microfoon,Studio-kwaliteit microfoon voor zang en instrumenten.,Audio,644.77,Rare,840,150,319,4.6,39
+164,Nivea Lippenstift,Verzorgt de lippen en geeft een subtiele glans.,Verzorging,72.93,Common,2800,710,226,4.1,132
+165,IKEA Salontafel,Eenvoudig design dat in elk interieur past.,Meubels,509.79,Rare,1500,310,158,4.3,64
+166,Dell Chromebook,Ideaal voor studenten en snel internetten.,Computers,832.53,Epic,1100,140,39,4.4,28
+167,Mango Jas,Klassieke mantel met een moderne pasvorm.,Kleding,509.52,Rare,1300,260,236,4.3,59
+168,Asus 2-in-1 laptop,Laptop en tablet in één handig apparaat.,Computers,653.57,Rare,1450,230,164,4.5,61
+169,Nikon Camera tas,Ruime tas voor een complete camera-uitrusting.,Fotografie,453.26,Rare,780,140,415,4.4,33
+170,L'Oréal Mascara,Voor extreem volume en verlenging.,Verzorging,647.89,Rare,2200,480,20,4.5,115
+171,Gibson Microfoon,Studio-kwaliteit microfoon voor zang en instrumenten.,Audio,525.12,Rare,690,110,81,4.5,24
+172,Mattel Puzzel,Kleurrijke legpuzzel met een vrolijke afbeelding.,Speelgoed,775.58,Rare,930,180,347,4.4,41
+173,L'Oréal Parfum,Heerlijke en langdurige geur voor dames.,Verzorging,99.02,Common,1900,450,347,4.3,92
+174,BoConcept Salontafel,Stijlvolle salontafel voor de woonkamer.,Meubels,86.08,Common,1200,290,339,4.2,51
+175,Orthica Melatonine,Ondersteunt een natuurlijke gezonde nachtrust.,Gezondheid,133.3,Common,1400,340,362,4.4,68
+176,Mattel Knuffel,Heerlijk zachte knuffel voor de allerkleinsten.,Speelgoed,814.11,Epic,820,110,343,4.7,31
+177,Canon Lenzenfilter,Hoogwaardig uv-filter ter bescherming van de lens.,Fotografie,510.94,Rare,480,65,9,4.3,12
+178,Nike Fietshelm,Veilige en aerodynamische helm voor wielrenners.,Sport,947.92,Legendary,1300,190,248,4.7,64
+179,Uitgeverij Podium Roman,Meeslepende roman van een bekende auteur.,Boeken,299.3,Common,1100,240,403,4.4,53
+180,American Tourister Adapter set,Wereldstekker set voor zorgeloos reizen.,Reizen,42.55,Common,1850,420,172,4.3,91
+181,Pampers Speenset,Ergonomische spenen die de kaakontwikkeling steunen.,Baby,379.83,Rare,910,180,83,4.5,41
+182,Pampers Luiertas,Inclusief handige opbergvakken en koeltasje.,Baby,48.46,Common,1500,390,186,4.2,84
+183,Tefal Waterkoker,Snelle waterkoker met rvs behuizing.,Keuken,288.49,Common,1700,390,383,4.4,73
+184,Bosch Blender,Krachtige motor voor het fijnste blendresultaat.,Keuken,965.76,Legendary,1400,210,401,4.7,68
+185,Black+Decker Vliegenlamp,Effectieve insectenlamp voor een muggenvrije kamer.,Tuin,984.51,Legendary,1600,250,236,4.4,59
+186,Shell Dashcam,Compacte autocamera die automatisch opstart.,Auto,817.8,Epic,850,140,410,4.3,31
+187,IKEA Bureaustoel,Comfortabele stoel voor urenlang studeren of werken.,Meubels,874.74,Epic,1950,340,283,4.4,87
+188,Canon Geheugenkaart,Snelle SD-kaart voor 4K video-opnames.,Fotografie,88.45,Common,2400,590,82,4.6,142
+189,Nikon Lenzenfilter,Vermindert reflecties en verhoogt het contrast.,Fotografie,96.25,Common,1300,310,466,4.2,53
+190,Fender Akoestische gitaar,Prachtige gitaar met een volle, warme klank.,Audio,417.81,Rare,940,180,202,4.5,41
+191,Tefal Airfryer,Gezond frituren met hete lucht.,Keuken,378.03,Rare,3100,680,14,4.7,215
+192,Puma Hardloopschoenen,Lichte hardloopschoenen voor topsprestaties.,Kleding,141.9,Common,1650,380,146,4.3,71
+193,PlayStation Muismat XL,Grote desktop mat in herkenbare PlayStation stijl.,Elektronica,451.35,Rare,1800,290,2,4.6,83
+194,Philips Bluetooth speaker,Robuuste, waterbestendige speaker voor buiten.,Audio,835.78,Epic,2100,390,280,4.5,94
+195,Nuk Flessenwarmer,Verwarmt babyvoeding snel en gelijkmatig.,Baby,777.28,Epic,730,110,121,4.6,27
+196,HP Workstation laptop,Professionele laptop voor zware berekeningen en CAD.,Computers,640.75,Rare,1250,190,318,4.5,49
+197,Reebok Instappers,Gemakkelijke en lichte schoenen om zo aan te trekken.,Kleding,538.36,Rare,1100,215,323,4.2,38
+198,Bosch Blender,Duurzame glazen blenderbeker, vaatwasmachinebestendig.,Keuken,432.08,Rare,1300,270,314,4.4,59
+199,Esselte Whiteboard,Magnetisch whiteboard, krasvast oppervlak.,Kantoor,666.04,Rare,540,85,43,4.2,14
+200,Davitamon Zink tabletten,Ter ondersteuning van het immuunsysteem.,Gezondheid,546.35,Rare,980,190,402,4.4,37
