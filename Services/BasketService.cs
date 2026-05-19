@@ -120,6 +120,7 @@ public class BasketService
         }
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
+            UserSessionId = UserSession.SessionId,
             UserId = userId,
             ActionType = "RemoveFromBasket",
             Details = new Dictionary<string, string>
@@ -178,6 +179,7 @@ public class BasketService
 
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
+        UserSessionId = UserSession.SessionId,
             UserId = userId,
             ActionType = "AddToBasket",
             Details = new Dictionary<string, string>
@@ -315,6 +317,7 @@ public class BasketService
             SaveOrderSnapshot(userId, total, basketItems, "Completed");
             _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
             {
+                UserSessionId = UserSession.SessionId,
                 UserId = userId,
                 ActionType = "Checkout",
                 Details = new Dictionary<string, string>
@@ -331,6 +334,7 @@ public class BasketService
             Console.WriteLine($"Error during checkout: {ex.Message}");
             _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
             {
+                UserSessionId = UserSession.SessionId,
                 UserId = userId,
                 ActionType = "CheckoutFailed",
                 Details = new Dictionary<string, string>

@@ -85,6 +85,7 @@ public class FilterMenu
 
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
+            UserSessionId = UserSession.SessionId,
             UserId = null,
             ActionType = "FilterByCategory",
             Details = new Dictionary<string, string>
@@ -104,6 +105,7 @@ public class FilterMenu
         var products = _productService.GetProductsByRange(min, max);
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
+            UserSessionId = UserSession.SessionId,
             UserId = null,
             ActionType = "FilterByPriceRange",
             Details = new Dictionary<string, string>
@@ -142,6 +144,7 @@ public class FilterMenu
         var results = _productService.GetProductsSortedByPrice(ascending);
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
+            UserSessionId = UserSession.SessionId,
             UserId = null,
             ActionType = "FilterByPrice",
             Details = new Dictionary<string, string>
@@ -168,6 +171,7 @@ public class FilterMenu
 
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
+            UserSessionId = UserSession.SessionId,
             UserId = null,
             ActionType = "SearchProducts",
             Details = new Dictionary<string, string>
@@ -240,6 +244,7 @@ public class FilterMenu
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
             UserId = null,
+            UserSessionId = UserSession.SessionId,
             ActionType = "FilterByStarRating",
             Details = new Dictionary<string, string>
             {

@@ -9,9 +9,9 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        UserSession.SessionId = Guid.NewGuid().ToString();
 
         Env.Load();
-
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         var mongoContext = new MongoDbContext(configuration);
         var orderMongoService = new OrderMongoService(mongoContext);

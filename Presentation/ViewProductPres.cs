@@ -21,7 +21,8 @@ public class ViewProductPres
 
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
-            UserId = null,
+            UserSessionId = UserSession.SessionId,
+            UserId = UserSession.CurrentUser?.Id,
             ActionType = "ViewProducts",
             Details = new Dictionary<string, string>
             {

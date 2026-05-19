@@ -12,12 +12,10 @@ public class BasketMenu
     private static RatingService _ratingService;
     private static ViewProductPres _viewProductPres;
     private static UserActionLogService _userActionLogService;
-
-    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, SortingMenu sortingMenu, RatingService ratingService, UserActionLogService userActionLogService)
     private static UserService _userService;
 
-    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService, 
-                    SortingMenu sortingMenu, RatingService ratingService, UserService userService)
+    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService,
+                    SortingMenu sortingMenu, RatingService ratingService, UserActionLogService userActionLogService, UserService userService)
     {
         _productService = productService;
         _filterMenu = filterMenu;
@@ -476,6 +474,7 @@ public class BasketMenu
             Console.ResetColor();
             _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
             {
+                UserSessionId = UserSession.SessionId,
                 UserId = UserSession.CurrentUser.Id,
                 ActionType = "RatingError",
                 Details = new Dictionary<string, string>
