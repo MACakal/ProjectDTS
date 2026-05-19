@@ -6,17 +6,28 @@ public class ViewProductPres
 {
     private ProductService _productService;
     private RatingService _ratingService;
+    private UserActionLogService _userActionLogService;
 
-    public ViewProductPres(ProductService productService, RatingService ratingService)
+    public ViewProductPres(ProductService productService, RatingService ratingService, UserActionLogService userActionLogService)
     {
         _productService = productService;
         _ratingService = ratingService;
+        _userActionLogService = userActionLogService;
     }
     public void Viewproducts()
     {
-
         Console.Clear();
         var products = _productService.GetAllProducts();
+
+        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+        {
+            UserId = null,
+            ActionType = "ViewProducts",
+            Details = new Dictionary<string, string>
+            {
+                { "ProductCount", products.Count().ToString() }
+            }
+        });
 
         Viewproducts(products);
     }

@@ -6,11 +6,13 @@ public class BasketService
 {
     private readonly DatabaseService _db;
     private readonly OrderMongoService _orderMongoService;
+    private readonly UserActionLogService _userActionLogService;
 
-    public BasketService(DatabaseService db, OrderMongoService orderMongoService)
+    public BasketService(DatabaseService db, OrderMongoService orderMongoService, UserActionLogService userActionLogService)
     {
         _db = db;
         _orderMongoService = orderMongoService;
+        _userActionLogService = userActionLogService;
     }
 
     public bool ModifyQuantityBasket(int userId, int productId, int newQuantity)
@@ -116,7 +118,17 @@ public class BasketService
         {
             return false;
         }
+        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+        {
+            UserId = userId,
+            ActionType = "RemoveFromBasket",
+            Details = new Dictionary<string, string>
+            {
+                { "ProductId", productId.ToString() }
+            }
+        });
         return true;
+
     }
 
     public void AddToBasket(int userId, int productId, int quantity)
@@ -163,6 +175,18 @@ public class BasketService
         using var cmdUpdate = new NpgsqlCommand(updateTotalSql, conn);
         cmdUpdate.Parameters.AddWithValue("orderId", orderId);
         cmdUpdate.ExecuteNonQuery();
+
+        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+        {
+            UserId = userId,
+            ActionType = "AddToBasket",
+            Details = new Dictionary<string, string>
+            {
+                { "ProductId", productId.ToString() },
+                { "Quantity", quantity.ToString() }
+            }
+        });
+
     }
     public List<BasketItem> GetBasketLines(int userId, out decimal total)
     {
@@ -289,12 +313,31 @@ public class BasketService
 
             transaction.Commit();
             SaveOrderSnapshot(userId, total, basketItems, "Completed");
+            _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+            {
+                UserId = userId,
+                ActionType = "Checkout",
+                Details = new Dictionary<string, string>
+                {
+                    { "TotalPrice", total.ToString() },
+                    { "ItemCount", basketItems.Count.ToString() }
+                }
+            });
             return true;
         }
         catch (Exception ex)
         {
             transaction.Rollback();
             Console.WriteLine($"Error during checkout: {ex.Message}");
+            _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+            {
+                UserId = userId,
+                ActionType = "CheckoutFailed",
+                Details = new Dictionary<string, string>
+                {
+                    { "ErrorMessage", ex.Message }
+                }
+            });
             return false;
         }
     }

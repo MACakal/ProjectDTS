@@ -15,6 +15,7 @@ public class Program
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         var mongoContext = new MongoDbContext(configuration);
         var orderMongoService = new OrderMongoService(mongoContext);
+        var userActionLogService = new UserActionLogService(mongoContext);
 
         var databaseService = new DatabaseService();
         var redis = ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")); // or your connection string
@@ -30,12 +31,12 @@ public class Program
         //var ratingService = new RatingService(databaseService);
         var productService = new ProductService(databaseService, ratingService);
 
-        var viewProduct = new ViewProductPres(productService, ratingService);
+        var viewProduct = new ViewProductPres(productService, ratingService, userActionLogService);
 
-        var filterMenu = new FilterMenu(productService, viewProduct);
+        var filterMenu = new FilterMenu(productService, viewProduct, userActionLogService);
 
         var userService = new UserService(databaseService);
-        var basketService = new BasketService(databaseService, orderMongoService);
+        var basketService = new BasketService(databaseService, orderMongoService, userActionLogService);
 
         var accountPresentation = new AccountPre(userService);
 
@@ -44,7 +45,7 @@ public class Program
 
         var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         var sortingMenu = new SortingMenu(productService, viewProduct);
-        var basketMenu = new BasketMenu(productService, filterMenu, basketService, sortingMenu, ratingService, userService);
+        var basketMenu = new BasketMenu(productService, filterMenu, basketService, sortingMenu, ratingService, userActionLogService, userService);
         mainMenuPre.Show();
     }
 }
