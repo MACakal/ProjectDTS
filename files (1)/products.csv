@@ -1,0 +1,201 @@
+product_id,name,brand,price,unit_price,stock,weight_kg,category_id
+1,Playmobil Bordspel,Playmobil,151.61,151.61,23,3.75,10
+2,Nintendo Muismat XL,Nintendo,417.36,417.36,322,8.68,16
+3,Shell Ruitenwisser set,Shell,247.75,247.75,335,10.35,13
+4,Reebok Hardloopschoenen,Reebok,180.0,180.0,490,10.47,4
+5,Yamaha Microfoon,Yamaha,252.94,252.94,434,1.91,15
+6,De Bezige Bij Kinderboek,De Bezige Bij,987.94,987.94,304,4.83,5
+7,Gibson Microfoon,Gibson,448.67,448.67,81,11.18,15
+8,Razer Gaming muis,Razer,753.01,753.01,430,9.6,16
+9,Fujifilm Statief,Fujifilm,278.21,278.21,39,10.73,17
+10,KitchenAid Blender,KitchenAid,323.1,323.1,276,1.3,8
+11,Uitgeverij Podium Kookboek,Uitgeverij Podium,695.47,695.47,361,3.29,5
+12,Eukanuba Kattenbak,Eukanuba,544.89,544.89,212,1.03,14
+13,Eukanuba Speeltje,Eukanuba,946.32,946.32,10,12.87,14
+14,Esselte Pennenhouder,Esselte,10.86,10.86,180,4.55,19
+15,Shell Carwash set,Shell,748.77,748.77,279,12.02,13
+16,Tefal Koffiezetapparaat,Tefal,276.56,276.56,248,0.53,8
+17,Etos Shampoo,Etos,841.29,841.29,470,2.0,11
+18,Philips Avent Luiertas,Philips Avent,593.92,593.92,339,0.5,20
+19,Pedigree Hondenmand,Pedigree,185.81,185.81,133,5.75,14
+20,Karcher Plantenpot,Karcher,340.8,340.8,450,5.75,7
+21,Whiskas Hondenvoer,Whiskas,472.95,472.95,383,8.14,14
+22,Davitamon Multivitamine,Davitamon,782.32,782.32,333,0.7,12
+23,Samsung Bluetooth speaker,Samsung,840.02,840.02,318,2.37,1
+24,De Bezige Bij Roman,De Bezige Bij,566.14,566.14,111,7.03,5
+25,Riviera Maison Boekenkast,Riviera Maison,607.85,607.85,493,11.24,9
+26,Adidas Laarzen,Adidas,112.55,112.55,13,13.94,4
+27,Esselte Pennenhouder,Esselte,941.75,941.75,101,1.23,19
+28,Philips Blender,Philips,851.03,851.03,307,12.1,8
+29,Staples Ordner set,Staples,535.07,535.07,338,5.62,19
+30,Sony Camera tas,Sony,850.32,850.32,421,7.4,17
+31,Whiskas Hondenmand,Whiskas,708.76,708.76,222,2.72,14
+32,Sony Camera riem,Sony,809.15,809.15,275,11.64,17
+33,Gibson Microfoon,Gibson,272.04,272.04,436,3.76,15
+34,Zara Jurk,Zara,247.63,247.63,237,8.59,3
+35,Continental Automat,Continental,496.82,496.82,166,2.81,13
+36,Black+Decker Plantenpot,Black+Decker,343.63,343.63,450,8.98,7
+37,IKEA Nachtkastje,IKEA,948.31,948.31,43,3.7,9
+38,Eukanuba Speeltje,Eukanuba,759.36,759.36,353,7.19,14
+39,Razer Controller,Razer,97.58,97.58,113,6.13,16
+40,KitchenAid Waterkoker,KitchenAid,372.17,372.17,283,8.01,8
+41,Whiskas Kattenbak,Whiskas,704.33,704.33,138,4.67,14
+42,Philips Koffiezetapparaat,Philips,318.96,318.96,380,8.08,8
+43,Nike Dumbbell set,Nike,739.9,739.9,141,10.9,6
+44,Sony Camera tas,Sony,833.46,833.46,151,3.49,17
+45,Adidas Yogamat,Adidas,709.47,709.47,64,4.19,6
+46,Acer Chromebook,Acer,698.92,698.92,64,9.6,2
+47,Nintendo Controller,Nintendo,576.18,576.18,240,7.23,16
+48,Nivea Gezichtscrème,Nivea,256.21,256.21,441,7.22,11
+49,H&M Jurk,H&M,78.7,78.7,322,10.33,3
+50,Uitgeverij Podium Kinderboek,Uitgeverij Podium,949.37,949.37,43,14.91,5
+51,New Balance Sandalen,New Balance,608.28,608.28,404,9.31,4
+52,Fujifilm Lenzenfilter,Fujifilm,908.95,908.95,152,12.92,17
+53,Whiskas Speeltje,Whiskas,622.91,622.91,312,14.41,14
+54,Adidas Hardloopschoenen,Adidas,268.31,268.31,41,2.44,4
+55,Decathlon Dumbbell set,Decathlon,7.65,7.65,230,10.37,6
+56,Xbox Controller,Xbox,235.31,235.31,361,4.31,16
+57,Yamaha Digitale piano,Yamaha,924.28,924.28,403,11.89,15
+58,IKEA Pennenhouder,IKEA,119.19,119.19,115,9.75,19
+59,BoConcept Bureau,BoConcept,64.33,64.33,405,4.68,9
+60,Leitz Pennenhouder,Leitz,128.72,128.72,352,4.63,19
+61,Continental Carwash set,Continental,542.27,542.27,224,1.3,13
+62,Asus Chromebook,Asus,605.69,605.69,13,1.46,2
+63,Staples Ordner set,Staples,578.36,578.36,390,11.37,19
+64,Razer Gaming muis,Razer,185.57,185.57,299,6.59,16
+65,Nintendo Muismat XL,Nintendo,351.21,351.21,170,4.88,16
+66,Adidas Laarzen,Adidas,414.58,414.58,253,4.39,4
+67,Bosch Ruitenwisser set,Bosch,92.61,92.61,129,4.92,13
+68,Bosch Carwash set,Bosch,464.66,464.66,27,2.89,13
+69,Holland & Barrett Melatonine,Holland & Barrett,627.27,627.27,389,0.87,12
+70,BoConcept Salontafel,BoConcept,440.92,440.92,357,7.32,9
+71,Apple Bluetooth speaker,Apple,711.22,711.22,159,8.31,1
+72,Travelite Koffer,Travelite,228.57,228.57,430,13.7,18
+73,Yamaha Digitale piano,Yamaha,500.87,500.87,366,4.45,15
+74,Woood Bureaustoel,Woood,980.33,980.33,124,6.91,9
+75,De Bezige Bij Thriller,De Bezige Bij,922.25,922.25,260,11.22,5
+76,Uitgeverij Podium Non-fictie,Uitgeverij Podium,773.8,773.8,437,6.28,5
+77,Sony Camera tas,Sony,286.41,286.41,152,12.58,17
+78,Esselte Whiteboard,Esselte,449.3,449.3,247,5.24,19
+79,American Tourister Bagagelabel set,American Tourister,458.06,458.06,164,13.06,18
+80,Tefal Koffiezetapparaat,Tefal,856.72,856.72,210,0.75,8
+81,Razer Muismat XL,Razer,988.46,988.46,405,12.33,16
+82,De Bezige Bij Roman,De Bezige Bij,130.61,130.61,494,8.89,5
+83,Reebok Sneakers,Reebok,528.31,528.31,233,0.33,4
+84,De Bezige Bij Thriller,De Bezige Bij,79.44,79.44,400,14.54,5
+85,Etos Gezichtscrème,Etos,852.5,852.5,436,10.15,11
+86,Travelite Reiskussen,Travelite,628.66,628.66,454,11.42,18
+87,Samsonite Adapter set,Samsonite,73.07,73.07,323,10.3,18
+88,Playmobil Bouwset,Playmobil,436.79,436.79,50,11.43,10
+89,Reebok Hardloopschoenen,Reebok,695.52,695.52,462,0.53,4
+90,L'Oréal Parfum,L'Oréal,361.66,361.66,220,2.27,11
+91,Fujifilm Camera riem,Fujifilm,683.38,683.38,92,2.63,17
+92,Mango Jurk,Mango,621.6,621.6,123,7.52,3
+93,IKEA Whiteboard,IKEA,463.83,463.83,130,6.95,19
+94,LG Smartwatch,LG,679.21,679.21,80,1.2,1
+95,Holland & Barrett Proteïneshake,Holland & Barrett,640.73,640.73,217,10.39,12
+96,Fender Digitale piano,Fender,999.37,999.37,436,7.3,15
+97,Tefal Waterkoker,Tefal,362.15,362.15,151,14.89,8
+98,LEGO Puzzel,LEGO,278.1,278.1,289,12.99,10
+99,Acer Workstation laptop,Acer,833.66,833.66,462,4.36,2
+100,KitchenAid Koffiezetapparaat,KitchenAid,638.42,638.42,317,3.83,8
+101,Atlas Contact Roman,Atlas Contact,903.88,903.88,330,0.69,5
+102,Yamaha Microfoon,Yamaha,368.03,368.03,67,1.44,15
+103,Hasbro Puzzel,Hasbro,179.75,179.75,67,11.82,10
+104,Holland & Barrett Zink tabletten,Holland & Barrett,913.91,913.91,425,2.55,12
+105,Xbox Gaming muis,Xbox,805.2,805.2,239,14.45,16
+106,Uitgeverij Podium Kookboek,Uitgeverij Podium,967.42,967.42,411,8.4,5
+107,H&M T-shirt,H&M,268.13,268.13,63,6.88,3
+108,Woood Salontafel,Woood,112.79,112.79,119,7.13,9
+109,Chicco Speenset,Chicco,225.25,225.25,32,9.57,20
+110,Fender Drumpad,Fender,121.08,121.08,23,14.2,15
+111,Mattel Bouwset,Mattel,101.7,101.7,454,8.11,10
+112,Shell Bandenpomp,Shell,672.12,672.12,380,10.48,13
+113,Travelite Adapter set,Travelite,743.55,743.55,79,13.29,18
+114,Reebok Instappers,Reebok,411.07,411.07,487,4.27,4
+115,Davitamon Melatonine,Davitamon,447.46,447.46,120,12.85,12
+116,Puma Instappers,Puma,902.18,902.18,330,5.44,4
+117,Continental Dashcam,Continental,968.36,968.36,485,12.74,13
+118,Yamaha Digitale piano,Yamaha,643.49,643.49,305,14.57,15
+119,Lenovo Ultrabook,Lenovo,988.87,988.87,402,8.51,2
+120,Mango Hoodie,Mango,588.44,588.44,416,13.06,3
+121,Nivea Mascara,Nivea,7.81,7.81,439,14.76,11
+122,Atlas Contact Non-fictie,Atlas Contact,799.51,799.51,56,9.95,5
+123,Samsung Draadloze oordopjes,Samsung,361.44,361.44,403,3.65,1
+124,L'Oréal Shampoo,L'Oréal,269.03,269.03,64,11.15,11
+125,Canon Camera tas,Canon,478.85,478.85,398,5.49,17
+126,Staples Pennenhouder,Staples,506.31,506.31,484,9.27,19
+127,Sony Lenzenfilter,Sony,645.11,645.11,15,1.01,17
+128,Razer Muismat XL,Razer,687.66,687.66,251,10.71,16
+129,Yamaha Akoestische gitaar,Yamaha,325.49,325.49,75,1.08,15
+130,Riviera Maison Bureaustoel,Riviera Maison,994.64,994.64,271,4.49,9
+131,Fujifilm Camera tas,Fujifilm,794.12,794.12,58,12.81,17
+132,American Tourister Handbagage tas,American Tourister,432.91,432.91,454,3.5,18
+133,Etos Lippenstift,Etos,418.9,418.9,48,4.76,11
+134,Rituals Parfum,Rituals,953.81,953.81,351,13.85,11
+135,Nike T-shirt,Nike,97.75,97.75,49,11.19,3
+136,Davitamon Zink tabletten,Davitamon,64.67,64.67,489,8.47,12
+137,L'Oréal Lippenstift,L'Oréal,356.82,356.82,340,14.12,11
+138,Royal Canin Kattenbak,Royal Canin,602.4,602.4,180,1.64,14
+139,Nikon Statief,Nikon,658.44,658.44,114,12.72,17
+140,Holland & Barrett Proteïneshake,Holland & Barrett,119.3,119.3,142,8.65,12
+141,Royal Canin Speeltje,Royal Canin,929.43,929.43,424,10.43,14
+142,Samsung Smartwatch,Samsung,704.18,704.18,158,13.83,1
+143,Davitamon Visolie,Davitamon,870.5,870.5,289,9.89,12
+144,Adidas Vest,Adidas,635.0,635.0,15,1.47,3
+145,Nikon Lenzenfilter,Nikon,422.72,422.72,174,2.45,17
+146,Hasbro RC-auto,Hasbro,598.23,598.23,452,0.88,10
+147,Decathlon Yogamat,Decathlon,275.73,275.73,338,6.42,6
+148,Nuk Luiertas,Nuk,276.79,276.79,386,7.73,20
+149,Orthica Multivitamine,Orthica,286.82,286.82,347,8.94,12
+150,Sony Camera tas,Sony,224.41,224.41,306,0.92,17
+151,Black+Decker Grasmaaier,Black+Decker,768.5,768.5,391,3.91,7
+152,L'Oréal Gezichtscrème,L'Oréal,499.89,499.89,220,2.72,11
+153,Michelin Carwash set,Michelin,560.92,560.92,342,12.11,13
+154,H&M Vest,H&M,47.08,47.08,9,6.95,3
+155,Zara Jas,Zara,432.13,432.13,207,10.67,3
+156,Whiskas Hondenvoer,Whiskas,408.0,408.0,494,4.94,14
+157,Nuk Kinderstoel,Nuk,92.68,92.68,432,1.68,20
+158,Eukanuba Speeltje,Eukanuba,83.24,83.24,445,4.72,14
+159,Nivea Parfum,Nivea,780.21,780.21,39,7.71,11
+160,New Balance Instappers,New Balance,197.92,197.92,397,5.31,4
+161,Uitgeverij Podium Roman,Uitgeverij Podium,150.7,150.7,101,2.69,5
+162,Atlas Contact Roman,Atlas Contact,181.25,181.25,395,9.46,5
+163,Gibson Microfoon,Gibson,644.77,644.77,319,4.92,15
+164,Nivea Lippenstift,Nivea,72.93,72.93,226,9.51,11
+165,IKEA Salontafel,IKEA,509.79,509.79,158,6.98,9
+166,Dell Chromebook,Dell,832.53,832.53,39,9.71,2
+167,Mango Jas,Mango,509.52,509.52,236,8.75,3
+168,Asus 2-in-1 laptop,Asus,653.57,653.57,164,9.11,2
+169,Nikon Camera tas,Nikon,453.26,453.26,415,13.5,17
+170,L'Oréal Mascara,L'Oréal,647.89,647.89,20,3.79,11
+171,Gibson Microfoon,Gibson,525.12,525.12,81,5.52,15
+172,Mattel Puzzel,Mattel,775.58,775.58,347,9.01,10
+173,L'Oréal Parfum,L'Oréal,99.02,99.02,347,5.86,11
+174,BoConcept Salontafel,BoConcept,86.08,86.08,339,2.21,9
+175,Orthica Melatonine,Orthica,133.3,133.3,362,14.08,12
+176,Mattel Knuffel,Mattel,814.11,814.11,343,10.57,10
+177,Canon Lenzenfilter,Canon,510.94,510.94,9,5.5,17
+178,Nike Fietshelm,Nike,947.92,947.92,248,2.96,6
+179,Uitgeverij Podium Roman,Uitgeverij Podium,299.3,299.3,403,1.61,5
+180,American Tourister Adapter set,American Tourister,42.55,42.55,172,13.16,18
+181,Pampers Speenset,Pampers,379.83,379.83,83,2.79,20
+182,Pampers Luiertas,Pampers,48.46,48.46,186,10.18,20
+183,Tefal Waterkoker,Tefal,288.49,288.49,383,11.78,8
+184,Bosch Blender,Bosch,965.76,965.76,401,7.09,8
+185,Black+Decker Vliegenlamp,Black+Decker,984.51,984.51,236,11.56,7
+186,Shell Dashcam,Shell,817.8,817.8,410,9.11,13
+187,IKEA Bureaustoel,IKEA,874.74,874.74,283,14.02,9
+188,Canon Geheugenkaart,Canon,88.45,88.45,82,4.16,17
+189,Nikon Lenzenfilter,Nikon,96.25,96.25,466,3.41,17
+190,Fender Akoestische gitaar,Fender,417.81,417.81,202,7.58,15
+191,Tefal Airfryer,Tefal,378.03,378.03,14,4.85,8
+192,Puma Hardloopschoenen,Puma,141.9,141.9,146,13.77,4
+193,PlayStation Muismat XL,PlayStation,451.35,451.35,2,13.6,16
+194,Philips Bluetooth speaker,Philips,835.78,835.78,280,14.11,1
+195,Nuk Flessenwarmer,Nuk,777.28,777.28,121,4.59,20
+196,HP Workstation laptop,HP,640.75,640.75,318,6.91,2
+197,Reebok Instappers,Reebok,538.36,538.36,323,7.78,4
+198,Bosch Blender,Bosch,432.08,432.08,314,5.36,8
+199,Esselte Whiteboard,Esselte,666.04,666.04,43,7.9,19
+200,Davitamon Zink tabletten,Davitamon,546.35,546.35,402,14.83,12
