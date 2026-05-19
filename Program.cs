@@ -9,6 +9,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
+
         Env.Load();
 
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -44,7 +45,7 @@ public class Program
 
         var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         var sortingMenu = new SortingMenu(productService, viewProduct);
-        var basketMenu = new BasketMenu(productService, filterMenu, basketService, sortingMenu, ratingService, userActionLogService);
+        var basketMenu = new BasketMenu(productService, filterMenu, basketService, sortingMenu, ratingService, userActionLogService, userService);
         mainMenuPre.Show();
     }
 }

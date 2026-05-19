@@ -9,18 +9,15 @@ public class UserService
     {
         _db = db;
     }
+    
     public User? UserLogin(string email, string password)
     {
         using var conn = _db.GetConnection();
         conn.Open();
 
-        // string sql = @"SELECT id, name, email, password, role
-        //     FROM users
-        //     WHERE email=@email AND pgp_sym_decrypt(password::bytea, 'admin_key')= @password";
-
-        string sql = @"SELECT id, name, email, password, role
-                        FROM users
-                        WHERE email=@email";
+        string sql = @"SELECT id, name, email, password, role, address, zip_code, country
+                    FROM users
+                    WHERE email=@email";
 
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("email", email);
@@ -30,21 +27,19 @@ public class UserService
 
         string dbPassword = reader.GetString(3);
         if (!BCrypt.Net.BCrypt.Verify(password, dbPassword)) return null;
-        // cmd.Parameters.AddWithValue("password", password);
-
-
 
         return new User
         {
-
             Id = reader.GetInt32(0),
             Name = reader.GetString(1),
             Email = reader.GetString(2),
-            // Password = reader.GetString(3),
-            Role = Enum.Parse<UserRole>(reader.GetString(4), true)
+            Role = Enum.Parse<UserRole>(reader.GetString(4), true),
+            Address = reader.IsDBNull(5) ? null : reader.GetString(5),
+            ZipCode = reader.IsDBNull(6) ? null : reader.GetString(6),
+            Country = reader.IsDBNull(7) ? null : reader.GetString(7),
         };
-
     }
+    
     public UserRegisterService UserRegister(string name, string email, string password)
     {
         string sql;
@@ -407,6 +402,28 @@ public class UserService
             Email = reader.GetString(2),
             Role = Enum.Parse<UserRole>(reader.GetString(3), true)
         };
+    }
+
+    public UserRegisterService UpdateAddress(int userId, string address, string zipCode, string country)
+    {
+        if (string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(zipCode) || string.IsNullOrWhiteSpace(country))
+            return UserRegisterService.emptyParameter;
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"UPDATE users 
+                    SET address = @address, zip_code = @zipCode, country = @country 
+                    WHERE id = @id";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("address", address);
+        cmd.Parameters.AddWithValue("zipCode", zipCode);
+        cmd.Parameters.AddWithValue("country", country);
+        cmd.Parameters.AddWithValue("id", userId);
+
+        int rows = cmd.ExecuteNonQuery();
+        return rows > 0 ? UserRegisterService.succesfull : UserRegisterService.UnkownError;
     }
 }
 
