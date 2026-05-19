@@ -387,6 +387,7 @@ public class BasketMenu
             Console.ResetColor();
             _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
             {
+                UserSessionId = UserSession.SessionId,
                 UserId = UserSession.CurrentUser.Id,
                 ActionType = "RatingError",
                 Details = new Dictionary<string, string>
