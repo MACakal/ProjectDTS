@@ -22,7 +22,7 @@ public class ViewProductPres
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
         {
             UserSessionId = UserSession.SessionId,
-            UserId = null,
+            UserId = UserSession.CurrentUser?.Id,
             ActionType = "ViewProducts",
             Details = new Dictionary<string, string>
             {
