@@ -1,0 +1,601 @@
+review_id,customer_id,product_id,rating,comment,created_at
+1,426,139,1,"Precies zoals beschreven, aanrader!",2024-06-08
+2,154,124,3,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-08-09
+3,110,1,5,Verpakking was beschadigd maar product zelf prima.,2026-05-14
+4,112,79,5,Goede kwaliteit voor de prijs.,2026-01-20
+5,479,119,5,"Gewoon wat ik nodig had, doet het goed.",2024-11-23
+6,30,92,1,Absoluut de beste in zijn categorie!,2025-12-03
+7,236,85,3,Beste aankoop van dit jaar!,2025-09-01
+8,55,2,3,"Geweldige aankoop, erg blij mee!",2025-02-01
+9,206,91,1,Zou het zeker aanraden aan vrienden.,2024-12-19
+10,221,126,2,"Snelle levering, product voldoet aan verwachtingen.",2024-08-27
+11,271,132,2,Super snel geleverd en werkt perfect.,2024-06-25
+12,64,125,1,Prima product maar de handleiding had duidelijker gekund.,2025-09-23
+13,394,169,3,"Product werkt perfect, geen klachten.",2025-05-03
+14,241,102,3,"Precies zoals beschreven, aanrader!",2026-01-12
+15,187,110,2,"Top kwaliteit, gebruik het dagelijks.",2025-05-06
+16,416,69,1,"Goed product, maar duurder dan verwacht.",2025-07-03
+17,337,113,2,Prima product maar de handleiding had duidelijker gekund.,2025-04-01
+18,182,192,4,"Uitstekend product, precies wat ik zocht!",2025-09-19
+19,184,182,2,Zou het zeker aanraden aan vrienden.,2025-03-19
+20,98,73,1,Prima product maar de handleiding had duidelijker gekund.,2026-02-22
+21,203,108,3,Goede kwaliteit voor de prijs.,2025-09-24
+22,83,171,2,"Gewoon wat ik nodig had, doet het goed.",2025-02-17
+23,492,171,3,Zou het zeker aanraden aan vrienden.,2024-12-22
+24,216,126,5,"Gewoon wat ik nodig had, doet het goed.",2024-08-19
+25,410,175,2,"Niet slecht, maar niet geweldig ook.",2025-09-27
+26,385,196,4,"Minder duurzaam dan gehoopt, maar functioneel.",2024-11-30
+27,372,190,4,Prima product maar de handleiding had duidelijker gekund.,2025-12-12
+28,57,28,1,Prima product maar de handleiding had duidelijker gekund.,2025-03-06
+29,80,89,5,"Uitstekend product, precies wat ik zocht!",2025-10-16
+30,393,176,2,Goede kwaliteit voor de prijs.,2025-08-12
+31,348,88,4,Absoluut de beste in zijn categorie!,2026-01-19
+32,378,3,4,"Gewoon wat ik nodig had, doet het goed.",2025-01-13
+33,149,73,4,"Snelle levering, product voldoet aan verwachtingen.",2024-10-29
+34,390,110,2,Absoluut de beste in zijn categorie!,2024-08-28
+35,79,187,5,"Geweldige aankoop, erg blij mee!",2024-08-28
+36,128,72,1,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-08-12
+37,359,64,4,Goede prijs-kwaliteitverhouding.,2024-12-08
+38,243,181,1,"Minder duurzaam dan gehoopt, maar functioneel.",2024-09-06
+39,313,47,2,Kleiner dan verwacht maar verder prima.,2025-04-15
+40,323,163,2,"Product werkt perfect, geen klachten.",2025-11-16
+41,62,34,4,Goede kwaliteit voor de prijs.,2025-07-08
+42,141,50,2,Super snel geleverd en werkt perfect.,2025-10-11
+43,10,158,2,"Snelle levering, product voldoet aan verwachtingen.",2026-02-16
+44,443,14,4,Super snel geleverd en werkt perfect.,2025-11-01
+45,269,79,2,"Product werkt perfect, geen klachten.",2026-01-05
+46,173,110,4,Goede kwaliteit voor de prijs.,2026-04-19
+47,262,110,1,"Precies zoals beschreven, aanrader!",2025-01-30
+48,57,69,3,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-12-16
+49,483,90,4,"Product werkt perfect, geen klachten.",2024-10-19
+50,164,13,2,Goede kwaliteit voor de prijs.,2025-04-20
+51,1,14,3,Goede prijs-kwaliteitverhouding.,2025-04-21
+52,147,121,3,Absoluut de beste in zijn categorie!,2025-04-26
+53,52,111,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-06-25
+54,486,126,3,"Niet slecht, maar niet geweldig ook.",2024-08-03
+55,156,29,1,"Uitstekend product, precies wat ik zocht!",2026-01-30
+56,350,142,2,"Niet slecht, maar niet geweldig ook.",2026-02-02
+57,185,190,3,Kleiner dan verwacht maar verder prima.,2025-08-30
+58,271,155,3,"Product werkt perfect, geen klachten.",2025-10-01
+59,333,71,2,Kleiner dan verwacht maar verder prima.,2025-12-10
+60,197,23,1,Prima product maar de handleiding had duidelijker gekund.,2026-04-16
+61,323,191,5,Zou het zeker aanraden aan vrienden.,2024-09-05
+62,22,151,2,Goede prijs-kwaliteitverhouding.,2025-01-19
+63,361,115,1,"Snelle levering, product voldoet aan verwachtingen.",2025-01-04
+64,483,140,5,"Niet slecht, maar niet geweldig ook.",2025-03-10
+65,155,186,4,Goede prijs-kwaliteitverhouding.,2026-01-05
+66,274,185,2,Goede kwaliteit voor de prijs.,2025-06-16
+67,66,50,4,"Top kwaliteit, gebruik het dagelijks.",2024-09-21
+68,365,65,5,Beste aankoop van dit jaar!,2024-11-20
+69,459,94,4,Zou het zeker aanraden aan vrienden.,2026-05-18
+70,467,112,1,"Gewoon wat ik nodig had, doet het goed.",2024-06-11
+71,215,135,5,"Uitstekend product, precies wat ik zocht!",2024-07-28
+72,86,154,3,Prima product maar de handleiding had duidelijker gekund.,2025-06-26
+73,149,12,5,Goede kwaliteit voor de prijs.,2024-08-07
+74,407,178,2,Verpakking was beschadigd maar product zelf prima.,2024-08-16
+75,254,176,5,"Minder duurzaam dan gehoopt, maar functioneel.",2024-11-02
+76,498,20,2,"Goed product, maar duurder dan verwacht.",2024-08-07
+77,385,131,4,"Top kwaliteit, gebruik het dagelijks.",2024-05-29
+78,400,100,4,Absoluut de beste in zijn categorie!,2026-03-27
+79,140,53,2,"Uitstekend product, precies wat ik zocht!",2024-10-15
+80,82,147,2,Kleiner dan verwacht maar verder prima.,2025-04-05
+81,357,3,5,"Goed product, maar duurder dan verwacht.",2025-07-15
+82,258,182,5,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-06-28
+83,156,57,3,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2026-02-17
+84,283,31,2,"Product werkt perfect, geen klachten.",2025-03-05
+85,24,137,2,"Precies zoals beschreven, aanrader!",2025-03-17
+86,21,164,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-01-11
+87,475,35,3,Goede kwaliteit voor de prijs.,2026-01-21
+88,329,64,2,"Top kwaliteit, gebruik het dagelijks.",2025-12-28
+89,60,1,3,Absoluut de beste in zijn categorie!,2025-11-12
+90,498,95,3,"Snelle levering, product voldoet aan verwachtingen.",2025-11-21
+91,485,181,5,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-03-21
+92,370,35,4,Absoluut de beste in zijn categorie!,2024-05-22
+93,151,84,1,"Uitstekend product, precies wat ik zocht!",2026-04-29
+94,422,92,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-11-10
+95,91,66,1,"Top kwaliteit, gebruik het dagelijks.",2025-03-15
+96,337,200,5,Zou het zeker aanraden aan vrienden.,2024-08-16
+97,370,191,4,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-02-24
+98,446,161,5,"Top kwaliteit, gebruik het dagelijks.",2025-02-03
+99,106,114,2,"Niet slecht, maar niet geweldig ook.",2025-07-12
+100,138,53,5,Verpakking was beschadigd maar product zelf prima.,2025-11-18
+101,80,115,2,Super snel geleverd en werkt perfect.,2026-01-25
+102,189,38,4,"Snelle levering, product voldoet aan verwachtingen.",2025-07-31
+103,254,47,4,"Geweldige aankoop, erg blij mee!",2025-12-06
+104,418,46,2,Kleiner dan verwacht maar verder prima.,2026-04-06
+105,252,187,2,"Precies zoals beschreven, aanrader!",2025-10-14
+106,11,80,2,"Geweldige aankoop, erg blij mee!",2024-07-22
+107,419,101,5,Goede prijs-kwaliteitverhouding.,2025-05-24
+108,36,37,1,Super snel geleverd en werkt perfect.,2025-03-05
+109,126,117,4,Zou het zeker aanraden aan vrienden.,2024-09-29
+110,371,135,2,"Uitstekend product, precies wat ik zocht!",2025-08-30
+111,309,26,4,Verpakking was beschadigd maar product zelf prima.,2026-02-24
+112,11,29,1,Goede kwaliteit voor de prijs.,2025-10-22
+113,68,64,1,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2026-03-02
+114,74,161,5,"Uitstekend product, precies wat ik zocht!",2025-02-11
+115,406,3,1,"Top kwaliteit, gebruik het dagelijks.",2024-07-08
+116,377,87,1,Goede prijs-kwaliteitverhouding.,2024-09-14
+117,72,123,5,"Goed product, maar duurder dan verwacht.",2024-10-20
+118,418,42,3,"Niet slecht, maar niet geweldig ook.",2026-05-05
+119,246,40,2,Goede kwaliteit voor de prijs.,2025-06-07
+120,279,178,3,"Top kwaliteit, gebruik het dagelijks.",2026-01-04
+121,64,6,1,Zou het zeker aanraden aan vrienden.,2024-10-04
+122,279,76,1,"Minder duurzaam dan gehoopt, maar functioneel.",2026-03-13
+123,454,107,2,"Uitstekend product, precies wat ik zocht!",2026-03-21
+124,468,58,1,"Product werkt perfect, geen klachten.",2025-09-22
+125,219,99,2,Beste aankoop van dit jaar!,2024-06-17
+126,336,74,2,Verpakking was beschadigd maar product zelf prima.,2025-10-15
+127,352,184,1,"Gewoon wat ik nodig had, doet het goed.",2025-04-09
+128,87,29,2,Zou het zeker aanraden aan vrienden.,2025-01-25
+129,490,73,3,"Snelle levering, product voldoet aan verwachtingen.",2025-08-10
+130,316,86,1,Beste aankoop van dit jaar!,2024-08-27
+131,473,22,1,Absoluut de beste in zijn categorie!,2025-03-28
+132,78,46,4,"Minder duurzaam dan gehoopt, maar functioneel.",2026-02-05
+133,172,154,2,Super snel geleverd en werkt perfect.,2024-09-16
+134,77,171,3,Absoluut de beste in zijn categorie!,2025-06-13
+135,419,74,3,Zou het zeker aanraden aan vrienden.,2026-04-14
+136,139,128,3,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2026-05-18
+137,416,183,1,"Uitstekend product, precies wat ik zocht!",2024-11-07
+138,442,39,2,"Niet slecht, maar niet geweldig ook.",2025-06-21
+139,76,100,4,"Gewoon wat ik nodig had, doet het goed.",2025-07-08
+140,418,18,1,Kleiner dan verwacht maar verder prima.,2025-11-23
+141,219,187,3,Prima product maar de handleiding had duidelijker gekund.,2025-11-23
+142,47,83,2,"Geweldige aankoop, erg blij mee!",2024-07-08
+143,393,99,3,"Niet slecht, maar niet geweldig ook.",2025-12-18
+144,254,109,4,Super snel geleverd en werkt perfect.,2025-05-11
+145,309,163,3,Prima product maar de handleiding had duidelijker gekund.,2025-04-21
+146,411,168,2,Verpakking was beschadigd maar product zelf prima.,2024-09-09
+147,215,141,4,"Top kwaliteit, gebruik het dagelijks.",2026-03-26
+148,274,127,5,"Top kwaliteit, gebruik het dagelijks.",2026-04-14
+149,421,59,4,"Snelle levering, product voldoet aan verwachtingen.",2026-03-18
+150,298,184,4,"Minder duurzaam dan gehoopt, maar functioneel.",2024-11-24
+151,296,199,2,"Snelle levering, product voldoet aan verwachtingen.",2025-04-16
+152,121,93,1,Goede prijs-kwaliteitverhouding.,2024-12-01
+153,436,5,3,"Top kwaliteit, gebruik het dagelijks.",2025-12-30
+154,243,35,1,Goede kwaliteit voor de prijs.,2026-04-30
+155,467,90,3,Prima product maar de handleiding had duidelijker gekund.,2026-04-23
+156,151,118,2,"Top kwaliteit, gebruik het dagelijks.",2025-02-08
+157,498,108,2,Goede prijs-kwaliteitverhouding.,2024-07-22
+158,424,58,1,Prima product maar de handleiding had duidelijker gekund.,2025-11-18
+159,61,179,2,Verpakking was beschadigd maar product zelf prima.,2026-04-30
+160,376,7,4,Beste aankoop van dit jaar!,2024-09-19
+161,28,180,1,Kleiner dan verwacht maar verder prima.,2025-08-03
+162,38,123,5,"Geweldige aankoop, erg blij mee!",2024-11-05
+163,16,38,3,Prima product maar de handleiding had duidelijker gekund.,2025-08-19
+164,41,63,1,"Uitstekend product, precies wat ik zocht!",2026-03-16
+165,292,107,2,"Geweldige aankoop, erg blij mee!",2024-11-19
+166,241,191,2,"Minder duurzaam dan gehoopt, maar functioneel.",2024-09-18
+167,358,77,4,Super snel geleverd en werkt perfect.,2025-06-12
+168,370,87,4,"Uitstekend product, precies wat ik zocht!",2025-04-14
+169,147,29,2,Goede kwaliteit voor de prijs.,2025-09-03
+170,452,165,1,Absoluut de beste in zijn categorie!,2024-07-11
+171,385,45,5,"Geweldige aankoop, erg blij mee!",2025-09-06
+172,6,102,4,"Goed product, maar duurder dan verwacht.",2024-12-12
+173,284,183,3,Kleiner dan verwacht maar verder prima.,2025-08-18
+174,257,79,2,Super snel geleverd en werkt perfect.,2025-04-07
+175,477,41,3,"Snelle levering, product voldoet aan verwachtingen.",2025-12-20
+176,268,97,2,Goede prijs-kwaliteitverhouding.,2026-03-05
+177,206,159,1,"Product werkt perfect, geen klachten.",2025-08-25
+178,201,48,5,Absoluut de beste in zijn categorie!,2026-03-14
+179,431,20,4,"Gewoon wat ik nodig had, doet het goed.",2024-05-19
+180,161,168,4,Verpakking was beschadigd maar product zelf prima.,2025-06-16
+181,85,14,3,Super snel geleverd en werkt perfect.,2024-08-12
+182,100,70,1,Zou het zeker aanraden aan vrienden.,2024-08-13
+183,40,93,5,"Niet slecht, maar niet geweldig ook.",2024-06-17
+184,15,62,3,"Geweldige aankoop, erg blij mee!",2025-12-20
+185,278,28,1,Goede prijs-kwaliteitverhouding.,2025-11-21
+186,306,3,3,Goede prijs-kwaliteitverhouding.,2026-04-06
+187,283,52,1,"Product werkt perfect, geen klachten.",2025-04-25
+188,138,22,5,Kleiner dan verwacht maar verder prima.,2026-01-07
+189,23,145,4,Goede kwaliteit voor de prijs.,2026-04-07
+190,25,81,1,"Precies zoals beschreven, aanrader!",2025-07-14
+191,5,92,3,Verpakking was beschadigd maar product zelf prima.,2025-06-06
+192,257,50,3,Verpakking was beschadigd maar product zelf prima.,2024-11-09
+193,372,92,2,Zou het zeker aanraden aan vrienden.,2024-10-30
+194,170,105,5,Zou het zeker aanraden aan vrienden.,2025-10-13
+195,258,199,2,"Uitstekend product, precies wat ik zocht!",2024-08-12
+196,301,98,4,Kleiner dan verwacht maar verder prima.,2024-08-20
+197,445,10,3,"Geweldige aankoop, erg blij mee!",2025-10-16
+198,78,175,4,"Snelle levering, product voldoet aan verwachtingen.",2025-08-17
+199,454,161,1,"Product werkt perfect, geen klachten.",2025-05-13
+200,453,56,2,"Geweldige aankoop, erg blij mee!",2024-12-31
+201,494,129,5,Absoluut de beste in zijn categorie!,2025-03-03
+202,334,134,3,"Goed product, maar duurder dan verwacht.",2025-08-31
+203,403,34,3,"Precies zoals beschreven, aanrader!",2024-06-30
+204,185,160,4,Goede kwaliteit voor de prijs.,2026-05-12
+205,457,183,4,"Product werkt perfect, geen klachten.",2024-08-12
+206,107,157,5,"Snelle levering, product voldoet aan verwachtingen.",2025-01-26
+207,491,40,5,"Gewoon wat ik nodig had, doet het goed.",2025-11-11
+208,50,4,2,"Precies zoals beschreven, aanrader!",2024-08-05
+209,281,23,4,Zou het zeker aanraden aan vrienden.,2025-04-25
+210,233,81,2,"Precies zoals beschreven, aanrader!",2025-10-07
+211,83,18,3,Kleiner dan verwacht maar verder prima.,2025-02-12
+212,187,91,1,"Snelle levering, product voldoet aan verwachtingen.",2026-02-01
+213,92,182,4,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-11-28
+214,243,66,4,Prima product maar de handleiding had duidelijker gekund.,2024-10-17
+215,482,32,5,"Gewoon wat ik nodig had, doet het goed.",2025-05-22
+216,21,94,3,Verpakking was beschadigd maar product zelf prima.,2024-08-10
+217,210,159,2,"Goed product, maar duurder dan verwacht.",2024-07-24
+218,188,132,5,"Niet slecht, maar niet geweldig ook.",2025-12-15
+219,192,22,4,"Minder duurzaam dan gehoopt, maar functioneel.",2025-03-10
+220,231,68,1,Absoluut de beste in zijn categorie!,2025-04-20
+221,330,15,2,"Top kwaliteit, gebruik het dagelijks.",2025-08-20
+222,5,40,1,"Precies zoals beschreven, aanrader!",2025-04-16
+223,193,41,5,Verpakking was beschadigd maar product zelf prima.,2026-03-06
+224,438,19,2,Verpakking was beschadigd maar product zelf prima.,2025-12-07
+225,448,119,1,Beste aankoop van dit jaar!,2025-12-10
+226,239,120,5,"Goed product, maar duurder dan verwacht.",2025-06-24
+227,56,22,2,Zou het zeker aanraden aan vrienden.,2025-06-07
+228,470,102,4,Goede prijs-kwaliteitverhouding.,2025-10-23
+229,206,85,1,"Niet slecht, maar niet geweldig ook.",2025-09-18
+230,176,155,4,Goede prijs-kwaliteitverhouding.,2025-12-06
+231,360,190,4,Zou het zeker aanraden aan vrienden.,2025-08-21
+232,143,117,1,"Top kwaliteit, gebruik het dagelijks.",2025-06-10
+233,80,121,2,Goede prijs-kwaliteitverhouding.,2025-09-26
+234,164,146,1,Absoluut de beste in zijn categorie!,2025-02-01
+235,397,98,1,Beste aankoop van dit jaar!,2024-09-15
+236,405,111,4,Goede prijs-kwaliteitverhouding.,2025-12-06
+237,28,55,1,Super snel geleverd en werkt perfect.,2024-12-19
+238,139,65,2,"Snelle levering, product voldoet aan verwachtingen.",2025-10-31
+239,73,18,3,Verpakking was beschadigd maar product zelf prima.,2025-04-04
+240,42,77,4,Super snel geleverd en werkt perfect.,2026-01-22
+241,269,55,3,"Geweldige aankoop, erg blij mee!",2026-04-03
+242,426,14,1,Super snel geleverd en werkt perfect.,2024-07-23
+243,176,193,3,"Geweldige aankoop, erg blij mee!",2026-05-10
+244,102,90,4,"Gewoon wat ik nodig had, doet het goed.",2024-12-10
+245,244,138,2,Super snel geleverd en werkt perfect.,2026-03-21
+246,182,178,5,Verpakking was beschadigd maar product zelf prima.,2025-06-29
+247,422,3,5,Absoluut de beste in zijn categorie!,2024-07-10
+248,102,20,5,Absoluut de beste in zijn categorie!,2024-07-14
+249,75,83,3,"Uitstekend product, precies wat ik zocht!",2024-06-26
+250,78,118,2,"Gewoon wat ik nodig had, doet het goed.",2026-01-07
+251,443,82,1,Super snel geleverd en werkt perfect.,2026-04-27
+252,135,134,1,"Goed product, maar duurder dan verwacht.",2026-03-20
+253,483,33,4,Kleiner dan verwacht maar verder prima.,2024-09-07
+254,50,10,2,Goede prijs-kwaliteitverhouding.,2025-12-27
+255,216,179,5,"Geweldige aankoop, erg blij mee!",2026-05-05
+256,308,97,2,Beste aankoop van dit jaar!,2025-02-15
+257,108,49,5,"Uitstekend product, precies wat ik zocht!",2026-02-07
+258,190,94,1,"Precies zoals beschreven, aanrader!",2026-02-19
+259,460,79,5,Zou het zeker aanraden aan vrienden.,2025-05-22
+260,359,128,4,Super snel geleverd en werkt perfect.,2025-11-02
+261,211,91,3,"Top kwaliteit, gebruik het dagelijks.",2026-02-25
+262,219,134,3,Zou het zeker aanraden aan vrienden.,2026-03-26
+263,475,46,4,Super snel geleverd en werkt perfect.,2025-01-20
+264,192,46,5,Absoluut de beste in zijn categorie!,2026-02-19
+265,84,139,4,Verpakking was beschadigd maar product zelf prima.,2026-05-14
+266,146,169,4,"Precies zoals beschreven, aanrader!",2025-11-30
+267,360,159,1,"Snelle levering, product voldoet aan verwachtingen.",2025-09-17
+268,413,27,1,"Uitstekend product, precies wat ik zocht!",2025-08-13
+269,316,106,1,"Gewoon wat ik nodig had, doet het goed.",2026-02-24
+270,384,193,5,"Top kwaliteit, gebruik het dagelijks.",2024-08-10
+271,52,163,4,"Minder duurzaam dan gehoopt, maar functioneel.",2025-02-24
+272,298,9,3,Super snel geleverd en werkt perfect.,2025-09-29
+273,109,58,4,"Top kwaliteit, gebruik het dagelijks.",2026-01-02
+274,196,30,2,"Gewoon wat ik nodig had, doet het goed.",2025-04-06
+275,487,32,3,"Goed product, maar duurder dan verwacht.",2026-02-09
+276,212,166,4,"Uitstekend product, precies wat ik zocht!",2025-11-07
+277,482,96,2,"Minder duurzaam dan gehoopt, maar functioneel.",2024-10-10
+278,146,69,3,"Precies zoals beschreven, aanrader!",2025-12-15
+279,430,107,2,"Uitstekend product, precies wat ik zocht!",2025-01-05
+280,461,107,1,"Uitstekend product, precies wat ik zocht!",2024-11-19
+281,14,40,3,"Minder duurzaam dan gehoopt, maar functioneel.",2025-12-21
+282,420,190,5,"Niet slecht, maar niet geweldig ook.",2025-06-11
+283,172,44,5,Super snel geleverd en werkt perfect.,2024-09-04
+284,124,143,4,Goede prijs-kwaliteitverhouding.,2024-06-30
+285,316,165,4,Goede kwaliteit voor de prijs.,2025-11-09
+286,411,148,4,Prima product maar de handleiding had duidelijker gekund.,2024-11-09
+287,481,163,4,"Geweldige aankoop, erg blij mee!",2026-01-12
+288,207,82,5,"Geweldige aankoop, erg blij mee!",2025-04-06
+289,224,60,1,Prima product maar de handleiding had duidelijker gekund.,2025-09-03
+290,259,31,5,Verpakking was beschadigd maar product zelf prima.,2025-03-29
+291,432,196,3,"Top kwaliteit, gebruik het dagelijks.",2025-01-09
+292,82,83,2,"Snelle levering, product voldoet aan verwachtingen.",2025-05-29
+293,48,7,4,"Uitstekend product, precies wat ik zocht!",2025-06-11
+294,322,198,5,Prima product maar de handleiding had duidelijker gekund.,2024-08-29
+295,15,159,5,"Snelle levering, product voldoet aan verwachtingen.",2026-03-08
+296,293,98,1,Prima product maar de handleiding had duidelijker gekund.,2026-03-22
+297,233,163,3,"Geweldige aankoop, erg blij mee!",2025-02-16
+298,123,168,2,"Precies zoals beschreven, aanrader!",2026-05-01
+299,100,138,2,Verpakking was beschadigd maar product zelf prima.,2024-09-26
+300,395,67,1,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-09-26
+301,43,37,1,Kleiner dan verwacht maar verder prima.,2024-12-30
+302,444,27,1,"Goed product, maar duurder dan verwacht.",2025-11-10
+303,475,153,1,Zou het zeker aanraden aan vrienden.,2024-05-28
+304,73,73,3,"Geweldige aankoop, erg blij mee!",2024-10-04
+305,48,20,4,Beste aankoop van dit jaar!,2024-11-04
+306,468,54,4,Zou het zeker aanraden aan vrienden.,2025-10-27
+307,252,6,4,"Snelle levering, product voldoet aan verwachtingen.",2024-08-19
+308,250,161,1,Goede prijs-kwaliteitverhouding.,2025-11-05
+309,352,108,4,"Niet slecht, maar niet geweldig ook.",2025-07-04
+310,325,116,2,"Geweldige aankoop, erg blij mee!",2026-02-12
+311,153,3,2,Kleiner dan verwacht maar verder prima.,2026-05-02
+312,324,156,1,Zou het zeker aanraden aan vrienden.,2025-05-05
+313,500,88,3,"Gewoon wat ik nodig had, doet het goed.",2025-01-04
+314,315,154,5,"Uitstekend product, precies wat ik zocht!",2024-07-02
+315,82,134,3,Zou het zeker aanraden aan vrienden.,2025-02-19
+316,99,156,1,"Top kwaliteit, gebruik het dagelijks.",2025-02-24
+317,12,133,5,Prima product maar de handleiding had duidelijker gekund.,2024-09-18
+318,111,94,1,Goede prijs-kwaliteitverhouding.,2025-12-12
+319,16,84,2,"Product werkt perfect, geen klachten.",2025-12-09
+320,43,187,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-05-18
+321,141,124,2,"Snelle levering, product voldoet aan verwachtingen.",2025-06-14
+322,179,182,5,"Precies zoals beschreven, aanrader!",2025-03-14
+323,240,191,4,Super snel geleverd en werkt perfect.,2024-11-18
+324,263,103,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-10-25
+325,89,51,3,Verpakking was beschadigd maar product zelf prima.,2025-02-14
+326,53,150,5,"Precies zoals beschreven, aanrader!",2025-02-17
+327,85,53,4,Super snel geleverd en werkt perfect.,2025-12-11
+328,453,115,4,Absoluut de beste in zijn categorie!,2026-02-01
+329,383,70,3,Absoluut de beste in zijn categorie!,2026-02-04
+330,56,156,4,Super snel geleverd en werkt perfect.,2026-03-21
+331,103,146,3,Beste aankoop van dit jaar!,2025-02-19
+332,460,162,1,"Goed product, maar duurder dan verwacht.",2025-11-05
+333,86,9,5,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-03-29
+334,301,105,3,Absoluut de beste in zijn categorie!,2024-07-01
+335,424,166,5,Beste aankoop van dit jaar!,2024-06-09
+336,204,8,1,"Geweldige aankoop, erg blij mee!",2026-03-31
+337,415,83,4,"Geweldige aankoop, erg blij mee!",2025-02-22
+338,184,63,1,Goede prijs-kwaliteitverhouding.,2025-11-13
+339,337,96,3,Prima product maar de handleiding had duidelijker gekund.,2025-07-24
+340,400,81,1,"Uitstekend product, precies wat ik zocht!",2025-08-28
+341,164,177,1,"Niet slecht, maar niet geweldig ook.",2024-06-22
+342,110,120,5,"Niet slecht, maar niet geweldig ook.",2025-10-27
+343,461,60,5,"Snelle levering, product voldoet aan verwachtingen.",2025-06-23
+344,198,73,5,Goede prijs-kwaliteitverhouding.,2025-10-12
+345,270,56,1,"Top kwaliteit, gebruik het dagelijks.",2024-09-04
+346,143,184,5,"Snelle levering, product voldoet aan verwachtingen.",2025-02-06
+347,294,166,4,Super snel geleverd en werkt perfect.,2025-09-19
+348,163,82,2,Goede prijs-kwaliteitverhouding.,2024-10-01
+349,26,127,4,Goede kwaliteit voor de prijs.,2025-07-25
+350,141,108,1,Zou het zeker aanraden aan vrienden.,2024-09-23
+351,232,44,5,"Niet slecht, maar niet geweldig ook.",2025-08-10
+352,303,99,2,Kleiner dan verwacht maar verder prima.,2025-09-22
+353,11,73,1,Kleiner dan verwacht maar verder prima.,2025-10-21
+354,3,119,3,Prima product maar de handleiding had duidelijker gekund.,2025-05-07
+355,431,104,1,"Top kwaliteit, gebruik het dagelijks.",2024-09-15
+356,471,136,1,"Niet slecht, maar niet geweldig ook.",2025-09-03
+357,331,5,1,"Gewoon wat ik nodig had, doet het goed.",2025-05-03
+358,49,107,3,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-06-24
+359,163,193,3,Verpakking was beschadigd maar product zelf prima.,2026-03-15
+360,41,143,3,"Gewoon wat ik nodig had, doet het goed.",2025-09-09
+361,314,13,4,"Precies zoals beschreven, aanrader!",2025-08-01
+362,357,117,4,Zou het zeker aanraden aan vrienden.,2024-11-12
+363,432,96,5,Zou het zeker aanraden aan vrienden.,2025-03-27
+364,15,58,1,"Uitstekend product, precies wat ik zocht!",2024-06-12
+365,72,27,3,Super snel geleverd en werkt perfect.,2025-05-08
+366,116,44,1,Goede prijs-kwaliteitverhouding.,2025-10-11
+367,371,95,5,"Uitstekend product, precies wat ik zocht!",2025-05-01
+368,479,177,1,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2026-05-02
+369,453,12,1,Goede kwaliteit voor de prijs.,2026-05-10
+370,485,78,1,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-08-21
+371,169,177,5,Verpakking was beschadigd maar product zelf prima.,2026-03-22
+372,139,179,2,Prima product maar de handleiding had duidelijker gekund.,2026-01-26
+373,299,118,1,Prima product maar de handleiding had duidelijker gekund.,2026-04-04
+374,164,38,5,Super snel geleverd en werkt perfect.,2024-11-01
+375,327,115,1,"Minder duurzaam dan gehoopt, maar functioneel.",2026-03-28
+376,271,62,5,"Gewoon wat ik nodig had, doet het goed.",2026-04-13
+377,339,126,3,"Niet slecht, maar niet geweldig ook.",2024-05-21
+378,396,188,4,"Product werkt perfect, geen klachten.",2025-05-05
+379,48,68,3,"Snelle levering, product voldoet aan verwachtingen.",2025-07-13
+380,181,143,2,Goede prijs-kwaliteitverhouding.,2025-04-24
+381,356,20,1,"Gewoon wat ik nodig had, doet het goed.",2024-06-10
+382,31,55,1,Goede prijs-kwaliteitverhouding.,2024-09-06
+383,240,99,2,"Gewoon wat ik nodig had, doet het goed.",2025-07-29
+384,54,88,2,Kleiner dan verwacht maar verder prima.,2024-12-09
+385,390,136,5,"Niet slecht, maar niet geweldig ook.",2025-03-08
+386,390,80,4,Prima product maar de handleiding had duidelijker gekund.,2025-12-25
+387,435,130,1,Prima product maar de handleiding had duidelijker gekund.,2025-02-17
+388,113,94,4,"Goed product, maar duurder dan verwacht.",2025-11-21
+389,445,159,5,Goede prijs-kwaliteitverhouding.,2024-07-02
+390,400,103,2,"Snelle levering, product voldoet aan verwachtingen.",2026-03-17
+391,143,109,2,"Precies zoals beschreven, aanrader!",2025-01-01
+392,488,148,1,Prima product maar de handleiding had duidelijker gekund.,2025-01-02
+393,237,28,1,"Product werkt perfect, geen klachten.",2025-08-09
+394,9,118,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2026-03-03
+395,15,122,5,"Goed product, maar duurder dan verwacht.",2025-09-23
+396,181,68,1,"Top kwaliteit, gebruik het dagelijks.",2024-12-29
+397,44,91,4,Goede prijs-kwaliteitverhouding.,2024-12-26
+398,78,102,5,Super snel geleverd en werkt perfect.,2025-04-17
+399,261,86,1,"Goed product, maar duurder dan verwacht.",2025-08-01
+400,140,95,1,Goede kwaliteit voor de prijs.,2024-10-24
+401,333,98,4,Goede prijs-kwaliteitverhouding.,2025-12-28
+402,151,49,4,"Geweldige aankoop, erg blij mee!",2025-12-10
+403,305,71,5,Absoluut de beste in zijn categorie!,2024-09-17
+404,253,133,4,Zou het zeker aanraden aan vrienden.,2024-06-16
+405,349,13,2,Zou het zeker aanraden aan vrienden.,2024-09-22
+406,113,30,1,Goede kwaliteit voor de prijs.,2024-10-28
+407,295,69,2,"Snelle levering, product voldoet aan verwachtingen.",2024-06-23
+408,273,26,3,"Product werkt perfect, geen klachten.",2025-06-22
+409,452,159,4,Verpakking was beschadigd maar product zelf prima.,2025-10-19
+410,202,26,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-07-11
+411,254,53,2,Goede prijs-kwaliteitverhouding.,2025-09-01
+412,178,164,3,Absoluut de beste in zijn categorie!,2025-02-25
+413,148,188,1,Zou het zeker aanraden aan vrienden.,2026-03-30
+414,95,129,5,"Gewoon wat ik nodig had, doet het goed.",2024-09-06
+415,379,79,2,"Geweldige aankoop, erg blij mee!",2026-02-09
+416,162,175,1,"Geweldige aankoop, erg blij mee!",2026-05-05
+417,96,86,4,Prima product maar de handleiding had duidelijker gekund.,2025-05-21
+418,493,4,4,Super snel geleverd en werkt perfect.,2026-05-04
+419,172,6,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-05-27
+420,452,20,2,"Uitstekend product, precies wat ik zocht!",2024-06-01
+421,305,91,4,Kleiner dan verwacht maar verder prima.,2026-04-23
+422,1,126,2,"Gewoon wat ik nodig had, doet het goed.",2025-05-13
+423,57,12,1,Kleiner dan verwacht maar verder prima.,2025-05-28
+424,349,75,2,"Minder duurzaam dan gehoopt, maar functioneel.",2025-08-13
+425,258,43,2,Zou het zeker aanraden aan vrienden.,2025-06-17
+426,52,78,3,"Goed product, maar duurder dan verwacht.",2024-12-03
+427,252,189,3,"Top kwaliteit, gebruik het dagelijks.",2025-01-18
+428,132,170,4,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-10-17
+429,187,118,1,Beste aankoop van dit jaar!,2025-04-14
+430,155,182,3,"Minder duurzaam dan gehoopt, maar functioneel.",2024-09-25
+431,397,170,5,"Gewoon wat ik nodig had, doet het goed.",2025-02-08
+432,58,70,5,"Uitstekend product, precies wat ik zocht!",2026-02-13
+433,76,106,2,Prima product maar de handleiding had duidelijker gekund.,2026-03-17
+434,183,128,1,"Product werkt perfect, geen klachten.",2024-10-16
+435,296,190,4,Beste aankoop van dit jaar!,2025-01-22
+436,106,191,1,Goede prijs-kwaliteitverhouding.,2026-01-16
+437,472,97,1,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-09-20
+438,450,161,5,"Goed product, maar duurder dan verwacht.",2025-01-12
+439,491,135,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-07-23
+440,467,174,3,"Niet slecht, maar niet geweldig ook.",2025-03-30
+441,201,151,4,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-11-09
+442,159,49,1,Kleiner dan verwacht maar verder prima.,2024-10-16
+443,267,180,3,Absoluut de beste in zijn categorie!,2025-05-15
+444,63,111,4,Kleiner dan verwacht maar verder prima.,2024-11-12
+445,496,89,3,Zou het zeker aanraden aan vrienden.,2024-06-29
+446,497,3,4,Prima product maar de handleiding had duidelijker gekund.,2025-10-10
+447,239,175,2,"Minder duurzaam dan gehoopt, maar functioneel.",2026-05-02
+448,495,75,5,"Top kwaliteit, gebruik het dagelijks.",2025-06-18
+449,341,42,3,"Gewoon wat ik nodig had, doet het goed.",2025-05-19
+450,148,17,3,"Uitstekend product, precies wat ik zocht!",2024-09-04
+451,233,11,2,"Precies zoals beschreven, aanrader!",2025-04-21
+452,423,152,1,Goede kwaliteit voor de prijs.,2026-01-07
+453,251,79,1,Super snel geleverd en werkt perfect.,2025-10-26
+454,181,170,1,Goede kwaliteit voor de prijs.,2025-09-22
+455,129,36,3,"Precies zoals beschreven, aanrader!",2025-02-27
+456,403,129,5,Prima product maar de handleiding had duidelijker gekund.,2024-08-03
+457,489,23,3,Prima product maar de handleiding had duidelijker gekund.,2025-02-05
+458,376,51,4,Kleiner dan verwacht maar verder prima.,2025-12-19
+459,471,21,3,"Product werkt perfect, geen klachten.",2026-02-25
+460,17,122,3,"Product werkt perfect, geen klachten.",2024-11-04
+461,416,174,4,Super snel geleverd en werkt perfect.,2024-10-10
+462,205,26,3,"Precies zoals beschreven, aanrader!",2025-07-06
+463,306,80,2,Kleiner dan verwacht maar verder prima.,2025-06-18
+464,224,174,3,Kleiner dan verwacht maar verder prima.,2025-01-14
+465,72,175,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-10-27
+466,70,107,5,Goede prijs-kwaliteitverhouding.,2024-06-17
+467,155,79,1,"Precies zoals beschreven, aanrader!",2024-10-16
+468,291,161,4,"Top kwaliteit, gebruik het dagelijks.",2025-04-11
+469,94,97,4,Zou het zeker aanraden aan vrienden.,2025-06-11
+470,71,135,4,"Niet slecht, maar niet geweldig ook.",2025-11-02
+471,258,176,3,"Goed product, maar duurder dan verwacht.",2024-12-19
+472,182,110,4,Super snel geleverd en werkt perfect.,2026-01-20
+473,493,106,4,"Uitstekend product, precies wat ik zocht!",2025-07-03
+474,468,144,1,Super snel geleverd en werkt perfect.,2026-01-18
+475,46,194,2,Absoluut de beste in zijn categorie!,2025-02-11
+476,465,78,2,Kleiner dan verwacht maar verder prima.,2025-07-20
+477,263,96,2,Absoluut de beste in zijn categorie!,2024-12-03
+478,279,145,3,Goede kwaliteit voor de prijs.,2024-11-17
+479,387,101,2,Verpakking was beschadigd maar product zelf prima.,2025-12-14
+480,344,2,4,"Minder duurzaam dan gehoopt, maar functioneel.",2025-02-23
+481,236,14,1,Goede kwaliteit voor de prijs.,2024-12-26
+482,139,167,1,"Niet slecht, maar niet geweldig ook.",2025-05-17
+483,305,25,3,Kleiner dan verwacht maar verder prima.,2025-08-07
+484,247,177,3,Goede kwaliteit voor de prijs.,2024-10-16
+485,63,190,5,"Minder duurzaam dan gehoopt, maar functioneel.",2025-08-04
+486,379,184,1,Goede prijs-kwaliteitverhouding.,2025-03-31
+487,265,37,5,"Gewoon wat ik nodig had, doet het goed.",2024-05-19
+488,70,58,2,"Precies zoals beschreven, aanrader!",2026-02-28
+489,322,80,1,"Gewoon wat ik nodig had, doet het goed.",2024-06-16
+490,320,177,2,Zou het zeker aanraden aan vrienden.,2025-07-12
+491,35,1,2,Absoluut de beste in zijn categorie!,2024-12-15
+492,451,31,5,Zou het zeker aanraden aan vrienden.,2024-12-13
+493,127,53,1,"Gewoon wat ik nodig had, doet het goed.",2025-01-28
+494,13,130,4,Verpakking was beschadigd maar product zelf prima.,2024-08-31
+495,29,32,3,Verpakking was beschadigd maar product zelf prima.,2024-06-10
+496,248,48,2,"Top kwaliteit, gebruik het dagelijks.",2024-12-06
+497,134,157,4,Absoluut de beste in zijn categorie!,2025-04-11
+498,64,111,2,"Uitstekend product, precies wat ik zocht!",2024-08-17
+499,95,37,2,"Geweldige aankoop, erg blij mee!",2024-05-25
+500,262,190,5,Goede prijs-kwaliteitverhouding.,2025-02-12
+501,244,123,3,"Precies zoals beschreven, aanrader!",2025-09-08
+502,342,26,5,"Gewoon wat ik nodig had, doet het goed.",2025-03-02
+503,189,171,3,Verpakking was beschadigd maar product zelf prima.,2024-11-29
+504,198,179,1,"Goed product, maar duurder dan verwacht.",2026-05-02
+505,214,109,2,"Uitstekend product, precies wat ik zocht!",2025-04-29
+506,146,118,1,Kleiner dan verwacht maar verder prima.,2025-05-10
+507,200,3,5,"Precies zoals beschreven, aanrader!",2026-01-23
+508,18,166,5,"Goed product, maar duurder dan verwacht.",2025-12-06
+509,22,91,2,"Goed product, maar duurder dan verwacht.",2025-05-09
+510,452,186,4,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2024-09-10
+511,5,41,3,"Minder duurzaam dan gehoopt, maar functioneel.",2025-09-27
+512,439,129,2,Beste aankoop van dit jaar!,2024-07-23
+513,463,181,5,Verpakking was beschadigd maar product zelf prima.,2024-12-09
+514,263,17,2,Prima product maar de handleiding had duidelijker gekund.,2026-05-06
+515,181,168,5,"Niet slecht, maar niet geweldig ook.",2025-09-11
+516,236,184,2,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2026-02-24
+517,402,196,3,Verpakking was beschadigd maar product zelf prima.,2025-03-01
+518,35,166,4,Verpakking was beschadigd maar product zelf prima.,2024-06-28
+519,493,121,5,"Geweldige aankoop, erg blij mee!",2026-02-04
+520,295,182,5,"Minder duurzaam dan gehoopt, maar functioneel.",2025-07-24
+521,133,34,3,Kleiner dan verwacht maar verder prima.,2024-12-06
+522,490,149,3,Kleiner dan verwacht maar verder prima.,2026-01-13
+523,317,104,1,Goede kwaliteit voor de prijs.,2024-10-17
+524,16,188,2,"Product werkt perfect, geen klachten.",2025-05-20
+525,50,171,1,"Gewoon wat ik nodig had, doet het goed.",2026-01-16
+526,479,174,4,"Niet slecht, maar niet geweldig ook.",2024-07-07
+527,390,60,2,Zou het zeker aanraden aan vrienden.,2024-05-21
+528,461,45,4,Super snel geleverd en werkt perfect.,2024-07-01
+529,473,17,1,Absoluut de beste in zijn categorie!,2026-04-07
+530,129,30,1,"Snelle levering, product voldoet aan verwachtingen.",2025-08-09
+531,227,196,3,Absoluut de beste in zijn categorie!,2025-07-12
+532,324,8,2,"Niet slecht, maar niet geweldig ook.",2025-01-19
+533,56,179,4,Verpakking was beschadigd maar product zelf prima.,2025-01-05
+534,69,164,5,"Top kwaliteit, gebruik het dagelijks.",2026-02-20
+535,103,51,3,"Gewoon wat ik nodig had, doet het goed.",2025-01-26
+536,225,174,3,"Product werkt perfect, geen klachten.",2025-01-19
+537,104,190,2,Super snel geleverd en werkt perfect.,2024-11-07
+538,417,136,2,"Snelle levering, product voldoet aan verwachtingen.",2025-06-29
+539,299,7,1,Goede prijs-kwaliteitverhouding.,2026-01-04
+540,18,36,1,Beste aankoop van dit jaar!,2025-10-21
+541,397,105,5,"Top kwaliteit, gebruik het dagelijks.",2024-07-04
+542,443,19,3,"Geweldige aankoop, erg blij mee!",2024-07-14
+543,350,187,5,"Gewoon wat ik nodig had, doet het goed.",2025-01-17
+544,98,54,5,"Gewoon wat ik nodig had, doet het goed.",2026-05-08
+545,257,91,3,Absoluut de beste in zijn categorie!,2026-01-21
+546,461,144,2,"Snelle levering, product voldoet aan verwachtingen.",2024-06-01
+547,225,110,4,"Snelle levering, product voldoet aan verwachtingen.",2025-10-29
+548,292,21,2,"Minder duurzaam dan gehoopt, maar functioneel.",2025-07-31
+549,153,26,1,"Gewoon wat ik nodig had, doet het goed.",2025-07-25
+550,119,14,5,"Top kwaliteit, gebruik het dagelijks.",2025-06-22
+551,170,6,2,"Precies zoals beschreven, aanrader!",2026-01-03
+552,473,65,4,Beste aankoop van dit jaar!,2025-02-18
+553,35,41,3,"Snelle levering, product voldoet aan verwachtingen.",2025-05-18
+554,274,148,2,"Minder duurzaam dan gehoopt, maar functioneel.",2025-04-26
+555,478,157,5,"Precies zoals beschreven, aanrader!",2024-10-22
+556,205,159,1,"Top kwaliteit, gebruik het dagelijks.",2025-09-16
+557,358,29,5,"Gewoon wat ik nodig had, doet het goed.",2025-06-14
+558,480,68,1,Goede kwaliteit voor de prijs.,2026-01-18
+559,174,108,3,Goede prijs-kwaliteitverhouding.,2024-10-10
+560,172,196,1,Prima product maar de handleiding had duidelijker gekund.,2024-05-25
+561,105,141,3,Goede kwaliteit voor de prijs.,2024-11-25
+562,121,127,1,Kleiner dan verwacht maar verder prima.,2024-09-23
+563,464,157,1,Beste aankoop van dit jaar!,2024-09-03
+564,37,107,5,Absoluut de beste in zijn categorie!,2024-11-20
+565,476,21,5,"Gewoon wat ik nodig had, doet het goed.",2025-02-23
+566,485,34,3,Goede kwaliteit voor de prijs.,2025-09-04
+567,54,10,4,"Minder duurzaam dan gehoopt, maar functioneel.",2024-05-21
+568,116,167,3,Super snel geleverd en werkt perfect.,2024-07-31
+569,245,78,2,"Uitstekend product, precies wat ik zocht!",2025-01-07
+570,477,15,1,Goede prijs-kwaliteitverhouding.,2025-02-18
+571,274,156,4,"Uitstekend product, precies wat ik zocht!",2024-09-07
+572,283,124,1,Verpakking was beschadigd maar product zelf prima.,2026-04-20
+573,393,97,2,Super snel geleverd en werkt perfect.,2024-08-05
+574,360,110,5,Prima product maar de handleiding had duidelijker gekund.,2026-02-25
+575,60,113,1,Absoluut de beste in zijn categorie!,2024-11-21
+576,463,95,3,Goede prijs-kwaliteitverhouding.,2025-07-01
+577,176,112,1,"Product werkt perfect, geen klachten.",2024-08-15
+578,119,24,5,"Uitstekend product, precies wat ik zocht!",2024-07-16
+579,117,106,5,Kleiner dan verwacht maar verder prima.,2025-04-11
+580,24,4,2,Goede kwaliteit voor de prijs.,2024-06-06
+581,40,15,2,"Goed product, maar duurder dan verwacht.",2026-05-15
+582,93,73,1,"Niet slecht, maar niet geweldig ook.",2024-09-25
+583,180,155,2,"Precies zoals beschreven, aanrader!",2024-05-21
+584,67,156,4,"Gewoon wat ik nodig had, doet het goed.",2025-05-31
+585,337,32,1,"Snelle levering, product voldoet aan verwachtingen.",2024-08-04
+586,129,140,2,"Gewoon wat ik nodig had, doet het goed.",2026-03-12
+587,362,189,3,"Product werkt perfect, geen klachten.",2024-10-25
+588,228,183,3,Beste aankoop van dit jaar!,2025-08-26
+589,400,142,3,"Product werkt perfect, geen klachten.",2024-12-14
+590,270,69,3,"Top kwaliteit, gebruik het dagelijks.",2025-05-15
+591,258,27,1,Beste aankoop van dit jaar!,2025-05-03
+592,462,106,5,"Gewoon wat ik nodig had, doet het goed.",2024-06-27
+593,144,21,2,Prima product maar de handleiding had duidelijker gekund.,2026-03-24
+594,431,134,2,"Precies zoals beschreven, aanrader!",2025-05-16
+595,380,142,2,Zou het zeker aanraden aan vrienden.,2025-03-04
+596,191,186,2,Goede kwaliteit voor de prijs.,2025-01-06
+597,121,179,4,"Goed product, maar duurder dan verwacht.",2025-02-16
+598,488,30,1,"Gewoon wat ik nodig had, doet het goed.",2024-10-20
+599,429,9,3,"Beetje teleurgesteld, verwachtte meer kwaliteit.",2025-06-08
+600,302,99,3,"Snelle levering, product voldoet aan verwachtingen.",2025-01-06

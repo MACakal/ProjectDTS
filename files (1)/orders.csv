@@ -1,0 +1,1001 @@
+order_id,customer_id,order_date,status,total_amount,payment_method,shipping_city
+1,284,2026-04-07,completed,5661.25,iDEAL,Frieschepalen
+2,177,2024-06-25,completed,1296.24,PayPal,Swalmen
+3,69,2026-02-03,completed,5547.61,Creditcard,Oude Niedorp
+4,33,2023-10-30,shipped,4004.58,Achteraf betalen,Woudsend
+5,204,2025-09-02,returned,5097.07,PayPal,Anevelde
+6,140,2025-07-02,completed,2459.8,Creditcard,Noordeinde
+7,255,2025-03-11,shipped,3293.56,Bancontact,Pernis Rotterdam
+8,309,2026-02-11,returned,1012.4,iDEAL,Udenhout
+9,168,2024-02-22,shipped,4224.33,Bancontact,Leerbroek
+10,180,2024-10-25,completed,1633.06,Bancontact,Hengevelde
+11,187,2025-03-25,completed,5103.96,Bancontact,De Zilk
+12,18,2025-12-17,completed,2757.76,Bancontact,Horst
+13,487,2024-03-23,completed,7175.8,PayPal,Haghorst
+14,204,2024-07-04,completed,2304.37,Achteraf betalen,Leerbroek
+15,199,2023-08-13,cancelled,929.32,Bancontact,Duizel
+16,110,2024-04-18,returned,2363.18,Bancontact,Wommels
+17,89,2023-09-10,processing,3785.91,Achteraf betalen,Termunterzijl
+18,149,2023-11-14,processing,1010.85,Creditcard,Aerdenhout
+19,407,2025-06-06,completed,1718.1,Bancontact,Nes
+20,14,2026-01-08,completed,3410.83,Bancontact,Brouwershaven
+21,270,2026-03-17,completed,1821.48,Achteraf betalen,Poortugaal
+22,177,2024-10-17,completed,4308.79,Creditcard,Opmeer
+23,156,2026-02-05,completed,1079.28,PayPal,Longerhouw
+24,101,2024-10-06,shipped,4288.94,Achteraf betalen,Sellingen
+25,483,2025-06-28,completed,1953.54,PayPal,Heelsum
+26,432,2024-03-17,cancelled,753.01,iDEAL,Plasmolen
+27,486,2024-08-11,shipped,4352.63,Achteraf betalen,Hoogersmilde
+28,149,2025-02-09,shipped,3323.0,iDEAL,Nieuwe Niedorp
+29,353,2023-08-29,completed,3578.04,PayPal,Mensingeweer
+30,376,2023-07-03,returned,3434.23,iDEAL,Reutum
+31,164,2023-11-25,completed,1254.54,Creditcard,Odoornerveen
+32,73,2025-12-08,completed,1142.48,Achteraf betalen,Oostdijk
+33,370,2025-05-12,completed,2241.14,PayPal,Sumar
+34,255,2024-11-12,completed,5111.9,PayPal,Marknesse
+35,254,2026-04-11,completed,5611.65,PayPal,Zuiddorpe
+36,392,2024-10-30,completed,179.75,Achteraf betalen,Deinum
+37,288,2025-05-24,completed,11504.05,iDEAL,Afferden L
+38,66,2025-09-03,returned,5721.57,Bancontact,Strijbeek
+39,257,2024-08-03,completed,1030.89,PayPal,Capelle aan den IJssel
+40,412,2024-05-29,completed,2628.61,Bancontact,Bad Nieuweschans
+41,316,2026-03-02,shipped,3708.16,Achteraf betalen,Vierakker
+42,154,2024-08-03,completed,1281.46,iDEAL,Lamswaarde
+43,214,2025-09-27,completed,1121.84,PayPal,Nieuw Annerveen
+44,496,2026-04-08,shipped,4277.25,Achteraf betalen,Zuidveld
+45,397,2024-10-11,processing,1868.38,iDEAL,Farmsum
+46,98,2024-09-17,completed,2370.79,Achteraf betalen,Simpelveld
+47,397,2026-01-23,shipped,4136.52,PayPal,Zuidoostbeemster
+48,340,2024-10-15,completed,6462.77,PayPal,Bavel
+49,313,2025-04-26,completed,1327.64,PayPal,Zwinderen
+50,395,2025-06-02,completed,1781.54,Bancontact,Diepenveen
+51,179,2023-08-30,completed,5919.9,Bancontact,Netersel
+52,420,2024-04-08,completed,3930.91,iDEAL,Epse
+53,178,2024-09-06,cancelled,1241.52,Achteraf betalen,Wetering
+54,357,2023-09-06,completed,249.72,Achteraf betalen,Franeker
+55,123,2024-12-27,completed,904.67,Creditcard,Hekendorp
+56,3,2024-04-22,cancelled,2917.54,Creditcard,Zoutkamp
+57,388,2025-12-28,cancelled,4307.6,Creditcard,Driehuizen
+58,274,2024-05-29,shipped,1418.94,Creditcard,Sellingen
+59,479,2025-09-07,cancelled,3951.87,Achteraf betalen,Bunnik
+60,55,2025-08-29,cancelled,5427.27,Creditcard,Middelie
+61,436,2026-04-22,completed,4259.58,PayPal,Baarland
+62,368,2025-11-12,completed,1669.09,Bancontact,Geelbroek
+63,424,2024-08-30,completed,1795.35,Bancontact,Dorst
+64,166,2024-12-19,cancelled,185.22,Creditcard,Hunsel
+65,229,2026-02-26,shipped,3207.91,PayPal,Gaanderen
+66,355,2026-05-14,completed,1176.88,Creditcard,Afferden
+67,208,2024-05-19,shipped,2658.19,Creditcard,Nietap
+68,113,2023-08-31,cancelled,4330.76,Bancontact,Itens
+69,388,2026-05-15,completed,2478.96,iDEAL,Groot-Ammers
+70,270,2025-10-22,completed,3214.17,Creditcard,Holthees
+71,294,2026-03-18,completed,1112.69,Creditcard,Nuis
+72,368,2023-05-19,completed,1588.24,iDEAL,Joppe
+73,233,2025-03-06,completed,6607.42,iDEAL,Vianen NB
+74,203,2024-04-27,completed,378.03,Achteraf betalen,Sint-Oedenrode
+75,38,2024-11-18,completed,2200.72,iDEAL,Huijbergen
+76,147,2025-02-12,completed,3144.45,Bancontact,Baars
+77,192,2023-11-12,returned,3301.68,PayPal,Knegsel
+78,61,2023-12-16,completed,3619.68,Achteraf betalen,Schiermonnikoog
+79,218,2024-09-08,completed,1014.63,PayPal,Beerze
+80,97,2026-04-05,cancelled,834.63,Bancontact,Kolham
+81,315,2026-05-05,shipped,605.69,iDEAL,Loenersloot
+82,52,2024-03-29,completed,2616.61,Bancontact,Guttecoven
+83,120,2024-07-01,completed,1030.89,PayPal,Apeldoorn
+84,120,2024-01-14,processing,1361.31,Achteraf betalen,Wijnjewoude
+85,114,2025-10-09,completed,3199.85,Bancontact,Kilder
+86,285,2024-09-15,completed,3914.83,Bancontact,Poeldijk
+87,210,2023-07-27,completed,4695.32,Creditcard,Koningslust
+88,413,2023-10-26,completed,1270.0,Bancontact,Goingarijp
+89,286,2024-07-02,completed,5100.48,iDEAL,Kwadijk
+90,275,2026-05-02,shipped,1903.53,Achteraf betalen,Sas van Gent
+91,309,2024-08-30,completed,236.1,Achteraf betalen,Diemen
+92,112,2026-02-20,completed,996.95,Bancontact,Opijnen
+93,469,2025-01-14,completed,6065.46,PayPal,Beneden-Leeuwen
+94,158,2023-12-13,completed,4173.5,iDEAL,Genderen
+95,289,2024-04-19,processing,1036.65,Achteraf betalen,Westernieland
+96,369,2024-11-01,completed,2313.28,Achteraf betalen,Wijdewormer
+97,427,2025-04-22,completed,6493.92,Bancontact,Gameren
+98,87,2025-11-06,shipped,4172.15,Achteraf betalen,Santpoort-Noord
+99,329,2023-10-07,cancelled,5215.1,iDEAL,Tripscompagnie
+100,363,2024-03-12,completed,2957.64,Achteraf betalen,Sibrandahûs
+101,327,2024-04-11,shipped,3794.87,Achteraf betalen,Heerle
+102,370,2026-03-02,completed,1709.1,iDEAL,Blauwestad
+103,471,2023-10-04,completed,4665.18,PayPal,Buinerveen
+104,418,2025-02-18,completed,5803.44,PayPal,Kornhorn
+105,351,2024-03-28,processing,1960.71,iDEAL,Oud Gastel
+106,48,2023-06-08,completed,3924.41,Bancontact,Maastricht-Airport
+107,433,2025-01-16,completed,1095.24,Achteraf betalen,Kinderdijk
+108,244,2024-08-17,completed,1628.22,Achteraf betalen,Overlangel
+109,289,2025-05-10,shipped,1747.28,Creditcard,'s-Graveland
+110,386,2025-08-29,processing,3106.11,Achteraf betalen,Ingber
+111,170,2023-12-04,completed,2964.34,PayPal,Wittem
+112,28,2024-05-26,completed,2332.77,Achteraf betalen,Grijpskerke
+113,204,2025-12-25,cancelled,3236.48,PayPal,Velserbroek
+114,284,2024-08-17,cancelled,2614.73,Creditcard,Den Velde
+115,366,2024-01-10,completed,2260.08,Bancontact,Lambertschaag
+116,163,2024-11-24,completed,834.72,Bancontact,Groesbeek
+117,185,2025-10-02,shipped,247.63,Creditcard,Wezup
+118,221,2025-07-06,completed,8089.24,PayPal,Hellouw
+119,443,2024-06-27,completed,4521.73,Creditcard,Zuidwolde
+120,293,2024-08-08,completed,3430.75,Creditcard,Waalre
+121,223,2024-01-28,completed,2270.35,Bancontact,Maasvlakte Rotterdam
+122,305,2025-12-05,shipped,4878.32,PayPal,Batenburg
+123,226,2024-10-18,completed,4454.23,PayPal,Grave
+124,150,2025-09-21,shipped,2231.33,Achteraf betalen,Woerdense Verlaat
+125,103,2023-07-18,completed,5436.99,PayPal,Dalfsen
+126,426,2025-06-19,shipped,3507.27,Creditcard,Petten
+127,367,2024-08-15,completed,2677.91,Bancontact,Teuge
+128,279,2025-03-10,completed,1290.97,Creditcard,De Pol
+129,337,2025-09-04,shipped,1110.57,Bancontact,De Heen
+130,496,2024-09-25,shipped,2209.76,Achteraf betalen,Winde
+131,298,2024-01-04,shipped,2893.66,Achteraf betalen,Noorden
+132,354,2024-09-14,completed,2377.15,iDEAL,Ternaard
+133,426,2025-11-26,cancelled,2436.76,Creditcard,Amersfoort
+134,267,2025-12-26,completed,4285.91,iDEAL,Strijbeek
+135,415,2025-10-16,shipped,1310.37,iDEAL,Zuid-Scharwoude
+136,347,2026-05-04,processing,1966.17,PayPal,Nieuwland
+137,287,2026-01-19,completed,3926.62,Bancontact,Tinallinge
+138,15,2023-09-20,shipped,2804.14,iDEAL,Neerloon
+139,361,2023-09-09,completed,4257.75,Creditcard,Heeze
+140,188,2026-03-20,completed,7015.03,Bancontact,Vredepeel
+141,313,2023-07-08,completed,723.32,Bancontact,Maassluis
+142,317,2024-10-30,completed,2314.25,iDEAL,Saaxumhuizen
+143,123,2025-08-18,completed,3843.13,Bancontact,Oudheusden
+144,215,2024-08-27,completed,6358.52,Creditcard,Molkwerum
+145,251,2025-10-11,completed,3867.56,PayPal,Schettens
+146,488,2023-12-08,completed,5349.09,Bancontact,Paesens
+147,210,2025-06-04,shipped,2527.88,PayPal,2e Exloërmond
+148,17,2025-07-01,completed,8600.15,Achteraf betalen,Oudheusden
+149,59,2023-08-29,completed,8111.88,iDEAL,Melderslo
+150,377,2023-09-14,processing,1129.24,PayPal,Wemeldinge
+151,442,2023-10-07,processing,6287.83,Achteraf betalen,Ommen
+152,324,2023-07-24,completed,5262.74,PayPal,Nieuwkuijk
+153,361,2026-04-03,completed,4179.98,Creditcard,Hendrik-Ido-Ambacht
+154,128,2026-04-24,completed,2011.78,Achteraf betalen,Warder
+155,324,2026-03-08,completed,5123.22,PayPal,Asperen
+156,356,2026-04-02,cancelled,3622.25,iDEAL,Lelystad
+157,375,2025-03-20,returned,1922.96,Bancontact,Termunterzijl
+158,138,2026-04-13,completed,3414.94,PayPal,Westergeest
+159,458,2023-10-07,shipped,544.89,Bancontact,Lievelde
+160,9,2025-03-28,completed,2680.27,Creditcard,Leunen
+161,353,2024-09-22,cancelled,4667.71,iDEAL,Valthe
+162,191,2023-08-08,shipped,768.64,Creditcard,Koudekerke
+163,220,2025-08-19,shipped,151.61,Bancontact,Haelen
+164,40,2025-07-07,completed,971.1,iDEAL,Wierum
+165,357,2023-08-08,completed,675.75,Creditcard,Burgerbrug
+166,245,2023-12-04,completed,4775.61,Creditcard,Zorgvlied
+167,329,2025-08-22,returned,1846.43,Achteraf betalen,Amersfoort
+168,333,2025-08-14,completed,3262.58,Achteraf betalen,Winterswijk Henxel
+169,352,2026-04-13,completed,952.57,Achteraf betalen,Abbenbroek
+170,374,2025-08-26,completed,5628.24,Achteraf betalen,Ulvenhout AC
+171,308,2024-12-14,shipped,3109.6,Achteraf betalen,Keent
+172,311,2023-08-02,completed,3829.21,Bancontact,Weiteveen
+173,327,2025-10-21,completed,4387.03,Creditcard,Vroomshoop
+174,391,2025-12-16,completed,758.82,iDEAL,Piershil
+175,8,2025-01-03,completed,553.12,Achteraf betalen,'s-Gravenhage
+176,147,2024-02-21,shipped,2685.4,Creditcard,Heeze
+177,143,2024-02-04,completed,794.12,Creditcard,Galder
+178,275,2025-01-07,completed,5250.8,Creditcard,Ried
+179,30,2024-06-24,completed,4289.08,Creditcard,Klijndijk
+180,62,2026-02-25,completed,538.05,PayPal,Nederhorst den Berg
+181,268,2024-08-17,completed,5034.56,iDEAL,Ossendrecht
+182,395,2025-12-28,processing,1296.17,Achteraf betalen,Winschoten
+183,322,2023-11-28,completed,5031.39,PayPal,Zuidwolde
+184,396,2023-05-22,completed,2447.32,iDEAL,Nieuwaal
+185,242,2024-07-15,completed,3066.06,Bancontact,Weteringbrug
+186,115,2024-10-25,completed,4678.07,iDEAL,Lytsewierrum
+187,92,2025-12-24,completed,4810.26,iDEAL,Augustinusga
+188,189,2024-01-28,completed,6092.84,Achteraf betalen,Hillegom
+189,390,2025-02-11,shipped,1222.56,Achteraf betalen,Schokland
+190,178,2026-01-13,shipped,628.66,Bancontact,Obbicht
+191,435,2025-08-27,shipped,2316.91,iDEAL,Wilnis
+192,498,2024-05-30,returned,3174.36,PayPal,Bergen L
+193,235,2023-10-25,returned,286.82,Achteraf betalen,Ammerzoden
+194,69,2023-10-12,shipped,3056.06,PayPal,Steyl
+195,134,2023-08-29,processing,487.65,Creditcard,Donkerbroek
+196,70,2025-02-09,shipped,7069.72,Creditcard,Steendam
+197,232,2025-05-30,completed,5371.55,Achteraf betalen,Westerhoven
+198,21,2023-12-04,completed,2468.62,Achteraf betalen,Taarlo
+199,26,2025-05-18,shipped,6419.7,Achteraf betalen,Goingarijp
+200,128,2025-02-10,completed,343.63,iDEAL,Hoedekenskerke
+201,32,2026-04-29,processing,1711.82,iDEAL,Hijum
+202,299,2025-07-03,completed,987.94,Creditcard,Volendam
+203,463,2024-02-24,shipped,1418.64,Bancontact,Kuitaart
+204,26,2024-05-19,completed,5586.54,Creditcard,Greonterp
+205,466,2023-08-22,completed,2469.75,Creditcard,Hoek
+206,332,2026-03-28,completed,4538.34,Creditcard,Diffelen
+207,330,2024-07-08,processing,2472.83,PayPal,Berkhout
+208,468,2025-05-07,completed,3248.8,Creditcard,Zuid-Beijerland
+209,16,2025-01-18,processing,1585.64,Creditcard,'s Gravenmoer
+210,52,2025-03-13,completed,2238.63,Creditcard,Valburg
+211,295,2025-06-23,processing,7192.65,PayPal,Lamswaarde
+212,468,2024-04-23,completed,4114.03,Achteraf betalen,Montfoort
+213,159,2025-08-30,completed,566.14,Creditcard,'t Haantje
+214,309,2023-10-28,completed,5123.3,iDEAL,Rinsumageast
+215,12,2024-12-03,completed,3068.26,iDEAL,Velp
+216,192,2023-06-03,shipped,3070.52,Bancontact,Huis ter Heide
+217,406,2024-04-21,shipped,4145.72,Creditcard,Kuitaart
+218,341,2025-02-22,completed,2460.63,PayPal,Oosterwijtwerd
+219,66,2023-10-13,completed,127.65,Bancontact,Tynaarlo
+220,436,2025-11-09,returned,3619.11,Creditcard,Broekhuizen
+221,170,2024-05-27,shipped,1087.35,iDEAL,Bleskensgraaf ca
+222,421,2025-11-10,shipped,2089.19,iDEAL,Voorburg
+223,180,2026-04-10,completed,984.51,iDEAL,Streefkerk
+224,198,2025-05-12,completed,6034.43,Bancontact,Prinsenbeek
+225,404,2024-01-26,processing,1221.14,PayPal,Lage Zwaluwe
+226,11,2025-04-08,completed,371.62,Creditcard,'s Gravenmoer
+227,455,2025-12-01,completed,929.43,PayPal,Peins
+228,305,2025-03-11,returned,3495.83,iDEAL,Nieuw-Amsterdam
+229,52,2024-12-12,completed,3313.5,Achteraf betalen,Hengelo
+230,136,2025-09-07,shipped,5747.05,Bancontact,Berkel en Rodenrijs
+231,79,2024-04-19,completed,121.08,PayPal,Aldtsjerk
+232,422,2025-06-07,shipped,5998.48,iDEAL,Nijelamer
+233,158,2025-10-26,shipped,4958.06,PayPal,Steenbergen
+234,454,2024-08-28,completed,1984.7,Bancontact,Legemeer
+235,135,2026-03-16,completed,2195.42,iDEAL,Well
+236,343,2023-06-20,completed,7185.68,Bancontact,Nieuwendijk
+237,294,2023-09-29,processing,3674.82,Achteraf betalen,Overveen
+238,347,2025-06-12,returned,2253.3,Creditcard,Didam
+239,498,2024-04-09,completed,1239.55,Bancontact,Niekerk
+240,104,2025-06-07,returned,1399.67,iDEAL,De Heurne
+241,45,2025-06-30,completed,6482.89,Achteraf betalen,Sondel
+242,268,2024-07-09,shipped,268.13,Creditcard,Diphoorn
+243,291,2025-07-15,completed,2553.09,iDEAL,Bunschoten-Spakenburg
+244,403,2024-10-09,completed,8008.17,Creditcard,Tuk
+245,142,2025-03-20,completed,4429.21,Bancontact,Jellum
+246,472,2024-11-13,completed,3020.62,iDEAL,Brandwijk
+247,498,2024-09-17,processing,1328.88,PayPal,Gulpen
+248,374,2025-12-01,completed,157.4,Creditcard,Boijl
+249,468,2024-01-02,processing,5247.65,Achteraf betalen,Keijenborg
+250,207,2023-09-30,completed,4868.4,PayPal,Oirlo
+251,361,2025-07-08,completed,5065.34,iDEAL,Bakhuizen
+252,124,2025-04-18,completed,6741.81,iDEAL,Waterlandkerkje
+253,146,2024-03-12,completed,956.88,Creditcard,Hoenzadriel
+254,439,2025-10-10,completed,2040.89,Bancontact,Eerbeek
+255,263,2024-08-24,completed,799.51,Creditcard,Schettens
+256,308,2023-10-16,processing,1926.42,PayPal,Ven-Zelderheide
+257,217,2025-10-17,processing,2695.33,Achteraf betalen,Beemte Broekland
+258,423,2024-05-27,shipped,10402.1,PayPal,Lage Zwaluwe
+259,351,2023-10-02,completed,146.14,PayPal,Sibrandahûs
+260,442,2025-07-17,completed,1432.98,Bancontact,Wijhe
+261,339,2024-04-21,completed,3850.87,PayPal,Angerlo
+262,133,2024-02-19,cancelled,2975.93,Creditcard,Uddel
+263,352,2026-04-24,completed,5910.71,PayPal,Leersum
+264,50,2025-08-08,completed,4004.3,iDEAL,Huisduinen
+265,114,2023-08-25,completed,4781.82,Bancontact,Loosbroek
+266,436,2024-06-26,completed,1934.31,Achteraf betalen,de Woude
+267,484,2023-08-03,shipped,4559.33,iDEAL,Leek
+268,446,2024-02-25,processing,3128.27,Bancontact,Vledderveen
+269,74,2025-07-29,completed,2038.6,Creditcard,Klein Zundert
+270,161,2024-02-07,shipped,1804.36,Creditcard,Tricht
+271,390,2023-07-08,shipped,7085.45,Bancontact,Amersfoort
+272,220,2024-05-19,cancelled,4073.0,Achteraf betalen,Gieterveen
+273,98,2024-07-19,completed,452.1,Creditcard,Tholen
+274,116,2025-07-23,shipped,5281.58,PayPal,Mariahout
+275,86,2026-05-09,completed,572.82,Bancontact,Someren
+276,373,2025-06-14,completed,3674.89,iDEAL,Bennebroek
+277,117,2024-08-04,completed,273.0,Achteraf betalen,Garminge
+278,87,2024-03-28,completed,1086.45,PayPal,Milsbeek
+279,395,2025-07-07,completed,560.92,iDEAL,Fochteloo
+280,335,2024-08-21,processing,510.94,Bancontact,Herpt
+281,228,2024-01-27,completed,5197.8,Bancontact,Herwen
+282,339,2025-03-23,completed,3462.3,iDEAL,Well
+283,145,2024-10-16,completed,687.66,Achteraf betalen,Spijkerboor
+284,103,2025-08-11,shipped,5054.24,Bancontact,Zuidwolde
+285,170,2024-07-27,completed,775.58,iDEAL,Garmerwolde
+286,428,2025-10-22,completed,4229.17,PayPal,Witteveen
+287,330,2025-11-01,completed,2399.85,PayPal,Tynaarlo
+288,185,2025-09-13,processing,1389.21,Creditcard,Marsum
+289,340,2024-11-27,shipped,3671.77,PayPal,Dedemsvaart
+290,418,2025-08-05,completed,359.5,Bancontact,De Kiel
+291,140,2024-10-07,processing,4396.12,Creditcard,Herwijnen
+292,54,2025-02-09,completed,4982.54,Creditcard,Milheeze
+293,248,2024-07-28,cancelled,1934.84,iDEAL,Ruinerwold
+294,33,2024-05-08,completed,1937.73,Achteraf betalen,Tjalhuizum
+295,115,2025-12-11,returned,4629.07,Bancontact,Loo Gld
+296,339,2024-01-04,shipped,3826.54,iDEAL,Bavel
+297,6,2023-12-14,shipped,1997.09,iDEAL,Teerns
+298,385,2024-01-18,completed,1538.21,Creditcard,Kudelstaart
+299,282,2023-09-23,shipped,4038.34,Bancontact,Harfsen
+300,162,2025-03-27,completed,5141.39,Achteraf betalen,Boer
+301,1,2023-09-25,processing,5205.14,PayPal,Burgerveen
+302,423,2023-12-06,completed,5462.58,Achteraf betalen,Saaksum
+303,243,2025-07-29,shipped,4522.62,iDEAL,Eursinge
+304,175,2025-04-10,completed,4741.47,Creditcard,Nederland
+305,253,2026-04-03,completed,2059.25,Bancontact,Waalre
+306,423,2025-12-24,shipped,4162.76,Achteraf betalen,Berkel en Rodenrijs
+307,64,2026-02-26,shipped,5302.43,iDEAL,Startenhuizen
+308,284,2025-02-09,cancelled,4887.1,Bancontact,Mensingeweer
+309,337,2024-12-17,shipped,5597.69,PayPal,Startenhuizen
+310,204,2023-12-13,cancelled,4325.71,Achteraf betalen,De Heen
+311,154,2024-10-06,processing,4029.49,PayPal,Blaricum
+312,352,2025-07-31,completed,1577.02,Achteraf betalen,Eleveld
+313,356,2023-05-25,shipped,1554.56,Achteraf betalen,Bears
+314,246,2025-06-30,completed,2390.73,iDEAL,Kapellebrug
+315,196,2024-07-25,completed,1817.9,Creditcard,Arum
+316,147,2024-03-13,shipped,1064.06,Achteraf betalen,Simpelveld
+317,17,2024-02-15,completed,4458.98,Achteraf betalen,Goes
+318,200,2024-02-17,completed,4838.72,PayPal,Glane
+319,495,2024-12-05,completed,756.06,Creditcard,Nunspeet
+320,318,2026-04-26,processing,2931.98,Achteraf betalen,Winterswijk Corle
+321,101,2025-09-20,shipped,2116.18,iDEAL,Slootdorp
+322,96,2025-01-20,cancelled,4352.84,PayPal,Cuijk
+323,3,2025-01-26,completed,2507.45,iDEAL,Amstelhoek
+324,397,2025-02-08,cancelled,6603.76,Creditcard,Anna Paulowna
+325,490,2024-06-01,completed,994.64,Bancontact,Geersdijk
+326,279,2025-08-18,completed,361.66,Creditcard,Bavel
+327,340,2025-07-28,completed,3930.03,Achteraf betalen,Haule
+328,422,2025-03-17,shipped,2550.96,PayPal,Smilde
+329,229,2024-08-07,completed,4216.67,PayPal,Meerlo
+330,13,2024-01-21,cancelled,2554.86,Creditcard,Wedde
+331,165,2023-12-30,completed,2219.7,Achteraf betalen,Smallebrugge
+332,4,2024-10-22,shipped,1319.33,Bancontact,Delden
+333,428,2023-12-22,completed,4798.75,Bancontact,Vleuten
+334,368,2024-04-02,completed,185.81,Creditcard,Zeijerveen
+335,407,2023-06-23,completed,276.79,PayPal,Firdgum
+336,209,2023-11-09,completed,2690.8,Achteraf betalen,Gouderak
+337,33,2025-11-09,shipped,3407.09,iDEAL,Zeijen
+338,145,2024-12-10,shipped,3620.91,Creditcard,Idaerd
+339,383,2024-09-08,completed,6696.98,Achteraf betalen,Broekhuizenvorst
+340,73,2024-05-28,completed,827.19,Bancontact,Loon
+341,276,2024-09-20,completed,458.06,PayPal,Westmaas
+342,109,2025-03-11,completed,3645.79,Achteraf betalen,Broek
+343,437,2025-09-15,completed,6766.06,Achteraf betalen,Griendtsveen
+344,250,2024-06-02,cancelled,2354.76,Achteraf betalen,Gemonde
+345,36,2026-04-11,cancelled,5848.09,Achteraf betalen,Ryptsjerk
+346,79,2023-09-05,completed,2064.08,Creditcard,Stedum
+347,365,2024-05-19,shipped,4227.12,Bancontact,Zandberg
+348,184,2025-12-19,shipped,5215.04,Achteraf betalen,Jonkersvaart
+349,101,2026-01-12,completed,874.74,iDEAL,Tjalhuizum
+350,435,2025-12-13,completed,860.46,Bancontact,Gauw
+351,394,2024-02-16,completed,1408.36,Achteraf betalen,Eppenhuizen
+352,458,2026-03-05,returned,4303.55,PayPal,Hem
+353,69,2023-10-23,completed,5328.3,Achteraf betalen,Wedde
+354,72,2024-03-05,completed,1782.5,Bancontact,Gieten
+355,481,2024-06-10,completed,1256.13,PayPal,Baaium
+356,190,2023-12-25,completed,1765.46,Bancontact,Vinkel
+357,452,2024-02-08,completed,6446.34,PayPal,Elahuizen
+358,297,2025-05-25,completed,2031.44,Achteraf betalen,Pijnacker
+359,335,2023-12-29,processing,837.8,Bancontact,Tjerkgaast
+360,499,2024-09-29,cancelled,6528.58,Creditcard,Fleringen
+361,118,2024-03-28,completed,971.44,iDEAL,Nieuw Scheemda
+362,339,2023-09-03,completed,5192.23,Creditcard,Scheemda
+363,303,2024-02-02,completed,5515.83,Achteraf betalen,Luttelgeest
+364,21,2024-12-22,processing,2237.44,Achteraf betalen,Bosch en Duin
+365,491,2024-06-03,completed,5076.46,Bancontact,Welsum
+366,445,2026-03-22,completed,1108.66,Creditcard,Wezep
+367,320,2024-05-19,shipped,5557.73,Achteraf betalen,Nuland
+368,36,2023-12-05,completed,5872.7,Creditcard,Donkerbroek
+369,311,2023-07-22,completed,1333.54,Creditcard,Hoog Soeren
+370,462,2024-05-27,shipped,1998.12,Bancontact,Wilhelminadorp
+371,268,2024-01-27,completed,897.9,Bancontact,Burgh-Haamstede
+372,118,2023-10-03,cancelled,4302.86,Bancontact,Hengstdijk
+373,69,2024-11-07,completed,3849.57,Bancontact,Eede
+374,132,2026-04-05,completed,830.37,iDEAL,Gieten
+375,267,2024-01-08,completed,2998.8,iDEAL,Stompetoren
+376,80,2023-08-15,completed,3706.24,Creditcard,Budel-Schoot
+377,212,2024-08-04,completed,6863.36,Bancontact,Harfsen
+378,377,2025-02-08,completed,141.9,Bancontact,Tonden
+379,401,2025-07-11,shipped,352.95,PayPal,Steensel
+380,411,2024-09-26,completed,637.92,iDEAL,Eexterzandvoort
+381,412,2026-01-11,completed,62.7,iDEAL,Wapserveen
+382,135,2024-06-08,completed,408.0,Bancontact,Velden
+383,477,2026-04-23,returned,6247.19,iDEAL,Maria Hoop
+384,104,2025-02-28,processing,7002.67,iDEAL,Loenersloot
+385,185,2024-04-02,completed,704.33,PayPal,Waaxens
+386,400,2024-04-05,completed,6365.16,iDEAL,Bruchem
+387,282,2024-03-21,completed,4205.94,iDEAL,Eext
+388,134,2024-02-01,completed,5866.87,Achteraf betalen,Gennep
+389,129,2023-11-03,shipped,3836.46,Achteraf betalen,Langedijke
+390,442,2026-04-23,completed,92.61,Bancontact,Wânswert
+391,325,2024-09-04,shipped,171.18,Bancontact,Sint-Maartensdijk
+392,490,2024-08-09,completed,4244.2,iDEAL,Jubbega
+393,284,2023-08-21,cancelled,4193.42,Creditcard,Nijeberkoop
+394,256,2025-04-15,shipped,798.19,Creditcard,Stoutenburg
+395,104,2024-02-10,processing,7205.5,iDEAL,Oost-Souburg
+396,392,2024-05-01,processing,538.06,Achteraf betalen,Nijeberkoop
+397,162,2025-05-27,completed,5727.61,iDEAL,Beuningen
+398,270,2024-04-14,shipped,3868.04,iDEAL,Rhee
+399,358,2024-06-13,completed,2140.57,Achteraf betalen,Wjelsryp
+400,52,2025-03-28,completed,5499.79,Creditcard,Zwaag
+401,256,2026-02-04,completed,3665.75,Achteraf betalen,Prinsenbeek
+402,68,2025-04-12,returned,1209.61,Achteraf betalen,Hauwert
+403,222,2026-04-30,processing,1594.98,iDEAL,Loenen aan de Vecht
+404,91,2024-01-29,completed,1800.45,PayPal,Bosschenhoofd
+405,403,2023-09-12,completed,4707.19,Creditcard,Winkel
+406,31,2025-12-26,completed,3358.47,PayPal,Berltsum
+407,185,2024-11-28,completed,9274.41,Achteraf betalen,'t Waar
+408,333,2026-03-15,shipped,2094.44,Achteraf betalen,Leek
+409,250,2025-07-14,shipped,2843.77,PayPal,Neerlangel
+410,216,2023-10-08,shipped,4061.89,PayPal,Saaxumhuizen
+411,310,2023-06-11,shipped,4263.75,Bancontact,Molkwerum
+412,212,2023-11-07,completed,816.12,Creditcard,Schardam
+413,339,2025-07-30,completed,268.31,Bancontact,Jellum
+414,53,2025-01-28,completed,2772.19,PayPal,Losser
+415,317,2025-12-06,completed,2495.06,Creditcard,Boijl
+416,270,2025-10-25,processing,834.63,PayPal,Middelie
+417,441,2025-03-29,cancelled,5946.37,Creditcard,Noorbeek
+418,303,2024-08-04,completed,2972.07,Bancontact,Heeten
+419,158,2023-09-28,completed,1967.82,PayPal,Aalst
+420,147,2025-11-28,completed,1021.88,Bancontact,Landgraaf
+421,154,2023-06-09,completed,4852.03,Achteraf betalen,Heukelum
+422,224,2024-06-08,completed,3089.78,Bancontact,Venhuizen
+423,113,2023-11-21,completed,4807.37,PayPal,Miedum
+424,333,2025-09-19,shipped,2233.96,iDEAL,Vaals
+425,327,2025-10-08,completed,1230.25,iDEAL,Mijdrecht
+426,497,2024-02-27,completed,2384.37,Bancontact,Drunen
+427,373,2024-12-25,completed,97.58,Bancontact,Allingawier
+428,112,2025-08-09,completed,5040.09,iDEAL,Smilde
+429,432,2026-04-17,shipped,2124.81,Achteraf betalen,Waskemeer
+430,241,2025-05-02,completed,2632.6,Bancontact,Stieltjeskanaal
+431,127,2025-05-07,shipped,1216.56,iDEAL,Kûbaard
+432,267,2024-03-28,shipped,3675.37,PayPal,Barchem
+433,82,2024-12-08,shipped,1134.09,Achteraf betalen,Oegstgeest
+434,63,2024-12-21,completed,2299.53,Creditcard,Ter Aar
+435,325,2025-09-11,completed,1479.8,Achteraf betalen,Abbenes
+436,62,2024-05-27,completed,2829.66,Bancontact,Beugen
+437,353,2023-06-08,completed,2297.69,Achteraf betalen,Ressen
+438,174,2025-04-05,cancelled,553.12,Creditcard,Aalsmeer
+439,360,2024-08-23,completed,544.08,Creditcard,Dieren
+440,163,2026-05-09,returned,2907.64,PayPal,Schoonoord
+441,371,2025-08-21,completed,1436.55,Bancontact,Jaarsveld
+442,287,2024-07-05,completed,2361.09,PayPal,Ouwsterhaule
+443,445,2024-05-20,processing,4568.47,iDEAL,Kommerzijl
+444,398,2025-06-23,shipped,2758.89,iDEAL,Oldehove
+445,338,2024-10-10,cancelled,2109.07,PayPal,Frieschepalen
+446,210,2024-12-20,shipped,1823.55,iDEAL,Hollum
+447,23,2024-01-06,processing,977.13,Bancontact,Holten
+448,99,2024-11-03,completed,5914.78,PayPal,Roderwolde
+449,114,2025-11-17,shipped,180.0,Bancontact,Mensingeweer
+450,476,2025-07-28,processing,1765.32,iDEAL,Sweikhuizen
+451,185,2025-12-08,completed,2425.33,iDEAL,Riethoven
+452,428,2024-05-07,completed,2242.45,Creditcard,Haskerhorne
+453,273,2024-09-20,completed,1457.53,Creditcard,Linde
+454,286,2024-10-04,shipped,3888.7,Bancontact,Vorden
+455,453,2026-05-07,completed,3147.79,Creditcard,Walsoorden
+456,274,2024-04-28,returned,6290.85,PayPal,Sint Geertruid
+457,312,2025-12-01,completed,4431.24,iDEAL,Polsbroek
+458,372,2025-08-26,completed,1485.7,PayPal,Neede
+459,114,2024-07-08,completed,4804.94,Achteraf betalen,Eindhoven
+460,293,2026-04-04,cancelled,1861.9,Creditcard,Burgum
+461,71,2024-07-25,completed,4042.72,iDEAL,Drouwen
+462,371,2025-01-30,completed,4267.73,PayPal,Poortugaal
+463,20,2025-05-15,shipped,4524.42,Creditcard,Doesburg
+464,383,2025-08-30,shipped,3913.79,Achteraf betalen,Hoek van Holland
+465,290,2024-10-24,completed,6626.82,Achteraf betalen,Nij Beets
+466,47,2023-11-10,completed,3062.38,Achteraf betalen,Hijken
+467,382,2026-01-01,completed,3781.52,Bancontact,Groningen
+468,287,2023-07-21,completed,4815.59,Creditcard,Vleuten
+469,37,2023-10-10,completed,5204.26,PayPal,Afferden L
+470,179,2023-10-15,completed,2672.75,Achteraf betalen,Parrega
+471,421,2026-05-18,returned,4277.71,Creditcard,Bant
+472,388,2024-01-22,shipped,1605.21,iDEAL,Volkel
+473,125,2024-03-23,cancelled,2500.66,iDEAL,Idzega
+474,157,2023-11-15,completed,852.5,Achteraf betalen,Zwartsluis
+475,109,2023-07-31,completed,5635.8,iDEAL,Meerkerk
+476,193,2024-07-16,completed,5343.0,Bancontact,Starnmeer
+477,336,2024-02-23,cancelled,1915.26,PayPal,Broek
+478,340,2024-12-16,processing,3981.22,Bancontact,Landgraaf
+479,261,2025-07-22,returned,1976.92,Achteraf betalen,Spijkenisse
+480,273,2025-02-18,completed,2906.94,iDEAL,Aagtekerke
+481,21,2023-11-12,completed,5567.04,PayPal,Vreeland
+482,321,2025-09-30,completed,2895.3,PayPal,Burgwerd
+483,460,2025-08-24,completed,4304.26,Achteraf betalen,Kruiningen
+484,447,2025-02-04,shipped,1410.08,Bancontact,Westervoort
+485,497,2024-08-18,completed,7591.9,Creditcard,Naarden
+486,442,2023-05-20,completed,5176.39,Achteraf betalen,Terwispel
+487,486,2024-02-14,shipped,1151.19,PayPal,Grootebroek
+488,451,2025-03-20,returned,2621.0,iDEAL,Westmaas
+489,68,2025-04-23,completed,3249.32,iDEAL,'t Haantje
+490,184,2024-05-10,completed,3339.0,Bancontact,Bakhuizen
+491,252,2023-10-20,completed,1187.75,iDEAL,Enschede
+492,474,2026-03-09,completed,3895.79,Achteraf betalen,Lambertschaag
+493,251,2023-06-07,shipped,4622.62,PayPal,Hulsberg
+494,202,2024-06-13,shipped,4245.11,iDEAL,Gendringen
+495,450,2024-11-24,returned,4163.61,PayPal,Goedereede
+496,226,2025-12-29,completed,4604.44,Achteraf betalen,Wolphaartsdijk
+497,471,2024-10-18,completed,9244.67,Achteraf betalen,Húns
+498,70,2023-08-29,completed,5247.13,Creditcard,Oudenbosch
+499,452,2025-11-03,completed,4061.41,iDEAL,Oosteind
+500,47,2025-09-20,completed,5502.18,Achteraf betalen,Zierikzee
+501,487,2023-06-05,completed,4469.45,Creditcard,Den Burg
+502,394,2025-11-10,shipped,5792.14,iDEAL,Elspeet
+503,461,2025-10-15,completed,501.14,Bancontact,Franeker
+504,255,2025-01-01,processing,5321.46,Bancontact,Rottum
+505,41,2024-11-13,shipped,1735.08,PayPal,Lemiers
+506,318,2026-02-02,shipped,1202.53,PayPal,Panningen
+507,19,2024-06-15,completed,1575.36,Achteraf betalen,Belfeld
+508,153,2024-11-16,completed,946.32,Bancontact,Bruntinge
+509,92,2026-03-01,completed,5065.47,Achteraf betalen,Zuidbroek
+510,91,2024-06-10,cancelled,3817.32,Achteraf betalen,Zuiddorpe
+511,34,2025-01-04,completed,3514.14,Achteraf betalen,Mussel
+512,212,2024-01-25,completed,2338.99,Achteraf betalen,Anerveen
+513,45,2024-11-26,completed,5549.11,Creditcard,Groot-Ammers
+514,315,2025-02-28,completed,6734.85,iDEAL,Scheemda
+515,61,2025-03-02,completed,96.25,Achteraf betalen,Reijmerstok
+516,213,2023-06-09,completed,1215.45,Creditcard,Balloo
+517,354,2023-11-17,completed,916.12,Achteraf betalen,Ootmarsum
+518,282,2025-01-02,completed,2550.96,PayPal,Gorredijk
+519,175,2024-02-25,completed,6595.69,Creditcard,Holtheme
+520,247,2023-10-06,completed,7337.31,Achteraf betalen,Nunhem
+521,372,2025-05-10,shipped,3884.0,iDEAL,Zuidlaarderveen
+522,174,2023-08-17,returned,5739.11,iDEAL,Ruigahuizen
+523,140,2023-10-31,completed,5794.04,iDEAL,Benthuizen
+524,192,2024-09-16,shipped,2109.49,Bancontact,'t Loo Oldebroek
+525,464,2023-12-16,completed,2117.46,PayPal,Rasquert
+526,398,2026-01-20,completed,1256.7,Creditcard,Balk
+527,106,2025-08-16,shipped,4720.17,Achteraf betalen,Hasselt
+528,447,2024-04-29,completed,6905.9,Achteraf betalen,Bakhuizen
+529,389,2024-06-12,completed,2346.21,PayPal,Epse
+530,273,2024-08-23,completed,2731.6,Achteraf betalen,Wateringen
+531,287,2023-09-04,completed,2698.64,PayPal,Ottersum
+532,73,2024-05-08,cancelled,3932.83,PayPal,Megen
+533,277,2025-06-29,completed,2266.84,iDEAL,Ohé en Laak
+534,197,2025-06-09,completed,7630.65,Bancontact,Aardenburg
+535,316,2024-08-18,completed,3467.59,Bancontact,Puiflijk
+536,291,2025-06-30,completed,8070.29,Creditcard,Aalst
+537,486,2025-04-24,completed,4681.47,iDEAL,Kloosterzande
+538,34,2023-11-06,completed,5201.0,Achteraf betalen,Lichtaard
+539,66,2024-02-29,completed,4486.88,Bancontact,Anderen
+540,206,2025-10-03,completed,2918.99,Bancontact,Mill
+541,197,2024-10-16,completed,2895.62,Achteraf betalen,Goudswaard
+542,404,2024-04-08,completed,2776.3,Achteraf betalen,Kootwijkerbroek
+543,429,2025-12-06,completed,4618.44,Achteraf betalen,Oosterwolde Gld
+544,56,2025-02-11,shipped,3131.42,Achteraf betalen,Baarle-Nassau
+545,463,2025-07-20,shipped,835.78,Creditcard,Augsbuurt
+546,232,2026-03-07,completed,3025.09,Achteraf betalen,Den Horn
+547,407,2024-05-30,cancelled,4264.92,Achteraf betalen,Bant
+548,262,2025-06-28,completed,2377.28,iDEAL,Heesselt
+549,1,2024-03-16,shipped,3795.84,Achteraf betalen,Berghem
+550,202,2025-07-03,shipped,2658.93,Creditcard,Overveen
+551,97,2026-05-11,completed,2156.89,iDEAL,Laag-Keppel
+552,37,2023-10-01,shipped,3911.23,Creditcard,Aalst
+553,44,2025-01-17,completed,4744.39,Bancontact,Scharsterbrug
+554,283,2026-05-14,processing,3388.46,Creditcard,Harfsen
+555,365,2023-11-14,completed,3142.72,PayPal,Breedenbroek
+556,58,2025-09-19,completed,2844.93,Achteraf betalen,Gieterveen
+557,440,2024-03-29,returned,3494.97,Creditcard,Hoogerheide
+558,242,2023-06-27,shipped,2442.33,Achteraf betalen,Boazum
+559,409,2023-09-05,completed,3801.71,PayPal,Krommenie
+560,216,2024-08-26,completed,5955.75,PayPal,Den Ham
+561,373,2024-12-26,shipped,3409.46,iDEAL,Groet
+562,337,2025-10-27,returned,5120.72,Achteraf betalen,Easterwierrum
+563,144,2025-06-27,completed,2563.02,Creditcard,Broek op Langedijk
+564,338,2025-06-14,completed,177.71,Creditcard,Stampersgat
+565,410,2023-09-11,completed,436.79,Creditcard,Gouda
+566,305,2025-02-04,cancelled,2192.92,Creditcard,Nij Beets
+567,339,2023-08-06,completed,1358.51,iDEAL,Koudekerke
+568,329,2023-05-27,completed,10.86,Bancontact,Odiliapeel
+569,205,2025-03-23,completed,2965.75,Bancontact,Koudekerke
+570,135,2025-10-11,completed,4677.34,iDEAL,Vaals
+571,50,2025-11-08,cancelled,1407.8,PayPal,Beemte Broekland
+572,411,2023-07-13,completed,5605.69,Achteraf betalen,Wijnaldum
+573,173,2025-02-16,shipped,3776.75,iDEAL,Warfstermolen
+574,426,2025-10-25,completed,3804.68,PayPal,Bodegraven
+575,129,2025-03-24,completed,780.21,iDEAL,Meedhuizen
+576,481,2023-10-02,completed,265.87,iDEAL,Kampen
+577,45,2025-05-13,processing,2446.23,Creditcard,Westervoort
+578,459,2024-10-04,completed,3023.82,iDEAL,Lisserbroek
+579,328,2024-02-07,completed,3753.08,Creditcard,Pieterburen
+580,400,2024-05-23,completed,556.2,PayPal,Hiaure
+581,31,2026-04-18,completed,3923.15,Bancontact,Molenschot
+582,92,2023-12-22,shipped,2844.93,Bancontact,Ravenstein
+583,112,2023-06-02,shipped,1233.21,PayPal,Kaag
+584,53,2024-02-15,completed,827.19,PayPal,Lauwerzijl
+585,398,2026-01-10,completed,2507.37,Creditcard,Willemstad
+586,359,2024-08-25,completed,1819.54,iDEAL,Eesergroen
+587,277,2023-08-10,completed,5328.23,PayPal,Vorchten
+588,206,2025-10-14,completed,2037.63,PayPal,Gerkesklooster
+589,42,2025-12-15,processing,4804.38,Creditcard,Katwijk NB
+590,154,2024-09-01,shipped,543.75,PayPal,Zuid-Scharwoude
+591,250,2025-11-08,completed,2175.14,Creditcard,Dirksland
+592,251,2023-11-01,completed,4504.35,iDEAL,Maarn
+593,208,2025-06-02,completed,3969.96,Creditcard,Kapel-Avezaath
+594,251,2025-12-27,shipped,3506.43,iDEAL,Bant
+595,464,2025-12-26,completed,2905.08,Creditcard,Klundert
+596,428,2024-03-17,completed,1700.64,Achteraf betalen,Goedereede
+597,410,2023-07-09,shipped,1817.9,PayPal,Boazum
+598,416,2026-04-15,processing,2852.09,iDEAL,Schimmert
+599,304,2025-09-28,completed,1417.52,Creditcard,Smakt
+600,388,2025-07-09,completed,3667.43,Creditcard,Nijhuizum
+601,52,2025-09-29,shipped,2344.62,Achteraf betalen,Ter Apelkanaal
+602,455,2025-01-16,completed,7153.19,Bancontact,Brantgum
+603,123,2023-11-14,cancelled,7086.12,PayPal,Mildam
+604,215,2025-03-30,completed,3556.87,Achteraf betalen,Hornhuizen
+605,186,2024-09-20,processing,6468.72,iDEAL,Enspijk
+606,408,2026-02-02,completed,5050.73,PayPal,Hagestein
+607,108,2024-08-21,completed,3765.6,iDEAL,Eelderwolde
+608,474,2025-10-19,completed,2737.88,iDEAL,Kapelle
+609,459,2024-05-31,completed,1824.25,Creditcard,Den Horn
+610,399,2024-05-23,completed,1422.19,Creditcard,Bennekom
+611,193,2025-09-09,processing,23.43,Bancontact,Winde
+612,28,2025-07-31,processing,563.3,Bancontact,Frieschepalen
+613,192,2024-06-22,completed,984.1,PayPal,Heinenoord
+614,66,2024-05-25,completed,3165.66,PayPal,Zuidvelde
+615,310,2025-05-16,completed,6490.04,Bancontact,Diessen
+616,429,2025-03-15,completed,1749.48,Creditcard,Hoorn
+617,127,2025-11-11,completed,4249.57,Achteraf betalen,Drogeham
+618,18,2026-04-04,completed,3841.27,iDEAL,Luinjeberd
+619,355,2024-08-18,shipped,1116.86,iDEAL,Hoevelaken
+620,9,2023-08-16,completed,4026.84,iDEAL,Lauwersoog
+621,500,2024-01-31,completed,2207.65,Bancontact,Brunssum
+622,361,2024-04-07,shipped,2500.98,PayPal,Sauwerd
+623,272,2023-10-22,completed,3254.15,iDEAL,It Heidenskip
+624,318,2024-01-24,processing,1298.73,PayPal,Barger-Compascuum
+625,455,2025-11-11,completed,5401.92,Achteraf betalen,Erichem
+626,361,2023-07-07,completed,2229.61,iDEAL,Annerveenschekanaal
+627,333,2026-04-30,completed,4569.77,Bancontact,Lutjegast
+628,142,2025-04-12,completed,5271.95,Bancontact,Amen
+629,364,2024-07-02,completed,5829.62,iDEAL,Hedel
+630,201,2025-06-11,processing,3752.33,Creditcard,Roderwolde
+631,255,2023-12-06,completed,1255.21,Bancontact,De Steeg
+632,497,2024-11-29,shipped,2990.06,iDEAL,Hartwerd
+633,150,2024-04-15,completed,386.16,PayPal,Woerdense Verlaat
+634,211,2025-06-23,completed,4511.58,Bancontact,Foxhol
+635,235,2023-08-19,completed,1749.58,Bancontact,Budel
+636,191,2023-09-19,returned,1518.72,PayPal,Longerhouw
+637,234,2025-09-02,cancelled,6508.8,Creditcard,Zieuwent
+638,122,2023-07-18,completed,1841.21,Creditcard,Ottoland
+639,288,2025-06-05,shipped,4668.49,Achteraf betalen,Wilnis
+640,155,2024-11-18,completed,1827.82,Creditcard,Appingedam
+641,486,2025-01-11,completed,3204.21,PayPal,Kilder
+642,243,2023-10-30,processing,7197.4,iDEAL,Woerdense Verlaat
+643,72,2026-04-15,shipped,458.06,Bancontact,Steenenkamer
+644,317,2024-09-29,processing,5888.97,Achteraf betalen,Waverveen
+645,114,2025-06-24,shipped,6147.68,iDEAL,Katlijk
+646,500,2024-05-12,completed,1910.76,Achteraf betalen,Sijbekarspel
+647,484,2024-09-13,completed,4186.3,PayPal,Jellum
+648,7,2024-06-27,completed,2810.52,Bancontact,Koarnjum
+649,380,2025-03-18,returned,5129.4,Achteraf betalen,Rasquert
+650,45,2023-11-09,completed,2350.08,iDEAL,Farmsum
+651,4,2024-10-30,completed,5276.17,Creditcard,Paasloo
+652,103,2025-01-30,completed,6360.6,Achteraf betalen,Schijf
+653,379,2024-09-28,completed,151.61,PayPal,Ingber
+654,154,2025-12-05,cancelled,6263.1,Creditcard,Lauwersoog
+655,15,2023-12-26,completed,3264.41,Bancontact,Oudenbosch
+656,290,2025-05-01,completed,2865.23,Achteraf betalen,Tinallinge
+657,376,2026-03-30,completed,2390.14,Creditcard,Aardenburg
+658,183,2024-11-26,completed,2329.99,PayPal,Grafhorst
+659,272,2024-06-10,shipped,432.91,Creditcard,Zuilichem
+660,392,2023-08-19,completed,1823.53,PayPal,Schoonrewoerd
+661,139,2024-06-03,shipped,1859.34,Creditcard,Bitgum
+662,266,2023-11-13,completed,3302.84,Creditcard,Waterhuizen
+663,408,2024-01-02,processing,3625.37,iDEAL,Mûnein
+664,420,2024-05-01,completed,722.88,PayPal,Bellingwolde
+665,354,2024-10-13,completed,5140.64,iDEAL,Sint Jansklooster
+666,114,2024-01-25,completed,1086.21,Creditcard,Schalsum
+667,67,2024-02-15,returned,3203.38,Creditcard,De Kiel
+668,56,2025-07-01,completed,3269.56,iDEAL,Sint Nicolaasga
+669,401,2025-02-01,completed,5506.22,PayPal,Haule
+670,486,2025-05-28,completed,2479.7,Achteraf betalen,Wijnjewoude
+671,292,2025-05-02,completed,2737.11,iDEAL,Nisse
+672,474,2023-08-27,completed,4752.91,PayPal,Herpen
+673,195,2026-03-15,completed,5530.1,Bancontact,Weiteveen
+674,391,2026-02-26,completed,4230.46,iDEAL,Rossum
+675,198,2025-08-10,completed,4571.74,iDEAL,Langweer
+676,459,2025-03-13,processing,3816.46,Bancontact,Gasselternijveen
+677,225,2024-02-01,completed,708.76,Bancontact,Heusden
+678,206,2025-08-26,shipped,417.81,iDEAL,Rijsenhout
+679,187,2025-07-22,returned,3297.69,Bancontact,Puttershoek
+680,143,2023-07-20,shipped,6277.83,Bancontact,Voorthuizen
+681,262,2024-02-18,completed,4071.15,iDEAL,Zuidveld
+682,51,2024-07-27,shipped,2062.98,iDEAL,Garderen
+683,498,2024-01-07,completed,2651.51,Bancontact,Gronsveld
+684,406,2023-06-09,completed,4837.92,PayPal,Wijnandsrade
+685,415,2025-08-29,processing,3964.72,Bancontact,Feanwâlden
+686,19,2024-09-06,completed,5427.88,Bancontact,Aalsum
+687,250,2026-05-18,shipped,6573.2,Creditcard,Westdorpe
+688,260,2024-07-27,completed,4159.3,PayPal,Schaijk
+689,165,2024-11-10,completed,5503.28,iDEAL,Oudewater
+690,220,2024-09-27,completed,4012.69,Creditcard,Zijldijk
+691,332,2024-07-31,completed,510.94,PayPal,Oostwoud
+692,59,2025-05-24,completed,1204.8,iDEAL,Wanneperveen
+693,236,2026-01-10,shipped,4004.35,iDEAL,Wolvega
+694,163,2023-06-10,completed,2199.46,PayPal,Vijfhuizen
+695,255,2026-03-07,completed,1932.69,Bancontact,Hierden
+696,326,2024-01-12,processing,602.4,PayPal,Hieslum
+697,136,2026-05-03,completed,3361.11,PayPal,Egmond-Binnen
+698,35,2023-05-21,completed,5518.26,Achteraf betalen,Rotterdam
+699,161,2025-10-04,completed,3048.66,Achteraf betalen,Neeritter
+700,442,2025-01-12,completed,4858.38,Bancontact,Sint Joost
+701,479,2023-11-24,completed,953.81,PayPal,Winterswijk
+702,237,2026-03-02,completed,1912.02,Bancontact,Benthuizen
+703,164,2023-12-22,processing,644.77,Bancontact,Groot-Ammers
+704,137,2024-11-21,processing,2057.85,Bancontact,Doezum
+705,123,2026-05-04,completed,2662.74,Bancontact,Gendringen
+706,287,2026-04-28,returned,4305.77,PayPal,Hieslum
+707,338,2024-03-05,completed,1969.02,iDEAL,Capelle aan den IJssel
+708,29,2025-01-17,processing,2965.38,PayPal,Megchelen
+709,444,2023-06-19,completed,4704.56,iDEAL,Sint Philipsland
+710,293,2025-01-22,shipped,2861.43,Achteraf betalen,Ouwster-Nijega
+711,487,2026-05-05,shipped,4626.86,Bancontact,Sirjansland
+712,413,2026-02-04,shipped,460.56,Creditcard,Wageningen
+713,110,2025-12-29,cancelled,6637.45,iDEAL,Diever
+714,163,2024-12-19,completed,2842.17,PayPal,Nieuwpoort
+715,11,2026-02-08,shipped,3602.68,PayPal,Voorthuizen
+716,328,2026-04-06,cancelled,3146.05,iDEAL,Dronten
+717,466,2023-08-06,cancelled,2417.36,Creditcard,Afferden
+718,469,2024-02-20,completed,2363.14,Bancontact,Lellens
+719,242,2025-02-10,shipped,1866.61,Achteraf betalen,Nieuwerkerk
+720,34,2023-09-09,completed,6793.3,Creditcard,Hoogezand
+721,323,2025-07-17,completed,690.86,PayPal,Ossenzijl
+722,161,2024-09-03,completed,704.33,Achteraf betalen,Tripscompagnie
+723,366,2025-12-15,cancelled,2750.06,Bancontact,Rijpwetering
+724,245,2024-02-12,processing,2406.24,PayPal,Denekamp
+725,410,2024-11-24,completed,536.26,Creditcard,Linne
+726,202,2024-04-18,processing,3973.75,PayPal,Waterlandkerkje
+727,360,2023-08-18,processing,539.25,Bancontact,Rottum
+728,308,2024-06-25,completed,640.73,Achteraf betalen,Mirns
+729,61,2024-05-14,completed,4753.41,PayPal,Heino
+730,148,2024-05-21,shipped,2461.0,Creditcard,Veenendaal
+731,215,2024-07-03,completed,2428.27,Achteraf betalen,Jellum
+732,231,2025-02-15,cancelled,2095.46,Bancontact,Hiaure
+733,69,2024-10-30,processing,5824.08,PayPal,'t Zand
+734,38,2025-05-22,completed,21.72,Creditcard,Melderslo
+735,242,2025-04-02,cancelled,2530.6,PayPal,Genemuiden
+736,203,2026-05-12,shipped,2600.47,PayPal,Schijndel
+737,87,2023-10-16,completed,4439.83,Bancontact,Witmarsum
+738,73,2024-04-15,completed,3281.22,Bancontact,Oosterstreek
+739,145,2025-07-09,cancelled,2761.92,Creditcard,Ewijk
+740,162,2023-11-29,shipped,3441.17,Creditcard,Meppen
+741,28,2025-05-01,completed,15.62,Creditcard,Veenendaal
+742,362,2024-04-26,completed,645.11,Bancontact,Olst
+743,183,2025-11-21,returned,3932.14,PayPal,Colijnsplaat
+744,93,2025-08-18,processing,4370.03,Bancontact,Vries
+745,472,2023-07-11,completed,5001.88,Bancontact,Driel
+746,192,2023-08-23,completed,528.31,iDEAL,Beetsterzwaag
+747,42,2024-02-15,completed,4871.24,Achteraf betalen,Zorgvlied
+748,487,2024-08-21,completed,5354.27,Achteraf betalen,Gameren
+749,196,2023-08-15,completed,2435.61,Creditcard,Echtenerbrug
+750,84,2025-06-29,completed,3543.24,Bancontact,Ravenswaaij
+751,377,2025-06-21,processing,3172.24,PayPal,Oudehorne
+752,263,2025-02-28,completed,4986.99,PayPal,Bruinisse
+753,315,2025-12-22,completed,4961.97,Creditcard,Haarsteeg
+754,477,2024-06-26,completed,6088.55,PayPal,Gytsjerk
+755,431,2023-07-28,completed,4915.17,Achteraf betalen,Scharendijke
+756,218,2024-05-24,completed,5410.7,Achteraf betalen,Rottevalle
+757,9,2025-11-17,completed,5652.7,PayPal,Anderen
+758,301,2023-09-13,shipped,1868.0,Achteraf betalen,Cuijk
+759,133,2023-05-26,processing,2016.36,iDEAL,Franeker
+760,3,2023-12-13,completed,2500.38,Bancontact,Retranchement
+761,236,2025-09-04,shipped,7010.4,Bancontact,Bitgum
+762,412,2025-12-08,completed,676.82,iDEAL,Engwierum
+763,357,2025-08-12,returned,536.62,Creditcard,Langezwaag
+764,333,2025-05-11,completed,4078.29,Creditcard,Wilnis
+765,463,2024-11-27,completed,4236.66,Achteraf betalen,Oeffelt
+766,425,2024-02-22,processing,628.66,iDEAL,Kedichem
+767,323,2023-07-21,processing,3602.11,iDEAL,Koedijk
+768,250,2023-06-08,completed,3783.06,Bancontact,Marwijksoord
+769,296,2023-06-15,completed,1881.81,Bancontact,Drieborg
+770,456,2024-02-03,completed,3401.8,PayPal,Stolwijk
+771,372,2026-01-24,completed,4113.63,PayPal,2e Valthermond
+772,472,2025-03-21,shipped,5361.73,PayPal,Nieuwdorp
+773,408,2023-07-22,completed,1200.77,iDEAL,Schoonoord
+774,342,2025-02-14,completed,4135.51,iDEAL,Pingjum
+775,407,2025-12-17,completed,3269.19,PayPal,Wessem
+776,347,2025-03-27,completed,2904.41,Bancontact,Eastermar
+777,133,2025-12-06,returned,3136.94,Achteraf betalen,Eibergen
+778,310,2025-04-09,shipped,1487.1,iDEAL,Emmen
+779,500,2024-09-12,completed,4629.54,PayPal,Assendelft
+780,81,2024-02-04,shipped,3875.27,PayPal,Westdorp
+781,420,2025-06-06,completed,1011.68,Bancontact,Weteringbrug
+782,175,2024-10-18,completed,3446.45,Bancontact,Tilburg
+783,185,2025-08-11,shipped,1195.44,Creditcard,Aartswoud
+784,71,2023-06-25,processing,3224.99,iDEAL,Zetten
+785,368,2023-06-11,processing,1564.64,PayPal,Echtenerbrug
+786,206,2025-10-09,returned,1620.8,Creditcard,Hartwerd
+787,463,2023-10-07,completed,3571.23,PayPal,Nieuwerkerk aan den IJssel
+788,5,2025-02-09,processing,5249.16,Bancontact,Druten
+789,358,2024-01-14,completed,4954.12,Creditcard,Nederhorst den Berg
+790,267,2023-07-21,returned,3537.59,PayPal,Dussen
+791,388,2024-02-17,shipped,2259.03,Achteraf betalen,Breskens
+792,133,2023-11-22,completed,2488.19,PayPal,Varsselder
+793,133,2025-05-21,shipped,5045.33,PayPal,Kolhorn
+794,294,2025-11-02,shipped,3840.57,Achteraf betalen,Noordeinde Gld
+795,433,2025-04-26,completed,3937.2,Creditcard,Zuidbroek
+796,366,2025-08-18,completed,3063.57,Creditcard,Meterik
+797,422,2023-10-29,shipped,1498.2,Bancontact,Hapert
+798,455,2023-07-04,completed,1917.32,Achteraf betalen,Nieuwe Niedorp
+799,207,2026-04-23,completed,5352.98,Bancontact,Weiteveen
+800,422,2024-01-02,completed,4504.52,Creditcard,Harlingen
+801,234,2025-07-10,completed,2557.19,Bancontact,Schoonloo
+802,57,2024-07-07,completed,7304.92,Bancontact,Kamerik
+803,15,2025-04-03,shipped,994.08,PayPal,Boer
+804,111,2025-09-21,completed,3542.94,Achteraf betalen,Landhorst
+805,159,2023-05-24,completed,2870.47,Achteraf betalen,Schoonoord
+806,326,2025-11-28,completed,4414.66,Achteraf betalen,Bruinehaar
+807,210,2024-03-29,completed,5537.98,iDEAL,Zalk
+808,444,2025-07-06,completed,827.19,PayPal,Linde
+809,288,2023-11-15,shipped,7183.08,Achteraf betalen,Rozenburg
+810,460,2024-11-23,completed,6267.79,Achteraf betalen,Oisterwijk
+811,165,2024-05-19,completed,506.31,PayPal,Venray
+812,224,2023-08-17,completed,129.34,Bancontact,Werkhoven
+813,132,2025-02-03,completed,658.44,PayPal,Koudekerk aan den Rijn
+814,74,2026-02-02,completed,744.34,Bancontact,Gauw
+815,348,2024-08-26,completed,3085.66,Bancontact,Kapelle
+816,458,2023-05-19,completed,4279.19,Achteraf betalen,Schinnen
+817,386,2023-12-13,completed,627.27,PayPal,Heesch
+818,238,2024-10-30,completed,269.03,Bancontact,Vlaardingen
+819,325,2024-08-12,completed,1881.81,Achteraf betalen,Koekange
+820,346,2025-07-07,completed,5238.87,Creditcard,Groningen
+821,192,2025-11-02,completed,2963.92,Bancontact,Noordeloos
+822,22,2024-01-14,completed,4489.4,Achteraf betalen,Dedgum
+823,129,2024-04-27,processing,1679.54,Achteraf betalen,Hertme
+824,289,2025-10-30,completed,1104.09,iDEAL,Heinenoord
+825,426,2025-10-12,completed,3566.18,Bancontact,Baard
+826,140,2026-03-29,completed,2490.48,Creditcard,Kloetinge
+827,331,2025-07-15,cancelled,5310.35,Bancontact,Hulsel
+828,276,2025-11-26,completed,602.4,Bancontact,Naarden
+829,345,2025-06-11,completed,2799.1,PayPal,Westerhoven
+830,480,2023-12-22,completed,2772.84,iDEAL,Dalfsen
+831,389,2024-07-25,completed,4230.11,Creditcard,Biezenmortel
+832,120,2023-12-21,returned,3590.34,Creditcard,Gerkesklooster
+833,4,2024-02-03,completed,3418.89,Achteraf betalen,Best
+834,345,2024-12-16,shipped,4281.91,Achteraf betalen,Terneuzen
+835,374,2025-03-16,shipped,3222.06,Achteraf betalen,Aadorp
+836,315,2024-02-02,completed,4516.47,PayPal,Olst
+837,63,2026-02-17,shipped,3232.78,PayPal,Oud-Beijerland
+838,471,2024-01-04,completed,6055.29,Creditcard,Ruigahuizen
+839,354,2024-01-11,completed,185.57,Creditcard,Westervoort
+840,169,2025-10-17,completed,1506.02,Bancontact,Parrega
+841,414,2025-11-02,completed,2590.05,iDEAL,Simonshaven
+842,421,2025-05-13,completed,2555.55,Bancontact,Idskenhuizen
+843,392,2025-05-16,completed,4299.44,iDEAL,Wâlterswâld
+844,401,2023-09-06,completed,2491.62,iDEAL,Loerbeek
+845,287,2024-02-18,completed,4662.03,Achteraf betalen,Goedereede
+846,6,2023-09-08,completed,2962.56,Achteraf betalen,Uitgeest
+847,169,2025-07-26,completed,941.75,Achteraf betalen,Westknollendam
+848,366,2023-11-11,completed,1643.31,PayPal,Retranchement
+849,182,2025-08-30,completed,3944.67,Achteraf betalen,Lauwerzijl
+850,492,2024-04-11,shipped,2398.01,PayPal,Wieringerwerf
+851,309,2025-06-12,completed,2768.45,iDEAL,Vinkega
+852,122,2023-09-20,completed,3078.86,Bancontact,Noordeinde
+853,356,2026-02-06,shipped,5168.22,Bancontact,Langbroek
+854,169,2025-06-24,completed,5655.97,Bancontact,Beemte Broekland
+855,320,2023-08-31,completed,2853.67,iDEAL,Hoornaar
+856,186,2024-06-01,completed,4194.65,Creditcard,Tjerkgaast
+857,324,2024-11-27,completed,2659.19,Creditcard,Schalsum
+858,454,2026-05-14,completed,777.25,Creditcard,Oudewater
+859,12,2025-07-13,completed,2346.67,iDEAL,Winterswijk Miste
+860,174,2024-11-12,cancelled,4394.52,Achteraf betalen,'t Haantje
+861,410,2024-04-11,returned,4683.47,Bancontact,Vinkel
+862,356,2024-02-23,completed,5792.08,Creditcard,Born
+863,168,2024-02-23,completed,2011.43,iDEAL,Castelre
+864,402,2023-08-16,completed,8962.7,Bancontact,Blauwhuis
+865,92,2025-04-17,completed,2727.15,PayPal,Esbeek
+866,298,2025-01-10,completed,4620.94,Bancontact,Numansdorp
+867,456,2023-12-28,completed,3412.69,Creditcard,Brummen
+868,385,2023-08-05,completed,2651.88,PayPal,Oss
+869,219,2025-05-26,completed,3710.13,Bancontact,Warmenhuizen
+870,120,2025-11-14,completed,621.6,PayPal,Nederweert-Eind
+871,432,2026-01-06,completed,2807.16,Creditcard,Tytsjerk
+872,171,2025-05-06,completed,2330.26,Achteraf betalen,Boornzwaag
+873,71,2024-12-01,returned,3906.72,iDEAL,Zegveld
+874,242,2024-05-06,shipped,561.02,Creditcard,Jubbega
+875,243,2025-05-20,completed,6383.27,Bancontact,Ledeacker
+876,108,2025-10-18,completed,6217.46,PayPal,Woerden
+877,174,2023-09-03,completed,6905.7,Achteraf betalen,Middelstum
+878,12,2023-07-17,completed,343.63,PayPal,Vierhouten
+879,291,2024-04-29,shipped,4982.48,Bancontact,Handel
+880,56,2025-02-12,completed,3952.71,iDEAL,De Glind
+881,424,2025-02-14,shipped,2611.96,PayPal,Rotterdam-Albrandswaard
+882,338,2024-10-28,completed,3363.53,Creditcard,Ellemeet
+883,57,2025-11-06,completed,2610.23,Bancontact,Boerakker
+884,419,2024-10-06,shipped,5945.65,Bancontact,Aerdt
+885,142,2025-10-22,completed,3418.79,Creditcard,Reek
+886,270,2025-03-11,completed,6361.47,PayPal,Klimmen
+887,359,2025-05-12,processing,2609.91,Achteraf betalen,Sappemeer
+888,376,2024-11-25,completed,3101.75,Creditcard,Roodeschool
+889,454,2024-01-21,processing,3821.25,Creditcard,Hoogmade
+890,466,2025-12-09,completed,7003.82,PayPal,Hoogvliet Rotterdam
+891,107,2023-12-14,completed,3945.14,PayPal,Den Burg
+892,382,2025-12-30,completed,1014.23,iDEAL,Anna Paulowna
+893,364,2025-10-15,cancelled,2823.83,iDEAL,De Glind
+894,281,2023-09-25,shipped,1356.11,Creditcard,Hantumeruitburen
+895,151,2024-05-31,completed,4047.77,Bancontact,Tollebeek
+896,184,2023-07-07,completed,297.06,Creditcard,Rilland
+897,227,2024-11-17,shipped,6743.04,Achteraf betalen,Oeffelt
+898,3,2023-05-30,completed,2632.25,Bancontact,Appeltern
+899,15,2024-11-06,returned,1858.25,Creditcard,Lutjebroek
+900,371,2024-05-01,completed,5516.19,Creditcard,Reduzum
+901,479,2024-02-25,completed,2533.64,Bancontact,Egmond aan den Hoef
+902,335,2026-01-23,completed,6606.64,PayPal,Cuijk
+903,23,2024-04-28,completed,3800.86,iDEAL,Bovenkarspel
+904,365,2024-04-13,completed,5149.27,Creditcard,Bakkeveen
+905,171,2025-08-05,completed,3101.03,Achteraf betalen,Uitwijk
+906,230,2024-05-31,completed,1744.97,Creditcard,Ressen
+907,11,2024-08-04,shipped,856.72,Bancontact,Burgum
+908,388,2024-06-24,completed,276.56,PayPal,Dorst
+909,256,2026-03-28,completed,1709.36,Creditcard,Yde
+910,473,2026-02-08,shipped,4575.65,Bancontact,Barchem
+911,332,2023-08-30,processing,192.99,PayPal,Wouw
+912,176,2023-11-17,completed,3640.53,PayPal,Moerstraten
+913,94,2025-05-01,completed,1682.58,iDEAL,Drimmelen
+914,489,2023-06-20,completed,894.95,Achteraf betalen,Wyns
+915,282,2025-09-06,processing,2531.55,Bancontact,Earnewâld
+916,160,2024-11-01,completed,1254.11,Creditcard,Heukelom
+917,156,2024-02-02,completed,3882.57,Creditcard,Dirksland
+918,242,2025-09-15,completed,2411.74,PayPal,'s-Heerenbroek
+919,305,2026-03-10,completed,7520.39,Achteraf betalen,Molenhoek
+920,247,2024-11-08,completed,973.57,Creditcard,Waverveen
+921,3,2025-03-12,completed,9223.63,Bancontact,Oudewater
+922,158,2025-09-09,shipped,4971.35,PayPal,Baarlo
+923,261,2026-03-05,shipped,3624.7,Creditcard,Sint Anthonis
+924,125,2023-12-15,completed,1578.98,Creditcard,Nootdorp
+925,134,2023-07-10,shipped,1800.45,Creditcard,Bruchem
+926,7,2023-10-10,completed,1529.37,Bancontact,Jouswier
+927,204,2026-01-19,shipped,418.9,Bancontact,Buinen
+928,85,2025-09-08,processing,4842.64,Achteraf betalen,Dreischor
+929,158,2025-05-06,shipped,2553.09,Achteraf betalen,Oldeholtpade
+930,398,2023-07-18,shipped,1052.97,Bancontact,Schoondijke
+931,358,2024-03-16,completed,657.92,Bancontact,Oud-Vossemeer
+932,269,2025-05-17,completed,1125.31,Creditcard,Oudkarspel
+933,102,2024-10-27,completed,3495.8,PayPal,Drongelen
+934,462,2025-08-16,processing,2695.45,Bancontact,Bellingwolde
+935,64,2024-01-20,completed,3581.65,iDEAL,Jouswier
+936,5,2023-11-09,completed,1575.36,iDEAL,Gemonde
+937,50,2026-04-27,completed,1086.45,Achteraf betalen,Stavenisse
+938,493,2023-08-06,shipped,4713.11,PayPal,Schoonhoven
+939,162,2024-02-25,processing,2479.41,PayPal,Heelsum
+940,413,2026-05-13,completed,2687.24,PayPal,Delfzijl
+941,487,2025-03-15,shipped,4628.73,Bancontact,Den Dolder
+942,264,2025-02-08,completed,376.15,PayPal,Nieuwveen
+943,448,2025-06-02,completed,1337.82,Achteraf betalen,Schettens
+944,407,2024-06-18,completed,3727.8,Creditcard,Zuidoostbeemster
+945,365,2025-10-07,completed,5157.25,Bancontact,Oirsbeek
+946,87,2025-01-15,processing,807.09,Achteraf betalen,Garnwerd
+947,124,2023-08-17,completed,1807.31,iDEAL,Zeist
+948,223,2023-08-11,returned,637.92,Bancontact,Zuidoostbeemster
+949,393,2023-09-11,completed,3699.23,Achteraf betalen,Noardburgum
+950,325,2025-10-29,shipped,1895.84,Creditcard,Hoogeloon
+951,478,2024-10-05,completed,8985.19,Achteraf betalen,Willemstad
+952,495,2025-08-19,processing,304.41,iDEAL,Geulle
+953,58,2024-11-15,completed,5284.78,iDEAL,Vredenheim
+954,160,2023-10-24,completed,3985.98,Achteraf betalen,Wetsens
+955,303,2024-08-06,completed,4072.96,Bancontact,Papenhoven
+956,76,2023-12-16,shipped,950.82,Achteraf betalen,Panningen
+957,164,2025-12-24,completed,2133.66,Achteraf betalen,Wijdewormer
+958,245,2024-09-22,shipped,3779.83,iDEAL,'s-Gravenpolder
+959,415,2024-08-01,completed,622.92,iDEAL,Hunsel
+960,473,2026-04-30,processing,2707.18,Creditcard,'s-Hertogenbosch
+961,12,2025-06-02,completed,2221.68,iDEAL,Hoogkarspel
+962,271,2025-09-07,shipped,2839.19,Creditcard,Netersel
+963,166,2025-10-09,shipped,3853.23,Bancontact,Gasselternijveen
+964,150,2023-09-02,processing,661.01,iDEAL,Dorst
+965,186,2024-06-10,shipped,4275.0,Bancontact,Oosthem
+966,92,2024-05-18,cancelled,1298.73,PayPal,Peperga
+967,304,2024-08-16,completed,1285.91,iDEAL,Mensingeweer
+968,61,2026-02-23,completed,6130.97,iDEAL,Kapel Avezaath
+969,399,2025-01-29,completed,2668.33,iDEAL,Diepenheim
+970,63,2023-08-16,completed,6867.75,Creditcard,Broek op Langedijk
+971,197,2023-08-29,completed,2002.32,Creditcard,Genderen
+972,208,2025-01-18,processing,2711.64,Achteraf betalen,Rijs
+973,402,2024-01-04,processing,4607.38,iDEAL,Stiens
+974,93,2026-05-07,processing,2575.72,iDEAL,Giessen
+975,21,2023-10-05,completed,1610.45,PayPal,Oosterwijk
+976,436,2025-12-04,shipped,2427.45,PayPal,Sint Maartensvlotbrug
+977,187,2025-04-17,cancelled,678.51,PayPal,Veen
+978,24,2023-08-20,cancelled,6151.41,PayPal,'t Harde
+979,311,2024-08-15,completed,1645.37,Creditcard,Leende
+980,19,2025-05-29,completed,2499.14,PayPal,Rotstergaast
+981,143,2025-05-11,completed,3416.71,iDEAL,Ridderkerk
+982,484,2023-07-01,completed,6845.87,Creditcard,Hoogeloon
+983,366,2024-03-22,completed,3719.94,iDEAL,Wolvega
+984,139,2023-08-23,completed,2442.33,Bancontact,Slochteren
+985,34,2026-02-10,completed,927.66,PayPal,Wierum
+986,75,2025-05-15,processing,1206.72,Creditcard,Maarheeze
+987,194,2025-11-01,cancelled,2128.41,PayPal,Mantgum
+988,302,2025-05-01,processing,3122.97,Achteraf betalen,Scherpenisse
+989,51,2025-10-10,processing,712.57,PayPal,Venhuizen
+990,413,2025-08-17,shipped,5323.92,Creditcard,Overschild
+991,337,2025-08-28,completed,3370.56,Creditcard,Nieuw-Schoonebeek
+992,348,2025-02-10,shipped,5759.28,Achteraf betalen,Bitgummole
+993,483,2023-07-14,shipped,1747.6,Bancontact,Baarn
+994,395,2023-09-30,completed,644.77,iDEAL,Maarsbergen
+995,374,2023-10-21,completed,2219.7,iDEAL,Opmeer
+996,44,2025-08-07,shipped,5188.1,Achteraf betalen,Reuver
+997,358,2025-04-26,completed,83.24,iDEAL,Abbenbroek
+998,366,2023-10-08,completed,6608.82,Bancontact,Reek
+999,494,2024-11-30,completed,4469.37,Bancontact,Kortgene
+1000,88,2026-03-31,completed,219.21,Creditcard,IJsselmuiden

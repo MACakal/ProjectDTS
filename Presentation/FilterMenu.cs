@@ -6,12 +6,14 @@ public class FilterMenu
 {
     private readonly ProductService _productService;
     private readonly ViewProductPres _viewProductPres;
+    private readonly UserActionLogService _userActionLogService;
 
 
-    public FilterMenu(ProductService productService, ViewProductPres viewProductPres)
+    public FilterMenu(ProductService productService, ViewProductPres viewProductPres, UserActionLogService userActionLogService)
     {
         _productService = productService;
         _viewProductPres = viewProductPres;
+        _userActionLogService = userActionLogService;
     }
 
 
@@ -65,7 +67,6 @@ public class FilterMenu
                     }
                 case "0":
                     {
-                        Console.Clear();
                         return;
                     }
                 default:
@@ -81,6 +82,19 @@ public class FilterMenu
         Console.WriteLine("\nWhat category do you want to filter by?");
         var cat = Console.ReadLine() ?? "";
         var products = _productService.GetProductsByCategory(cat);
+
+        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+        {
+            UserSessionId = UserSession.SessionId,
+            UserId = null,
+            ActionType = "FilterByCategory",
+            Details = new Dictionary<string, string>
+            {
+                { "Category", cat },
+                { "ResultCount", products.Count().ToString() }
+            }
+        });
+
         _viewProductPres.Viewproducts(products);
     }
 
@@ -89,6 +103,18 @@ public class FilterMenu
         decimal min = ReadDecimal("Minimum?", x => true, "Invalid number.");
         decimal max = ReadDecimal("Maximum?", x => x >= min, "Max must be greater than min.");
         var products = _productService.GetProductsByRange(min, max);
+        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+        {
+            UserSessionId = UserSession.SessionId,
+            UserId = null,
+            ActionType = "FilterByPriceRange",
+            Details = new Dictionary<string, string>
+            {
+                { "Minimum", min.ToString() },
+                { "Maximum", max.ToString() },
+                { "ResultCount", products.Count().ToString() }
+            }
+        });
         _viewProductPres.Viewproducts(products);
     }
 
@@ -116,6 +142,17 @@ public class FilterMenu
         bool ascending = sortChoice == "1";
 
         var results = _productService.GetProductsSortedByPrice(ascending);
+        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+        {
+            UserSessionId = UserSession.SessionId,
+            UserId = null,
+            ActionType = "FilterByPrice",
+            Details = new Dictionary<string, string>
+            {
+                { "SortOrder", ascending ? "LowToHigh" : "HighToLow" },
+                { "ResultCount", results.Count().ToString() }
+            }
+        });
         Console.Clear();
         _viewProductPres.Viewproducts(results);
     }
@@ -131,6 +168,18 @@ public class FilterMenu
         }
 
         var results = _productService.SearchProductsByName(input);
+
+        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+        {
+            UserSessionId = UserSession.SessionId,
+            UserId = null,
+            ActionType = "SearchProducts",
+            Details = new Dictionary<string, string>
+            {
+                { "SearchTerm", input },
+                { "ResultCount", results.Count().ToString() }
+            }
+        });
         _viewProductPres.Viewproducts(results);
 
     }
@@ -191,6 +240,18 @@ public class FilterMenu
         }
 
         var products = _productService.GetProductsByStarRating(stars);
+
+        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+        {
+            UserId = null,
+            UserSessionId = UserSession.SessionId,
+            ActionType = "FilterByStarRating",
+            Details = new Dictionary<string, string>
+            {
+                { "StarRating", stars.ToString() },
+                { "ResultCount", products.Count().ToString() }
+            }
+        });
 
         Console.Clear();
         _viewProductPres.Viewproducts(products);

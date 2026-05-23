@@ -11,18 +11,26 @@ public class BasketMenu
     private static SortingMenu _sortingMenu;
     private static RatingService _ratingService;
     private static ViewProductPres _viewProductPres;
-
+    private static UserActionLogService _userActionLogService;
     private static UserService _userService;
     private static GraphProductService _graphProductService;
 
-    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService,
-                    SortingMenu sortingMenu, RatingService ratingService, UserService userService, GraphProductService graphProductService)
+    public BasketMenu(
+        ProductService productService,
+        FilterMenu filterMenu,
+        BasketService basketService,
+        SortingMenu sortingMenu,
+        RatingService ratingService,
+        UserActionLogService userActionLogService,
+        UserService userService,
+        GraphProductService graphProductService)
     {
         _productService = productService;
         _filterMenu = filterMenu;
         _basketService = basketService;
         _sortingMenu = sortingMenu;
         _ratingService = ratingService;
+        _userActionLogService = userActionLogService;
         _userService = userService;
         _graphProductService = graphProductService;
     }
@@ -387,7 +395,7 @@ public class BasketMenu
     public static void PrintAll()
     {
         var products = _productService.GetAllProducts();
-        ViewProductPres view = new(_productService, _ratingService);
+        ViewProductPres view = new(_productService, _ratingService, _userActionLogService);
         view.DisplayProducts(products);
     }
 
@@ -503,6 +511,18 @@ public class BasketMenu
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"❌ Error submitting rating: {ex.Message}");
             Console.ResetColor();
+            _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+            {
+                UserSessionId = UserSession.SessionId,
+                UserId = UserSession.CurrentUser.Id,
+                ActionType = "RatingError",
+                Details = new Dictionary<string, string>
+                {
+                    { "ProductId", productId.ToString() },
+                    { "AttemptedRating", rating.ToString() },
+                    { "ErrorMessage", ex.Message }
+                }
+            });
         }
     }
 
