@@ -13,4 +13,23 @@ public class OrderMongoService
     {
         await _orders.InsertOneAsync(order);
     }
+
+    public async Task<List<OrderDocument>> GetOrdersByUserIdAsync(int userId)
+    {
+        return await _orders
+            .Find(o => o.UserId == userId)
+            .SortByDescending(o => o.CreatedAt)
+            .ToListAsync();
+    }
+
+    public async Task AddStatusUpdateAsync(int postgresOrderId, string statusName)
+    {
+        var filter = Builders<OrderDocument>.Filter.Eq(o => o.PostgresOrderId, postgresOrderId);
+        var update = Builders<OrderDocument>.Update.Push(o => o.StatusHistory, new OrderStatusEntry
+        {
+            StatusName = statusName,
+            Timestamp = DateTime.UtcNow
+        });
+        await _orders.UpdateOneAsync(filter, update);
+    }
 }

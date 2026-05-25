@@ -53,6 +53,7 @@ public class PastOrders
         Console.WriteLine("[2] Choose time period");
         Console.WriteLine("[3] Cancel an order (within 24h)");
         Console.WriteLine("[4] Review a purchased product");
+        Console.WriteLine("[5] View order status history");
         Console.WriteLine("[0] Back");
 
         string input = Console.ReadLine();
@@ -72,6 +73,10 @@ public class PastOrders
         else if (input == "4")
         {
             ReviewPurchasedProduct(items);
+        }
+        else if (input == "5")
+        {
+            ShowOrderStatusHistory(items);
         }
     }
 
@@ -172,6 +177,66 @@ public class PastOrders
         }
 
         return (start, end);
+    }
+
+    private static void ShowOrderStatusHistory(List<OrderLine> items)
+    {
+        var orderMongoService = new OrderMongoService(_mongoContext);
+
+        var distinctOrders = items
+            .GroupBy(i => i.OrderId)
+            .Select(g => new { OrderId = g.Key, Date = g.First().OrderDate })
+            .OrderByDescending(o => o.Date)
+            .ToList();
+
+        if (distinctOrders.Count == 0)
+        {
+            Console.WriteLine("No orders found.");
+            Console.ReadKey();
+            return;
+        }
+
+        Console.WriteLine("\nSelect an order:");
+        for (int i = 0; i < distinctOrders.Count; i++)
+            Console.WriteLine($"{i + 1}. Order #{distinctOrders[i].OrderId} — {distinctOrders[i].Date:dd-MM-yyyy HH:mm}");
+
+        if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > distinctOrders.Count)
+        {
+            Console.WriteLine("Invalid selection.");
+            Console.ReadKey();
+            return;
+        }
+
+        int selectedOrderId = distinctOrders[choice - 1].OrderId;
+
+        var allOrders = orderMongoService.GetOrdersByUserIdAsync(UserSession.CurrentUser.Id)
+            .GetAwaiter().GetResult();
+
+        var doc = allOrders.FirstOrDefault(o => o.PostgresOrderId == selectedOrderId);
+
+        if (doc == null || doc.StatusHistory == null || doc.StatusHistory.Count == 0)
+        {
+            Console.WriteLine("No status history found for this order.");
+            Console.ReadKey();
+            return;
+        }
+
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine($"=== STATUS HISTORY — Order #{selectedOrderId} ===\n");
+        Console.ResetColor();
+
+        foreach (var entry in doc.StatusHistory)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{entry.Timestamp.ToLocalTime():dd-MM-yyyy HH:mm}  ");
+            Console.ResetColor();
+            Console.WriteLine(entry.StatusName);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
 
     private static void ReviewPurchasedProduct(List<OrderLine> items)

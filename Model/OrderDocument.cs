@@ -5,10 +5,9 @@ public class OrderDocument
     [BsonId]
     public ObjectId Id { get; set; }
     public int UserId { get; set; }
-
+    public int PostgresOrderId { get; set; }
     public DateTime CreatedAt { get; set; }
-
     public decimal TotalPrice { get; set; }
-    public string Status { get; set; }
+    public List<OrderStatusEntry> StatusHistory { get; set; } = new();
     public List<BasketItem> Products { get; set; }
 }
