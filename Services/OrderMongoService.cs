@@ -32,4 +32,12 @@ public class OrderMongoService
         });
         await _orders.UpdateOneAsync(filter, update);
     }
+
+    public async Task<List<OrderDocument>> GetAllOrdersAsync()
+    {
+        return await _orders
+            .Find(_ => true)
+            .SortByDescending(o => o.CreatedAt)
+            .ToListAsync();
+    }
 }

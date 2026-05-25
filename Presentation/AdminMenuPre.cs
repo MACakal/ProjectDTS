@@ -1,16 +1,13 @@
-
 namespace ProjectDTS;
 
 public class AdminMenuPres
 {
-    // DatabaseService db = new DatabaseService();
     private ProductService _productService;
     private AdminManagerPres _adminManagerPres;
     private ViewProductPres _viewProductPres;
     private AccountPre _accountPre;
     private UserService _userService;
     private readonly GraphInfoAdminPage _graphInfoAdminPage;
-    
 
     public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres, UserService userService, RatingService ratingService, Graphservice graphservice)
     {
@@ -21,7 +18,6 @@ public class AdminMenuPres
         _accountPre = new(_userService);
         _graphInfoAdminPage = new GraphInfoAdminPage(graphservice);
     }
-
 
     public void ShowAdminMenu()
     {
@@ -42,7 +38,6 @@ public class AdminMenuPres
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
-
             Console.WriteLine("── Account ───────────────────────");
             Console.ResetColor();
             Console.WriteLine("[1] View Profile");
@@ -59,25 +54,28 @@ public class AdminMenuPres
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-
-            Console.WriteLine("── Analytics ─────────────────────");
+            Console.WriteLine("── Orders ────────────────────────");
             Console.ResetColor();
-            Console.WriteLine("[7] Most Popular Categories");
-            Console.WriteLine("[8] User Spending");
-            Console.WriteLine("[9] Notifications");
-            Console.WriteLine("[10] Top 3 Products per Category");
-            Console.WriteLine("[11] Info from the Graph database");
-            
+            Console.WriteLine("[7] Manage Order Status");
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("── Analytics ─────────────────────");
+            Console.ResetColor();
+            Console.WriteLine("[8] Most Popular Categories");
+            Console.WriteLine("[9] User Spending");
+            Console.WriteLine("[10] Notifications");
+            Console.WriteLine("[11] Top 3 Products per Category");
+            Console.WriteLine("[12] Info from the Graph database");
+            Console.WriteLine();
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("── Users ─────────────────────────");
             Console.ResetColor();
-            Console.WriteLine("[12] View Users");
-            Console.WriteLine("[13] Edit User");
-            Console.WriteLine("[14] Delete User");
-            Console.WriteLine("[15] Manage Reviews");         
+            Console.WriteLine("[13] View Users");
+            Console.WriteLine("[14] Edit User");
+            Console.WriteLine("[15] Delete User");
+            Console.WriteLine("[16] Manage Reviews");
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -85,7 +83,6 @@ public class AdminMenuPres
             Console.ResetColor();
 
             Console.WriteLine();
-
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("Select option: ");
             Console.ResetColor();
@@ -96,7 +93,6 @@ public class AdminMenuPres
             {
                 case "1":
                     Console.Clear();
-
                     if (user is null || user.Role != UserRole.Admin)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -111,22 +107,17 @@ public class AdminMenuPres
                     Console.Clear();
                     _viewProductPres.Viewproducts();
                     break;
-
                 case "3":
                     Console.Clear();
-
                     Console.WriteLine("Add product...\n");
                     var product = _adminManagerPres.CreateProduct();
                     if (product == null) return;
                     _productService.AddProduct(product);
-
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("Product added successfully.");
-
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Press any key...");
                     Console.ResetColor();
-
                     Console.ReadKey();
                     Console.Clear();
                     break;
@@ -147,44 +138,49 @@ public class AdminMenuPres
                     break;
                 case "7":
                     Console.Clear();
-                    _adminManagerPres.MostPopularCategories();
+                    _adminManagerPres.ManageOrderStatus();
                     Console.ReadKey();
                     break;
                 case "8":
                     Console.Clear();
-                    _adminManagerPres.ShowUserSpending();
+                    _adminManagerPres.MostPopularCategories();
                     Console.ReadKey();
                     break;
                 case "9":
                     Console.Clear();
-                    _adminManagerPres.ShowNotifications();
+                    _adminManagerPres.ShowUserSpending();
                     Console.ReadKey();
                     break;
                 case "10":
                     Console.Clear();
-                    _adminManagerPres.ShowTopProductsPerCategory();
+                    _adminManagerPres.ShowNotifications();
                     Console.ReadKey();
                     break;
                 case "11":
                     Console.Clear();
-                    _graphInfoAdminPage.Show();
+                    _adminManagerPres.ShowTopProductsPerCategory();
+                    Console.ReadKey();
                     break;
                 case "12":
+                    Console.Clear();
+                    _graphInfoAdminPage.Show();
+                    break;
+                case "13":
                     Console.Clear();
                     _adminManagerPres.ViewUsers();
                     Console.ReadKey();
                     break;
-                case "13":
+                case "14":
                     Console.Clear();
                     _adminManagerPres.EditUser();
                     Console.ReadKey();
                     break;
-                case "14":
+                case "15":
                     Console.Clear();
                     _adminManagerPres.DeleteUser();
                     Console.ReadKey();
                     break;
-                case "15":
+                case "16":
                     _adminManagerPres.HandleDeleteReview();
                     Console.ReadKey();
                     Console.Clear();

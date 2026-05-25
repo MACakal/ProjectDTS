@@ -742,6 +742,68 @@ public class AdminManagerPres
         }
     }
 
+    public void ManageOrderStatus()
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== MANAGE ORDER STATUS ===\n");
+        Console.ResetColor();
+
+        var orderMongoService = new OrderMongoService(_mongoContext);
+        var orders = orderMongoService.GetAllOrdersAsync().GetAwaiter().GetResult();
+
+        if (orders.Count == 0)
+        {
+            Console.WriteLine("No orders found.");
+            return;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"{"#",-5} {"OrderId",-10} {"UserId",-10} {"Total",10} {"Date",-15} {"Current Status"}");
+        Console.ResetColor();
+        Console.WriteLine(new string('-', 80));
+
+        for (int i = 0; i < orders.Count; i++)
+        {
+            var order = orders[i];
+            var currentStatus = order.StatusHistory?.LastOrDefault()?.StatusName ?? "Unknown";
+            Console.WriteLine($"{i + 1,-5} {order.PostgresOrderId,-10} {order.UserId,-10} €{order.TotalPrice,8:N2} {order.CreatedAt.ToLocalTime():dd-MM-yyyy HH:mm,-15} {currentStatus}");
+        }
+
+        Console.WriteLine("\nEnter order number to update (or 0 to cancel):");
+        if (!int.TryParse(Console.ReadLine(), out int choice) || choice == 0 || choice < 1 || choice > orders.Count)
+        {
+            Console.WriteLine("Cancelled.");
+            return;
+        }
+
+        var selectedOrder = orders[choice - 1];
+
+        string[] statuses = { "Placed", "Processing", "Shipped", "Delivered", "Cancelled" };
+
+        Console.WriteLine("\nChoose new status:");
+        for (int i = 0; i < statuses.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. {statuses[i]}");
+        }
+
+        if (!int.TryParse(Console.ReadLine(), out int statusChoice) || statusChoice < 1 || statusChoice > statuses.Length)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid choice.");
+            Console.ResetColor();
+            return;
+        }
+
+        string newStatus = statuses[statusChoice - 1];
+
+        orderMongoService.AddStatusUpdateAsync(selectedOrder.PostgresOrderId, newStatus).GetAwaiter().GetResult();
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"\nStatus updated to '{newStatus}' for order #{selectedOrder.PostgresOrderId}!");
+        Console.ResetColor();
+    }
+
 
 }
 
