@@ -67,6 +67,7 @@ Model/
  OrderDocument.cs
  Product.cs
  Rating.cs
+ RatingDetail.cs
  User.cs
 obj/Debug/net10.0/
  .NETCoreApp,Version=v10.0.AssemblyAttributes.cs
@@ -91,6 +92,7 @@ Program.cs
 Services/
  AdminService.cs
  BasketService.cs
+ ContentFilter.cs
  NotificationService.cs
  OrderMongoService.cs
  ProductService.cs

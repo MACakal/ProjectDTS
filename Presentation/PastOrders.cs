@@ -17,7 +17,8 @@ public class PastOrders
     private static RatingService _ratingService = new RatingService
     (StackExchange.Redis.ConnectionMultiplexer.Connect(DotNetEnv.Env.GetString("REDIS_URL")));
 
-    private static ProductService _productService = new ProductService(new DatabaseService(), _ratingService);
+    private static readonly ProductAuditLogService _auditLogService = new ProductAuditLogService(_mongoContext);
+    private static ProductService _productService = new ProductService(new DatabaseService(), _ratingService, _auditLogService);
 
     public static void ShowPastOrders()
     {

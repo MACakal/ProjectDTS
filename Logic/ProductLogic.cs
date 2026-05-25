@@ -1,6 +1,7 @@
 using ProjectDTS;
 using StackExchange.Redis;
 using DotNetEnv;
+using Microsoft.Extensions.Configuration;
 
 public class ProductLogic
 {
@@ -9,7 +10,10 @@ public class ProductLogic
 
     private static readonly RecentProductsService _recentService = new RecentProductsService(_redis);
     private static readonly RatingService _ratingService = new RatingService(_redis);
-    private static readonly ProductService _productService = new ProductService(new DatabaseService(), _ratingService);
+    private static readonly MongoDbContext _mongoContext = new MongoDbContext(
+    new Microsoft.Extensions.Configuration.ConfigurationBuilder().AddJsonFile("appsettings.json").Build());
+    private static readonly ProductAuditLogService _auditLogService = new ProductAuditLogService(_mongoContext);
+    private static readonly ProductService _productService = new ProductService(new DatabaseService(), _ratingService, _auditLogService);
 
     public List<Product> GetTop3ChetProducts()
     {

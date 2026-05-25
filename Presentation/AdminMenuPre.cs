@@ -49,35 +49,35 @@ public class AdminMenuPres
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-
             Console.WriteLine("── Products ──────────────────────");
             Console.ResetColor();
             Console.WriteLine("[2] View Products");
             Console.WriteLine("[3] Add Product");
             Console.WriteLine("[4] Edit Product");
             Console.WriteLine("[5] Delete Product");
+            Console.WriteLine("[6] View Product Logs");
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
 
             Console.WriteLine("── Analytics ─────────────────────");
             Console.ResetColor();
-            Console.WriteLine("[6] Most Popular Categories");
-            Console.WriteLine("[7] User Spending");
-            Console.WriteLine("[8] Notifications");
-            Console.WriteLine("[9] Top 3 Products per Category");
-            Console.WriteLine("[10] Info from the Graph database");
-
-
+            Console.WriteLine("[7] Most Popular Categories");
+            Console.WriteLine("[8] User Spending");
+            Console.WriteLine("[9] Notifications");
+            Console.WriteLine("[10] Top 3 Products per Category");
+            Console.WriteLine("[11] Info from the Graph database");
+            
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
+
             Console.WriteLine("── Users ─────────────────────────");
             Console.ResetColor();
-            Console.WriteLine("[11] View Users");
-            Console.WriteLine("[12] Edit User");
-            Console.WriteLine("[13] Delete User");
-            Console.WriteLine("[14] Manage Reviews");          
+            Console.WriteLine("[12] View Users");
+            Console.WriteLine("[13] Edit User");
+            Console.WriteLine("[14] Delete User");
+            Console.WriteLine("[15] Manage Reviews");         
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -142,50 +142,49 @@ public class AdminMenuPres
                     break;
                 case "6":
                     Console.Clear();
+                    _adminManagerPres.ShowProductLogs();
+                    Console.ReadKey();
+                    break;
+                case "7":
+                    Console.Clear();
                     _adminManagerPres.MostPopularCategories();
                     Console.ReadKey();
                     break;
-
-                case "7":
+                case "8":
                     Console.Clear();
                     _adminManagerPres.ShowUserSpending();
                     Console.ReadKey();
                     break;
-
-                case "8":
+                case "9":
                     Console.Clear();
                     _adminManagerPres.ShowNotifications();
                     Console.ReadKey();
                     break;
-
-                case "9":
+                case "10":
                     Console.Clear();
                     _adminManagerPres.ShowTopProductsPerCategory();
                     Console.ReadKey();
                     break;
-                case "10":
+                case "11":
                     Console.Clear();
                     _graphInfoAdminPage.Show();
                     break;
-                case "11":
+                case "12":
                     Console.Clear();
                     _adminManagerPres.ViewUsers();
                     Console.ReadKey();
                     break;
-
-                case "12":
+                case "13":
                     Console.Clear();
                     _adminManagerPres.EditUser();
                     Console.ReadKey();
                     break;
-
-                case "13":
+                case "14":
                     Console.Clear();
                     _adminManagerPres.DeleteUser();
                     Console.ReadKey();
                     break;
-
-                case "14":
+                case "15":
                     _adminManagerPres.HandleDeleteReview();
                     Console.ReadKey();
                     Console.Clear();
