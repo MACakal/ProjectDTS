@@ -1,4 +1,5 @@
 namespace ProjectDTS;
+
 using DotNetEnv;
 using StackExchange.Redis;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +19,6 @@ public class AdminManagerPres
     public AdminManagerPres(UserService userService)
     {
         _userService = userService;
-        //_ratingService = ratingService;
     }
     public Product? CreateProduct()
     {
@@ -42,20 +42,10 @@ public class AdminManagerPres
             var description = Console.ReadLine();
             if (description.ToLower() == "q") return null;
 
-            // Console.WriteLine("Choose category:");
-            // while (true)
-            // {
+
 
             var category = ChooseCategory();
-            // if (category == null)
-            // {
-            //     Console.WriteLine("Invalid input, try again");
-            // }
-            // else
-            // {
-            //     break;
-            // }
-            // }
+
 
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Press 'q' to exit");
@@ -138,50 +128,41 @@ public class AdminManagerPres
 
     public Product? EditProduct()
     {
-        var db = new DatabaseService();
-        var ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
-        var productService = new ProductService(db, ratingService);
-
         Console.Clear();
 
-        var products = productService.GetAllProducts();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== Select Product To Edit ===");
+        Console.ResetColor();
 
-        Console.WriteLine("\n---- Product List ----");
-
-        if (products.Count == 0)
-        {
-            Console.WriteLine("There are no products to show.");
-            return null;
-        }
-
-        Console.WriteLine($"{"ID",-5} {"Name",-20} {"Category",-20} {"Price",10}");
-        Console.WriteLine(new string('-', 60));
-
-        foreach (var p in products.OrderBy(p => p.Id))
-        {
-            Console.WriteLine($"{p.Id,-5} {p.Name,-20} {p.Category,-20} {p.Price,10}€");
-        }
-
+        // عرض المنتجات بنظام الصفحات
+        _viewService.BrowseProducts();
 
         Product? product = null;
 
         while (product == null)
         {
-            Console.WriteLine("Enter product id:");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Enter product ID: ");
+            Console.ResetColor();
 
             var input = Console.ReadLine();
 
             if (!int.TryParse(input, out int id))
             {
-                Console.WriteLine("Invalid number, try again.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid number.");
+                Console.ResetColor();
                 continue;
             }
 
-            product = productService.GetById(id);
+            product = _service.GetById(id);
 
             if (product == null)
             {
-                Console.WriteLine("Product not found, try again.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Product not found.");
+                Console.ResetColor();
             }
         }
 
@@ -191,32 +172,47 @@ public class AdminManagerPres
         {
             Console.Clear();
 
-            Console.WriteLine("Editing product:");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("=== Editing Product ===");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"Name: {product.Name}");
+
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"Description: {product.Description}");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Category: {product.Category}");
-            Console.WriteLine($"Price: {product.Price}");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Price: €{product.Price}");
+
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"Rarity: {product.Rarity}");
 
-            Console.WriteLine();
-            Console.WriteLine("1 Change name");
-            Console.WriteLine("2 Change description");
-            Console.WriteLine("3 Change category");
-            Console.WriteLine("4 Change price");
-            Console.WriteLine("5 Change rarity");
-            Console.WriteLine("6 Save and exit");
+            Console.ResetColor();
 
-            string choice = Console.ReadLine();
+            Console.WriteLine();
+            Console.WriteLine("1. Change Name");
+            Console.WriteLine("2. Change Description");
+            Console.WriteLine("3. Change Category");
+            Console.WriteLine("4. Change Price");
+            Console.WriteLine("5. Change Rarity");
+            Console.WriteLine("6. Save & Exit");
+
+            Console.Write("\nChoice: ");
+            string? choice = Console.ReadLine();
 
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("Enter new name:");
+                    Console.Write("Enter new name: ");
                     product.Name = Console.ReadLine();
                     break;
 
                 case "2":
-                    Console.WriteLine("Enter new description:");
+                    Console.Write("Enter new description: ");
                     product.Description = Console.ReadLine();
                     break;
 
@@ -225,30 +221,44 @@ public class AdminManagerPres
                     break;
 
                 case "4":
-                    Console.WriteLine("Enter new price:");
 
                     decimal price;
-                    while (!decimal.TryParse(Console.ReadLine(), out price) || price <= 0)
+
+                    Console.Write("Enter new price: ");
+
+                    while (!decimal.TryParse(Console.ReadLine(), out price)
+                           || price <= 0)
                     {
-                        Console.WriteLine("Invalid price. Enter a valid number:");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid price.");
+                        Console.ResetColor();
                     }
 
                     product.Price = price;
                     break;
 
                 case "5":
-                    Console.WriteLine("Enter new rarity:");
+                    Console.Write("Enter new rarity: ");
                     product.Rarity = Console.ReadLine();
                     break;
 
                 case "6":
                     editing = false;
                     break;
+
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid choice.");
+                    Console.ResetColor();
+                    Thread.Sleep(1000);
+                    break;
             }
         }
 
-        productService.UpdateProduct(product);
+        _service.UpdateProduct(product);
+
         Console.ForegroundColor = ConsoleColor.Green;
+
         string message = "Saving...";
 
         foreach (char c in message)
@@ -256,9 +266,11 @@ public class AdminManagerPres
             Console.Write(c);
             Thread.Sleep(100);
         }
+
         Console.WriteLine();
-        Console.ResetColor();
         Console.WriteLine("Product updated successfully!");
+
+        Console.ResetColor();
 
         return product;
     }
@@ -583,27 +595,78 @@ public class AdminManagerPres
     {
         var users = _userService.GetAllUsers();
 
-        foreach (var user in users)
-        {
-            Console.WriteLine($"ID: {user.Id} | Name: {user.Name} | Role: {user.Role}");
-        }
-    }
-
-    public void EditUser()
-    {
-        Console.Clear();
-        var users = _userService.GetAllUsers();
-
         if (users.Count == 0)
         {
             Console.WriteLine("No users found.");
             return;
         }
 
-        foreach (var u in users)
+        const int pageSize = 15;
+        int currentPage = 0;
+
+        while (true)
         {
-            Console.WriteLine($"ID: {u.Id} | Name: {u.Name} | Role: {u.Role}");
+            Console.Clear();
+
+            int totalPages = (int)Math.Ceiling(
+                users.Count / (double)pageSize
+            );
+
+            var pageUsers = users
+                .Skip(currentPage * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(
+                $"=== USERS ({currentPage + 1}/{totalPages}) ==="
+            );
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            foreach (var user in pageUsers)
+            {
+                Console.WriteLine(
+                    $"ID: {user.Id,-5} | Name: {user.Name,-30} | Role: {user.Role}"
+                );
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("[N] Next page");
+            Console.WriteLine("[P] Previous page");
+            Console.WriteLine("[Q] Exit");
+
+            var input = Console.ReadLine()?.ToLower();
+
+            switch (input)
+            {
+                case "n":
+                    if (currentPage < totalPages - 1)
+                        currentPage++;
+                    break;
+
+                case "p":
+                    if (currentPage > 0)
+                        currentPage--;
+                    break;
+
+                case "q":
+                    return;
+            }
         }
+    }
+
+    public void EditUser()
+    {
+        Console.Clear();
+
+        ViewUsers();
+
+        Console.Clear();
+
+
+
 
         Console.WriteLine("\nEnter user ID to edit:");
 
@@ -655,18 +718,10 @@ public class AdminManagerPres
     public void DeleteUser()
     {
         Console.Clear();
-        var users = _userService.GetAllUsers();
+        ViewUsers();
+        Console.Clear();
 
-        if (users.Count == 0)
-        {
-            Console.WriteLine("No users found.");
-            return;
-        }
 
-        foreach (var u in users)
-        {
-            Console.WriteLine($"ID: {u.Id} | Name: {u.Name} | Role: {u.Role}");
-        }
 
         Console.WriteLine("\nEnter user ID to delete:");
 

@@ -14,24 +14,6 @@ public class ViewProductPres
         _ratingService = ratingService;
         _userActionLogService = userActionLogService;
     }
-    // public void Viewproducts()
-    // {
-    //     Console.Clear();
-    //     var products = _productService.GetAllProducts();
-
-    //     _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
-    //     {
-    //         UserSessionId = UserSession.SessionId,
-    //         UserId = UserSession.CurrentUser?.Id,
-    //         ActionType = "ViewProducts",
-    //         Details = new Dictionary<string, string>
-    //         {
-    //             { "ProductCount", products.Count().ToString() }
-    //         }
-    //     });
-
-    //     Viewproducts(products);
-    // }
     public void BrowseProducts()
     {
         int currentPage = 1;
@@ -201,6 +183,64 @@ public class ViewProductPres
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Error submitting rating: {ex.Message}");
             Console.ResetColor();
+        }
+    }
+    public Product? SelectProductFromPages()
+    {
+        int currentPage = 1;
+
+        while (true)
+        {
+            Console.Clear();
+
+            var products =
+                _productService.GetProductsPage(currentPage);
+
+            if (!products.Any())
+            {
+                Console.WriteLine("No products found.");
+                return null;
+            }
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"Page {currentPage}");
+            Console.ResetColor();
+
+            DisplayProducts(products);
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("[N] Next");
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("[P] Previous");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("[ID] Select product");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("[Q] Exit");
+
+            Console.ResetColor();
+
+            var input = Console.ReadLine()?.ToLower();
+
+            if (input == "n")
+            {
+                currentPage++;
+            }
+            else if (input == "p" && currentPage > 1)
+            {
+                currentPage--;
+            }
+            else if (input == "q")
+            {
+                return null;
+            }
+            else if (int.TryParse(input, out int id))
+            {
+                return _productService.GetById(id);
+            }
         }
     }
 }

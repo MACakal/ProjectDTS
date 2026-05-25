@@ -10,18 +10,7 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        // string connectionString =
 
-        // "Host=localhost;Port=5432;Database=webshop;Username=postgres;Password=0000";
-
-        // var importer =
-
-        //     new ProductImportService(connectionString);
-
-        // await importer.ImportProductsAsync("./files (1)/products.csv");
-        // importer.ImportProductsAsync(
-        //     "files (1)/products.csv"
-        // ).GetAwaiter().GetResult();
         UserSession.SessionId = Guid.NewGuid().ToString();
 
         Env.Load();
@@ -34,24 +23,15 @@ public class Program
         var redis = ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")); // or your connection string
         var ratingService = new RatingService(redis);
 
-        // Console.WriteLine(BCrypt.Net.BCrypt.HashPassword("1234"));
-        // using (var conn = databaseService.GetConnection())
-        // {
-        //     conn.Open();
-        //     Console.WriteLine("CONNECTED");
-        // }
 
-        //var ratingService = new RatingService(databaseService);
         var productService = new ProductService(databaseService, ratingService);
 
         var graphDb = new GraphDatabaseService();
         ///
         var graphProductService = new GraphProductService(graphDb.Driver, productService);
 
-        var neoImporter = new Neo4jImportService(graphDb);
 
-        await neoImporter.ShowProductsAsync();
-        ///
+
         var viewProduct = new ViewProductPres(productService, ratingService, userActionLogService);
 
         var filterMenu = new FilterMenu(productService, viewProduct, userActionLogService);
