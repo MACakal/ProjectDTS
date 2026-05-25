@@ -30,7 +30,8 @@ public class Program
         // }
 
         //var ratingService = new RatingService(databaseService);
-        var productService = new ProductService(databaseService, ratingService);
+        var productAuditLogService = new ProductAuditLogService(mongoContext);
+        var productService = new ProductService(databaseService, ratingService, productAuditLogService);
 
         var graphDb = new GraphDatabaseService();
 

@@ -9,10 +9,11 @@ public class AdminManagerPres
     private UserService _userService;
     private NotificationService _notificationService = new NotificationService(new DatabaseService());
     private static readonly RatingService _ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
-    private static ProductService _service = new ProductService(new DatabaseService(), _ratingService);
     private static readonly MongoDbContext _mongoContext = new MongoDbContext(
         new ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
     );
+    private static readonly ProductAuditLogService _auditLogService = new ProductAuditLogService(_mongoContext);
+    private static ProductService _service = new ProductService(new DatabaseService(), _ratingService, _auditLogService);
     private static readonly UserActionLogService _userActionLogService = new UserActionLogService(_mongoContext);
     private static ViewProductPres _viewService = new ViewProductPres(_service, _ratingService, _userActionLogService);
     public AdminManagerPres(UserService userService)
@@ -140,7 +141,8 @@ public class AdminManagerPres
     {
         var db = new DatabaseService();
         var ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
-        var productService = new ProductService(db, ratingService);
+        var auditLogService = new ProductAuditLogService(_mongoContext);
+        var productService = new ProductService(db, ratingService, auditLogService);
 
         Console.Clear();
 
@@ -701,6 +703,41 @@ public class AdminManagerPres
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("User deleted successfully.");
+            Console.ResetColor();
+        }
+    }
+
+    public void ShowProductLogs()
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== PRODUCT LOGS ===\n");
+        Console.ResetColor();
+
+        var logs = _auditLogService.GetAllLogsAsync().GetAwaiter().GetResult();
+
+        if (logs.Count == 0)
+        {
+            Console.WriteLine("No logs found.");
+            return;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"{"Timestamp",-22} {"Action",-10} {"Product",-20} {"Price",8} {"Stock",6} {"UserId",8}");
+        Console.ResetColor();
+        Console.WriteLine(new string('-', 80));
+
+        foreach (var log in logs)
+        {
+            Console.ForegroundColor = log.Action switch
+            {
+                "Created" => ConsoleColor.Green,
+                "Updated" => ConsoleColor.Yellow,
+                "Deleted" => ConsoleColor.Red,
+                _ => ConsoleColor.White
+            };
+
+            Console.WriteLine($"{log.Timestamp.ToLocalTime(),-22} {log.Action,-10} {log.ProductName,-20} {log.ProductPrice,8} {log.ProductStock,6} {log.UserId,8}");
             Console.ResetColor();
         }
     }
