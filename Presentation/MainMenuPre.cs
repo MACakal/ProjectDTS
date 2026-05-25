@@ -76,7 +76,7 @@ public class MainMenuPre
 
                 case "1":
                     Console.Clear();
-                    _viewProductPres.Viewproducts();
+                    _viewProductPres.BrowseProducts();
 
                     break;
 

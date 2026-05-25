@@ -72,7 +72,7 @@ public class AdminMenuPres
             Console.WriteLine("[10] View Users");
             Console.WriteLine("[11] Edit User");
             Console.WriteLine("[12] Delete User");
-            Console.WriteLine("[13] Manage Reviews");          
+            Console.WriteLine("[13] Manage Reviews");
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -104,7 +104,7 @@ public class AdminMenuPres
                     break;
                 case "2":
                     Console.Clear();
-                    _viewProductPres.Viewproducts();
+                    _viewProductPres.BrowseProducts();
                     break;
 
                 case "3":

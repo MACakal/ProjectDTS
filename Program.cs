@@ -8,8 +8,20 @@ using Neo4j.Driver;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
+        // string connectionString =
+
+        // "Host=localhost;Port=5432;Database=webshop;Username=postgres;Password=0000";
+
+        // var importer =
+
+        //     new ProductImportService(connectionString);
+
+        // await importer.ImportProductsAsync("./files (1)/products.csv");
+        // importer.ImportProductsAsync(
+        //     "files (1)/products.csv"
+        // ).GetAwaiter().GetResult();
         UserSession.SessionId = Guid.NewGuid().ToString();
 
         Env.Load();

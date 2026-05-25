@@ -14,46 +14,79 @@ public class ViewProductPres
         _ratingService = ratingService;
         _userActionLogService = userActionLogService;
     }
-    public void Viewproducts()
-    {
-        Console.Clear();
-        var products = _productService.GetAllProducts();
+    // public void Viewproducts()
+    // {
+    //     Console.Clear();
+    //     var products = _productService.GetAllProducts();
 
-        _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+    //     _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+    //     {
+    //         UserSessionId = UserSession.SessionId,
+    //         UserId = UserSession.CurrentUser?.Id,
+    //         ActionType = "ViewProducts",
+    //         Details = new Dictionary<string, string>
+    //         {
+    //             { "ProductCount", products.Count().ToString() }
+    //         }
+    //     });
+
+    //     Viewproducts(products);
+    // }
+    public void BrowseProducts()
+    {
+        int currentPage = 1;
+
+        while (true)
         {
-            UserSessionId = UserSession.SessionId,
-            UserId = UserSession.CurrentUser?.Id,
-            ActionType = "ViewProducts",
-            Details = new Dictionary<string, string>
+            Console.Clear();
+
+            var products =
+                _productService.GetProductsPage(currentPage);
+
+            Console.WriteLine($"Page {currentPage}");
+
+            DisplayProducts(products);
+
+            Console.WriteLine();
+            Console.WriteLine("[N] Next");
+            Console.WriteLine("[P] Previous");
+            Console.WriteLine("[Q] Continue");
+
+            var input =
+                Console.ReadLine()?.ToLower();
+
+            if (input == "n")
             {
-                { "ProductCount", products.Count().ToString() }
+                currentPage++;
             }
-        });
-
-        Viewproducts(products);
+            else if (input == "p" && currentPage > 1)
+            {
+                currentPage--;
+            }
+            else if (input == "q")
+            {
+                break;
+            }
+        }
     }
 
-    public void Viewproducts(IEnumerable<Product> items, bool showBasket = true)
+    public void Viewproducts(IEnumerable<Product> items)
     {
-
-
         DisplayProducts(items);
-        if (showBasket)
-            BasketMenu.WhatToDo();
     }
-
-
 
     public void DisplayProducts(IEnumerable<Product> items)
     {
+
+
         ConsoleColor[] colors = {
-    ConsoleColor.Red,
-    ConsoleColor.Yellow,
-    ConsoleColor.Green,
-    ConsoleColor.Cyan,
-    ConsoleColor.Blue,
-    ConsoleColor.Magenta
-    };
+        ConsoleColor.Red,
+        ConsoleColor.Yellow,
+        ConsoleColor.Green,
+        ConsoleColor.Cyan,
+        ConsoleColor.Blue,
+        ConsoleColor.Magenta
+        };
 
         string text = "\n            --------- Product List ---------";
 
@@ -89,10 +122,10 @@ public class ViewProductPres
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write($"€{p.Price,10}");
-            
+
             Console.ForegroundColor = ConsoleColor.Yellow;
-            string ratingDisplay = p.RatingCount > 0 
-                ? $"★ {p.AverageRating:F1}/5 ({p.RatingCount})" 
+            string ratingDisplay = p.RatingCount > 0
+                ? $"★ {p.AverageRating:F1}/5 ({p.RatingCount})"
                 : "Not rated";
             Console.WriteLine($"{ratingDisplay,25}");
             Console.ResetColor();
@@ -146,7 +179,7 @@ public class ViewProductPres
         Console.Clear();
         Console.WriteLine($"Rate: {product.Name}");
         Console.WriteLine("Rating (1-5 stars):");
-        
+
         if (!int.TryParse(Console.ReadLine(), out int rating) || rating < 1 || rating > 5)
         {
             Console.WriteLine("Invalid rating. Please enter a number between 1 and 5.");

@@ -39,7 +39,8 @@ public class CustomerMenuPre
                 //BreadcrumbManager.Push("View Products");
                 Console.Clear();
                 //BreadcrumbManager.Render();
-                _viewProductPres.Viewproducts();
+                _viewProductPres.BrowseProducts();
+                BasketMenu.WhatToDo();
                 Console.WriteLine("\nPress any key to return to the customer menu.");
                 Console.ReadLine();
             }
