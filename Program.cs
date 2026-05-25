@@ -45,9 +45,13 @@ public class Program
         var productService = new ProductService(databaseService, ratingService);
 
         var graphDb = new GraphDatabaseService();
-
+        ///
         var graphProductService = new GraphProductService(graphDb.Driver, productService);
 
+        var neoImporter = new Neo4jImportService(graphDb);
+
+        await neoImporter.ShowProductsAsync();
+        ///
         var viewProduct = new ViewProductPres(productService, ratingService, userActionLogService);
 
         var filterMenu = new FilterMenu(productService, viewProduct, userActionLogService);
