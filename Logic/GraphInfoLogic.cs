@@ -17,13 +17,13 @@ public class GraphInfoLogic
         )).ToList();
     }
 
-    public List<(string Customer1, string Customer2, string SharedProduct)> GetSimilarCustomers()
+    public List<(string Customer1, string Customer2, int SharedProducts)> GetSimilarCustomers()
     {
         var results = _neo4jService.GetSimilarCustomers();
         return results.Select(r => (
             r["customer1"].ToString()!,
             r["customer2"].ToString()!,
-            r["shared_product"].ToString()!
+            Convert.ToInt32(r["shared_products"])
         )).ToList();
     }
 

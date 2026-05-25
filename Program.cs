@@ -41,8 +41,8 @@ public class Program
         var accountPresentation = new AccountPre(userService);
 
         var customerMenu = new CustomerMenuPre(viewProduct, filterMenu, accountPresentation);
-        var adminMenuPres = new AdminMenuPres(productService, viewProduct, userService, ratingService);
-
+        var graphservice = new Graphservice("bolt://localhost:7687", "neo4j", Env.GetString("NEO4J_PASSWORD"));
+        var adminMenuPres = new AdminMenuPres(productService, viewProduct, userService, ratingService, graphservice);
         var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         var sortingMenu = new SortingMenu(productService, viewProduct);
         var basketMenu = new BasketMenu(productService, filterMenu, basketService, sortingMenu, ratingService, userActionLogService, userService);

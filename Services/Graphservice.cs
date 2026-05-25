@@ -17,7 +17,7 @@ public class Graphservice : IDisposable
             MATCH (o:Order)-[:CONTAINS]->(p1:Product),
                   (o)-[:CONTAINS]->(p2:Product)
             WHERE p1.product_id < p2.product_id
-            RETURN p1.name AS product1,
+            RETURN DISTINCT p1.name AS product1,
                    p2.name AS product2
             LIMIT 10
             """;
@@ -30,9 +30,11 @@ public class Graphservice : IDisposable
             MATCH (c1:Customer)-[:PLACED]->(:Order)-[:CONTAINS]->(p:Product)
                   <-[:CONTAINS]-(:Order)<-[:PLACED]-(c2:Customer)
             WHERE c1.customer_id < c2.customer_id
+            WITH DISTINCT c1, c2, COUNT(DISTINCT p) AS shared_count
             RETURN c1.first_name + ' ' + c1.last_name AS customer1,
                    c2.first_name + ' ' + c2.last_name AS customer2,
-                   p.name AS shared_product
+                   shared_count AS shared_products
+            ORDER BY shared_count DESC
             LIMIT 10
             """;
         return RunQuery(query);
@@ -42,7 +44,7 @@ public class Graphservice : IDisposable
     {
         const string query = """
             MATCH (c:Customer)-[:PLACED]->(o:Order)-[:CONTAINS]->(p:Product)-[:BELONGS_TO]->(cat:Category)
-            RETURN c.first_name + ' ' + c.last_name AS customer,
+            RETURN DISTINCT c.first_name + ' ' + c.last_name AS customer,
                    cat.name AS category,
                    p.name AS product
             LIMIT 10
@@ -66,8 +68,8 @@ public class Graphservice : IDisposable
     public List<Dictionary<string, object>> GetMostPurchasedProducts()
     {
         const string query = """
-            MATCH (o:Order)-[:CONTAINS]->(p:Product)-[:BELONGS_TO]->(cat:Category)
-            RETURN p.name AS product,
+            MATCH (p:Product)-[:BELONGS_TO]->(cat:Category)
+            RETURN DISTINCT p.name AS product,
                    cat.name AS category,
                    p.purchase_count AS times_purchased
             ORDER BY times_purchased DESC
@@ -93,7 +95,7 @@ public class Graphservice : IDisposable
         }
 
         return results;
-}
+    }
 
     public void Dispose() => _driver?.Dispose();
 }

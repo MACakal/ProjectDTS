@@ -77,7 +77,7 @@ public class GraphInfoAdminPage
     {
         Console.Clear();
         Console.WriteLine("=== Klanten met vergelijkbaar koopgedrag ===");
-        Console.WriteLine("Vraag: Welke klanten kochten dezelfde producten?");
+        Console.WriteLine("Vraag: Welke klanten kochten de meeste dezelfde producten?");
         Console.WriteLine("Relaties: Customer -> Order -> Product <- Order <- Customer");
         Console.WriteLine();
 
@@ -90,11 +90,14 @@ public class GraphInfoAdminPage
             return;
         }
 
-        Console.WriteLine($"  {"Klant 1",-25} {"Klant 2",-25} {"Gedeeld product"}");
-        Console.WriteLine(new string('-', 75));
+        int max = results.Max(r => r.SharedProducts);
 
-        foreach (var (customer1, customer2, sharedProduct) in results)
-            Console.WriteLine($"  {customer1,-25} {customer2,-25} {sharedProduct}");
+        foreach (var (customer1, customer2, sharedProducts) in results)
+        {
+            int barLength = (int)((double)sharedProducts / max * 30);
+            string bar = new string('█', barLength);
+            Console.WriteLine($"{customer1,-25} | {customer2,-25} | {bar} {sharedProducts}");
+        }
 
         Console.WriteLine();
         Console.WriteLine("Uitleg: Klanten die dezelfde producten kopen zijn ideaal voor gerichte marketing.");
@@ -190,7 +193,6 @@ public class GraphInfoAdminPage
         {
             int barLength = (int)((double)timesPurchased / max * 30);
             string bar = new string('█', barLength);
-
             Console.WriteLine($"{product,-30} | {bar} {timesPurchased} ({category})");
         }
 
