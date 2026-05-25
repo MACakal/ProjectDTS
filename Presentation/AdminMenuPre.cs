@@ -9,13 +9,17 @@ public class AdminMenuPres
     private ViewProductPres _viewProductPres;
     private AccountPre _accountPre;
     private UserService _userService;
-    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres, UserService userService, RatingService ratingService)
+    private readonly GraphInfoAdminPage _graphInfoAdminPage;
+    
+
+    public AdminMenuPres(ProductService productService, ViewProductPres viewProductPres, UserService userService, RatingService ratingService, Graphservice graphservice)
     {
         _productService = productService;
         _userService = userService;
         _adminManagerPres = new AdminManagerPres(_userService);
         _viewProductPres = viewProductPres;
         _accountPre = new(_userService);
+        _graphInfoAdminPage = new GraphInfoAdminPage(graphservice);
     }
 
 
@@ -62,6 +66,7 @@ public class AdminMenuPres
             Console.WriteLine("[7] User Spending");
             Console.WriteLine("[8] Notifications");
             Console.WriteLine("[9] Top 3 Products per Category");
+            Console.WriteLine("[10] Info from the Graph database");
 
 
             Console.WriteLine();
@@ -69,10 +74,10 @@ public class AdminMenuPres
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("── Users ─────────────────────────");
             Console.ResetColor();
-            Console.WriteLine("[10] View Users");
-            Console.WriteLine("[11] Edit User");
-            Console.WriteLine("[12] Delete User");
-            Console.WriteLine("[13] Manage Reviews");          
+            Console.WriteLine("[11] View Users");
+            Console.WriteLine("[12] Edit User");
+            Console.WriteLine("[13] Delete User");
+            Console.WriteLine("[14] Manage Reviews");          
             Console.WriteLine();
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -160,23 +165,27 @@ public class AdminMenuPres
                     break;
                 case "10":
                     Console.Clear();
-                    _adminManagerPres.ViewUsers();
-                    Console.ReadKey();
+                    _graphInfoAdminPage.Show();
                     break;
-
                 case "11":
                     Console.Clear();
-                    _adminManagerPres.EditUser();
+                    _adminManagerPres.ViewUsers();
                     Console.ReadKey();
                     break;
 
                 case "12":
                     Console.Clear();
-                    _adminManagerPres.DeleteUser();
+                    _adminManagerPres.EditUser();
                     Console.ReadKey();
                     break;
 
                 case "13":
+                    Console.Clear();
+                    _adminManagerPres.DeleteUser();
+                    Console.ReadKey();
+                    break;
+
+                case "14":
                     _adminManagerPres.HandleDeleteReview();
                     Console.ReadKey();
                     Console.Clear();
