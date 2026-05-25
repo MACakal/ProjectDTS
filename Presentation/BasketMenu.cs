@@ -13,9 +13,17 @@ public class BasketMenu
     private static ViewProductPres _viewProductPres;
     private static UserActionLogService _userActionLogService;
     private static UserService _userService;
+    private static GraphProductService _graphProductService;
 
-    public BasketMenu(ProductService productService, FilterMenu filterMenu, BasketService basketService,
-                    SortingMenu sortingMenu, RatingService ratingService, UserActionLogService userActionLogService, UserService userService)
+    public BasketMenu(
+        ProductService productService,
+        FilterMenu filterMenu,
+        BasketService basketService,
+        SortingMenu sortingMenu,
+        RatingService ratingService,
+        UserActionLogService userActionLogService,
+        UserService userService,
+        GraphProductService graphProductService)
     {
         _productService = productService;
         _filterMenu = filterMenu;
@@ -24,6 +32,7 @@ public class BasketMenu
         _ratingService = ratingService;
         _userActionLogService = userActionLogService;
         _userService = userService;
+        _graphProductService = graphProductService;
     }
 
     public static void WhatToDo()
@@ -86,7 +95,7 @@ public class BasketMenu
             }
         }
     }
-    
+
     public static void AddToBasketPrint()
     {
         if (UserSession.CurrentUser == null)
@@ -163,6 +172,36 @@ public class BasketMenu
         System.Console.WriteLine($"Rarity: {product.Rarity}");
         System.Console.WriteLine($"Views: {product.View_count}");
         System.Console.WriteLine($"Purchases: {product.Purchase_count}");
+        var relatedProducts =
+    _graphProductService
+        .GetRelatedProducts(product.Id)
+        .Result;
+
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("✨ ===== You may also like ===== ✨");
+        Console.ResetColor();
+
+        foreach (var related in relatedProducts)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.Write("► ");
+
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.Write($"{related.Name}");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+            Console.Write($"   €{related.Price:F2}");
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+
+            Console.WriteLine($"   [{related.Rarity}]");
+
+            Console.ResetColor();
+        }
         System.Console.WriteLine("===============================================\n");
         System.Console.WriteLine("Press any key to continue.");
         System.Console.ReadKey();
@@ -216,8 +255,8 @@ public class BasketMenu
                 {
                     // Adrescheck
                     var user = UserSession.CurrentUser;
-                    if (string.IsNullOrWhiteSpace(user.Address) || 
-                        string.IsNullOrWhiteSpace(user.ZipCode) || 
+                    if (string.IsNullOrWhiteSpace(user.Address) ||
+                        string.IsNullOrWhiteSpace(user.ZipCode) ||
                         string.IsNullOrWhiteSpace(user.Country))
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -497,7 +536,7 @@ public class BasketMenu
 
         var products = _productService.GetAllProducts().Where(p => p.RatingCount > 0).ToList();
         var userReviews = products
-            .Select(p => new 
+            .Select(p => new
             {
                 Product = p,
                 Rating = _ratingService.GetUserRatingForProduct(p.Id, UserSession.CurrentUser.Id)

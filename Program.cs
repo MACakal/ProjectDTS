@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 
 using DotNetEnv;
+using Neo4j.Driver;
 
 public class Program
 {
@@ -31,6 +32,10 @@ public class Program
         //var ratingService = new RatingService(databaseService);
         var productService = new ProductService(databaseService, ratingService);
 
+        var graphDb = new GraphDatabaseService();
+
+        var graphProductService = new GraphProductService(graphDb.Driver, productService);
+
         var viewProduct = new ViewProductPres(productService, ratingService, userActionLogService);
 
         var filterMenu = new FilterMenu(productService, viewProduct, userActionLogService);
@@ -45,7 +50,16 @@ public class Program
 
         var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
         var sortingMenu = new SortingMenu(productService, viewProduct);
-        var basketMenu = new BasketMenu(productService, filterMenu, basketService, sortingMenu, ratingService, userActionLogService, userService);
+        var basketMenu = new BasketMenu(
+            productService,
+            filterMenu,
+            basketService,
+            sortingMenu,
+            ratingService,
+            userActionLogService,
+            userService,
+            graphProductService
+        );
         mainMenuPre.Show();
     }
 }
