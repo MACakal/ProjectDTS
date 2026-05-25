@@ -314,7 +314,7 @@ public class BasketService
             }
 
             transaction.Commit();
-            SaveOrderSnapshot(userId, total, basketItems, "Completed");
+            SaveOrderSnapshot(userId, orderId.Value, total, basketItems);
             _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
             {
                 UserSessionId = UserSession.SessionId,
@@ -372,7 +372,7 @@ public class BasketService
         conn.Open();
 
         string sql = @"
-            SELECT oi.id, oi.product_id, p.name, oi.quantity, p.price, o.created_at
+            SELECT oi.id, oi.product_id, p.name, oi.quantity, p.price, o.created_at, o.id
             FROM orders o
             JOIN order_items oi ON o.id = oi.order_id
             JOIN products p ON oi.product_id = p.id
@@ -395,6 +395,7 @@ public class BasketService
             int qty = reader.GetInt32(3);
             decimal price = reader.GetDecimal(4);
             DateTime orderDate = reader.GetDateTime(5);
+            int orderId = reader.GetInt32(6);
 
             decimal subtotal = qty * price;
             total += subtotal;
@@ -402,6 +403,7 @@ public class BasketService
             lines.Add(new OrderLine
             {
                 Id = orderItemId,
+                OrderId = orderId,
                 ProductId = productId,
                 Name = name,
                 Quantity = qty,
@@ -430,15 +432,19 @@ public class BasketService
 
 
     //MongoDB
-    private void SaveOrderSnapshot(int userId, decimal total, List<BasketItem> basketItems, string status)
+    private void SaveOrderSnapshot(int userId, int postgresOrderId, decimal total, List<BasketItem> basketItems)
     {
         var orderDocument = new OrderDocument
         {
             UserId = userId,
+            PostgresOrderId = postgresOrderId,
             CreatedAt = DateTime.UtcNow,
             TotalPrice = total,
             Products = basketItems,
-            Status = status
+            StatusHistory = new List<OrderStatusEntry>
+            {
+                new OrderStatusEntry { StatusName = "Placed", Timestamp = DateTime.UtcNow }
+            }
         };
 
         _orderMongoService.SaveOrderAsync(orderDocument)
