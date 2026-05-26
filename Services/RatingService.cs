@@ -95,7 +95,7 @@ public class RatingService
             UserId = userId,
             RatingValue = int.Parse(dict["rating"]),
             ReviewText = dict["text"],
-            CreatedAt = DateTime.Parse(dict["created_at"])
+            CreatedAt = DateTime.TryParse(dict["created_at"], out var dt) ? dt : DateTime.MinValue
         };
     }
 
