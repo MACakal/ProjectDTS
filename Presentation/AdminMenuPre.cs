@@ -105,7 +105,7 @@ public class AdminMenuPres
                     break;
                 case "2":
                     Console.Clear();
-                    _viewProductPres.Viewproducts();
+                    _viewProductPres.BrowseProducts();
                     break;
                 case "3":
                     Console.Clear();

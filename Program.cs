@@ -8,8 +8,9 @@ using Neo4j.Driver;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
+
         UserSession.SessionId = Guid.NewGuid().ToString();
 
         Env.Load();
@@ -22,20 +23,16 @@ public class Program
         var redis = ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")); // or your connection string
         var ratingService = new RatingService(redis);
 
-        // Console.WriteLine(BCrypt.Net.BCrypt.HashPassword("1234"));
-        // using (var conn = databaseService.GetConnection())
-        // {
-        //     conn.Open();
-        //     Console.WriteLine("CONNECTED");
-        // }
 
         //var ratingService = new RatingService(databaseService);
         var productAuditLogService = new ProductAuditLogService(mongoContext);
         var productService = new ProductService(databaseService, ratingService, productAuditLogService);
 
         var graphDb = new GraphDatabaseService();
-
+        ///
         var graphProductService = new GraphProductService(graphDb.Driver, productService);
+
+
 
         var viewProduct = new ViewProductPres(productService, ratingService, userActionLogService);
 

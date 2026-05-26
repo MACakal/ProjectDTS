@@ -33,55 +33,64 @@ public class BasketMenu
         _userActionLogService = userActionLogService;
         _userService = userService;
         _graphProductService = graphProductService;
+        _viewProductPres = new ViewProductPres(_productService, _ratingService, _userActionLogService);
     }
 
     public static void WhatToDo()
     {
         while (true)
         {
-            System.Console.WriteLine("\nWhat do you want to do?");
-            System.Console.WriteLine("1. View product");
-            System.Console.WriteLine("2. Add product to basket");
-            System.Console.WriteLine("3. Filter products");
-            System.Console.WriteLine("4. View Basket");
-            System.Console.WriteLine("5. Sort");
-            System.Console.WriteLine("6. Rate product");
-            System.Console.WriteLine("7. View reviewed products");
-            System.Console.WriteLine("8. Delete my review");
-            System.Console.WriteLine("0. Back");
+            Console.WriteLine("\nWhat do you want to do?");
+            Console.WriteLine("1. Browse Products");
+            Console.WriteLine("2. View product");
+            Console.WriteLine("3. Add product to basket");
+            Console.WriteLine("4. Filter products");
+            Console.WriteLine("5. View Basket");
+            Console.WriteLine("6. Sort");
+            Console.WriteLine("7. Rate product");
+            Console.WriteLine("8. View reviewed products");
+            Console.WriteLine("9. Delete my review");
+            Console.WriteLine("0. Back");
 
             var choice = Console.ReadLine();
             switch (choice)
             {
                 case "1":
                     Console.Clear();
-                    ViewItem();
+
+                    _viewProductPres.BrowseProducts();
+
+
                     break;
                 case "2":
                     Console.Clear();
-                    AddToBasketPrint();
+                    ViewItem();
                     break;
                 case "3":
                     Console.Clear();
-                    _filterMenu.Show();
+                    AddToBasketPrint();
                     break;
                 case "4":
                     Console.Clear();
-                    ShowBasket();
+                    _filterMenu.Show();
                     break;
                 case "5":
                     Console.Clear();
-                    _sortingMenu.Show();
+                    ShowBasket();
                     break;
                 case "6":
                     Console.Clear();
-                    RateProductMenu();
+                    _sortingMenu.Show();
                     break;
                 case "7":
                     Console.Clear();
-                    ViewReviewedProducts();
+                    RateProductMenu();
                     break;
                 case "8":
+                    Console.Clear();
+                    ViewReviewedProducts();
+                    break;
+                case "9":
                     Console.Clear();
                     DeleteReviewMenu();
                     break;
@@ -96,6 +105,22 @@ public class BasketMenu
         }
     }
 
+    public static void AddToBasketPrint(int productId, int quantity)
+    {
+        if (UserSession.CurrentUser == null)
+        {
+            Console.WriteLine("You must be logged in.");
+            return;
+        }
+
+        _basketService.AddToBasket(
+            UserSession.CurrentUser.Id,
+            productId,
+            quantity);
+
+        Console.WriteLine($"Added {quantity} item(s) to basket.");
+        Console.ReadKey();
+    }
     public static void AddToBasketPrint()
     {
         if (UserSession.CurrentUser == null)
@@ -103,16 +128,24 @@ public class BasketMenu
             Console.WriteLine("⚠️ You must be logged in to add products to your basket!");
             return;
         }
-        PrintAll();
+        // PrintAll();
+
+        var product = _viewProductPres.SelectProductFromPages();
+        if (product == null) return;
         Console.WriteLine();
-        Console.WriteLine("\n--- Add Product to Basket ---");
-        Console.Write("Enter product ID: ");
-        int productId = int.Parse(Console.ReadLine());
+        // Console.WriteLine("\n--- Add Product to Basket ---");
+        // Console.Write("Enter product ID: ");
+        // int productId = int.Parse(Console.ReadLine());
         Console.Write("How many? ");
-        int quantity = int.Parse(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
+        {
+            Console.WriteLine("Invalid quantity.");
+            return;
+        }
+        // int quantity = int.Parse(Console.ReadLine());
         //AddToBasket();
-        _basketService.AddToBasket(UserSession.CurrentUser.Id, productId, quantity);
-        Console.WriteLine($"Added {quantity} x product {productId} to your basket.");
+        _basketService.AddToBasket(UserSession.CurrentUser.Id, product.Id, quantity);
+        Console.WriteLine($"Added {quantity} x product {product.Id} to your basket.");
     }
 
     public static void ViewItem()
@@ -125,7 +158,7 @@ public class BasketMenu
             return;
         }
 
-        PrintAll();
+        // PrintAll();
         Console.WriteLine();
         Console.WriteLine("--- Pick product to view ---");
         Console.Write("Enter product ID: ");
@@ -392,12 +425,60 @@ public class BasketMenu
         }
     }
 
-    public static void PrintAll()
-    {
-        var products = _productService.GetAllProducts();
-        ViewProductPres view = new(_productService, _ratingService, _userActionLogService);
-        view.DisplayProducts(products);
-    }
+    // public static void PrintAll()
+    // {
+    //     var products = _productService.GetAllProducts();
+    //     ViewProductPres view = new(_productService, _ratingService, _userActionLogService);
+    //     view.DisplayProducts(products);
+    // }
+
+    // public static void PrintAll(int page = 1)
+    // {
+    //     var products =
+    //         _productService.GetProductsPage(page);
+
+    //     ViewProductPres view =
+    //         new(
+    //             _productService,
+    //             _ratingService,
+    //             _userActionLogService
+    //         );
+
+    //     Console.WriteLine($"Page {page}");
+    //     view.DisplayProducts(products);
+    // }
+    // public static void BrowseProducts()
+    // {
+    //     int currentPage = 1;
+
+    //     while (true)
+    //     {
+    //         Console.Clear();
+
+    //         PrintAll(currentPage);
+
+    //         Console.WriteLine();
+    //         Console.WriteLine("[N] Next");
+    //         Console.WriteLine("[P] Previous");
+    //         Console.WriteLine("[Q] Back");
+
+    //         var input =
+    //             Console.ReadLine()?.ToLower();
+
+    //         if (input == "n")
+    //         {
+    //             currentPage++;
+    //         }
+    //         else if (input == "p" && currentPage > 1)
+    //         {
+    //             currentPage--;
+    //         }
+    //         else if (input == "q")
+    //         {
+    //             break;
+    //         }
+    //     }
+    // }
 
     public static void RateProductMenu()
     {
@@ -407,7 +488,7 @@ public class BasketMenu
             return;
         }
 
-        PrintAll();
+        // PrintAll();
         Console.WriteLine();
         Console.WriteLine("--- Rate a Product ---");
         Console.Write("Enter product ID to rate: ");

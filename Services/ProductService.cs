@@ -37,6 +37,7 @@ public class ProductService
 
 
 
+
     public Product[] GetProductsByRange(decimal min, decimal max)
     {
         if (min > max)
@@ -404,5 +405,74 @@ public class ProductService
             .Where(p => (int)p.AverageRating == stars)
             .ToList();
     }
+
+
+    // public List<Product> GetProductsPage(int page)
+    // {
+    //     var products = new List<Product>();
+
+    //     using var conn = _db.GetConnection();
+    //     conn.Open();
+
+    //     int pageSize = 30;
+    //     int offset = (page - 1) * pageSize;
+
+    //     string sql = @"
+    // SELECT *
+    // FROM products
+    // LIMIT @limit
+    // OFFSET @offset";
+
+    //     using var cmd = new NpgsqlCommand(sql, conn);
+
+    //     cmd.Parameters.AddWithValue("limit", pageSize);
+    //     cmd.Parameters.AddWithValue("offset", offset);
+
+    //     using var reader = cmd.ExecuteReader();
+
+    //     while (reader.Read())
+    //     {
+    //         products.Add(MapProduct(reader));
+    //     }
+
+    //     PopulateRatings(products);
+
+    //     return products;
+    // }
+    public List<Product> GetProductsPage(int page)
+    {
+        var products = new List<Product>();
+
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        int pageSize = 30;
+        int offset = (page - 1) * pageSize;
+
+        string sql = @"
+    SELECT *
+    FROM products
+    ORDER BY id
+    LIMIT @limit
+    OFFSET @offset";
+
+        using var cmd = new NpgsqlCommand(sql, conn);
+
+        cmd.Parameters.AddWithValue("limit", pageSize);
+        cmd.Parameters.AddWithValue("offset", offset);
+
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            products.Add(MapProduct(reader));
+        }
+
+        PopulateRatings(products);
+
+        return products;
+    }
+
+
 
 }
