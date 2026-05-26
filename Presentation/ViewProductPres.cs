@@ -32,6 +32,7 @@ public class ViewProductPres
             Console.WriteLine();
             Console.WriteLine("[N] Next");
             Console.WriteLine("[P] Previous");
+            Console.WriteLine("[A] Add product to the basket");
             Console.WriteLine("[Q] Continue");
 
             var input =
@@ -44,6 +45,36 @@ public class ViewProductPres
             else if (input == "p" && currentPage > 1)
             {
                 currentPage--;
+            }
+            else if (input == "a")
+            {
+                Console.Write("Enter product ID: ");
+                if (int.TryParse(Console.ReadLine(), out int productId))
+                {
+                    var product = _productService.GetById(productId);
+
+                    if (product != null)
+                    {
+                        Console.Write("How many? ");
+
+                        if (int.TryParse(Console.ReadLine(), out int quantity) && quantity > 0)
+                        {
+                            BasketMenu.AddToBasketPrint(product.Id, quantity);
+                        }
+                    }
+
+                    else
+
+                    {
+
+                        Console.WriteLine("Product not found.");
+
+                        Console.ReadKey();
+
+                    }
+
+                }
+
             }
             else if (input == "q")
             {

@@ -105,6 +105,22 @@ public class BasketMenu
         }
     }
 
+    public static void AddToBasketPrint(int productId, int quantity)
+    {
+        if (UserSession.CurrentUser == null)
+        {
+            Console.WriteLine("You must be logged in.");
+            return;
+        }
+
+        _basketService.AddToBasket(
+            UserSession.CurrentUser.Id,
+            productId,
+            quantity);
+
+        Console.WriteLine($"Added {quantity} item(s) to basket.");
+        Console.ReadKey();
+    }
     public static void AddToBasketPrint()
     {
         if (UserSession.CurrentUser == null)
@@ -113,15 +129,23 @@ public class BasketMenu
             return;
         }
         // PrintAll();
+
+        var product = _viewProductPres.SelectProductFromPages();
+        if (product == null) return;
         Console.WriteLine();
-        Console.WriteLine("\n--- Add Product to Basket ---");
-        Console.Write("Enter product ID: ");
-        int productId = int.Parse(Console.ReadLine());
+        // Console.WriteLine("\n--- Add Product to Basket ---");
+        // Console.Write("Enter product ID: ");
+        // int productId = int.Parse(Console.ReadLine());
         Console.Write("How many? ");
-        int quantity = int.Parse(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
+        {
+            Console.WriteLine("Invalid quantity.");
+            return;
+        }
+        // int quantity = int.Parse(Console.ReadLine());
         //AddToBasket();
-        _basketService.AddToBasket(UserSession.CurrentUser.Id, productId, quantity);
-        Console.WriteLine($"Added {quantity} x product {productId} to your basket.");
+        _basketService.AddToBasket(UserSession.CurrentUser.Id, product.Id, quantity);
+        Console.WriteLine($"Added {quantity} x product {product.Id} to your basket.");
     }
 
     public static void ViewItem()
