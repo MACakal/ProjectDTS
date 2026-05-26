@@ -10,10 +10,11 @@ public class AdminManagerPres
     private UserService _userService;
     private NotificationService _notificationService = new NotificationService(new DatabaseService());
     private static readonly RatingService _ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
-    private static ProductService _service = new ProductService(new DatabaseService(), _ratingService);
     private static readonly MongoDbContext _mongoContext = new MongoDbContext(
         new ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
     );
+    private static readonly ProductAuditLogService _auditLogService = new ProductAuditLogService(_mongoContext);
+    private static ProductService _service = new ProductService(new DatabaseService(), _ratingService, _auditLogService);
     private static readonly UserActionLogService _userActionLogService = new UserActionLogService(_mongoContext);
     private static ViewProductPres _viewService = new ViewProductPres(_service, _ratingService, _userActionLogService);
     public AdminManagerPres(UserService userService)
@@ -128,13 +129,17 @@ public class AdminManagerPres
 
     public Product? EditProduct()
     {
+        var db = new DatabaseService();
+        var ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
+        var auditLogService = new ProductAuditLogService(_mongoContext);
+        var productService = new ProductService(db, ratingService, auditLogService);
+
         Console.Clear();
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("=== Select Product To Edit ===");
         Console.ResetColor();
 
-        // عرض المنتجات بنظام الصفحات
         _viewService.BrowseProducts();
 
         Product? product = null;
@@ -758,6 +763,103 @@ public class AdminManagerPres
             Console.WriteLine("User deleted successfully.");
             Console.ResetColor();
         }
+    }
+
+    public void ShowProductLogs()
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== PRODUCT LOGS ===\n");
+        Console.ResetColor();
+
+        var logs = _auditLogService.GetAllLogsAsync().GetAwaiter().GetResult();
+
+        if (logs.Count == 0)
+        {
+            Console.WriteLine("No logs found.");
+            return;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"{"Timestamp",-22} {"Action",-10} {"Product",-20} {"Price",8} {"Stock",6} {"UserId",8}");
+        Console.ResetColor();
+        Console.WriteLine(new string('-', 80));
+
+        foreach (var log in logs)
+        {
+            Console.ForegroundColor = log.Action switch
+            {
+                "Created" => ConsoleColor.Green,
+                "Updated" => ConsoleColor.Yellow,
+                "Deleted" => ConsoleColor.Red,
+                _ => ConsoleColor.White
+            };
+
+            Console.WriteLine($"{log.Timestamp.ToLocalTime(),-22} {log.Action,-10} {log.ProductName,-20} {log.ProductPrice,8} {log.ProductStock,6} {log.UserId,8}");
+            Console.ResetColor();
+        }
+    }
+
+    public void ManageOrderStatus()
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("=== MANAGE ORDER STATUS ===\n");
+        Console.ResetColor();
+
+        var orderMongoService = new OrderMongoService(_mongoContext);
+        var orders = orderMongoService.GetAllOrdersAsync().GetAwaiter().GetResult();
+
+        if (orders.Count == 0)
+        {
+            Console.WriteLine("No orders found.");
+            return;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"{"#",-5} {"OrderId",-10} {"UserId",-10} {"Total",10} {"Date",-15} {"Current Status"}");
+        Console.ResetColor();
+        Console.WriteLine(new string('-', 80));
+
+        for (int i = 0; i < orders.Count; i++)
+        {
+            var order = orders[i];
+            var currentStatus = order.StatusHistory?.LastOrDefault()?.StatusName ?? "Unknown";
+            Console.WriteLine($"{i + 1,-5} {order.PostgresOrderId,-10} {order.UserId,-10} €{order.TotalPrice,8:N2} {order.CreatedAt.ToLocalTime():dd-MM-yyyy HH:mm,-15} {currentStatus}");
+        }
+
+        Console.WriteLine("\nEnter order number to update (or 0 to cancel):");
+        if (!int.TryParse(Console.ReadLine(), out int choice) || choice == 0 || choice < 1 || choice > orders.Count)
+        {
+            Console.WriteLine("Cancelled.");
+            return;
+        }
+
+        var selectedOrder = orders[choice - 1];
+
+        string[] statuses = { "Placed", "Processing", "Shipped", "Delivered", "Cancelled" };
+
+        Console.WriteLine("\nChoose new status:");
+        for (int i = 0; i < statuses.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. {statuses[i]}");
+        }
+
+        if (!int.TryParse(Console.ReadLine(), out int statusChoice) || statusChoice < 1 || statusChoice > statuses.Length)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid choice.");
+            Console.ResetColor();
+            return;
+        }
+
+        string newStatus = statuses[statusChoice - 1];
+
+        orderMongoService.AddStatusUpdateAsync(selectedOrder.PostgresOrderId, newStatus).GetAwaiter().GetResult();
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"\nStatus updated to '{newStatus}' for order #{selectedOrder.PostgresOrderId}!");
+        Console.ResetColor();
     }
 
 

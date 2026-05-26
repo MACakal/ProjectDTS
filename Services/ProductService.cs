@@ -1,16 +1,19 @@
 using Npgsql;
 
 namespace ProjectDTS;
+using MongoDB.Driver;
 
 public class ProductService
 {
     private readonly DatabaseService _db;
     private readonly RatingService _ratingService;
+    private readonly ProductAuditLogService _auditLogService;
 
-    public ProductService(DatabaseService db, RatingService ratingService)
+    public ProductService(DatabaseService db, RatingService ratingService, ProductAuditLogService auditLogService)
     {
         _db = db;
         _ratingService = ratingService;
+        _auditLogService = auditLogService;
     }
 
     public List<Product> GetAllProducts()
@@ -101,6 +104,8 @@ public class ProductService
         cmd.Parameters.AddWithValue("rarity", (object?)product.Rarity ?? DBNull.Value);
 
         cmd.ExecuteNonQuery();
+
+        _ = _auditLogService.LogAsync("Created", UserSession.CurrentUser?.Id ?? 0, product);
     }
     public List<Product> GetProductsSortedByPrice(bool ascending)
     {
@@ -219,6 +224,7 @@ public class ProductService
         cmd.Parameters.AddWithValue("rarity", product.Rarity);
 
         cmd.ExecuteNonQuery();
+        _ = _auditLogService.LogAsync("Updated", UserSession.CurrentUser?.Id ?? 0, product);
     }
     public Product? GetById(int id)
     {
@@ -329,6 +335,8 @@ public class ProductService
 
     public bool DeleteProduct(int id)
     {
+        var product = GetById(id);
+
         using var conn = _db.GetConnection();
         conn.Open();
         string sql = @"DELETE FROM products WHERE id=@id;";
@@ -338,6 +346,10 @@ public class ProductService
         try
         {
             int rowsAffected = cmd.ExecuteNonQuery();
+
+            if (rowsAffected > 0 && product != null)
+                _ = _auditLogService.LogAsync("Deleted", UserSession.CurrentUser?.Id ?? 0, product);
+
             return rowsAffected > 0;
         }
         catch (PostgresException ex) when (ex.SqlState == "23503")
