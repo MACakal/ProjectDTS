@@ -7,18 +7,20 @@ public class MainMenuPre
     private AdminMenuPres _adminMenuPres;
     private UserService _userService;
     private ViewProductPres _viewProductPres;
+    private RoleService _roleService;
 
     public MainMenuPre(CustomerMenuPre customerMenuPre,
      AdminMenuPres adminMenuPres,
       UserService userService,
-       ViewProductPres viewProductPres
+       ViewProductPres viewProductPres,
+       RoleService roleService
        )
     {
         _customerMenuPre = customerMenuPre;
         _adminMenuPres = adminMenuPres;
         _userService = userService;
         _viewProductPres = viewProductPres;
-
+        _roleService = roleService;
     }
     public void Show()
     {
@@ -127,7 +129,9 @@ public class MainMenuPre
 
         }
         UserSession.CurrentUser = user;
-        if (user.Role == UserRole.Admin)
+        UserSession.Permissions = _roleService.GetPermissionsForUser(user);
+
+        if (user.Role.IsAdmin())
         {
             Console.Clear();
 

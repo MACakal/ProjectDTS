@@ -9,6 +9,13 @@ public class UserService
     {
         _db = db;
     }
+
+    private static (UserRole role, string? customRoleName) ParseRole(string roleStr)
+    {
+        if (Enum.TryParse<UserRole>(roleStr, true, out var parsed))
+            return (parsed, null);
+        return (UserRole.Custom, roleStr);
+    }
     
     public User? UserLogin(string email, string password)
     {
@@ -28,12 +35,14 @@ public class UserService
         string dbPassword = reader.GetString(3);
         if (!BCrypt.Net.BCrypt.Verify(password, dbPassword)) return null;
 
+        var (role, customRoleName) = ParseRole(reader.GetString(4));
         return new User
         {
             Id = reader.GetInt32(0),
             Name = reader.GetString(1),
             Email = reader.GetString(2),
-            Role = Enum.Parse<UserRole>(reader.GetString(4), true),
+            Role = role,
+            CustomRoleName = customRoleName,
             Address = reader.IsDBNull(5) ? null : reader.GetString(5),
             ZipCode = reader.IsDBNull(6) ? null : reader.GetString(6),
             Country = reader.IsDBNull(7) ? null : reader.GetString(7),
@@ -231,6 +240,20 @@ public class UserService
             ? UserRegisterService.succesfull
             : UserRegisterService.UnkownError;
     }
+    public UserRegisterService UpdateUserRole(int userId, string roleName)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+
+        string sql = @"UPDATE users SET role = @role WHERE id = @id";
+        using var cmd = new NpgsqlCommand(sql, conn);
+        cmd.Parameters.AddWithValue("role", roleName);
+        cmd.Parameters.AddWithValue("id", userId);
+
+        int rows = cmd.ExecuteNonQuery();
+        return rows > 0 ? UserRegisterService.succesfull : UserRegisterService.UnkownError;
+    }
+
     public UserRegisterService DeleteUser(int userId)
     {
         using var conn = _db.GetConnection();
@@ -345,12 +368,14 @@ public class UserService
 
         while (reader.Read())
         {
+            var (role, customRoleName) = ParseRole(reader.GetString(3));
             users.Add(new User
             {
                 Id = reader.GetInt32(0),
                 Name = reader.GetString(1),
                 Email = reader.GetString(2),
-                Role = Enum.Parse<UserRole>(reader.GetString(3), true)
+                Role = role,
+                CustomRoleName = customRoleName
             });
         }
 
@@ -395,12 +420,14 @@ public class UserService
 
         if (!reader.Read()) return null;
 
+        var (role, customRoleName) = ParseRole(reader.GetString(3));
         return new User
         {
             Id = reader.GetInt32(0),
             Name = reader.GetString(1),
             Email = reader.GetString(2),
-            Role = Enum.Parse<UserRole>(reader.GetString(3), true)
+            Role = role,
+            CustomRoleName = customRoleName
         };
     }
 
