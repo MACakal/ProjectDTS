@@ -10,4 +10,5 @@ public class OrderDocument
     public decimal TotalPrice { get; set; }
     public List<OrderStatusEntry> StatusHistory { get; set; } = new();
     public List<BasketItem> Products { get; set; }
+    public string? Status { get; set; }
 }
