@@ -83,14 +83,29 @@ public class PastOrders
 
     private static void CancelOrder(List<OrderLine> items)
     {
-        Console.WriteLine("Enter the number of the order to cancel:");
-        if (!int.TryParse(Console.ReadLine(), out int index) || index < 1 || index > items.Count)
+        var orders = items
+            .GroupBy(i => i.OrderId)
+            .Select(g => g.First())
+            .ToList();
+
+        Console.WriteLine("Select an order to cancel:");
+
+        for (int i = 0; i < orders.Count; i++)
+        {
+            Console.WriteLine(
+                $"{i + 1}. Order #{orders[i].OrderId} | {orders[i].OrderDate:dd-MM-yyyy HH:mm}"
+            );
+        }
+
+        if (!int.TryParse(Console.ReadLine(), out int index) ||
+            index < 1 || index > orders.Count)
         {
             Console.WriteLine("Invalid selection.");
             return;
         }
 
-        var order = items[index - 1];
+        var order = orders[index - 1];
+
         var timeSinceOrder = DateTime.Now - order.OrderDate;
 
         if (timeSinceOrder.TotalHours > 24)
@@ -99,12 +114,13 @@ public class PastOrders
             return;
         }
 
-        Console.WriteLine($"Are you sure you want to cancel '{order.Name}'? (y/n)");
+        Console.WriteLine($"Are you sure you want to cancel Order #{order.OrderId}? (y/n)");
+
         string confirm = Console.ReadLine()?.ToLower();
 
         if (confirm == "y")
         {
-            _basketService.CancelOrder(order.Id);
+            _basketService.CancelOrder(order.OrderId);
             Console.WriteLine("Order canceled successfully!");
         }
         else
@@ -184,9 +200,18 @@ public class PastOrders
     {
         var orderMongoService = new OrderMongoService(_mongoContext);
 
-        var distinctOrders = items
-            .GroupBy(i => i.OrderId)
-            .Select(g => new { OrderId = g.Key, Date = g.First().OrderDate })
+        var allOrders = orderMongoService
+            .GetOrdersByUserIdAsync(UserSession.CurrentUser.Id)
+            .GetAwaiter()
+            .GetResult();
+
+        var distinctOrders = allOrders
+            .Where(o => o.PostgresOrderId > 0)
+            .Select(o => new
+            {
+                OrderId = o.PostgresOrderId,
+                Date = o.CreatedAt
+            })
             .OrderByDescending(o => o.Date)
             .ToList();
 
@@ -199,9 +224,15 @@ public class PastOrders
 
         Console.WriteLine("\nSelect an order:");
         for (int i = 0; i < distinctOrders.Count; i++)
-            Console.WriteLine($"{i + 1}. Order #{distinctOrders[i].OrderId} — {distinctOrders[i].Date:dd-MM-yyyy HH:mm}");
+        {
+            Console.WriteLine(
+                $"{i + 1}. Order #{distinctOrders[i].OrderId} — {distinctOrders[i].Date:dd-MM-yyyy HH:mm}"
+            );
+        }
 
-        if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > distinctOrders.Count)
+        if (!int.TryParse(Console.ReadLine(), out int choice)
+            || choice < 1
+            || choice > distinctOrders.Count)
         {
             Console.WriteLine("Invalid selection.");
             Console.ReadKey();
@@ -210,10 +241,8 @@ public class PastOrders
 
         int selectedOrderId = distinctOrders[choice - 1].OrderId;
 
-        var allOrders = orderMongoService.GetOrdersByUserIdAsync(UserSession.CurrentUser.Id)
-            .GetAwaiter().GetResult();
-
-        var doc = allOrders.FirstOrDefault(o => o.PostgresOrderId == selectedOrderId);
+        var doc = allOrders.FirstOrDefault(
+            o => o.PostgresOrderId == selectedOrderId);
 
         if (doc == null || doc.StatusHistory == null || doc.StatusHistory.Count == 0)
         {
@@ -239,7 +268,6 @@ public class PastOrders
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
-
     private static void ReviewPurchasedProduct(List<OrderLine> items)
     {
         Console.WriteLine("Select a purchased product to review:");

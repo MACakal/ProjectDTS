@@ -415,20 +415,30 @@ public class BasketService
         return lines;
     }
 
-    public void CancelOrder(int orderItemId)
+    public void CancelOrder(int orderId)
     {
         using var conn = _db.GetConnection();
         conn.Open();
 
-        string deleteSql = "DELETE FROM order_items WHERE id = @orderItemId;";
+        string deleteSql = @"
+            DELETE FROM order_items
+            WHERE order_id = @orderId;
+        ";
+
         using (var cmd = new NpgsqlCommand(deleteSql, conn))
         {
-            cmd.Parameters.AddWithValue("orderItemId", orderItemId);
+            cmd.Parameters.AddWithValue("orderId", orderId);
             cmd.ExecuteNonQuery();
         }
 
-        Console.WriteLine("Order item canceled and stock updated.");
+        _orderMongoService
+            .AddStatusUpdateAsync(orderId, "Cancelled")
+            .GetAwaiter()
+            .GetResult();
+
+        Console.WriteLine("Order cancelled successfully.");
     }
+    
 
 
     //MongoDB
