@@ -6,8 +6,7 @@ CREATE TABLE IF NOT EXISTS users(
     address VARCHAR(255),
     zip_code VARCHAR(20),
     country VARCHAR(100),
-    role VARCHAR(20) NOT NULL DEFAULT 'Customer',
-    CHECK (role IN ('Customer', 'Admin'))
+    role VARCHAR(50) NOT NULL DEFAULT 'Customer'
 );
 CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
@@ -53,7 +52,7 @@ VALUES (
         'admin',
         'admin',
         '$2a$11$JTuZ1sESk70FH2gwDmUIEepFu743L8bMydf2uTeiqIdIHzgPhEgnK',
-        'Admin'
+        'SuperAdmin'
     ) ON CONFLICT (email) DO NOTHING;
 -- INSERT INTO users (name, email, password, role)
 -- VALUES (
@@ -407,7 +406,7 @@ SELECT u.id,
 FROM users u
     LEFT JOIN orders o ON u.id = o.user_id
     AND o.purchased = true
-WHERE u.role != 'Admin';
+WHERE u.role = 'Customer';
 ALTER TABLE products
 ADD COLUMN IF NOT EXISTS stock INT DEFAULT 10 CHECK (stock >= 0);
 ALTER TABLE users ADD COLUMN IF NOT EXISTS security_question VARCHAR(255);
@@ -433,3 +432,31 @@ DROP TRIGGER IF EXISTS trigger_check_low_stock ON products;
 CREATE TRIGGER trigger_check_low_stock
 AFTER
 UPDATE OF stock ON products FOR EACH ROW EXECUTE FUNCTION check_low_stock();
+-- Dynamic role management tables
+CREATE TABLE IF NOT EXISTS roles (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    is_builtin BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS role_permissions (
+    role_id INT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
+    permission VARCHAR(50) NOT NULL,
+    PRIMARY KEY (role_id, permission)
+);
+
+-- Seed built-in roles (permissions are hardcoded in RoleService for built-ins)
+INSERT INTO roles (name, is_builtin) VALUES
+    ('Customer',     true),
+    ('ProductAdmin', true),
+    ('OrderAdmin',   true),
+    ('UserAdmin',    true),
+    ('SuperAdmin',   true)
+ON CONFLICT (name) DO NOTHING;
+
+-- Migrate existing legacy role values
+ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check;
+UPDATE users SET role = 'SuperAdmin' WHERE role = 'Admin';
+UPDATE users SET role = 'SuperAdmin' WHERE role NOT IN (
+    'Customer', 'ProductAdmin', 'OrderAdmin', 'UserAdmin', 'SuperAdmin'
+) AND role NOT IN (SELECT name FROM roles WHERE is_builtin = false);

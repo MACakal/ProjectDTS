@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 public class AdminManagerPres
 {
     private UserService _userService;
+    private RoleService _roleService;
     private NotificationService _notificationService = new NotificationService(new DatabaseService());
     private static readonly RatingService _ratingService = new RatingService(ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")));
     private static readonly MongoDbContext _mongoContext = new MongoDbContext(
@@ -17,9 +18,10 @@ public class AdminManagerPres
     private static ProductService _service = new ProductService(new DatabaseService(), _ratingService, _auditLogService);
     private static readonly UserActionLogService _userActionLogService = new UserActionLogService(_mongoContext);
     private static ViewProductPres _viewService = new ViewProductPres(_service, _ratingService, _userActionLogService);
-    public AdminManagerPres(UserService userService)
+    public AdminManagerPres(UserService userService, RoleService roleService)
     {
         _userService = userService;
+        _roleService = roleService;
     }
     public Product? CreateProduct()
     {
@@ -698,18 +700,39 @@ public class AdminManagerPres
             user.Name = name;
         }
 
-        Console.Write("New role (Admin/User, leave empty to keep current): ");
-        var roleInput = Console.ReadLine();
-
-        if (!string.IsNullOrWhiteSpace(roleInput))
+        var currentAdmin = UserSession.CurrentUser!;
+        if (UserSession.Can(Permission.AssignRoles))
         {
-            if (Enum.TryParse(roleInput, true, out UserRole role))
+            var roleNames = _roleService.GetAllRoleNames();
+
+            Console.WriteLine("\nAvailable roles (leave empty to keep current):");
+            for (int i = 0; i < roleNames.Count; i++)
+                Console.WriteLine($"  [{i + 1}] {roleNames[i]}");
+
+            Console.Write("\nSelect role number: ");
+            var roleInput = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(roleInput))
             {
-                user.Role = role;
-            }
-            else
-            {
-                Console.WriteLine("Invalid role, keeping old value.");
+                if (int.TryParse(roleInput, out int roleIdx) && roleIdx >= 1 && roleIdx <= roleNames.Count)
+                {
+                    var newRoleName = roleNames[roleIdx - 1];
+
+                    if (user.Id == currentAdmin.Id && newRoleName == "Customer")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("You cannot demote your own account to Customer.");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        _userService.UpdateUserRole(user.Id, newRoleName);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid selection, keeping old role.");
+                }
             }
         }
 

@@ -39,14 +39,15 @@ public class Program
         var filterMenu = new FilterMenu(productService, viewProduct, userActionLogService);
 
         var userService = new UserService(databaseService);
+        var roleService = new RoleService(databaseService);
         var basketService = new BasketService(databaseService, orderMongoService, userActionLogService);
 
         var accountPresentation = new AccountPre(userService);
 
         var customerMenu = new CustomerMenuPre(viewProduct, filterMenu, accountPresentation);
         var graphservice = new Graphservice("bolt://localhost:7687", "neo4j", Env.GetString("NEO4J_PASSWORD"));
-        var adminMenuPres = new AdminMenuPres(productService, viewProduct, userService, ratingService, graphservice);
-        var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct);
+        var adminMenuPres = new AdminMenuPres(productService, viewProduct, userService, ratingService, graphservice, roleService);
+        var mainMenuPre = new MainMenuPre(customerMenu, adminMenuPres, userService, viewProduct, roleService);
         var sortingMenu = new SortingMenu(productService, viewProduct);
         var basketMenu = new BasketMenu(
             productService,
