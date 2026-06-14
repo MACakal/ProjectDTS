@@ -39,7 +39,7 @@ public class Program
         var filterMenu = new FilterMenu(productService, viewProduct, userActionLogService);
 
         var userService = new UserService(databaseService);
-        var roleService = new RoleService(databaseService);
+        var roleService = new RoleService(databaseService, userActionLogService);        
         var basketService = new BasketService(databaseService, orderMongoService, userActionLogService);
 
         var accountPresentation = new AccountPre(userService);

@@ -3,8 +3,9 @@ namespace ProjectDTS;
 
 public class RoleService
 {
+    
     private readonly DatabaseService _db;
-
+    private readonly UserActionLogService _userActionLogService;
     private static readonly Dictionary<UserRole, HashSet<Permission>> _builtInPermissions = new()
     {
         [UserRole.SuperAdmin]   = new(Enum.GetValues<Permission>()),
@@ -14,9 +15,10 @@ public class RoleService
         [UserRole.Customer]     = new(),
     };
 
-    public RoleService(DatabaseService db)
+    public RoleService(DatabaseService db, UserActionLogService userActionLogService)
     {
         _db = db;
+        _userActionLogService = userActionLogService;
     }
 
     public HashSet<Permission> GetPermissionsForUser(User user)
@@ -135,6 +137,9 @@ public class RoleService
         conn.Open();
         using var tx = conn.BeginTransaction();
 
+        var role = GetAllRoles().First(r => r.Id == roleId);
+        var oldPermissions = string.Join(", ", role.Permissions);
+
         try
         {
             using (var del = new NpgsqlCommand("DELETE FROM role_permissions WHERE role_id = @id", conn, tx))
@@ -143,9 +148,24 @@ public class RoleService
                 del.ExecuteNonQuery();
             }
 
-            InsertPermissions(conn, tx, roleId, permissions);
-            tx.Commit();
-            return true;
+                InsertPermissions(conn, tx, roleId, permissions);
+                tx.Commit();
+
+                _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
+                {
+                    UserSessionId = UserSession.SessionId,
+                    UserId = null,
+                    ActionType = "PermissionChanged",
+                    Details = new Dictionary<string, string>
+                    {
+                        { "RoleId", role.Id.ToString() },
+                        { "RoleName", role.Name },
+                        { "OldPermissions", oldPermissions },
+                        { "NewPermissions", string.Join(", ", permissions) }
+                    }
+                });
+
+                return true;
         }
         catch
         {
