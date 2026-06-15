@@ -42,6 +42,47 @@ public class RatingService
         _redisDb.SetRemove(productIndexKey, reviewKey);
     }
 
+    public Dictionary<int, (double avg, int count)> GetRatingsBatch(List<int> productIds)
+    {
+        var result = new Dictionary<int, (double, int)>();
+        var batch = _redisDb.CreateBatch();
+
+        var memberTasks = productIds.ToDictionary(
+            id => id,
+            id => batch.SetMembersAsync($"product:{id}:reviews")
+        );
+
+        batch.Execute();
+        Task.WhenAll(memberTasks.Values).Wait();
+
+        foreach (var (productId, memberTask) in memberTasks)
+        {
+            var keys = memberTask.Result;
+            if (keys.Length == 0)
+            {
+                result[productId] = (0.0, 0);
+                continue;
+            }
+
+            var batch2 = _redisDb.CreateBatch();
+            var ratingTasks = keys.Select(k => batch2.HashGetAsync(k.ToString(), "rating")).ToList();
+            batch2.Execute();
+            Task.WhenAll(ratingTasks).Wait();
+
+            var ratings = ratingTasks
+                .Select(t => t.Result)
+                .Where(v => v.HasValue)
+                .Select(v => (int)v)
+                .ToList();
+
+            result[productId] = ratings.Count > 0
+                ? (ratings.Average(), ratings.Count)
+                : (0.0, 0);
+        }
+
+        return result;
+    }
+
     public double GetAverageRating(int productId)
     {
         var ratings = GetProductRatings(productId);
