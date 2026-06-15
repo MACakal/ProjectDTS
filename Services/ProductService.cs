@@ -192,14 +192,6 @@ public class ProductService
         };
     }
 
-    // private void PopulateRatings(List<Product> products)
-    // {
-    //     foreach (var product in products)
-    //     {
-    //         product.AverageRating = _ratingService.GetAverageRating(product.Id);
-    //         product.RatingCount = _ratingService.GetRatingCount(product.Id);
-    //     }
-    // }
     private void PopulateRatings(List<Product> products)
     {
         if (products.Count == 0) return;

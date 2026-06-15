@@ -82,22 +82,6 @@ public class GraphProductService
                 Rarity = node.Properties["rarity"].As<string>()
             });
         }
-        // await foreach (var record in result)
-        // {
-        //     var node = record["related"].As<INode>();
-
-        //     Console.WriteLine(
-        //         $"Found product: {node.Properties["name"]}"
-        //     );
-
-        //     products.Add(new Product
-        //     {
-        //         Id = node.Properties["product_id"].As<int>(),
-        //         Name = node.Properties["name"].As<string>(),
-        //         Price = node.Properties["price"].As<decimal>(),
-        //         Rarity = node.Properties["rarity"].As<string>()
-        //     });
-        // }
 
         Console.WriteLine($"Total found: {products.Count}");
 
