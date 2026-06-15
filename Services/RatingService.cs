@@ -83,18 +83,6 @@ public class RatingService
         return result;
     }
 
-    public double GetAverageRating(int productId)
-    {
-        var ratings = GetProductRatings(productId);
-        if (ratings.Count == 0) return 0.0;
-        return ratings.Average(r => r.RatingValue);
-    }
-
-    public int GetRatingCount(int productId)
-    {
-        string productIndexKey = $"product:{productId}:reviews";
-        return (int)_redisDb.SetLength(productIndexKey);
-    }
 
     public List<Rating> GetProductRatings(int productId)
     {
