@@ -635,7 +635,7 @@ public class AdminManagerPres
             foreach (var user in pageUsers)
             {
                 Console.WriteLine(
-                    $"ID: {user.Id,-5} | Name: {user.Name,-30} | Role: {user.Role}"
+                    $"ID: {user.Id,-5} | Name: {user.Name,-30} | Role: {user.RoleDisplayName}"
                 );
             }
 
@@ -703,35 +703,40 @@ public class AdminManagerPres
         var currentAdmin = UserSession.CurrentUser!;
         if (UserSession.Can(Permission.AssignRoles))
         {
-            var roleNames = _roleService.GetAllRoleNames();
-
-            Console.WriteLine("\nAvailable roles (leave empty to keep current):");
-            for (int i = 0; i < roleNames.Count; i++)
-                Console.WriteLine($"  [{i + 1}] {roleNames[i]}");
-
-            Console.Write("\nSelect role number: ");
-            var roleInput = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(roleInput))
+            if (user.Id == currentAdmin.Id)
             {
-                if (int.TryParse(roleInput, out int roleIdx) && roleIdx >= 1 && roleIdx <= roleNames.Count)
-                {
-                    var newRoleName = roleNames[roleIdx - 1];
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("You cannot change your own role.");
+                Console.ResetColor();
+            }
+            else
+            {
+                var roleNames = _roleService.GetAllRoleNames();
 
-                    if (user.Id == currentAdmin.Id && newRoleName == "Customer")
+                Console.WriteLine($"\nCurrent role: {user.RoleDisplayName}");
+                Console.WriteLine("Available roles (leave empty to keep current):");
+                for (int i = 0; i < roleNames.Count; i++)
+                    Console.WriteLine($"  [{i + 1}] {roleNames[i]}");
+
+                Console.Write("\nSelect role number: ");
+                var roleInput = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(roleInput))
+                {
+                    if (int.TryParse(roleInput, out int roleIdx) && roleIdx >= 1 && roleIdx <= roleNames.Count)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("You cannot demote your own account to Customer.");
+                        var newRoleName = roleNames[roleIdx - 1];
+                        _userService.UpdateUserRole(user.Id, newRoleName);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Role updated to '{newRoleName}'.");
                         Console.ResetColor();
                     }
                     else
                     {
-                        _userService.UpdateUserRole(user.Id, newRoleName);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid selection — role was not changed.");
+                        Console.ResetColor();
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid selection, keeping old role.");
                 }
             }
         }

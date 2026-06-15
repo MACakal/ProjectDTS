@@ -125,18 +125,61 @@ public class RoleManagementPres
         var role = PickCustomRole("edit");
         if (role == null) return;
 
+        var current = new HashSet<Permission>(role.Permissions);
+
         Console.WriteLine($"\nCurrent permissions for '{role.Name}':");
-        if (role.Permissions.Count == 0)
+        if (current.Count == 0)
             Console.WriteLine("  (none)");
         else
-            foreach (var p in role.Permissions)
+            foreach (var p in current)
                 Console.WriteLine($"  • {PermissionDescriptions.Describe(p)}");
 
         Console.WriteLine();
-        var updated = SelectPermissions(new HashSet<Permission>(role.Permissions));
+        var updated = SelectPermissions(current);
 
-        Console.Write($"\nSave updated permissions for '{role.Name}'? (y/n): ");
-        if (Console.ReadLine()?.ToLower() != "y") return;
+        if (updated.Count == 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("A role must have at least one permission. Changes were not saved.");
+            Console.ResetColor();
+            return;
+        }
+
+        // Show a diff so the admin knows exactly what will change
+        var removed = current.Except(updated).ToList();
+        var added   = updated.Except(current).ToList();
+
+        if (removed.Count == 0 && added.Count == 0)
+        {
+            Console.WriteLine("No changes detected.");
+            return;
+        }
+
+        Console.WriteLine();
+        if (removed.Count > 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Permissions to REMOVE:");
+            foreach (var p in removed)
+                Console.WriteLine($"  - {PermissionDescriptions.Describe(p)}");
+            Console.ResetColor();
+        }
+        if (added.Count > 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Permissions to ADD:");
+            foreach (var p in added)
+                Console.WriteLine($"  + {PermissionDescriptions.Describe(p)}");
+            Console.ResetColor();
+        }
+
+        Console.WriteLine();
+        Console.Write($"Save these changes to '{role.Name}'? (y/n): ");
+        if (Console.ReadLine()?.ToLower() != "y")
+        {
+            Console.WriteLine("Cancelled — no changes saved.");
+            return;
+        }
 
         bool ok = _roleService.UpdateRolePermissions(role.Id, updated);
 
