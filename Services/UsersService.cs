@@ -164,37 +164,6 @@ public class UserService
     }
 
 
-
-    // public UserRegisterService UpdateUser(User user)
-    // {
-    //     if (user == null)
-    //     {
-    //         return UserRegisterService.emptyParameter;
-    //     }
-
-    //     using var conn = _db.GetConnection();
-    //     conn.Open();
-    //     string hash = BCrypt.Net.BCrypt.HashPassword(user.Password);
-    //     string sql = @"UPDATE users 
-    //                 SET name=@name, email=@email, password=@password
-    //                 WHERE id=@id";
-
-    //     using var cmd = new NpgsqlCommand(sql, conn);
-    //     cmd.Parameters.AddWithValue("name", user.Name);
-    //     cmd.Parameters.AddWithValue("email", user.Email);
-    //     cmd.Parameters.AddWithValue("password", hash);
-    //     cmd.Parameters.AddWithValue("id", user.Id);
-
-    //     int rows = cmd.ExecuteNonQuery();
-
-    //     if (rows > 0)
-    //     {
-    //         return UserRegisterService.succesfull;
-    //     }
-
-    //     return UserRegisterService.UnkownError;
-    // }
-
     public UserRegisterService UpdateUser(User user)
     {
         if (user == null)
@@ -274,20 +243,6 @@ public class UserService
         return UserRegisterService.UnkownError;
     }
 
-    // public void UpdateProfile(string name, string address, string zipCode, string country)
-    // {
-    //     using var conn = _db.GetConnection();
-    //     conn.Open();
-
-    //     string sql = @"
-    //     UPDATE users 
-    //     SET 
-    //         name = @Name,
-    //         address =@Address,
-    //         Zip_code = @ZipCode,
-    //         country = @Country
-    //         WHERE Role = Admin";
-    // }
 
     public string? GetSecurityQuestion(string email)
     {

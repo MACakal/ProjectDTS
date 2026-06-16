@@ -194,12 +194,21 @@ public class ProductService
 
     private void PopulateRatings(List<Product> products)
     {
+        if (products.Count == 0) return;
+        
+        var ids = products.Select(p => p.Id).ToList();
+        var ratings = _ratingService.GetRatingsBatch(ids);
+
         foreach (var product in products)
         {
-            product.AverageRating = _ratingService.GetAverageRating(product.Id);
-            product.RatingCount = _ratingService.GetRatingCount(product.Id);
+            if (ratings.TryGetValue(product.Id, out var r))
+            {
+                product.AverageRating = r.avg;
+                product.RatingCount = r.count;
+            }
         }
     }
+
 
     public void UpdateProduct(Product product)
     {
