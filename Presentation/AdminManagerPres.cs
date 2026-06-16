@@ -852,14 +852,18 @@ public class AdminManagerPres
         for (int i = 0; i < orders.Count; i++)
         {
             var order = orders[i];
-            var currentStatus = order.StatusHistory?.LastOrDefault()?.StatusName ?? "Unknown";
-            Console.WriteLine($"{i + 1,-5} {order.PostgresOrderId,-10} {order.UserId,-10} €{order.TotalPrice,8:N2} {order.CreatedAt.ToLocalTime():dd-MM-yyyy HH:mm,-15} {currentStatus}");
+
+            if (order.StatusHistory == null || !order.StatusHistory.Any())
+            continue;
+
+            var currentStatus = order.StatusHistory.LastOrDefault()?.StatusName ?? "Unknown";
+            Console.WriteLine($"{i + 1,-5} {order.PostgresOrderId,-10} {order.UserId,-10} {order.CreatedAt.ToLocalTime():dd-MM-yyyy HH:mm,-15}   {currentStatus}");
         }
 
         Console.WriteLine("\nEnter order number to update (or 0 to cancel):");
         if (!int.TryParse(Console.ReadLine(), out int choice) || choice == 0 || choice < 1 || choice > orders.Count)
         {
-            Console.WriteLine("Cancelled.");
+            Console.WriteLine("Cancelled or does not exist.");
             return;
         }
 
