@@ -18,6 +18,7 @@ public class Program
         var mongoContext = new MongoDbContext(configuration);
         var orderMongoService = new OrderMongoService(mongoContext);
         var userActionLogService = new UserActionLogService(mongoContext);
+        var permissionChangeLogService = new PermissionChangeLogService(mongoContext);
 
         var databaseService = new DatabaseService();
         var redis = ConnectionMultiplexer.Connect(Env.GetString("REDIS_URL")); // or your connection string
@@ -39,7 +40,7 @@ public class Program
         var filterMenu = new FilterMenu(productService, viewProduct, userActionLogService);
 
         var userService = new UserService(databaseService);
-        var roleService = new RoleService(databaseService, userActionLogService);        
+        var roleService = new RoleService(databaseService, permissionChangeLogService);        
         var basketService = new BasketService(databaseService, orderMongoService, userActionLogService);
 
         var accountPresentation = new AccountPre(userService);

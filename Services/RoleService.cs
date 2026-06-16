@@ -5,7 +5,7 @@ public class RoleService
 {
     
     private readonly DatabaseService _db;
-    private readonly UserActionLogService _userActionLogService;
+    private readonly PermissionChangeLogService _permissionChangeLogService;
     private static readonly Dictionary<UserRole, HashSet<Permission>> _builtInPermissions = new()
     {
         [UserRole.SuperAdmin]   = new(Enum.GetValues<Permission>()),
@@ -15,10 +15,10 @@ public class RoleService
         [UserRole.Customer]     = new(),
     };
 
-    public RoleService(DatabaseService db, UserActionLogService userActionLogService)
+    public RoleService(DatabaseService db, PermissionChangeLogService permissionChangeLogService)
     {
         _db = db;
-        _userActionLogService = userActionLogService;
+        _permissionChangeLogService = permissionChangeLogService;
     }
 
     public HashSet<Permission> GetPermissionsForUser(User user)
@@ -109,6 +109,7 @@ public class RoleService
         using var conn = _db.GetConnection();
         conn.Open();
         using var tx = conn.BeginTransaction();
+        var committed = false;
 
         try
         {
@@ -122,11 +123,16 @@ public class RoleService
 
             InsertPermissions(conn, tx, roleId, permissions);
             tx.Commit();
+            committed = true;
+
+            LogPermissionChange("RoleCreated", roleId, name, new HashSet<Permission>(), permissions);
+
             return true;
         }
         catch
         {
-            tx.Rollback();
+            if (!committed)
+                tx.Rollback();
             return false;
         }
     }
@@ -138,7 +144,8 @@ public class RoleService
         using var tx = conn.BeginTransaction();
 
         var role = GetAllRoles().First(r => r.Id == roleId);
-        var oldPermissions = string.Join(", ", role.Permissions);
+        var oldPermissions = new HashSet<Permission>(role.Permissions);
+        var committed = false;
 
         try
         {
@@ -150,26 +157,16 @@ public class RoleService
 
                 InsertPermissions(conn, tx, roleId, permissions);
                 tx.Commit();
+                committed = true;
 
-                _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
-                {
-                    UserSessionId = UserSession.SessionId,
-                    UserId = null,
-                    ActionType = "PermissionChanged",
-                    Details = new Dictionary<string, string>
-                    {
-                        { "RoleId", role.Id.ToString() },
-                        { "RoleName", role.Name },
-                        { "OldPermissions", oldPermissions },
-                        { "NewPermissions", string.Join(", ", permissions) }
-                    }
-                });
+                LogPermissionChange("PermissionChanged", role.Id, role.Name, oldPermissions, permissions);
 
                 return true;
         }
         catch
         {
-            tx.Rollback();
+            if (!committed)
+                tx.Rollback();
             return false;
         }
     }
@@ -178,11 +175,19 @@ public class RoleService
     {
         if (RoleHasUsers(roleId)) return false;
 
+        var role = GetAllRoles().FirstOrDefault(r => r.Id == roleId && !r.IsBuiltIn);
+        if (role == null) return false;
+
         using var conn = _db.GetConnection();
         conn.Open();
         using var cmd = new NpgsqlCommand("DELETE FROM roles WHERE id = @id AND is_builtin = false", conn);
         cmd.Parameters.AddWithValue("id", roleId);
-        return cmd.ExecuteNonQuery() > 0;
+        var deleted = cmd.ExecuteNonQuery() > 0;
+
+        if (deleted)
+            LogPermissionChange("RoleDeleted", role.Id, role.Name, new HashSet<Permission>(role.Permissions), new HashSet<Permission>());
+
+        return deleted;
     }
 
     public List<string> GetAllRoleNames()
@@ -206,5 +211,24 @@ public class RoleService
             ins.Parameters.AddWithValue("perm", perm.ToString());
             ins.ExecuteNonQuery();
         }
+    }
+
+    private void LogPermissionChange(
+        string actionType,
+        int roleId,
+        string roleName,
+        HashSet<Permission> oldPermissions,
+        HashSet<Permission> newPermissions)
+    {
+        _permissionChangeLogService.SavePermissionChangeLogAsync(new PermissionChangeLog
+        {
+            UserSessionId = UserSession.SessionId,
+            UserId = UserSession.CurrentUser?.Id,
+            ActionType = actionType,
+            RoleId = roleId,
+            RoleName = roleName,
+            OldPermissions = oldPermissions.OrderBy(p => p.ToString()).Select(p => p.ToString()).ToList(),
+            NewPermissions = newPermissions.OrderBy(p => p.ToString()).Select(p => p.ToString()).ToList()
+        }).GetAwaiter().GetResult();
     }
 }
