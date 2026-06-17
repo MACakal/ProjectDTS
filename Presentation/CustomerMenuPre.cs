@@ -23,7 +23,7 @@ public class CustomerMenuPre
             //BreadcrumbManager.Render();
 
             Console.WriteLine("\nCustomer Menu");
-            Console.WriteLine("1. View Products");
+            Console.WriteLine("1. Browse Products");
             Console.WriteLine("2. Make an Order");
             Console.WriteLine("3. View past Orders");
             Console.WriteLine("4. Filter Products");

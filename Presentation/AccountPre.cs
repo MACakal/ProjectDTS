@@ -113,10 +113,13 @@ public class AccountPre
     {
         bool editing = true;
 
+        string tempName = user.Name;
+        string tempEmail = user.Email;
+        string tempPassword = user.Password;
+
         while (editing)
         {
             Console.Clear();
-
 
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("╔══════════════════════════════╗");
@@ -126,8 +129,8 @@ public class AccountPre
 
             Console.WriteLine();
 
-            Console.WriteLine($"1. Name     : {user.Name}");
-            Console.WriteLine($"2. Email    : {user.Email}");
+            Console.WriteLine($"1. Name     : {tempName}");
+            Console.WriteLine($"2. Email    : {tempEmail}");
             Console.WriteLine($"3. Password : ********");
             Console.WriteLine();
             Console.WriteLine("4. Save and exit");
@@ -147,15 +150,31 @@ public class AccountPre
                     var name = Console.ReadLine();
 
                     if (!string.IsNullOrWhiteSpace(name))
-                        user.Name = name;
+                        tempName = name;
                     break;
+
+                // case "2":
+                //     Console.Write("Enter new email: ");
+                //     var email = Console.ReadLine();
+
+                //     if (!string.IsNullOrWhiteSpace(email))
+                //         tempEmail = email;
+                //     break;
+
 
                 case "2":
                     Console.Write("Enter new email: ");
                     var email = Console.ReadLine();
 
-                    if (!string.IsNullOrWhiteSpace(email))
-                        user.Email = email;
+                    if (!string.IsNullOrWhiteSpace(email) && email.Contains("@"))
+                    {
+                        tempEmail = email;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid email address.");
+                        Console.ReadKey();
+                    }
                     break;
 
                 case "3":
@@ -163,10 +182,15 @@ public class AccountPre
                     var password = Console.ReadLine();
 
                     if (!string.IsNullOrWhiteSpace(password))
-                        user.Password = password;
+                        tempPassword = password;
                     break;
 
                 case "4":
+                    // Apply changes only when saving
+                    user.Name = tempName;
+                    user.Email = tempEmail;
+                    user.Password = tempPassword;
+
                     var result = userLogic.UpdateUser(user);
 
                     Console.Clear();
@@ -190,7 +214,10 @@ public class AccountPre
                     break;
 
                 case "5":
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Changes discarded.");
+                    Console.ResetColor();
+
                     Thread.Sleep(800);
                     editing = false;
                     break;
@@ -199,13 +226,109 @@ public class AccountPre
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid option...");
                     Console.ResetColor();
+
                     Thread.Sleep(800);
                     break;
             }
         }
-
-        SuccesfullCheck(user);
     }
+    // public void ChangeAccInfo(User user)
+    // {
+    //     bool editing = true;
+
+    //     while (editing)
+    //     {
+    //         Console.Clear();
+
+
+    //         Console.ForegroundColor = ConsoleColor.Cyan;
+    //         Console.WriteLine("╔══════════════════════════════╗");
+    //         Console.WriteLine("║       EDIT YOUR PROFILE      ║");
+    //         Console.WriteLine("╚══════════════════════════════╝");
+    //         Console.ResetColor();
+
+    //         Console.WriteLine();
+
+    //         Console.WriteLine($"1. Name     : {user.Name}");
+    //         Console.WriteLine($"2. Email    : {user.Email}");
+    //         Console.WriteLine($"3. Password : ********");
+    //         Console.WriteLine();
+    //         Console.WriteLine("4. Save and exit");
+    //         Console.WriteLine("5. Cancel");
+
+    //         Console.WriteLine();
+    //         Console.ForegroundColor = ConsoleColor.Cyan;
+    //         Console.Write("Select option: ");
+    //         Console.ResetColor();
+
+    //         string? choice = Console.ReadLine();
+
+    //         switch (choice)
+    //         {
+    //             case "1":
+    //                 Console.Write("Enter new name: ");
+    //                 var name = Console.ReadLine();
+
+    //                 if (!string.IsNullOrWhiteSpace(name))
+    //                     user.Name = name;
+    //                 break;
+
+    //             case "2":
+    //                 Console.Write("Enter new email: ");
+    //                 var email = Console.ReadLine();
+
+    //                 if (!string.IsNullOrWhiteSpace(email))
+    //                     user.Email = email;
+    //                 break;
+
+    //             case "3":
+    //                 Console.Write("Enter new password: ");
+    //                 var password = Console.ReadLine();
+
+    //                 if (!string.IsNullOrWhiteSpace(password))
+    //                     user.Password = password;
+    //                 break;
+
+    //             case "4":
+    //                 var result = userLogic.UpdateUser(user);
+
+    //                 Console.Clear();
+
+    //                 if (result == UserRegisterService.succesfull)
+    //                 {
+    //                     Console.ForegroundColor = ConsoleColor.Green;
+    //                     Console.WriteLine("✔ Account updated successfully!");
+    //                 }
+    //                 else
+    //                 {
+    //                     Console.ForegroundColor = ConsoleColor.Red;
+    //                     Console.WriteLine("✖ Something went wrong.");
+    //                 }
+
+    //                 Console.ResetColor();
+    //                 Console.WriteLine("\nPress any key...");
+    //                 Console.ReadKey();
+
+    //                 editing = false;
+    //                 break;
+
+    //             case "5":
+    //                 Console.WriteLine("Changes discarded.");
+    //                 Thread.Sleep(800);
+    //                 editing = false;
+    //                 break;
+
+    //             default:
+    //                 Console.ForegroundColor = ConsoleColor.Red;
+    //                 Console.WriteLine("Invalid option...");
+    //                 Console.ResetColor();
+    //                 Thread.Sleep(800);
+    //                 break;
+    //         }
+    //     }
+
+    //     SuccesfullCheck(user);
+    // }
 
 
     public void SetSecurityQuestion(User user)
