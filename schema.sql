@@ -445,7 +445,7 @@ CREATE TABLE IF NOT EXISTS role_permissions (
     PRIMARY KEY (role_id, permission)
 );
 
--- Seed built-in roles (permissions are hardcoded in RoleService for built-ins)
+-- Seed built-in roles
 INSERT INTO roles (name, is_builtin) VALUES
     ('Customer',     true),
     ('ProductAdmin', true),
@@ -453,6 +453,18 @@ INSERT INTO roles (name, is_builtin) VALUES
     ('UserAdmin',    true),
     ('SuperAdmin',   true)
 ON CONFLICT (name) DO NOTHING;
+
+-- Seed built-in role permissions — all roles are now fully DB-driven (SuperAdmin handled in code only)
+INSERT INTO role_permissions (role_id, permission)
+SELECT r.id, p.permission
+FROM roles r
+JOIN (VALUES
+    ('ProductAdmin', 'ManageProducts'),
+    ('OrderAdmin',   'ManageOrders'),
+    ('UserAdmin',    'ManageUsers'),
+    ('UserAdmin',    'ManageReviews')
+) AS p(role_name, permission) ON r.name = p.role_name
+ON CONFLICT DO NOTHING;
 
 -- Migrate existing legacy role values
 ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check;

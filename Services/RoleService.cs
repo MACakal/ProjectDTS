@@ -6,14 +6,6 @@ public class RoleService
     
     private readonly DatabaseService _db;
     private readonly PermissionChangeLogService _permissionChangeLogService;
-    private static readonly Dictionary<UserRole, HashSet<Permission>> _builtInPermissions = new()
-    {
-        [UserRole.SuperAdmin]   = new(Enum.GetValues<Permission>()),
-        [UserRole.ProductAdmin] = new() { Permission.ManageProducts },
-        [UserRole.OrderAdmin]   = new() { Permission.ManageOrders },
-        [UserRole.UserAdmin]    = new() { Permission.ManageUsers, Permission.ManageReviews },
-        [UserRole.Customer]     = new(),
-    };
 
     public RoleService(DatabaseService db, PermissionChangeLogService permissionChangeLogService)
     {
@@ -23,10 +15,12 @@ public class RoleService
 
     public HashSet<Permission> GetPermissionsForUser(User user)
     {
-        if (user.Role != UserRole.Custom)
-            return _builtInPermissions.TryGetValue(user.Role, out var perms) ? new(perms) : new();
+        // SuperAdmin is the only hardcoded special case — always has every permission
+        if (user.Role == "SuperAdmin")
+            return new HashSet<Permission>(Enum.GetValues<Permission>());
 
-        return GetPermissionsForRoleName(user.CustomRoleName!);
+        // All other roles (built-in and custom) resolve from the database
+        return GetPermissionsForRoleName(user.Role);
     }
 
     private HashSet<Permission> GetPermissionsForRoleName(string roleName)

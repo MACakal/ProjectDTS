@@ -122,7 +122,7 @@ public class RoleManagementPres
         Console.WriteLine("=== EDIT ROLE PERMISSIONS ===\n");
         Console.ResetColor();
 
-        var role = PickCustomRole("edit");
+        var role = PickEditableRole();
         if (role == null) return;
 
         var current = new HashSet<Permission>(role.Permissions);
@@ -194,7 +194,7 @@ public class RoleManagementPres
         Console.WriteLine("=== DELETE CUSTOM ROLE ===\n");
         Console.ResetColor();
 
-        var role = PickCustomRole("delete");
+        var role = PickDeletableRole();
         if (role == null) return;
 
         if (_roleService.RoleHasUsers(role.Id))
@@ -215,8 +215,39 @@ public class RoleManagementPres
         Console.ResetColor();
     }
 
-    // Shows only custom (non-built-in) roles for pick
-    private Role? PickCustomRole(string action)
+    // All roles except SuperAdmin — used for permission editing (built-in roles are now editable)
+    private Role? PickEditableRole()
+    {
+        var roles = _roleService.GetAllRoles()
+            .Where(r => r.Name != "SuperAdmin")
+            .ToList();
+
+        if (roles.Count == 0)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("No editable roles found.");
+            Console.ResetColor();
+            return null;
+        }
+
+        Console.WriteLine("Choose a role to edit:");
+        for (int i = 0; i < roles.Count; i++)
+        {
+            string tag = roles[i].IsBuiltIn ? " (built-in)" : " (custom)";
+            Console.WriteLine($"  [{i + 1}] {roles[i].Name}{tag}");
+        }
+
+        Console.WriteLine("  [0] Cancel");
+        Console.Write("\nSelect: ");
+
+        if (!int.TryParse(Console.ReadLine(), out int choice) || choice == 0 || choice < 1 || choice > roles.Count)
+            return null;
+
+        return roles[choice - 1];
+    }
+
+    // Only non-built-in custom roles — used for deletion
+    private Role? PickDeletableRole()
     {
         var roles = _roleService.GetAllRoles().Where(r => !r.IsBuiltIn).ToList();
 
@@ -228,7 +259,7 @@ public class RoleManagementPres
             return null;
         }
 
-        Console.WriteLine($"Choose a role to {action}:");
+        Console.WriteLine("Choose a custom role to delete:");
         for (int i = 0; i < roles.Count; i++)
             Console.WriteLine($"  [{i + 1}] {roles[i].Name}");
 

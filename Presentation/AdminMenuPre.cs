@@ -100,7 +100,7 @@ public class AdminMenuPres
             }
 
             // Manage Roles is SuperAdmin-only (not a general permission)
-            if (user.Role == UserRole.SuperAdmin)
+            if (user.Role == "SuperAdmin")
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("── Roles ─────────────────────────");
@@ -243,7 +243,7 @@ public class AdminMenuPres
 
                 case "17":
                     Console.Clear();
-                    if (user.Role != UserRole.SuperAdmin) { ShowAccessDenied("Manage Roles"); break; }
+                    if (user.Role != "SuperAdmin") { ShowAccessDenied("Manage Roles"); break; }
                     _roleManagementPres.Show();
                     break;
                 // case "99":  // testing

@@ -1,20 +1,5 @@
 namespace ProjectDTS;
 
-public enum UserRole
-{
-    Customer,
-    ProductAdmin,
-    OrderAdmin,
-    UserAdmin,
-    SuperAdmin,
-    Custom  // any role defined dynamically in the roles table
-}
-
-public static class UserRoleExtensions
-{
-    public static bool IsAdmin(this UserRole role) => role != UserRole.Customer;
-}
-
 public class User
 {
     public int Id { get; set; }
@@ -30,13 +15,13 @@ public class User
     public string? SecurityQuestion { get; set; }
     public string? SecurityAnswer { get; set; }
 
-    public UserRole Role { get; set; }
+    // Role is stored and used as a plain string matching the name column in the roles table
+    public string Role { get; set; } = "Customer";
 
-    // Only populated when Role == UserRole.Custom
-    public string? CustomRoleName { get; set; }
+    // Alias kept so existing display code compiles without changes
+    public string RoleDisplayName => Role;
 
-    // Returns the display name of the role (custom role name or enum name)
-    public string RoleDisplayName => Role == UserRole.Custom ? (CustomRoleName ?? "Custom") : Role.ToString();
+    public bool IsAdmin() => Role != "Customer";
 
     public User() { }
     public User(string name, string email, string password, string address = null, string zipCode = null, string country = null)
@@ -47,6 +32,6 @@ public class User
         Address = address;
         ZipCode = zipCode;
         Country = country;
-        Role = UserRole.Customer;
+        Role = "Customer";
     }
 }

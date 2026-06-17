@@ -131,7 +131,7 @@ public class MainMenuPre
         UserSession.CurrentUser = user;
         UserSession.Permissions = _roleService.GetPermissionsForUser(user);
 
-        if (user.Role.IsAdmin())
+        if (user.IsAdmin())
         {
             Console.Clear();
 
