@@ -42,7 +42,7 @@ public class BasketMenu
         {
             Console.WriteLine("\nWhat do you want to do?");
             Console.WriteLine("1. Browse Products");
-            Console.WriteLine("2. View product");
+            Console.WriteLine("2. View Product Details");
             Console.WriteLine("3. Add product to basket");
             Console.WriteLine("4. Filter products");
             Console.WriteLine("5. View Basket");

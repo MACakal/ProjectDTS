@@ -398,32 +398,99 @@ public class AdminManagerPres
 
 
 
+    // public void ShowUserSpending()
+    // {
+    //     var users = _userService.GetUserSpending();
+    //     if (users.Count == 0)
+    //     {
+    //         Console.WriteLine("No users found.");
+    //         return;
+    //     }
+    //     Console.ForegroundColor = ConsoleColor.Cyan;
+    //     Console.WriteLine("ID   | Name           | Total Spending");
+    //     Console.ResetColor();
+
+    //     Console.WriteLine("----------------------------------------");
+
+    //     foreach (var user in users)
+    //     {
+    //         Console.ForegroundColor = ConsoleColor.Yellow;
+    //         Console.Write($"{user.Id,-4} | ");
+
+    //         Console.ForegroundColor = ConsoleColor.Green;
+    //         Console.Write($"{user.Name,-14} | ");
+
+    //         Console.ForegroundColor = ConsoleColor.Magenta;
+    //         Console.WriteLine($"{user.TotalSpending,10}");
+
+    //         Console.ResetColor();
+    //     }
+    // }
     public void ShowUserSpending()
     {
         var users = _userService.GetUserSpending();
+
         if (users.Count == 0)
         {
             Console.WriteLine("No users found.");
             return;
         }
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("ID   | Name           | Total Spending");
-        Console.ResetColor();
 
-        Console.WriteLine("----------------------------------------");
+        const int pageSize = 15;
+        int currentPage = 0;
 
-        foreach (var user in users)
+        while (true)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"{user.Id,-4} | ");
+            Console.Clear();
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{user.Name,-14} | ");
+            int totalPages = (int)Math.Ceiling(users.Count / (double)pageSize);
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"{user.TotalSpending,10}");
+            var pageUsers = users
+                .Skip(currentPage * pageSize)
+                .Take(pageSize)
+                .ToList();
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"=== USER SPENDING ({currentPage + 1}/{totalPages}) ===");
             Console.ResetColor();
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"{"ID",-5} {"Name",-25} {"Total Spending"}");
+            Console.ResetColor();
+
+            Console.WriteLine(new string('-', 25));
+
+            foreach (var user in pageUsers)
+            {
+                Console.WriteLine(
+                    $"{user.Id,-5} {user.Name,-25} €{user.TotalSpending}"
+                );
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("[N] Next page");
+            Console.WriteLine("[P] Previous page");
+            Console.WriteLine("[Q] Exit");
+
+            var input = Console.ReadLine()?.ToLower();
+
+            switch (input)
+            {
+                case "n":
+                    if (currentPage < totalPages - 1)
+                        currentPage++;
+                    break;
+
+                case "p":
+                    if (currentPage > 0)
+                        currentPage--;
+                    break;
+
+                case "q":
+                    return;
+            }
         }
     }
 
@@ -854,7 +921,7 @@ public class AdminManagerPres
             var order = orders[i];
 
             if (order.StatusHistory == null || !order.StatusHistory.Any())
-            continue;
+                continue;
 
             var currentStatus = order.StatusHistory.LastOrDefault()?.StatusName ?? "Unknown";
             Console.WriteLine($"{i + 1,-5} {order.PostgresOrderId,-10} {order.UserId,-10} {order.CreatedAt.ToLocalTime():dd-MM-yyyy HH:mm,-15}   {currentStatus}");
