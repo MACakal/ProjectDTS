@@ -10,14 +10,16 @@ public class AdminLoginStoryTests
     [DataRow(UserRole.OrderAdmin)]
     [DataRow(UserRole.UserAdmin)]
     [DataRow(UserRole.SuperAdmin)]
+    [DataRow(UserRole.Custom)]
     public void AdminLogin_ShouldRecognizeAdminRoles_AsAdmin(UserRole role)
     {
         Assert.IsTrue(role.IsAdmin());
     }
 
-    [TestMethod]
-    public void AdminLogin_ShouldNotTreatCustomer_AsAdmin()
+    [DataTestMethod]
+    [DataRow(UserRole.Customer)]
+    public void AdminLogin_ShouldNotTreatCustomer_AsAdmin(UserRole role)
     {
-        Assert.IsFalse(UserRole.Customer.IsAdmin());
+        Assert.IsFalse(role.IsAdmin());
     }
 }

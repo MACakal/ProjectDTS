@@ -5,12 +5,15 @@ namespace UnitTests;
 [TestClass]
 public class UpdateProfileSecurelyStoryTests
 {
-    [TestMethod]
-    public void UpdateProfileSecurely_ShouldRejectNullUser_WhenCheckingPassword()
+    [DataTestMethod]
+    [DataRow("Password123")]
+    [DataRow("x")]
+    [DataRow("")]
+    public void UpdateProfileSecurely_ShouldRejectNullUser_WhenCheckingPassword(string password)
     {
         var userService = new UserService(null!);
 
-        var result = userService.UserInformationPasswordCheck(null!, "Password123");
+        var result = userService.UserInformationPasswordCheck(null!, password);
 
         Assert.AreEqual(UserRegisterService.emptyParameter, result);
     }

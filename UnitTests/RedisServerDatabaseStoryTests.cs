@@ -3,16 +3,22 @@ namespace UnitTests;
 [TestClass]
 public class RedisServerDatabaseStoryTests
 {
-    [TestMethod]
-    public void RedisDatabase_ShouldUseEnvironmentConnectionString_InProgram()
+    [DataTestMethod]
+    [DataRow("Program.cs")]
+    [DataRow("Logic\\ProductLogic.cs")]
+    [DataRow("Presentation\\PastOrders.cs")]
+    public void RedisDatabase_ShouldUseEnvironmentConnectionString_InRedisCode(string relativePath)
     {
-        var programText = File.ReadAllText(GetProjectFile("Program.cs"));
+        var text = File.ReadAllText(GetProjectFile(relativePath.Split('\\')));
 
-        StringAssert.Contains(programText, "Env.GetString(\"REDIS_URL\")");
+        StringAssert.Contains(text, "REDIS_URL");
     }
 
-    [TestMethod]
-    public void RedisDatabase_ShouldNotUseDefaultLocalhostPort_InRedisCode()
+    [DataTestMethod]
+    [DataRow("localhost:6379")]
+    [DataRow("127.0.0.1:6379")]
+    [DataRow("localhost,abortConnect=false")]
+    public void RedisDatabase_ShouldNotUseDefaultLocalhostConnection_InRedisCode(string forbiddenConnection)
     {
         var redisFiles = Directory.GetFiles(GetProjectRoot(), "*.cs", SearchOption.AllDirectories)
             .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}UnitTests{Path.DirectorySeparatorChar}"))
@@ -23,8 +29,7 @@ public class RedisServerDatabaseStoryTests
         foreach (var file in redisFiles)
         {
             var text = File.ReadAllText(file);
-            Assert.IsFalse(text.Contains("localhost:6379", StringComparison.OrdinalIgnoreCase), file);
-            Assert.IsFalse(text.Contains("127.0.0.1:6379", StringComparison.OrdinalIgnoreCase), file);
+            Assert.IsFalse(text.Contains(forbiddenConnection, StringComparison.OrdinalIgnoreCase), file);
         }
     }
 

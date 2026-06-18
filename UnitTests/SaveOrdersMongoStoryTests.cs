@@ -3,39 +3,51 @@ namespace UnitTests;
 [TestClass]
 public class SaveOrdersMongoStoryTests
 {
-    [TestMethod]
-    public void SaveOrdersMongo_ShouldRepresentOrderWithProductsAndStatusHistory()
+    [DataTestMethod]
+    [DataRow(12, 34, 49.95, 1, "Product", 3, 16.65, "Placed")]
+    [DataRow(22, 44, 19.99, 2, "Other product", 1, 19.99, "Processing")]
+    public void SaveOrdersMongo_ShouldRepresentOrderWithProductsAndStatusHistory(
+        int userId,
+        int postgresOrderId,
+        double totalPrice,
+        int productId,
+        string productName,
+        int quantity,
+        double productPrice,
+        string statusName)
     {
         var order = new OrderDocument
         {
-            UserId = 12,
-            PostgresOrderId = 34,
+            UserId = userId,
+            PostgresOrderId = postgresOrderId,
             CreatedAt = DateTime.UtcNow,
-            TotalPrice = 49.95m,
+            TotalPrice = Convert.ToDecimal(totalPrice),
             Products = new List<BasketItem>
             {
-                new() { ProductId = 1, Name = "Product", Quantity = 3, Price = 16.65m }
+                new() { ProductId = productId, Name = productName, Quantity = quantity, Price = Convert.ToDecimal(productPrice) }
             },
             StatusHistory = new List<OrderStatusEntry>
             {
-                new() { StatusName = "Placed", Timestamp = DateTime.UtcNow }
+                new() { StatusName = statusName, Timestamp = DateTime.UtcNow }
             }
         };
 
-        Assert.AreEqual(12, order.UserId);
-        Assert.AreEqual(34, order.PostgresOrderId);
-        Assert.AreEqual(49.95m, order.TotalPrice);
+        Assert.AreEqual(userId, order.UserId);
+        Assert.AreEqual(postgresOrderId, order.PostgresOrderId);
+        Assert.AreEqual(Convert.ToDecimal(totalPrice), order.TotalPrice);
         Assert.AreEqual(1, order.Products.Count);
-        Assert.AreEqual("Placed", order.StatusHistory.Single().StatusName);
+        Assert.AreEqual(statusName, order.StatusHistory.Single().StatusName);
     }
 
-    [TestMethod]
-    public void SaveOrdersMongo_ShouldSaveSnapshotAfterTransactionalCheckout()
+    [DataTestMethod]
+    [DataRow("SaveOrderSnapshot")]
+    [DataRow("SaveOrderAsync")]
+    [DataRow("StatusName = \"Placed\"")]
+    public void SaveOrdersMongo_ShouldSaveSnapshotAfterTransactionalCheckout(string expectedCode)
     {
         var basketServiceText = File.ReadAllText(GetProjectFile("Services", "BasketService.cs"));
 
-        StringAssert.Contains(basketServiceText, "SaveOrderSnapshot");
-        StringAssert.Contains(basketServiceText, "SaveOrderAsync");
+        StringAssert.Contains(basketServiceText, expectedCode);
     }
 
     private static string GetProjectFile(params string[] parts)

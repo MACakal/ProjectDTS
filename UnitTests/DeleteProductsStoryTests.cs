@@ -5,24 +5,29 @@ namespace UnitTests;
 [TestClass]
 public class DeleteProductsStoryTests
 {
-    [TestMethod]
-    public void DeleteProducts_ShouldAllowProductAdmin_ToManageProducts()
+    [DataTestMethod]
+    [DataRow(UserRole.ProductAdmin)]
+    [DataRow(UserRole.SuperAdmin)]
+    public void DeleteProducts_ShouldAllowProductAdmins_ToManageProducts(UserRole role)
     {
         var roleService = new RoleService(null!, null!);
-        var admin = new User { Role = UserRole.ProductAdmin };
+        var admin = new User { Role = role };
 
         var permissions = roleService.GetPermissionsForUser(admin);
 
         CollectionAssert.Contains(permissions.ToList(), Permission.ManageProducts);
     }
 
-    [TestMethod]
-    public void DeleteProducts_ShouldNotAllowCustomer_ToManageProducts()
+    [DataTestMethod]
+    [DataRow(UserRole.Customer)]
+    [DataRow(UserRole.OrderAdmin)]
+    [DataRow(UserRole.UserAdmin)]
+    public void DeleteProducts_ShouldNotAllowRolesWithoutProductPermission_ToManageProducts(UserRole role)
     {
         var roleService = new RoleService(null!, null!);
-        var customer = new User { Role = UserRole.Customer };
+        var user = new User { Role = role };
 
-        var permissions = roleService.GetPermissionsForUser(customer);
+        var permissions = roleService.GetPermissionsForUser(user);
 
         CollectionAssert.DoesNotContain(permissions.ToList(), Permission.ManageProducts);
     }

@@ -5,10 +5,13 @@ namespace UnitTests;
 [TestClass]
 public class LargeDataPerformanceStoryTests
 {
-    [TestMethod]
-    public void LargeDataPerformance_ShouldProcessLargeProductSetQuickly()
+    [DataTestMethod]
+    [DataRow(1_000)]
+    [DataRow(10_000)]
+    [DataRow(25_000)]
+    public void LargeDataPerformance_ShouldProcessLargeProductSetQuickly(int productCount)
     {
-        var products = CreateProducts(10_000);
+        var products = CreateProducts(productCount);
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
         var groupedStock = products
@@ -17,26 +20,29 @@ public class LargeDataPerformanceStoryTests
 
         stopwatch.Stop();
 
-        Assert.AreEqual(10_000, products.Count);
+        Assert.AreEqual(productCount, products.Count);
         Assert.AreEqual(5, groupedStock.Count);
         Assert.IsTrue(stopwatch.ElapsedMilliseconds < 1000, $"Processing took {stopwatch.ElapsedMilliseconds}ms.");
     }
 
-    [TestMethod]
-    public void LargeDataPerformance_ShouldSortLargeProductSetQuickly()
+    [DataTestMethod]
+    [DataRow(1_000, 25)]
+    [DataRow(10_000, 100)]
+    [DataRow(25_000, 250)]
+    public void LargeDataPerformance_ShouldSortLargeProductSetQuickly(int productCount, int take)
     {
-        var products = CreateProducts(10_000);
+        var products = CreateProducts(productCount);
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
         var topProducts = products
             .OrderByDescending(p => p.Price)
-            .Take(100)
+            .Take(take)
             .ToList();
 
         stopwatch.Stop();
 
-        Assert.AreEqual(100, topProducts.Count);
-        Assert.AreEqual(10_000m, topProducts[0].Price);
+        Assert.AreEqual(take, topProducts.Count);
+        Assert.AreEqual(productCount, topProducts[0].Price);
         Assert.IsTrue(stopwatch.ElapsedMilliseconds < 1000, $"Sorting took {stopwatch.ElapsedMilliseconds}ms.");
     }
 
