@@ -48,7 +48,7 @@ public class AdminMenuPres
             Console.WriteLine("[1] View Profile");
             Console.WriteLine();
 
-            if (UserSession.Can(Permission.ManageProducts))
+            if (UserSession.Can(Permissions.ManageProducts))
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("── Products ──────────────────────");
@@ -61,7 +61,7 @@ public class AdminMenuPres
                 Console.WriteLine();
             }
 
-            if (UserSession.Can(Permission.ManageOrders))
+            if (UserSession.Can(Permissions.ManageOrders))
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("── Orders ────────────────────────");
@@ -70,7 +70,7 @@ public class AdminMenuPres
                 Console.WriteLine();
             }
 
-            if (UserSession.Can(Permission.ViewAnalytics))
+            if (UserSession.Can(Permissions.ViewAnalytics))
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("── Analytics ─────────────────────");
@@ -83,18 +83,18 @@ public class AdminMenuPres
                 Console.WriteLine();
             }
 
-            if (UserSession.Can(Permission.ManageUsers) || UserSession.Can(Permission.ManageReviews))
+            if (UserSession.Can(Permissions.ManageUsers) || UserSession.Can(Permissions.ManageReviews))
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("── Users ─────────────────────────");
                 Console.ResetColor();
-                if (UserSession.Can(Permission.ManageUsers))
+                if (UserSession.Can(Permissions.ManageUsers))
                 {
                     Console.WriteLine("[13] View Users");
                     Console.WriteLine("[14] Edit User");
                     Console.WriteLine("[15] Delete User");
                 }
-                if (UserSession.Can(Permission.ManageReviews))
+                if (UserSession.Can(Permissions.ManageReviews))
                     Console.WriteLine("[16] Manage Reviews");
                 Console.WriteLine();
             }
@@ -131,13 +131,13 @@ public class AdminMenuPres
 
                 case "2":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ManageProducts)) { ShowAccessDenied("View Products"); break; }
+                    if (!UserSession.Can(Permissions.ManageProducts)) { ShowAccessDenied("View Products"); break; }
                     _viewProductPres.BrowseProducts();
                     break;
 
                 case "3":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ManageProducts)) { ShowAccessDenied("Add Product"); break; }
+                    if (!UserSession.Can(Permissions.ManageProducts)) { ShowAccessDenied("Add Product"); break; }
                     Console.WriteLine("Add product...\n");
                     var product = _adminManagerPres.CreateProduct();
                     if (product == null) return;
@@ -153,13 +153,13 @@ public class AdminMenuPres
 
                 case "4":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ManageProducts)) { ShowAccessDenied("Edit Product"); break; }
+                    if (!UserSession.Can(Permissions.ManageProducts)) { ShowAccessDenied("Edit Product"); break; }
                     _adminManagerPres.EditProduct();
                     Console.Clear();
                     break;
 
                 case "5":
-                    if (!UserSession.Can(Permission.ManageProducts)) { ShowAccessDenied("Delete Product"); break; }
+                    if (!UserSession.Can(Permissions.ManageProducts)) { ShowAccessDenied("Delete Product"); break; }
                     _adminManagerPres.HandleDeleteProduct();
                     Console.ReadKey();
                     Console.Clear();
@@ -167,75 +167,75 @@ public class AdminMenuPres
 
                 case "6":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ManageProducts)) { ShowAccessDenied("View Product Logs"); break; }
+                    if (!UserSession.Can(Permissions.ManageProducts)) { ShowAccessDenied("View Product Logs"); break; }
                     _adminManagerPres.ShowProductLogs();
                     Console.ReadKey();
                     break;
 
                 case "7":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ManageOrders)) { ShowAccessDenied("Manage Order Status"); break; }
+                    if (!UserSession.Can(Permissions.ManageOrders)) { ShowAccessDenied("Manage Order Status"); break; }
                     _adminManagerPres.ManageOrderStatus();
                     Console.ReadKey();
                     break;
 
                 case "8":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ViewAnalytics)) { ShowAccessDenied("Most Popular Categories"); break; }
+                    if (!UserSession.Can(Permissions.ViewAnalytics)) { ShowAccessDenied("Most Popular Categories"); break; }
                     _adminManagerPres.MostPopularCategories();
                     Console.ReadKey();
                     break;
 
                 case "9":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ViewAnalytics)) { ShowAccessDenied("User Spending"); break; }
+                    if (!UserSession.Can(Permissions.ViewAnalytics)) { ShowAccessDenied("User Spending"); break; }
                     _adminManagerPres.ShowUserSpending();
                     Console.ReadKey();
                     break;
 
                 case "10":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ViewAnalytics)) { ShowAccessDenied("Notifications"); break; }
+                    if (!UserSession.Can(Permissions.ViewAnalytics)) { ShowAccessDenied("Notifications"); break; }
                     _adminManagerPres.ShowNotifications();
                     Console.ReadKey();
                     break;
 
                 case "11":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ViewAnalytics)) { ShowAccessDenied("Top Products Per Category"); break; }
+                    if (!UserSession.Can(Permissions.ViewAnalytics)) { ShowAccessDenied("Top Products Per Category"); break; }
                     _adminManagerPres.ShowTopProductsPerCategory();
                     Console.ReadKey();
                     break;
 
                 case "12":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ViewAnalytics)) { ShowAccessDenied("Graph Database Analystics"); break; }
+                    if (!UserSession.Can(Permissions.ViewAnalytics)) { ShowAccessDenied("Graph Database Analystics"); break; }
                     _graphInfoAdminPage.Show();
                     break;
 
                 case "13":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ManageUsers)) { ShowAccessDenied("View Users"); break; }
+                    if (!UserSession.Can(Permissions.ManageUsers)) { ShowAccessDenied("View Users"); break; }
                     _adminManagerPres.ViewUsers();
                     Console.ReadKey();
                     break;
 
                 case "14":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ManageUsers)) { ShowAccessDenied("Edit Users"); break; }
+                    if (!UserSession.Can(Permissions.ManageUsers)) { ShowAccessDenied("Edit Users"); break; }
                     _adminManagerPres.EditUser();
                     Console.ReadKey();
                     break;
 
                 case "15":
                     Console.Clear();
-                    if (!UserSession.Can(Permission.ManageUsers)) { ShowAccessDenied("Delete User"); break; }
+                    if (!UserSession.Can(Permissions.ManageUsers)) { ShowAccessDenied("Delete User"); break; }
                     _adminManagerPres.DeleteUser();
                     Console.ReadKey();
                     break;
 
                 case "16":
-                    if (!UserSession.Can(Permission.ManageReviews)) { ShowAccessDenied("Manage Reviews"); break; }
+                    if (!UserSession.Can(Permissions.ManageReviews)) { ShowAccessDenied("Manage Reviews"); break; }
                     _adminManagerPres.HandleDeleteReview();
                     Console.ReadKey();
                     Console.Clear();

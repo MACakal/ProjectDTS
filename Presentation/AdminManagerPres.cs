@@ -735,84 +735,140 @@ public class AdminManagerPres
     {
         Console.Clear();
 
-        ViewUsers();
-
-        Console.Clear();
-
-
-
-
-        Console.WriteLine("\nEnter user ID to edit:");
-
-        if (!int.TryParse(Console.ReadLine(), out int id))
+        var users = _userService.GetAllUsers();
+        if (users.Count == 0)
         {
-            Console.WriteLine("Invalid ID.");
+            Console.WriteLine("No users found.");
             return;
+        }
+
+        const int pageSize = 15;
+        int currentPage = 0;
+        int totalPages = (int)Math.Ceiling(users.Count / (double)pageSize);
+        int id = -1;
+
+        while (id == -1)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"=== EDIT USER ({currentPage + 1}/{totalPages}) ===\n");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"{"ID",-6} {"Name",-30} {"Role"}");
+            Console.ResetColor();
+            Console.WriteLine(new string('-', 55));
+
+            foreach (var u in users.Skip(currentPage * pageSize).Take(pageSize))
+                Console.WriteLine($"{u.Id,-6} {u.Name,-30} {u.RoleDisplayName}");
+
+            Console.WriteLine();
+            Console.WriteLine("[N] Next  [P] Previous  [0] Cancel");
+            Console.Write("Enter user ID to edit: ");
+
+            var input = Console.ReadLine()?.Trim().ToLower();
+
+            if (input == "0") return;
+            if (input == "n") { if (currentPage < totalPages - 1) currentPage++; continue; }
+            if (input == "p") { if (currentPage > 0) currentPage--; continue; }
+
+            if (!int.TryParse(input, out id) || id <= 0)
+            {
+                id = -1;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid ID — use N/P to page or enter a valid ID.");
+                Console.ResetColor();
+                Console.ReadKey();
+            }
         }
 
         var user = _userService.GetUserById(id);
-
         if (user == null)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("User not found.");
+            Console.ResetColor();
             return;
         }
 
-        Console.WriteLine($"Editing user: {user.Name}");
-
-        Console.Write("New name (leave empty to keep current): ");
-        var name = Console.ReadLine();
-        if (!string.IsNullOrWhiteSpace(name))
-        {
-            user.Name = name;
-        }
-
         var currentAdmin = UserSession.CurrentUser!;
-        if (UserSession.Can(Permission.AssignRoles))
+        bool editing = true;
+
+        while (editing)
         {
-            if (user.Id == currentAdmin.Id)
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"=== Editing: {user.Name} ===\n");
+            Console.ResetColor();
+            Console.WriteLine($"  Name : {user.Name}");
+            Console.WriteLine($"  Role : {user.RoleDisplayName}");
+            Console.WriteLine();
+            Console.WriteLine("[1] Change name");
+            if (UserSession.Can(Permissions.AssignRoles) && user.Id != currentAdmin.Id)
+                Console.WriteLine("[2] Change role");
+            Console.WriteLine("[3] Save & exit");
+            Console.WriteLine("[0] Cancel (discard changes)");
+            Console.WriteLine();
+            Console.Write("Select: ");
+
+            switch (Console.ReadLine())
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("You cannot change your own role.");
-                Console.ResetColor();
-            }
-            else
-            {
-                var roleNames = _roleService.GetAllRoleNames();
+                case "1":
+                    Console.Write($"New name (current: {user.Name}): ");
+                    var newName = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(newName))
+                        user.Name = newName;
+                    break;
 
-                Console.WriteLine($"\nCurrent role: {user.RoleDisplayName}");
-                Console.WriteLine("Available roles (leave empty to keep current):");
-                for (int i = 0; i < roleNames.Count; i++)
-                    Console.WriteLine($"  [{i + 1}] {roleNames[i]}");
-
-                Console.Write("\nSelect role number: ");
-                var roleInput = Console.ReadLine();
-
-                if (!string.IsNullOrWhiteSpace(roleInput))
-                {
-                    if (int.TryParse(roleInput, out int roleIdx) && roleIdx >= 1 && roleIdx <= roleNames.Count)
-                    {
-                        var newRoleName = roleNames[roleIdx - 1];
-                        _userService.UpdateUserRole(user.Id, newRoleName);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"Role updated to '{newRoleName}'.");
-                        Console.ResetColor();
-                    }
-                    else
+                case "2":
+                    if (!UserSession.Can(Permissions.AssignRoles))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid selection — role was not changed.");
+                        Console.WriteLine("No permission to assign roles.");
                         Console.ResetColor();
+                        Console.ReadKey();
+                        break;
                     }
-                }
+                    if (user.Id == currentAdmin.Id)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("You cannot change your own role.");
+                        Console.ResetColor();
+                        Console.ReadKey();
+                        break;
+                    }
+                    var roleNames = _roleService.GetAllRoleNames();
+                    Console.WriteLine($"\nCurrent role: {user.RoleDisplayName}");
+                    Console.WriteLine("Available roles:");
+                    for (int i = 0; i < roleNames.Count; i++)
+                        Console.WriteLine($"  [{i + 1}] {roleNames[i]}");
+                    Console.Write("\nSelect role number (0 to cancel): ");
+                    var roleInput = Console.ReadLine();
+                    if (int.TryParse(roleInput, out int roleIdx) && roleIdx >= 1 && roleIdx <= roleNames.Count)
+                    {
+                        user.Role = roleNames[roleIdx - 1];
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"Role set to '{user.Role}' (not saved yet).");
+                        Console.ResetColor();
+                        Console.ReadKey();
+                    }
+                    break;
+
+                case "3":
+                    _userService.UpdateUser(user);
+                    _userService.UpdateUserRole(user.Id, user.Role);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("User saved successfully.");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    editing = false;
+                    break;
+
+                case "0":
+                    editing = false;
+                    break;
             }
         }
-
-        _userService.UpdateUser(user);
-
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("User updated successfully!");
-        Console.ResetColor();
     }
 
     public void DeleteUser()

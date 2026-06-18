@@ -6,20 +6,22 @@ namespace UnitTests;
 public class AdminLoginStoryTests
 {
     [DataTestMethod]
-    [DataRow(UserRole.ProductAdmin)]
-    [DataRow(UserRole.OrderAdmin)]
-    [DataRow(UserRole.UserAdmin)]
-    [DataRow(UserRole.SuperAdmin)]
-    [DataRow(UserRole.Custom)]
-    public void AdminLogin_ShouldRecognizeAdminRoles_AsAdmin(UserRole role)
+    [DataRow("ProductAdmin")]
+    [DataRow("OrderAdmin")]
+    [DataRow("UserAdmin")]
+    [DataRow("SuperAdmin")]
+    [DataRow("SomeCustomRole")]
+    public void AdminLogin_ShouldRecognizeAdminRoles_AsAdmin(string role)
     {
-        Assert.IsTrue(role.IsAdmin());
+        var user = new User { Role = role };
+        Assert.IsTrue(user.IsAdmin());
     }
 
     [DataTestMethod]
-    [DataRow(UserRole.Customer)]
-    public void AdminLogin_ShouldNotTreatCustomer_AsAdmin(UserRole role)
+    [DataRow("Customer")]
+    public void AdminLogin_ShouldNotTreatCustomer_AsAdmin(string role)
     {
-        Assert.IsFalse(role.IsAdmin());
+        var user = new User { Role = role };
+        Assert.IsFalse(user.IsAdmin());
     }
 }
