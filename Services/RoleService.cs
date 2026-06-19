@@ -3,17 +3,8 @@ namespace ProjectDTS;
 
 public class RoleService
 {
-    
     private readonly DatabaseService _db;
     private readonly PermissionChangeLogService _permissionChangeLogService;
-    private static readonly Dictionary<UserRole, HashSet<Permission>> _builtInPermissions = new()
-    {
-        [UserRole.SuperAdmin]   = new(Enum.GetValues<Permission>()),
-        [UserRole.ProductAdmin] = new() { Permission.ManageProducts },
-        [UserRole.OrderAdmin]   = new() { Permission.ManageOrders },
-        [UserRole.UserAdmin]    = new() { Permission.ManageUsers, Permission.ManageReviews },
-        [UserRole.Customer]     = new(),
-    };
 
     public RoleService(DatabaseService db, PermissionChangeLogService permissionChangeLogService)
     {
@@ -21,32 +12,29 @@ public class RoleService
         _permissionChangeLogService = permissionChangeLogService;
     }
 
-    public HashSet<Permission> GetPermissionsForUser(User user)
+    public HashSet<string> GetPermissionsForUser(User user)
     {
-        if (user.Role != UserRole.Custom)
-            return _builtInPermissions.TryGetValue(user.Role, out var perms) ? new(perms) : new();
-
-        return GetPermissionsForRoleName(user.CustomRoleName!);
+        if (user.Role == "SuperAdmin")
+            return GetAllPermissions().Select(p => p.Name).ToHashSet();
+        return GetPermissionsForRoleName(user.Role);
     }
 
-    private HashSet<Permission> GetPermissionsForRoleName(string roleName)
+    private HashSet<string> GetPermissionsForRoleName(string roleName)
     {
         using var conn = _db.GetConnection();
         conn.Open();
 
-        const string sql = @"SELECT rp.permission FROM role_permissions rp
+        const string sql = @"SELECT p.name FROM role_permissions rp
                              JOIN roles r ON r.id = rp.role_id
+                             JOIN permissions p ON p.id = rp.permission_id
                              WHERE r.name = @name";
         using var cmd = new NpgsqlCommand(sql, conn);
         cmd.Parameters.AddWithValue("name", roleName);
 
-        var result = new HashSet<Permission>();
+        var result = new HashSet<string>();
         using var reader = cmd.ExecuteReader();
         while (reader.Read())
-        {
-            if (Enum.TryParse<Permission>(reader.GetString(0), true, out var perm))
-                result.Add(perm);
-        }
+            result.Add(reader.GetString(0));
         return result;
     }
 
@@ -55,9 +43,10 @@ public class RoleService
         using var conn = _db.GetConnection();
         conn.Open();
 
-        const string sql = @"SELECT r.id, r.name, r.is_builtin, rp.permission
+        const string sql = @"SELECT r.id, r.name, r.is_builtin, p.name
                              FROM roles r
                              LEFT JOIN role_permissions rp ON rp.role_id = r.id
+                             LEFT JOIN permissions p ON p.id = rp.permission_id
                              ORDER BY r.is_builtin DESC, r.name";
         using var cmd = new NpgsqlCommand(sql, conn);
         using var reader = cmd.ExecuteReader();
@@ -76,8 +65,8 @@ public class RoleService
                 };
                 roles[id] = role;
             }
-            if (!reader.IsDBNull(3) && Enum.TryParse<Permission>(reader.GetString(3), true, out var perm))
-                role.Permissions.Add(perm);
+            if (!reader.IsDBNull(3))
+                role.Permissions.Add(reader.GetString(3));
         }
         return roles.Values.ToList();
     }
@@ -104,7 +93,7 @@ public class RoleService
         return cmd.ExecuteScalar() != null;
     }
 
-    public bool CreateRole(string name, HashSet<Permission> permissions)
+    public bool CreateRole(string name, HashSet<string> permissions)
     {
         using var conn = _db.GetConnection();
         conn.Open();
@@ -125,26 +114,25 @@ public class RoleService
             tx.Commit();
             committed = true;
 
-            LogPermissionChange("RoleCreated", roleId, name, new HashSet<Permission>(), permissions);
+            LogPermissionChange("RoleCreated", roleId, name, new HashSet<string>(), permissions);
 
             return true;
         }
         catch
         {
-            if (!committed)
-                tx.Rollback();
+            if (!committed) tx.Rollback();
             return false;
         }
     }
 
-    public bool UpdateRolePermissions(int roleId, HashSet<Permission> permissions)
+    public bool UpdateRolePermissions(int roleId, HashSet<string> permissions)
     {
         using var conn = _db.GetConnection();
         conn.Open();
         using var tx = conn.BeginTransaction();
 
         var role = GetAllRoles().First(r => r.Id == roleId);
-        var oldPermissions = new HashSet<Permission>(role.Permissions);
+        var oldPermissions = new HashSet<string>(role.Permissions);
         var committed = false;
 
         try
@@ -155,18 +143,17 @@ public class RoleService
                 del.ExecuteNonQuery();
             }
 
-                InsertPermissions(conn, tx, roleId, permissions);
-                tx.Commit();
-                committed = true;
+            InsertPermissions(conn, tx, roleId, permissions);
+            tx.Commit();
+            committed = true;
 
-                LogPermissionChange("PermissionChanged", role.Id, role.Name, oldPermissions, permissions);
+            LogPermissionChange("PermissionChanged", role.Id, role.Name, oldPermissions, permissions);
 
-                return true;
+            return true;
         }
         catch
         {
-            if (!committed)
-                tx.Rollback();
+            if (!committed) tx.Rollback();
             return false;
         }
     }
@@ -185,7 +172,7 @@ public class RoleService
         var deleted = cmd.ExecuteNonQuery() > 0;
 
         if (deleted)
-            LogPermissionChange("RoleDeleted", role.Id, role.Name, new HashSet<Permission>(role.Permissions), new HashSet<Permission>());
+            LogPermissionChange("RoleDeleted", role.Id, role.Name, new HashSet<string>(role.Permissions), new HashSet<string>());
 
         return deleted;
     }
@@ -201,14 +188,69 @@ public class RoleService
         return names;
     }
 
-    private static void InsertPermissions(NpgsqlConnection conn, NpgsqlTransaction tx, int roleId, HashSet<Permission> permissions)
+    // --- Permission type management ---
+
+    public List<(string Name, string Description, bool IsBuiltIn)> GetAllPermissions()
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+        using var cmd = new NpgsqlCommand(
+            "SELECT name, description, is_builtin FROM permissions ORDER BY is_builtin DESC, name", conn);
+        using var reader = cmd.ExecuteReader();
+        var result = new List<(string, string, bool)>();
+        while (reader.Read())
+            result.Add((reader.GetString(0), reader.GetString(1), reader.GetBoolean(2)));
+        return result;
+    }
+
+    public bool PermissionNameExists(string name)
+    {
+        using var conn = _db.GetConnection();
+        conn.Open();
+        using var cmd = new NpgsqlCommand("SELECT 1 FROM permissions WHERE LOWER(name) = LOWER(@name)", conn);
+        cmd.Parameters.AddWithValue("name", name);
+        return cmd.ExecuteScalar() != null;
+    }
+
+    public bool CreatePermission(string name, string description)
+    {
+        try
+        {
+            using var conn = _db.GetConnection();
+            conn.Open();
+            using var cmd = new NpgsqlCommand(
+                "INSERT INTO permissions (name, description, is_builtin) VALUES (@name, @desc, false)", conn);
+            cmd.Parameters.AddWithValue("name", name);
+            cmd.Parameters.AddWithValue("desc", description);
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch { return false; }
+    }
+
+    public bool DeletePermission(string name)
+    {
+        try
+        {
+            using var conn = _db.GetConnection();
+            conn.Open();
+            using var cmd = new NpgsqlCommand(
+                "DELETE FROM permissions WHERE name = @name AND is_builtin = false", conn);
+            cmd.Parameters.AddWithValue("name", name);
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch { return false; }
+    }
+
+    private static void InsertPermissions(NpgsqlConnection conn, NpgsqlTransaction tx, int roleId, HashSet<string> permissions)
     {
         foreach (var perm in permissions)
         {
             using var ins = new NpgsqlCommand(
-                "INSERT INTO role_permissions (role_id, permission) VALUES (@rid, @perm)", conn, tx);
+                @"INSERT INTO role_permissions (role_id, permission_id)
+                  SELECT @rid, id FROM permissions WHERE name = @perm
+                  ON CONFLICT (role_id, permission_id) DO NOTHING", conn, tx);
             ins.Parameters.AddWithValue("rid", roleId);
-            ins.Parameters.AddWithValue("perm", perm.ToString());
+            ins.Parameters.AddWithValue("perm", perm);
             ins.ExecuteNonQuery();
         }
     }
@@ -217,8 +259,8 @@ public class RoleService
         string actionType,
         int roleId,
         string roleName,
-        HashSet<Permission> oldPermissions,
-        HashSet<Permission> newPermissions)
+        HashSet<string> oldPermissions,
+        HashSet<string> newPermissions)
     {
         _permissionChangeLogService.SavePermissionChangeLogAsync(new PermissionChangeLog
         {
@@ -227,8 +269,8 @@ public class RoleService
             ActionType = actionType,
             RoleId = roleId,
             RoleName = roleName,
-            OldPermissions = oldPermissions.OrderBy(p => p.ToString()).Select(p => p.ToString()).ToList(),
-            NewPermissions = newPermissions.OrderBy(p => p.ToString()).Select(p => p.ToString()).ToList()
+            OldPermissions = oldPermissions.OrderBy(p => p).ToList(),
+            NewPermissions = newPermissions.OrderBy(p => p).ToList()
         }).GetAwaiter().GetResult();
     }
 }

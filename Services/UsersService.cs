@@ -10,13 +10,6 @@ public class UserService
         _db = db;
     }
 
-    private static (UserRole role, string? customRoleName) ParseRole(string roleStr)
-    {
-        if (Enum.TryParse<UserRole>(roleStr, true, out var parsed))
-            return (parsed, null);
-        return (UserRole.Custom, roleStr);
-    }
-    
     public User? UserLogin(string email, string password)
     {
         using var conn = _db.GetConnection();
@@ -35,14 +28,12 @@ public class UserService
         string dbPassword = reader.GetString(3);
         if (!BCrypt.Net.BCrypt.Verify(password, dbPassword)) return null;
 
-        var (role, customRoleName) = ParseRole(reader.GetString(4));
         return new User
         {
             Id = reader.GetInt32(0),
             Name = reader.GetString(1),
             Email = reader.GetString(2),
-            Role = role,
-            CustomRoleName = customRoleName,
+            Role = reader.GetString(4),
             Address = reader.IsDBNull(5) ? null : reader.GetString(5),
             ZipCode = reader.IsDBNull(6) ? null : reader.GetString(6),
             Country = reader.IsDBNull(7) ? null : reader.GetString(7),
@@ -323,14 +314,12 @@ public class UserService
 
         while (reader.Read())
         {
-            var (role, customRoleName) = ParseRole(reader.GetString(3));
             users.Add(new User
             {
                 Id = reader.GetInt32(0),
                 Name = reader.GetString(1),
                 Email = reader.GetString(2),
-                Role = role,
-                CustomRoleName = customRoleName
+                Role = reader.GetString(3)
             });
         }
 
@@ -375,14 +364,12 @@ public class UserService
 
         if (!reader.Read()) return null;
 
-        var (role, customRoleName) = ParseRole(reader.GetString(3));
         return new User
         {
             Id = reader.GetInt32(0),
             Name = reader.GetString(1),
             Email = reader.GetString(2),
-            Role = role,
-            CustomRoleName = customRoleName
+            Role = reader.GetString(3)
         };
     }
 

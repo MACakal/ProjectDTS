@@ -432,6 +432,23 @@ DROP TRIGGER IF EXISTS trigger_check_low_stock ON products;
 CREATE TRIGGER trigger_check_low_stock
 AFTER
 UPDATE OF stock ON products FOR EACH ROW EXECUTE FUNCTION check_low_stock();
+
+CREATE TABLE IF NOT EXISTS permissions (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    description VARCHAR(255) NOT NULL DEFAULT '',
+    is_builtin BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+INSERT INTO permissions (name, description, is_builtin) VALUES
+    ('ManageProducts', 'Manage Products & Product Logs (options 2-6)', true),
+    ('ManageOrders',   'Manage Order Status (option 7)',                true),
+    ('ManageUsers',    'View/Edit/Delete Users (options 13-15)',        true),
+    ('ManageReviews',  'Manage Reviews (option 16)',                    true),
+    ('ViewAnalytics',  'View Analytics & Notifications (options 8-12)', true),
+    ('AssignRoles',    'Assign/Change User Roles',                      true)
+ON CONFLICT (name) DO NOTHING;
+
 -- Dynamic role management tables
 CREATE TABLE IF NOT EXISTS roles (
     id SERIAL PRIMARY KEY,
@@ -440,12 +457,12 @@ CREATE TABLE IF NOT EXISTS roles (
 );
 
 CREATE TABLE IF NOT EXISTS role_permissions (
+    id SERIAL PRIMARY KEY,
     role_id INT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
-    permission VARCHAR(50) NOT NULL,
-    PRIMARY KEY (role_id, permission)
+    permission_id INT NOT NULL REFERENCES permissions(id) ON DELETE CASCADE,
+    UNIQUE (role_id, permission_id)
 );
 
--- Seed built-in roles (permissions are hardcoded in RoleService for built-ins)
 INSERT INTO roles (name, is_builtin) VALUES
     ('Customer',     true),
     ('ProductAdmin', true),
@@ -453,6 +470,41 @@ INSERT INTO roles (name, is_builtin) VALUES
     ('UserAdmin',    true),
     ('SuperAdmin',   true)
 ON CONFLICT (name) DO NOTHING;
+
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, perm.id
+FROM roles r
+JOIN (VALUES
+    ('ProductAdmin', 'ManageProducts'),
+    ('OrderAdmin',   'ManageOrders'),
+    ('UserAdmin',    'ManageUsers'),
+    ('UserAdmin',    'ManageReviews')
+) AS mapping(role_name, permission_name) ON r.name = mapping.role_name
+JOIN permissions perm ON perm.name = mapping.permission_name
+ON CONFLICT (role_id, permission_id) DO NOTHING;
+
+
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'role_permissions' AND column_name = 'permission'
+    ) THEN
+        ALTER TABLE role_permissions ADD COLUMN IF NOT EXISTS permission_id INT;
+        UPDATE role_permissions rp
+            SET permission_id = p.id
+            FROM permissions p
+            WHERE p.name = rp.permission;
+        ALTER TABLE role_permissions DROP CONSTRAINT IF EXISTS role_permissions_pkey;
+        ALTER TABLE role_permissions DROP COLUMN permission;
+        ALTER TABLE role_permissions ALTER COLUMN permission_id SET NOT NULL;
+        ALTER TABLE role_permissions ADD COLUMN IF NOT EXISTS id SERIAL;
+        ALTER TABLE role_permissions ADD PRIMARY KEY (id);
+        ALTER TABLE role_permissions ADD CONSTRAINT rp_unique UNIQUE (role_id, permission_id);
+        ALTER TABLE role_permissions ADD CONSTRAINT rp_permission_fkey
+            FOREIGN KEY (permission_id) REFERENCES permissions(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
 -- Migrate existing legacy role values
 ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check;

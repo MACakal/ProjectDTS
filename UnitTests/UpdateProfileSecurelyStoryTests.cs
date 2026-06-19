@@ -30,7 +30,7 @@ public class UpdateProfileSecurelyStoryTests
             Id = 1,
             Name = "Admin",
             Email = "admin@example.com",
-            Role = UserRole.SuperAdmin
+            Role = "SuperAdmin"
         };
 
         var result = userService.UserInformationPasswordCheck(admin, password);

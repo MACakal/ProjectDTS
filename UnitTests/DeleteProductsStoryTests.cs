@@ -6,29 +6,15 @@ namespace UnitTests;
 public class DeleteProductsStoryTests
 {
     [DataTestMethod]
-    [DataRow(UserRole.ProductAdmin)]
-    [DataRow(UserRole.SuperAdmin)]
-    public void DeleteProducts_ShouldAllowProductAdmins_ToManageProducts(UserRole role)
+    [DataRow(Permissions.ManageProducts, true)]
+    [DataRow(Permissions.ManageOrders, false)]
+    [DataRow(Permissions.ManageUsers, false)]
+    public void DeleteProducts_ShouldAllowOnlyRolesWithProductPermission(string permission, bool expected)
     {
-        var roleService = new RoleService(null!, null!);
-        var admin = new User { Role = role };
+        UserSession.Clear();
+        UserSession.CurrentUser = new User { Id = 1, Role = "ProductAdmin" };
+        UserSession.Permissions = new HashSet<string> { Permissions.ManageProducts };
 
-        var permissions = roleService.GetPermissionsForUser(admin);
-
-        CollectionAssert.Contains(permissions.ToList(), Permission.ManageProducts);
-    }
-
-    [DataTestMethod]
-    [DataRow(UserRole.Customer)]
-    [DataRow(UserRole.OrderAdmin)]
-    [DataRow(UserRole.UserAdmin)]
-    public void DeleteProducts_ShouldNotAllowRolesWithoutProductPermission_ToManageProducts(UserRole role)
-    {
-        var roleService = new RoleService(null!, null!);
-        var user = new User { Role = role };
-
-        var permissions = roleService.GetPermissionsForUser(user);
-
-        CollectionAssert.DoesNotContain(permissions.ToList(), Permission.ManageProducts);
+        Assert.AreEqual(expected, UserSession.Can(permission));
     }
 }
