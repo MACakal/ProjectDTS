@@ -288,16 +288,41 @@ public class AdminManagerPres
 
         string[] categories =
         {
-        "Electronics",
-        "Books",
-        "Games",
-        "Toys",
-        "Home & Kitchen",
-        "Clothing",
-        "Sports",
-        "Beauty",
-        "Office",
-        "Pet Supplies"
+         "Audio",
+
+    "Auto",
+
+    "Baby",
+
+    "Boeken",
+
+    "Computers",
+
+    "Elektronica",
+
+    "Fotografie",
+
+    "Gezondheid",
+
+    "Huisdieren",
+
+    "Kantoor",
+
+    "Keuken",
+
+    "Kleding",
+
+    "Meubels",
+
+    "Reizen",
+
+    "Speelgoed",
+
+    "Sport",
+
+    "Tuin",
+
+    "Verzorging"
     };
 
         while (true)
@@ -320,6 +345,7 @@ public class AdminManagerPres
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input, please try again");
                 Console.ResetColor();
+                Console.Clear();
             }
             else
             {

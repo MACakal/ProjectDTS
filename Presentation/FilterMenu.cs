@@ -17,7 +17,7 @@ public class FilterMenu
     }
 
 
-   public void Show()
+    public void Show()
     {
         while (true)
         {
@@ -35,14 +35,14 @@ public class FilterMenu
                 case "1":
                     {
                         Console.Clear();
-                        PrintAllwithCategories();
+
                         CategoryFilter();
                         break;
                     }
                 case "2":
                     {
                         Console.Clear();
-                        PrintAll();
+
                         PriceFilter();
                         break;
                     }
@@ -55,7 +55,7 @@ public class FilterMenu
                 case "4":
                     {
                         Console.Clear();
-                        PrintAll();
+
                         SearchByName();
                         break;
                     }
@@ -79,8 +79,8 @@ public class FilterMenu
 
     public void CategoryFilter()
     {
-        Console.WriteLine("\nWhat category do you want to filter by?");
-        var cat = Console.ReadLine() ?? "";
+        var cat = AdminManagerPres.ChooseCategory();
+
         var products = _productService.GetProductsByCategory(cat);
 
         _ = _userActionLogService.SaveUserActionLogAsync(new UserActionLog
@@ -89,10 +89,10 @@ public class FilterMenu
             UserId = null,
             ActionType = "FilterByCategory",
             Details = new Dictionary<string, string>
-            {
-                { "Category", cat },
-                { "ResultCount", products.Count().ToString() }
-            }
+        {
+            { "Category", cat },
+            { "ResultCount", products.Count().ToString() }
+        }
         });
 
         _viewProductPres.Viewproducts(products);
@@ -184,43 +184,7 @@ public class FilterMenu
 
     }
 
-    public void PrintAll()
-    {
-        var products = _productService.GetAllProducts();
-        Console.WriteLine("\n---- Product List ----");
-        Console.WriteLine($"ID ---------- Name --------------- Price");
-        foreach (var p in products)
-        {
-            if (p != null)
-            {
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}");
-            }
-            else
-            {
-                Console.WriteLine("No products available.");
-                return;
-            }
-        }
-    }
 
-    public void PrintAllwithCategories()
-    {
-        var products = _productService.GetAllProducts();
-        Console.WriteLine("\n---- Product List ----");
-        Console.WriteLine($"ID ---------- Name ---------------Price ------------ Category");
-        foreach (var p in products)
-        {
-            if (p != null)
-            {
-                Console.WriteLine($"{p.Id,-5} {p.Name,-20} €{p.Price,13}  {p.Category,16}");
-            }
-            else
-            {
-                Console.WriteLine("No products available.");
-                return;
-            }
-        }
-    }
 
     public void ReviewFilter()
     {
