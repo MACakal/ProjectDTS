@@ -83,46 +83,84 @@ public class ViewProductPres
         }
     }
 
+
     public void Viewproducts(IEnumerable<Product> items)
     {
         var list = items.ToList();
-        Console.Clear();
-        DisplayProducts(list);
 
-        if (!list.Any()) { Console.ReadKey(); return; }
+        if (!list.Any())
+        {
+            Console.Clear();
+            Console.WriteLine("No products found.");
+            Console.ReadKey();
+            return;
+        }
+
+        const int pageSize = 10;
+        int currentPage = 1;
+        int totalPages = (int)Math.Ceiling(list.Count / (double)pageSize);
 
         while (true)
         {
+            Console.Clear();
+
+            var pageItems = list
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"Page {currentPage}/{totalPages}");
+            Console.ResetColor();
+
+            DisplayProducts(pageItems);
+
             Console.WriteLine();
-            Console.WriteLine("[A] Add product to the basket");
+            Console.WriteLine("[N] Next");
+            Console.WriteLine("[P] Previous");
+            Console.WriteLine("[A] Add product to basket");
             Console.WriteLine("[Q] Back");
 
             var input = Console.ReadLine()?.ToLower();
 
-            if (input == "a")
+            switch (input)
             {
-                Console.Write("Enter product ID: ");
-                if (int.TryParse(Console.ReadLine(), out int productId))
-                {
-                    var product = _productService.GetById(productId);
-                    if (product != null)
+                case "n":
+                    if (currentPage < totalPages)
+                        currentPage++;
+                    break;
+
+                case "p":
+                    if (currentPage > 1)
+                        currentPage--;
+                    break;
+
+                case "a":
+                    Console.Write("Enter product ID: ");
+
+                    if (int.TryParse(Console.ReadLine(), out int productId))
                     {
-                        Console.Write("How many? ");
-                        if (int.TryParse(Console.ReadLine(), out int quantity) && quantity > 0)
+                        var product = _productService.GetById(productId);
+
+                        if (product != null)
                         {
-                            BasketMenu.AddToBasketPrint(product.Id, quantity);
+                            Console.Write("How many? ");
+
+                            if (int.TryParse(Console.ReadLine(), out int quantity) && quantity > 0)
+                            {
+                                BasketMenu.AddToBasketPrint(product.Id, quantity);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Product not found.");
+                            Console.ReadKey();
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("Product not found.");
-                        Console.ReadKey();
-                    }
-                }
-            }
-            else if (input == "q")
-            {
-                break;
+                    break;
+
+                case "q":
+                    return;
             }
         }
     }
