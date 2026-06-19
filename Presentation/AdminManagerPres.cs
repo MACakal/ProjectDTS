@@ -345,6 +345,7 @@ public class AdminManagerPres
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid input, please try again");
                 Console.ResetColor();
+                Console.Clear();
             }
             else
             {
