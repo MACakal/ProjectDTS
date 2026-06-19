@@ -85,7 +85,46 @@ public class ViewProductPres
 
     public void Viewproducts(IEnumerable<Product> items)
     {
-        DisplayProducts(items);
+        var list = items.ToList();
+        Console.Clear();
+        DisplayProducts(list);
+
+        if (!list.Any()) { Console.ReadKey(); return; }
+
+        while (true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("[A] Add product to the basket");
+            Console.WriteLine("[Q] Back");
+
+            var input = Console.ReadLine()?.ToLower();
+
+            if (input == "a")
+            {
+                Console.Write("Enter product ID: ");
+                if (int.TryParse(Console.ReadLine(), out int productId))
+                {
+                    var product = _productService.GetById(productId);
+                    if (product != null)
+                    {
+                        Console.Write("How many? ");
+                        if (int.TryParse(Console.ReadLine(), out int quantity) && quantity > 0)
+                        {
+                            BasketMenu.AddToBasketPrint(product.Id, quantity);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Product not found.");
+                        Console.ReadKey();
+                    }
+                }
+            }
+            else if (input == "q")
+            {
+                break;
+            }
+        }
     }
 
     public void DisplayProducts(IEnumerable<Product> items)
